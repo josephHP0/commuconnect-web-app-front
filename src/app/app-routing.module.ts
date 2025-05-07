@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{ path: 'user', loadChildren: () => import('./features/user/user.module').then(m => m.UserModule) },
-  { path: 'admin', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule) }
+  { path: 'admin', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule) },
+  { path: 'autenticacion', loadChildren: () => import('./features/autenticacion/autenticacion.module').then(m => m.AutenticacionModule) },
+  { path: 'onboarding', loadChildren: () => import('./features/onboarding/onboarding.module').then(m => m.OnboardingModule) },
+  { path: 'pago', loadChildren: () => import('./features/pago/pago.module').then(m => m.PagoModule) }
   // Define tus rutas aquí
 ];
 
