@@ -5,13 +5,17 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 
 
+import { LayoutModule } from '../../layout/layout.module';
+
+
 @NgModule({
   declarations: [
     UserComponent
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    LayoutModule
   ]
 })
 export class UserModule { }
