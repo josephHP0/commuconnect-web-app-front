@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { PresentacionRoutingModule } from './presentacion-routing.module';
 import { PresentacionComponent } from './presentacion.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 
 @NgModule({
   declarations: [
-    PresentacionComponent
+    PresentacionComponent,
+    InicioComponent
   ],
   imports: [
     CommonModule,

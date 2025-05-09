@@ -1,0 +1,32 @@
+.bg-footer-custom {
+  background-color: #082C6C;
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.nav-link {
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #0d6efd !important; /* Azul Bootstrap */
+}
+
+
+
+.main-content h1, .main-content p {
+   /* Ambos, título y texto, estarán alineados a la izquierda */
+  width: 100%; /* Para asegurarse que ambos ocupen el mismo ancho */
+}
+
+.main-content h1 {
+  text-align: left;
+  font-weight: bold; /* Hace el título más grueso */
+  margin-bottom: 1rem; /* Ajusta el espacio entre el título y el párrafo */
+}
+
+.main-content p {
+  text-align: justify; /* Justifica el texto */
+  margin-bottom: 1rem; /* Ajusta el espacio entre el párrafo y los siguientes elementos */
+}
