@@ -6,6 +6,7 @@ import { PresentacionComponent } from './presentacion.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 
 
+
 @NgModule({
   declarations: [
     PresentacionComponent,
@@ -14,6 +15,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
   imports: [
     CommonModule,
     PresentacionRoutingModule
+
   ]
 })
 export class PresentacionModule { }

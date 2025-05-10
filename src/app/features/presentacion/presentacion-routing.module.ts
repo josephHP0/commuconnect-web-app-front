@@ -4,11 +4,18 @@ import { PresentacionComponent } from './presentacion.component';
 
 import { InicioComponent } from './pages/inicio/inicio.component';
 
+
+import { LoginComponent } from '../../features/autenticacion/pages/login/login.component'
+
 const routes: Routes = [
 
   //{ path: '', component: PresentacionComponent }
 
-  { path: '', component: InicioComponent }
+  { path: '', component: InicioComponent },
+
+
+
+  //{ path: 'login', component: LoginComponent }
 
 ];
 
