@@ -10,14 +10,6 @@ const routes: Routes = [{ path: 'user', loadChildren: () => import('./features/u
 
 
 
-  // Define tus rutas aquí
-
-
-
-
-
-
-
 ];
 
 @NgModule({
