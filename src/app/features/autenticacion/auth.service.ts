@@ -45,7 +45,7 @@ export class AuthService {
     // Método para iniciar sesión, recibe el email y la contraseña del usuario
     // Retorna un Observable de tipo LoginResponse, que contiene el token de acceso
 
-    login(email: string, password: string): Observable<LoginResponse> {
+  login(email: string, password: string): Observable<LoginResponse> {
 
     // Crea el cuerpo de la solicitud, con los datos de login proporcionados
     const body = {
