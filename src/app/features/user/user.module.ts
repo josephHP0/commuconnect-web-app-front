@@ -6,11 +6,13 @@ import { UserComponent } from './user.component';
 
 
 import { LayoutModule } from '../../layout/layout.module';
+import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-comunidad.component';
 
 
 @NgModule({
   declarations: [
-    UserComponent
+    UserComponent,
+    SeleccionComunidadComponent
   ],
   imports: [
     CommonModule,

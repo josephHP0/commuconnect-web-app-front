@@ -1,0 +1,12 @@
+.bg-footer-custom {
+  background-color: #082C6C;
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.carousel-container {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+}

@@ -1,0 +1,66 @@
+<div class="home-page-public" style="display: flex; flex-direction: column; min-height: 100vh;">
+  <!-- Header -->
+  <header class="bg-white py-3 shadow-sm fixed-top"
+    style="border-bottom: 2px solid #A9A9A9; box-shadow: 0 4px 10px rgba(169, 169, 169, 0.5);">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="logo d-flex align-items-center gap-4">
+        <img src="assets/logo_monkey_fit.png" alt="Logo Monkey Fit" height="50">
+        <span class="fw-bold fs-5 text-primary">CommuConnect</span>
+      </div>
+      <nav class="flex-grow-1">
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Membresías</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" style="margin-top: 100px; flex: 1;">
+    <section class="py-5 text-center">
+      <div class="container">
+        <h1 class="mb-3">Selecciona tu comunidad</h1>
+        <p class="mb-4">Conecta con personas afines y vive experiencias únicas.</p>
+
+        <div class="carousel-container d-flex justify-content-center align-items-center position-relative">
+          <button class="btn btn-light position-absolute start-0" (click)="prevSlide()">&#9664;</button>
+
+          <div class="card shadow" style="width: 600px; border-radius: 12px;">
+            <img [src]="currentCommunity.image" class="card-img-top" [alt]="currentCommunity.title"
+              style="border-top-left-radius: 12px; border-top-right-radius: 12px;" />
+            <div class="card-body">
+              <h2 class="card-title">{{ currentCommunity.title }}</h2>
+              <p class="card-text">{{ currentCommunity.desc }}</p>
+              <button class="btn btn-primary" (click)="unirse()">Unirme</button>
+            </div>
+          </div>
+
+          <button class="btn btn-light position-absolute end-0" (click)="nextSlide()">&#9654;</button>
+        </div>
+
+        <p class="mt-3 text-muted">
+          Al registrarte, aceptas los <a href="#">Términos del Servicio</a> y la
+          <a href="#">Política de Privacidad</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-footer-custom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 text-center text-md-start">
+          <h2 class="h5">Contact Us</h2>
+          <p class="lead">¿Tienes alguna pregunta? ¡Contáctanos!</p>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-md-end justify-content-center">
+          <p class="mb-0">📞 785468545</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
