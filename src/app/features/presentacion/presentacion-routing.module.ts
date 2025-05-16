@@ -4,7 +4,7 @@ import { PresentacionComponent } from './presentacion.component';
 
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { MembresiasComponent } from './pages/membresias/membresias.component';
-
+import { NosotrosComponent } from './pages/nosotros/nosotros.component';
 
 import { ServiciosComponent } from './pages/servicios/servicios.component'; // ✅ Asegúrate de importar esto
 
@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' }, // ✅ Redirección base
   { path: 'inicio', component: InicioComponent },
   { path: 'servicios', component: ServiciosComponent },
-  { path: 'membresias', component: MembresiasComponent }
-
+  { path: 'membresias', component: MembresiasComponent },
+  { path: 'nosotros', component: NosotrosComponent }
 ];
 
 @NgModule({

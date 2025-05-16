@@ -7,6 +7,7 @@ import { PresentacionComponent } from './presentacion.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ServiciosComponent } from './pages/servicios/servicios.component';
 import { MembresiasComponent } from './pages/membresias/membresias.component';
+import { NosotrosComponent } from './pages/nosotros/nosotros.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { MembresiasComponent } from './pages/membresias/membresias.component';
     PresentacionComponent,
     InicioComponent,
     ServiciosComponent,
-    MembresiasComponent
+    MembresiasComponent,
+    NosotrosComponent
   ],
   imports: [
     CommonModule,

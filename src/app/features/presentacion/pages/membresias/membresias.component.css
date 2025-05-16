@@ -1,12 +1,12 @@
 /* Encabezado centrado */
 .cabecera {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 0.6rem;
 }
 
 .cabecera h1 {
   font-size: 24px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 .cabecera p {
@@ -21,7 +21,7 @@
   justify-content: center;
   align-items: flex-start;
   gap: 0rem; /* 🔧 casi sin espacio entre bloques e imagen */
-  padding: 2rem 0;
+  padding: 0.5rem 0;
   max-width: 1000px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -38,7 +38,7 @@
 .planes-vertical {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 /* Botón */
@@ -59,6 +59,6 @@
 /* Imagen decorativa */
 .imagen-lateral {
   height: auto;
-  max-height: 530px;
+  max-height: 485px;
   object-fit: contain;
 }
