@@ -1,0 +1,40 @@
+<div class="cabecera">
+  <h1>MEMBRESIAS</h1>
+  <p>Elige el plan que se adapta a ti</p>
+  <p>¿Cuántas reservas necesitas y por cuánto tiempo?</p>
+</div>
+
+<div class="membresias-container">
+  <div class="contenido">
+    <div class="planes-vertical">
+      <app-plan-card
+        titulo="PLAN CON TOPE"
+        [beneficios]="[
+          'Entrena hasta 5 reservas por mes',
+          'Acceso a todos los servicios',
+          'Disponible en todas las comunidades',
+          'Soporte básico'
+        ]"
+        precioMensual="59.90"
+        precioAnual="599.90"
+      ></app-plan-card>
+
+      <app-plan-card
+        titulo="PLAN SIN TOPE"
+        [beneficios]="[
+          'Reservas ilimitadas',
+          'Acceso a todos los servicios',
+          'Disponible en todas las comunidades',
+          'Soporte Preferencial'
+        ]"
+        precioMensual="119.90"
+        precioAnual="1199.90"
+        colorTitulo="#009966"
+      ></app-plan-card>
+
+      <button class="inscribirme-btn">Inscribirme</button>
+    </div>
+  </div>
+
+  <img src="assets/depo.png" alt="Deportista" class="imagen-lateral" />
+</div>

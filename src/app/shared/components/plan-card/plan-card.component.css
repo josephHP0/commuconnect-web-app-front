@@ -1,0 +1,62 @@
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  max-width: 400px; /* 🔧 reducido el ancho */
+  margin: 0 auto; /* 🔧 centrado horizontal */
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center; /* 🔧 todo el contenido centrado */
+}
+
+.card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0077cc;
+}
+
+.card ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 13px;
+}
+
+.card ul li::before {
+  content: "• ";
+  color: #555;
+}
+
+.card ul li {
+  margin-bottom: 0.3rem;
+}
+
+/* Bloque de precios */
+.precios {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem;
+  padding: 0 0.5rem;
+}
+
+.precio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+}
+
+.precio p {
+  margin: 0;
+  font-size: 13px;
+  color: #222;
+}
+
+.precio span {
+  font-weight: bold;
+  font-size: 11px;
+  color: #444;
+}

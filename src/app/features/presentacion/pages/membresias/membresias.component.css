@@ -1,0 +1,62 @@
+/* Encabezado centrado */
+.cabecera {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.cabecera h1 {
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+}
+
+.cabecera p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Contenedor principal con imagen y planes */
+.membresias-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0rem; /* 🔧 casi sin espacio entre bloques e imagen */
+  padding: 2rem 0;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Zona de tarjetas */
+.contenido {
+  max-width: 520px;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Tarjetas una encima de otra */
+.planes-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Botón */
+.inscribirme-btn {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* Imagen decorativa */
+.imagen-lateral {
+  height: auto;
+  max-height: 530px;
+  object-fit: contain;
+}

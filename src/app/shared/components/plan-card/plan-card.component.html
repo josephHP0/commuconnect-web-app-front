@@ -1,0 +1,18 @@
+<div class="card">
+  <h3 [style.color]="colorTitulo || '#0077cc'">{{ titulo }}</h3>
+
+  <ul>
+    <li *ngFor="let beneficio of beneficios">{{ beneficio }}</li>
+  </ul>
+
+  <div class="precios">
+    <div class="precio">
+      <p><strong>S/. {{ precioMensual }}</strong></p>
+      <span>MENSUAL</span>
+    </div>
+    <div class="precio">
+      <p><strong>S/. {{ precioAnual }}</strong></p>
+      <span>ANUAL</span>
+    </div>
+  </div>
+</div>
