@@ -8,6 +8,8 @@ const routes: Routes = [{ path: 'user', loadChildren: () => import('./features/u
   { path: 'presentacion', loadChildren: () => import('./features/presentacion/presentacion.module').then(m => m.PresentacionModule) },
   { path: '', redirectTo: '/presentacion', pathMatch: 'full' },
 
+ //{ path: '', redirectTo: '/admin', pathMatch: 'full' },
+ //{ path: '**', redirectTo: 'admin' }
 
 
 ];
