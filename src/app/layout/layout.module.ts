@@ -15,16 +15,16 @@ import { FooterUserComponent } from './user/footer-user/footer-user.component';
 
 
     HeaderAdminComponent,
-        SidebarAdminComponent,
-        FooterAdminComponent,
-        HeaderUserComponent,
-        SidebarUserComponent,
-        FooterUserComponent
+    SidebarAdminComponent,
+    FooterAdminComponent,
+    HeaderUserComponent,
+    SidebarUserComponent,
+    FooterUserComponent
   ],
   imports: [
     CommonModule
   ],
-   exports: [
+  exports: [
 
     HeaderAdminComponent,
     SidebarAdminComponent,
