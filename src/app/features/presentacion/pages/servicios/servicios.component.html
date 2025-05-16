@@ -1,37 +1,89 @@
-<div class="container py-5">
-  <div class="row text-center mb-5">
-    <h2 class="fw-bold">Nuestros Servicios</h2>
-  </div>
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="card bg-dark text-white border-0 shadow">
-        <img src="assets/gym.jpg" class="card-img" alt="Gimnasios">
-        <div class="card-img-overlay d-flex flex-column justify-content-end">
-          <h4 class="card-title fw-bold">GIMNASIOS</h4>
-          <p class="card-text">Entrena a tu ritmo, fortalece tu cuerpo y mantente activo todos los días.</p>
-          <button class="btn btn-primary">INSCRIBIRME</button>
+<!-- ESTRUCTURA DE PÁGINA CON HEADER Y FOOTER -->
+
+<div class="home-page-public" style="display: flex; flex-direction: column; min-height: 100vh;">
+
+  <!-- HEADER -->
+  <header class="bg-white py-3 shadow-sm fixed-top"
+    style="border-bottom: 2px solid #A9A9A9; box-shadow: 0 4px 10px rgba(169, 169, 169, 0.5);">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <!-- Logo -->
+      <div class="logo d-flex align-items-center gap-4">
+        <img src="assets/logo_monkey_fit.png" alt="Logo Monkey Fit" height="50">
+        <span class="fw-bold fs-5 text-primary">CommuConnect</span>
+      </div>
+
+      <!-- Menú -->
+      <nav class="flex-grow-1">
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/inicio">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/servicios">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Membresías</a></li>
+        </ul>
+      </nav>
+
+      <!-- Botones -->
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary btn-sm" routerLink="/autenticacion/login">INICIAR SESIÓN</button>
+        <button class="btn btn-primary btn-sm" routerLink="/autenticacion/register">REGISTRARSE</button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="seccion-servicios" style="margin-top: 100px; flex: 1;">
+    <div class="container text-center mb-5">
+      <h2 class="fw-bold">Nuestros Servicios</h2>
+      <p class="text-muted">Descubre cómo CommuConnect mejora tu bienestar</p>
+    </div>
+
+    <div class="contenedor-servicios">
+      <!-- GIMNASIO -->
+      <div class="servicio servicio-gym">
+        <div class="contenido">
+          <h2>GIMNASIOS</h2>
+          <p>Entrena a tu ritmo, fortalece tu cuerpo y mantente activo todos los días.</p>
+          <button class="btn btn-light">INSCRIBIRME</button>
+        </div>
+      </div>
+
+      <!-- YOGA -->
+      <div class="servicio servicio-yoga">
+        <div class="contenido">
+          <h2>YOGA</h2>
+          <p>Encuentra tu equilibrio y reconecta contigo en cada práctica.</p>
+          <button class="btn btn-light">INSCRIBIRME</button>
+        </div>
+      </div>
+
+      <!-- NUTRICIÓN -->
+      <div class="servicio servicio-nutricion">
+        <div class="contenido">
+          <h2>NUTRICIÓN</h2>
+          <p>Mejora tus hábitos y alcanza tus objetivos con apoyo experto.</p>
+          <button class="btn btn-light">INSCRIBIRME</button>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card bg-dark text-white border-0 shadow">
-        <img src="assets/yoga.jpg" class="card-img" alt="Yoga">
-        <div class="card-img-overlay d-flex flex-column justify-content-end">
-          <h4 class="card-title fw-bold">YOGA</h4>
-          <p class="card-text">Encuentra tu equilibrio y reconecta contigo en cada práctica.</p>
-          <button class="btn btn-primary">INSCRIBIRME</button>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-footer-custom mt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Columna izquierda -->
+        <div class="col-md-8 text-center text-md-start">
+          <h2 class="h5">Contact Us</h2>
+          <p class="lead">¿Tienes alguna pregunta? ¡Contáctanos!</p>
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="col-md-4 text-md-end mt-3 mt-md-0 d-flex align-items-center justify-content-md-end justify-content-center">
+          <p class="mb-0">📞 785468545</p>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card bg-dark text-white border-0 shadow">
-        <img src="assets/nutricion.jpg" class="card-img" alt="Nutrición">
-        <div class="card-img-overlay d-flex flex-column justify-content-end">
-          <h4 class="card-title fw-bold">NUTRICIÓN</h4>
-          <p class="card-text">Mejora tus hábitos y alcanza tus objetivos con apoyo experto.</p>
-          <button class="btn btn-primary">INSCRIBIRME</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  </footer>
 </div>

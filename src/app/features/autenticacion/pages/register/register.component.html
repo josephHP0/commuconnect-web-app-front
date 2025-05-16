@@ -1,0 +1,117 @@
+<div class="home-page-public" style="display: flex; flex-direction: column; min-height: 100vh;">
+  <!-- Header -->
+  <header class="bg-white py-3 shadow-sm fixed-top"
+    style="border-bottom: 2px solid #A9A9A9; box-shadow: 0 4px 10px rgba(169, 169, 169, 0.5); z-index: 1050;">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="logo d-flex align-items-center gap-4">
+        <img src="assets/logo_monkey_fit.png" alt="Logo Monkey Fit" height="50">
+        <span class="fw-bold fs-5 text-primary">CommuConnect</span>
+      </div>
+      <a class="btn btn-primary btn-sm" routerLink="/presentacion/inicio">Ir a Página Principal</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="login-main" style="margin-top: 100px; flex: 1;">
+    <div class="login-left">
+      <img src="assets/adolescentes-activas-haciendo-deporte.jpg" alt="img-foto" />
+    </div>
+
+    <div class="registro-right">
+      <div class="registro-box">
+        <h2>¡Crea tu cuenta!</h2>
+        <p>Empieza tu viaje hacia una vida activa y conectada.</p>
+
+        <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>Nombres:</label>
+            <input formControlName="nombres" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label>Apellidos:</label>
+            <input formControlName="apellidos" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label>Correo Electrónico:</label>
+            <input formControlName="correo" type="email" />
+          </div>
+
+          <div class="form-group">
+            <label>Contraseña:</label>
+            <input formControlName="contrasena" type="password" />
+          </div>
+
+          <div class="form-group">
+            <label>Repite Contraseña:</label>
+            <input formControlName="repetirContrasena" type="password" />
+          </div>
+
+          <div class="form-group">
+            <label>Fecha de nacimiento:</label>
+            <input formControlName="fechaNacimiento" type="date" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Departamento:</label>
+              <select formControlName="departamento">
+                <option value="">Selecciona</option>
+                <option value="Lima">Lima</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Ciudad:</label>
+              <select formControlName="ciudad">
+                <option value="">Selecciona</option>
+                <option value="Miraflores">Miraflores</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Dirección domiciliaria:</label>
+            <input formControlName="direccion" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label>Número de Teléfono:</label>
+            <input formControlName="telefono" type="tel" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Género:</label>
+              <select formControlName="genero">
+                <option value="">Selecciona</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Peso (kg):</label>
+              <input formControlName="peso" type="number" step="0.01" />
+            </div>
+
+            <div class="form-group">
+              <label>Talla:</label>
+              <input formControlName="talla" type="text" />
+            </div>
+          </div>
+
+          <button class="submit-button" type="submit" routerLink="/user/seleccion-comunidad">Siguiente</button>
+
+          <p class="terms-text">
+            Al registrarse, aceptas los
+            <a href="/terminos" target="_blank" class="subrayado">Términos del servicio</a>
+            y la
+            <a href="/política" target="_blank" class="subrayado">Política de privacidad</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

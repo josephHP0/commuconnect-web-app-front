@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,53 +7,57 @@ import { Router } from '@angular/router';
   templateUrl: './seleccion-comunidad.component.html',
   styleUrls: ['./seleccion-comunidad.component.css']
 })
-export class SeleccionComunidadComponent {
-  communities = [
-    {
-      image: 'assets/mamas-primerizas.png',
-        title: 'MAMÁS PRIMERIZAS',
-        desc: 'Comparte tu experiencia y crece junto a otras mamás'
-    },
-    {
-      image: 'assets/runners.png',
-      title: 'RUNNERS',
-      desc: 'Corre, pedalea y comparte tu progreso con otros'
-    },
-    {
-      image: 'assets/gym.png',
-      title: 'GYM',
-      desc: 'Entrena, progresa y encuentra tu motivación diaria'
-    },
-    {
-      image: 'assets/yoga.png',
-      title: 'YOGA',
-      desc: 'Conecta cuerpo y mente en armonía con los demás'
-    },
-    {
-      image: 'assets/nutricion.png',
-      title: 'NUTRICIÓN',
-      desc: 'Aprende y comparte hábitos para una vida saludable'
-    }
-  ];
-
+export class SeleccionComunidadComponent implements OnInit {
+  busqueda: string = '';
   currentIndex = 0;
 
-  constructor(private router: Router) {}
+  communities: any[] = [];
+  comunidadesFiltradas: any[] = [];
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    //this.http.get<any[]>('http://localhost:8000/listar_comunidad').subscribe({
+    this.http.get<any[]>('http://44.194.107.188:8000/api/comunidades/listar_comunidad').subscribe({
+
+      next: data => {
+        this.communities = data.map(c => ({
+          image: 'data:image/png;base64,' + c.imagen,
+          title: c.nombre,
+          desc: c.slogan ?? 'Sin descripción'
+        }));
+        this.comunidadesFiltradas = [...this.communities];
+      },
+      error: err => {
+        console.error('Error al cargar comunidades:', err);
+      }
+    });
+  }
 
   get currentCommunity() {
-    return this.communities[this.currentIndex];
+    return this.comunidadesFiltradas[this.currentIndex] || { title: '', desc: '', image: '' };
   }
 
   nextSlide() {
-    this.currentIndex = (this.currentIndex + 1) % this.communities.length;
+    if (this.comunidadesFiltradas.length === 0) return;
+    this.currentIndex = (this.currentIndex + 1) % this.comunidadesFiltradas.length;
   }
 
   prevSlide() {
-    this.currentIndex = (this.currentIndex - 1 + this.communities.length) % this.communities.length;
+    if (this.comunidadesFiltradas.length === 0) return;
+    this.currentIndex = (this.currentIndex - 1 + this.comunidadesFiltradas.length) % this.comunidadesFiltradas.length;
   }
 
   unirse() {
     localStorage.setItem('comunidadSeleccionada', this.currentCommunity.title);
-    this.router.navigate(['/user/dashboard']); // Cambia esta ruta según tu flujo
+    this.router.navigate(['/user/dashboard']);
+  }
+
+  filtrarComunidades() {
+    const query = this.busqueda.trim().toLowerCase();
+    this.comunidadesFiltradas = this.communities.filter(c =>
+      c.title.toLowerCase().includes(query)
+    );
+    this.currentIndex = 0;
   }
 }

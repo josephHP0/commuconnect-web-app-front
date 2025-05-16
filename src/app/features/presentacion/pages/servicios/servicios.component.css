@@ -1,11 +1,83 @@
-.card-img-overlay {
-  background: rgba(0, 0, 0, 0.4);
+/* Estilos base */
+.bg-footer-custom {
+  background-color: #082C6C;
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.nav-link {
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #0d6efd !important;
+}
+
+/* Contenido principal */
+.seccion-servicios {
+  padding: 2rem;
+}
+
+.contenedor-servicios {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Tarjetas */
+.servicio {
+  width: 320px;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: end;
+  padding: 1rem;
+  color: white;
+  text-shadow: 0 0 5px black;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.servicio:hover {
+  transform: scale(1.03);
+}
+
+.servicio-gym {
+  background-image: url('/assets/gym.png');
+}
+
+.servicio-yoga {
+  background-image: url('/assets/yoga.png');
+}
+
+.servicio-nutricion {
+  background-image: url('/assets/nutricion.png');
+}
+
+.contenido {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
   border-radius: 8px;
+  width: 100%;
 }
-.card-title {
-  font-size: 1.5rem;
+
+.contenido h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
 }
-.card-text {
+
+.contenido p {
   font-size: 1rem;
   margin-bottom: 1rem;
+}
+
+button {
+  font-weight: bold;
 }
