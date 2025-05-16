@@ -32,21 +32,12 @@
           />
         </div>
 
-        <!-- Descripción -->
-        <div class="mb-3">
-          <label for="descripcion" class="form-label">Descripción</label>
-          <textarea
-            class="form-control"
-            id="descripcion"
-            name="descripcion"
-            rows="4"
-            [(ngModel)]="comunidad.descripcion"
-          ></textarea>
-        </div>
+
 
         <!-- Logo -->
         <div class="mb-3">
-          <label for="logo" class="form-label">Añade un logo</label>
+          <label for="logo" class="form-label">Añade un logo:</label>
+
           <input
             class="form-control"
             type="file"
@@ -54,6 +45,13 @@
             (change)="onFileSelected($event)"
             accept="image/png, image/jpeg"
           />
+<p></p>
+          <p>Dimensiones máximas: 500x500 px.</p>
+          <p>Dimensiones mínimas: 100x100 px.</p>
+
+          <p>Peso máximo: 1 MB (opcional, pero útil).</p>
+
+
         </div>
 
         <!-- Botón borrar logo -->
