@@ -18,6 +18,10 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     CommonModule,
     UserLayoutRoutingModule
+  ],
+  exports:[
+     HeaderComponent,
   ]
+
 })
 export class UserLayoutModule { }

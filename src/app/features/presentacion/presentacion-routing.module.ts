@@ -9,11 +9,16 @@ import { MembresiasComponent } from './pages/membresias/membresias.component';
 import { ServiciosComponent } from './pages/servicios/servicios.component'; // ✅ Asegúrate de importar esto
 
 import { LoginComponent } from '../../features/autenticacion/pages/login/login.component'
+import { NosotrosComponent } from './pages/nosotros/nosotros.component';
+
+import {ComunidadesComponent} from './pages/comunidades/comunidades.component';
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' }, // ✅ Redirección base
   { path: 'inicio', component: InicioComponent },
   { path: 'servicios', component: ServiciosComponent },
-  { path: 'membresias', component: MembresiasComponent }
+  { path: 'membresias', component: MembresiasComponent },
+  { path: 'nosotros',component: NosotrosComponent},
+  { path: 'comunidades',component: ComunidadesComponent}
 
 ];
 

@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutModule } from './layout/layout.module';
+import { UserLayoutModule } from "./layout/user-layout/user-layout.module";
 
 @NgModule({
   declarations: [
@@ -18,9 +19,10 @@ import { LayoutModule } from './layout/layout.module';
     AppRoutingModule,
     FormsModule, // ✅ Importación agregada
     HttpClientModule,
-    ReactiveFormsModule, 
-    LayoutModule
-  ],
+    ReactiveFormsModule,
+    LayoutModule,
+    UserLayoutModule
+],
   providers: [],
   bootstrap: [AppComponent]
 })

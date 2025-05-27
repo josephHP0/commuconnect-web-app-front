@@ -16,7 +16,7 @@
 <nav class="flex-grow-1">
 <ul class="nav justify-content-center">
   <li class="nav-item"><a class="nav-link text-dark" href="#">Home</a></li>
-  <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/nosotros">Nosotros</a></li>
+<li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/nosotros">Nosotros</a></li>
   <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/servicios">Servicios</a></li>
   <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/membresias">Membresías</a></li>
 </ul>
@@ -33,46 +33,28 @@
 </div>
 </header>
 
-
-
-<div class="cabecera">
-  <h1>MEMBRESIAS</h1>
-  <p>Elige el plan que se adapta a ti</p>
-  <p>¿Cuántas reservas necesitas y por cuánto tiempo?</p>
-</div>
-
-<div class="membresias-container">
-  <div class="contenido">
-    <div class="planes-vertical">
-      <app-plan-card
-        titulo="PLAN CON TOPE"
-        [beneficios]="[
-          'Entrena hasta 5 reservas por mes',
-          'Acceso a todos los servicios',
-          'Disponible en todas las comunidades',
-          'Soporte básico'
-        ]"
-        precioMensual="59.90"
-        precioAnual="599.90"
-      ></app-plan-card>
-
-      <app-plan-card
-        titulo="PLAN SIN TOPE"
-        [beneficios]="[
-          'Reservas ilimitadas',
-          'Acceso a todos los servicios',
-          'Disponible en todas las comunidades',
-          'Soporte Preferencial'
-        ]"
-        precioMensual="119.90"
-        precioAnual="1199.90"
-        colorTitulo="#009966"
-      ></app-plan-card>
-
-      <button class="inscribirme-btn">Inscribirme</button>
+<div class="nosotros-contenedor">
+  <div class="nosotros-lado-izquierdo">
+    <div class="nosotros-texto">
+      <h1>CommuConnect</h1>
+      <p>
+        En <strong>CommuConnect</strong> somos un equipo apasionado por la salud,
+        el movimiento y el poder de las comunidades.
+      </p>
+      <p>
+        Creamos una plataforma que conecta personas con clases de
+        <a href="#">yoga</a>, <a href="#">gimnasio</a> y <a href="#">nutrición</a>,
+        gestionadas por expertos y adaptadas a las necesidades de cada grupo.
+      </p>
+      <p>
+        Porque creemos que cuando nos cuidamos en comunidad, el
+        bienestar es más sostenible, más humano y más real.
+      </p>
+      <button class="nosotros-boton">INSCRIBIRME</button>
     </div>
   </div>
+  <div class="nosotros-lado-derecho"></div>
+</div>
 
-  <img src="assets/depo.png" alt="Deportista" class="imagen-lateral" />
 </div>
-</div>
+

@@ -45,7 +45,7 @@ crearComunidad(comunidad: Comunidad, logo?: File): Observable<any> {
 
      const token = localStorage.getItem('access_token');
 
-     return this.http.post(`${this.baseUrl}/comunidades/`, formData, {
+     return this.http.post(`${this.baseUrl}/comunidades/crear_comunidad`, formData, {
     headers: {
       Authorization: `Bearer ${token}`
     }

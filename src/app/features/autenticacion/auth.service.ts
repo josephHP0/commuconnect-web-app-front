@@ -16,7 +16,7 @@ interface LoginResponse {
   access_token: string;
   token_type: string;
 }
-
+/*
 interface RegisterRequest {
   nombres: string;
   apellidos: string;
@@ -31,7 +31,25 @@ interface RegisterRequest {
   peso: string;
   talla: string;
 }
+*/
 
+interface RegisterRequest {
+  nombre: string;
+  apellido: string;
+  email: string;
+  password: string;
+  repetir_password: string;
+  tipo_documento: 'DNI' | 'CARNET DE EXTRANJERÍA'; // Debe coincidir con Literal
+  num_doc: string;
+  numero_telefono: string;
+  id_departamento: number;
+  id_distrito: number;
+  direccion: string;
+  fecha_nac: string;
+  genero: string;
+  talla: number;
+  peso: number;
+}
 
 
 
@@ -56,7 +74,7 @@ export class AuthService {
     // Método para registrar un nuevo usuario
     register(data: RegisterRequest): Observable<any> {
     // Hacemos una petición POST a la URL: https://tu-api.com/usuarios/register
-    return this.http.post<any>(`${this.baseUrl}/auth/register`, data);
+    return this.http.post<any>(`${this.baseUrl}/usuarios/cliente`, data);
     }
-  
+
 }

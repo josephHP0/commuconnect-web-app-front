@@ -1,0 +1,95 @@
+<div class="home-page-public" style="display: flex; flex-direction: column; min-height: 100vh;">
+
+  <!-- Header -->
+  <header class="bg-white py-3 shadow-sm fixed-top"
+    style="border-bottom: 2px solid #A9A9A9; box-shadow: 0 4px 10px rgba(169, 169, 169, 0.5);">
+    <div class="container d-flex justify-content-between align-items-center">
+      <!-- Logo -->
+      <div class="logo d-flex align-items-center gap-4">
+        <img src="assets/logo_monkey_fit.png" alt="Logo Monkey Fit" height="50">
+        <span class="fw-bold fs-5 text-primary">CommuConnect</span>
+      </div>
+
+      <!-- Menú de navegación centrado -->
+      <nav class="flex-grow-1">
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/inicio">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/nosotros">Nosotros</a></li>
+  <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/servicios">Servicios</a></li>
+  <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/membresias">Membresías</a></li>
+        </ul>
+      </nav>
+
+      <!-- Botones -->
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary btn-sm" routerLink="/autenticacion/login">INICIAR SESIÓN</button>
+        <button class="btn btn-primary btn-sm" routerLink="/autenticacion/register">REGISTRARSE</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" style="margin-top: 100px; flex: 1;">
+    <section class="comunidades-page container py-5">
+      <h1 class="text-center fw-bold mb-2 text-uppercase">COMUNIDADES</h1>
+      <p class="text-center text-muted mb-5">
+        Explora las comunidades que forman parte de CommuConnect.<br>
+        Cada una con clases, planes y servicios de bienestar adaptados a sus necesidades.
+      </p>
+
+      <div class="row justify-content-center gy-4">
+        <div class="col-md-6 col-lg-5">
+          <div class="card shadow-sm h-100">
+            <img src="assets/mamas-primerizas.png" class="card-img-top img-fixed" alt="MAMÁS PRIMERIZAS">
+            <div class="card-body">
+              <h5 class="card-title fw-bold text-uppercase">MAMÁS PRIMERIZAS</h5>
+              <p class="card-text">
+                Ser mamá es transformador, desafiante y hermoso...
+              </p>
+              <p class="text-primary fw-semibold mb-1">Servicios Disponibles</p>
+              <ul class="mb-3 small">
+                <li>Clases de Yoga</li>
+                <li>Acceso a Gimnasios</li>
+              </ul>
+              <button class="btn btn-primary w-100">Inscribirme →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-5">
+          <div class="card shadow-sm h-100">
+            <img src="assets/runners.png" class="card-img-top img-fixed" alt="RUNNERS">
+            <div class="card-body">
+              <h5 class="card-title fw-bold text-uppercase">RUNNERS</h5>
+              <p class="card-text">
+                Sabemos que correr es más que un deporte, es una forma de vida...
+              </p>
+              <p class="text-primary fw-semibold mb-1">Servicios Disponibles</p>
+              <ul class="mb-3 small">
+                <li>Atención Nutricional</li>
+                <li>Acceso a Gimnasios</li>
+              </ul>
+              <button class="btn btn-primary w-100">Inscribirme →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-footer-custom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 text-center text-md-start">
+          <h2 class="h5">Contact Us</h2>
+          <p class="lead">¿Tienes alguna pregunta? ¡Contáctanos!</p>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-md-end justify-content-center">
+          <p class="mb-0">📞 785468545</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
