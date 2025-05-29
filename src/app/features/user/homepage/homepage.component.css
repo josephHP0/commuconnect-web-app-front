@@ -1,0 +1,128 @@
+.navbar-top {
+  height: 56px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+.logo-top {
+  height: 32px;
+}
+
+.navbar-icons i {
+  font-size: 1.4rem;
+  color: #333;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.navbar-icons i:hover {
+  color: #4CAF50;
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: white;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+}
+
+.logo-sidebar {
+  width: 40px;
+  margin-bottom: 2rem;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+}
+
+.menu li {
+  margin: 1rem 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contenido {
+  flex: 1;
+  padding: 2rem;
+  overflow-x: auto;
+}
+
+
+.titulo-comunidad {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+.imagen-principal {
+  width: 100%;
+  max-width: 1100px;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.descripcion {
+  font-size: 1rem;
+  color: #444;
+  max-width: 900px;
+}
+
+.pequeña {
+  max-width: 500px;
+}
+
+
+
+.tarjetas {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.tarjeta {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  width: 180px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.btn-verde {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.bloque-central {
+  width: 100%;
+  max-width: 1200px; /* o más si tu pantalla es muy ancha */
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left;
+}
+
