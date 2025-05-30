@@ -11,13 +11,18 @@ import { ServiciosComponent } from './pages/servicios/servicios.component'; // �
 import { LoginComponent } from '../../features/autenticacion/pages/login/login.component'
 
 import {ComunidadesComponent} from './pages/comunidades/comunidades.component';
+import { ConfirmarCorreoComponent } from './pages/confirmar-correo/confirmar-correo.component';
+import { CorreoConfirmadoComponent } from './pages/correo-confirmado/correo-confirmado.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' }, // ✅ Redirección base
   { path: 'inicio', component: InicioComponent },
   { path: 'servicios', component: ServiciosComponent },
   { path: 'membresias', component: MembresiasComponent },
   { path: 'nosotros',component: NosotrosComponent},
-  { path: 'comunidades',component: ComunidadesComponent}
+  { path: 'comunidades',component: ComunidadesComponent},
+  { path: 'confirmar-correo', component: ConfirmarCorreoComponent },
+  { path: 'correo-confirmado', component: CorreoConfirmadoComponent }
 
 ];
 
