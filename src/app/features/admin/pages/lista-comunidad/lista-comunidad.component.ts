@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ComunidadService } from '../../services/comunidad.service';
-
-
 import { Router } from '@angular/router';
 
 @Component({
@@ -47,6 +44,23 @@ ngOnInit(): void {
     error: (err) => console.error('Error cargando comunidades', err),
   });
 }
+
+
+eliminarComunidad(id: number): void {
+  if (confirm('¿Estás seguro de eliminar esta comunidad?')) {
+    this.comunidadService.eliminarComunidad(id).subscribe({
+      next: () => {
+        // Quitamos la comunidad eliminada de la lista local
+        this.comunidades = this.comunidades.filter(c => c.id_comunidad !== id);
+      },
+      error: (err) => {
+        console.error('Error al eliminar comunidad', err);
+        alert('No se pudo eliminar la comunidad.');
+      }
+    });
+  }
+}
+
 
 
 

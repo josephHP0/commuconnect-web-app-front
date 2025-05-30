@@ -10,12 +10,14 @@ import { AdminLayoutModule } from 'src/app/layout/admin-layout/admin-layout.modu
 
 import { FormsModule } from '@angular/forms';
 import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad.component';
+import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     RegistroComunidadComponent,
-    ListaComunidadComponent
+    ListaComunidadComponent,
+    EditarComunidadComponent
   ],
   imports: [
     CommonModule,

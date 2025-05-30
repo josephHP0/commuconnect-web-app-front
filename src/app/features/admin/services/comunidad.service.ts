@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable,map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 
 
 
@@ -74,6 +75,25 @@ crearComunidad(comunidad: Comunidad, logo?: File): Observable<any> {
         }))
       )
     )};
+
+
+
+
+
+
+
+
+
+  eliminarComunidad(id: number): Observable<any> {
+
+
+  const token = localStorage.getItem('access_token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.delete(`${this.baseUrl}/comunidades/eliminar_comunidad/${id}`, { headers });
+}
 
 
 }
