@@ -1,0 +1,37 @@
+.comunidades-page h1,
+.comunidades-page .card-title {
+  color: #082C6C;
+}
+
+.comunidades-page .btn-primary {
+  background-color: #1a75ff;
+  border-color: #1a75ff;
+  font-weight: 500;
+}
+
+.comunidades-page .btn-primary:hover {
+  background-color: #0056cc;
+  border-color: #0056cc;
+}
+
+.img-fixed {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.bg-footer-custom {
+  background-color: #082C6C;
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.nav-link {
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #0d6efd !important;
+}

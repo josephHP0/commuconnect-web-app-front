@@ -58,7 +58,7 @@
   margin-right: auto;
 }
 
-/* MITAD DERECHA: Imagen como fondo */
+/*
 .nosotros-lado-derecho {
   flex: 1;
   background-image: url('/assets/nosotros.png');
@@ -66,4 +66,13 @@
   background-position: center;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+*/
+
+.nosotros-lado-derecho {
+  flex: 1;
+  background-image: url('/assets/nosotros.png');
+  background-size: contain; /* Cambia de 'cover' a 'contain' */
+  background-repeat: no-repeat;
+  background-position: center;
 }

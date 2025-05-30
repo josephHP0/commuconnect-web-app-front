@@ -20,7 +20,7 @@ export class RegisterComponent {
     private authService: AuthService, // Servicio donde se hace la llamada HTTP
     private router: Router // Para redirigir al usuario luego del registro
   ) {
-    // Aquí se define cada campo del formulario y sus validaciones
+  /*
     this.registroForm = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
@@ -36,6 +36,36 @@ export class RegisterComponent {
       peso: ['', Validators.required],
       talla: ['', Validators.required]
     });
+*/
+
+this.registroForm = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      tipo_documento: ['', Validators.required],
+      num_doc: ['', Validators.required],
+      password: ['', Validators.required],
+      repetir_password: ['', Validators.required],
+      fecha_nac: ['', Validators.required],
+      id_departamento: ['', Validators.required],
+      id_distrito: ['', Validators.required],
+      direccion: ['', Validators.required],
+      numero_telefono: ['', Validators.required],
+      genero: ['', Validators.required],
+      peso: ['', Validators.required],
+      talla: ['', Validators.required]
+    });
+
+
+
+
+
+
+
+
+
+
+
   }
 
   // Método que se ejecuta al enviar el formulario
@@ -48,12 +78,12 @@ export class RegisterComponent {
     const formValues = this.registroForm.value;
 
     // Validamos que las contraseñas coincidan
-    if (formValues.contrasena !== formValues.repetirContrasena) {
+     if (formValues.password !== formValues.repetir_password) {
       this.errorMessage = 'Las contraseñas no coinciden.';
       return;
     }
 
-    // Armamos el objeto que se enviará al backend (sin repetir la contraseña)
+  /*
     const requestBody = {
       nombres: formValues.nombres,
       apellidos: formValues.apellidos,
@@ -68,6 +98,25 @@ export class RegisterComponent {
       peso: formValues.peso,
       talla: formValues.talla
     };
+*/
+const requestBody = {
+      nombre: formValues.nombre,
+      apellido: formValues.apellido,
+      email: formValues.email,
+      tipo_documento: formValues.tipo_documento,
+      num_doc: formValues.num_doc,
+      password: formValues.password,
+      repetir_password: formValues.repetir_password,
+      fecha_nac: formValues.fecha_nac,
+      id_departamento: parseInt(formValues.id_departamento),
+      id_distrito: parseInt(formValues.id_distrito),
+      direccion: formValues.direccion,
+      numero_telefono: formValues.numero_telefono,
+      genero: formValues.genero,
+      peso: parseInt(formValues.peso),
+      talla: parseInt(formValues.talla),
+    };
+
 
     // Llamamos al método `register()` del AuthService para enviar los datos al backend
     this.authService.register(requestBody).subscribe({
