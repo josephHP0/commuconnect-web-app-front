@@ -43,7 +43,9 @@ crearComunidad(comunidad: Comunidad, logo?: File): Observable<any> {
 
 
     if (logo) {
-      formData.append('logo', logo, logo.name);
+      //formData.append('logo', logo, logo.name);
+      formData.append('imagen', logo, logo.name); // ✅ debe coincidir con el backend
+
     }
 
      const token = localStorage.getItem('access_token');
