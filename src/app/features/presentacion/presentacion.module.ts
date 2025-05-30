@@ -9,6 +9,8 @@ import { ServiciosComponent } from './pages/servicios/servicios.component';
 import { MembresiasComponent } from './pages/membresias/membresias.component';
 import { NosotrosComponent } from './pages/nosotros/nosotros.component';
 import { ComunidadesComponent } from './pages/comunidades/comunidades.component';
+import { ConfirmarCorreoComponent } from './pages/confirmar-correo/confirmar-correo.component';
+import { CorreoConfirmadoComponent } from './pages/correo-confirmado/correo-confirmado.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { ComunidadesComponent } from './pages/comunidades/comunidades.component'
     ServiciosComponent,
     MembresiasComponent,
     NosotrosComponent,
-    ComunidadesComponent
+    ComunidadesComponent,
+    ConfirmarCorreoComponent,
+    CorreoConfirmadoComponent
   ],
   imports: [
     CommonModule,

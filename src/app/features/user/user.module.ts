@@ -8,12 +8,16 @@ import { FormsModule } from '@angular/forms';
 
 import { LayoutModule } from '../../layout/layout.module';
 import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-comunidad.component';
+import { MisComunidadesComponent } from './mis-comunidades/mis-comunidades.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    SeleccionComunidadComponent
+    SeleccionComunidadComponent,
+    MisComunidadesComponent,
+    HomepageComponent
   ],
   imports: [
     CommonModule,
