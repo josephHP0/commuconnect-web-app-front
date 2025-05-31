@@ -1,0 +1,122 @@
+.login-page {
+  font-family: Arial, sans-serif;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo-container img {
+  height: 40px;
+}
+
+.primary-button {
+  background-color: #fff;
+  color: #4CAF50;
+  border: #4CAF50 1px solid;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #111111;
+}
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* un poco más ancho */
+  gap: 25px;
+  max-width: 800px; /* aumenta un poco el ancho máximo */
+  margin: 0 auto 30px auto;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+  padding: 22px 18px; /* padding un poco más amplio */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 380px;
+}
+
+
+
+.plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.15);
+}
+
+.plan-card.premium {
+  border: 2px solid #4CAF50; /* un borde especial para premium */
+}
+.plan-card {
+  border: 2px solid #4CAF50; /* un borde especial para premium */
+}
+.plan-card h3 {
+  margin-bottom: 15px;
+  color: #222;
+  text-align: center;
+}
+
+.plan-card ul {
+  list-style: disc inside;
+  margin-bottom: 20px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.price {
+  font-size:2rem;
+  font-weight: 700;
+  color: #2D2D2D;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.plan-card button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 12px 24px; /* añade algo de espacio horizontal */
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: fit-content; /* botón se adapta al contenido */
+  align-self: center; /* lo centra dentro del card */
+}
+
+
+.plan-card button:hover {
+  background-color: #cf711b;
+}
+
+.omit-btn {
+  display: block;
+  margin-left: auto;         /* Alinea a la derecha */
+  margin-top: 30px;          /* Espacio respecto al contenido de arriba */
+  margin-bottom: 20px;       /* Espacio respecto al borde inferior */
+  background-color: #4CAF50; /* Verde */
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.omit-btn:hover {
+  background-color: #45a049;
+}

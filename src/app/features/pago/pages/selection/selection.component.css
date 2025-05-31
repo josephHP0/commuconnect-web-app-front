@@ -1,0 +1,111 @@
+.purchase-summary {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.1);  
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.summary-header h2 {
+  margin-bottom: 25px;
+  color: #212529;
+}
+
+.customer-info, .plan-info, .payment-methods {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.plan-details {
+  margin-top: 10px; /* Reducido para acercarlo a lo anterior */
+}
+
+.plan-image {
+  width: 100px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
+
+.details-text p {
+  margin-top: 0px; 
+  color: #444;
+}
+
+.cards-container img {
+  width: 50px;
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+.pay-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pay-btn:hover {
+  background-color: #45a049;
+}
+.details-text {
+  display: flex;
+  flex-direction: column;   /* Apila los elementos */
+  align-items: center;      /* Centra horizontalmente */
+  justify-content: center;  /* Centra verticalmente si es necesario */
+  text-align: center;
+  margin: 40px auto;        /* Centra el bloque horizontalmente */
+}
+
+.precio {
+  font-size: 3rem;        /* Aumenta el tamaño del texto */
+  font-weight: bold;      /* Lo hace más resaltado */
+  text-align: center;     /* Centra horizontalmente el texto */
+  margin: 30px 0;         /* Espaciado vertical */
+  color: #68717A;            /* Color oscuro, puedes cambiarlo */
+}
+.plan {
+  font-size: 0.5rem;        /* Ajusta el tamaño a lo que prefieras (por ejemplo: 0.9rem o 14px) */
+  font-weight: normal;    /* Elimina la negrita */
+  text-align: center;     /* (Opcional) Centra el texto */
+  color: #68717A;            /* (Opcional) Color gris suave */
+  margin-bottom: 10px;    /* (Opcional) Espacio debajo */
+}
+.customer-info {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px; /* <-- Aquí se define el espacio entre campos */
+  color: #6B6B6B; 
+}
+
+.form-group label {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: gray; 
+}
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;       /* Espacio entre las tarjetas */
+  margin-bottom: 10px; /* Reducido para acercarlo a lo siguiente */
+}
