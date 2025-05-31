@@ -120,6 +120,9 @@
 
           </div>
         </div>
+
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
           <button class="submit-button" type="submit">Siguiente</button>
           <p>
             Al registrarse, aceptas los
