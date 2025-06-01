@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './confirmar-correo.component.html',
   styleUrls: ['./confirmar-correo.component.css']
 })
-export class ConfirmarCorreoComponent implements OnInit{
+export class ConfirmarCorreoComponent {
   confirmado = false;
   error: string | null = null;
 
@@ -23,7 +23,7 @@ export class ConfirmarCorreoComponent implements OnInit{
     private http: HttpClient,
     private router: Router
   ) {}
-
+/*
   ngOnInit(): void {
 
     const token = this.route.snapshot.paramMap.get('token');
@@ -50,4 +50,5 @@ export class ConfirmarCorreoComponent implements OnInit{
       this.error = 'Token no proporcionado.';
     }
   }
+    */
 }
