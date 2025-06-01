@@ -5,6 +5,7 @@ import { PagoRoutingModule } from './pago-routing.module';
 import { PagoComponent } from './pago.component';
 import { PlanComponent } from './pages/plan/plan.component';
 import { SelectionComponent } from './pages/selection/selection.component';
+import { ConfirmacionComponent } from './pages/confirmacion/confirmacion.component';
 
 
 
@@ -13,7 +14,8 @@ import { SelectionComponent } from './pages/selection/selection.component';
   declarations: [
     PagoComponent,
     PlanComponent,
-    SelectionComponent
+    SelectionComponent,
+    ConfirmacionComponent
   ],
   imports: [
     CommonModule,

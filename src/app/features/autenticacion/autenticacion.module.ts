@@ -7,6 +7,8 @@ import { LoginComponent } from './pages/login/login.component';
 
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 @NgModule({
@@ -20,6 +22,13 @@ import { RegisterComponent } from './pages/register/register.component';
     AutenticacionRoutingModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 })
 export class AutenticacionModule { }
