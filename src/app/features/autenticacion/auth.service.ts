@@ -39,7 +39,7 @@ interface RegisterRequest {
   email: string;
   password: string;
  // repetir_password: string;
-  tipo_documento: 'DNI' | 'CARNET DE EXTRANJERÍA'; // Debe coincidir con Literal
+  tipo_documento: 'DNI' | 'CE'; // Debe coincidir con Literal
   num_doc: string;
   numero_telefono: string;
   id_departamento: number;

@@ -60,7 +60,7 @@ this.registroForm = this.fb.group({
   // Método que se ejecuta al enviar el formulario
     onSubmit() {
 
-debugger;
+//debugger;
 
 
 Object.keys(this.registroForm.controls).forEach(key => {
