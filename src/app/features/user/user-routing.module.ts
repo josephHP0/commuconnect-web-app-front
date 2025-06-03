@@ -14,12 +14,12 @@ const routes: Routes = [
     path: '',
     component: UserComponent,
     children: [
+      { path: '', redirectTo: 'mis-comunidades', pathMatch: 'full' },
       { path: 'homepage', component: HomepageComponent },
-
       { path: 'seleccion-comunidad', component: SeleccionComunidadComponent },
       // otras rutas hijas futuras pueden ir aquí
-      { path: 'mis-comunidades', component: MisComunidadesComponent }, // ✅ Nueva ruta
-      { path: '', redirectTo: 'mis-comunidades', pathMatch: 'full' }
+      { path: 'mis-comunidades', component: MisComunidadesComponent } // ✅ Nueva ruta
+
     ]
   }
 ];
