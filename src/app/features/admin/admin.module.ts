@@ -11,7 +11,7 @@ import { AdminLayoutModule } from 'src/app/layout/admin-layout/admin-layout.modu
 import { FormsModule } from '@angular/forms';
 import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad.component';
 import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
-import { ListaUsuarioComponent } from './pages/usuario-crud/lista-usuario/lista-usuario.component';
+import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-cliente.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { ListaUsuarioComponent } from './pages/usuario-crud/lista-usuario/lista-
     RegistroComunidadComponent,
     ListaComunidadComponent,
     EditarComunidadComponent,
-    ListaUsuarioComponent
+    ListaClienteComponent
   ],
   imports: [
     CommonModule,
