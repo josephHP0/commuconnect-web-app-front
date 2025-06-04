@@ -18,7 +18,7 @@ import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-com
   imports: [
     CommonModule,
     UserRoutingModule,
-    FormsModule,  // 👈 Asegúrate de tener esto aquí
+    FormsModule,  // 
     LayoutModule
   ]
 })
