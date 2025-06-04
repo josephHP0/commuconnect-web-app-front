@@ -164,7 +164,7 @@ export class SelectionComponent implements OnInit {
       next: res => {
         console.log('Respuesta pago:', res);
         alert('Pago realizado con éxito');
-        this.router.navigate(['/confirmacion']);
+        this.router.navigate(['/pago/confirmacion']);
       },
       error: err => {
         alert(err.error?.detail || 'Error al realizar el pago');
