@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirmacion',
@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./confirmacion.component.css']
 })
 export class ConfirmacionComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+      private route: ActivatedRoute
+  ) {}
 
   cerrar() {
     this.router.navigate(['/']);
@@ -15,7 +17,6 @@ export class ConfirmacionComponent {
 
   irAComunidad() {
     // redirigir a la comunidad
-    // por ejemplo, usar router.navigate(['/comunidad'])
     console.log("Redirigir a la comunidad");
   }
 }

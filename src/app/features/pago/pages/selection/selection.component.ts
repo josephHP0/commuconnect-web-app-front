@@ -19,12 +19,25 @@ export class SelectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.planSeleccionado = params['titulo'];
+      /*this.planSeleccionado = params['titulo'];
       this.precioSeleccionado = params['precio'];
       this.id_plan = +params['id_plan'];
       //
       this.id_comunidad = +params['id_comunidad'] || 0; 
-      this.id_pagoPendiente = +params['id_pagoPendiente'] || 0;
+      this.id_pagoPendiente = +params['id_pagoPendiente'] || 0;*/
+      this.planSeleccionado = params['titulo'] || '';
+      this.precioSeleccionado = params['precio'] || '';
+      this.id_plan = params['id_plan'] ? +params['id_plan'] : 0;
+      this.id_comunidad = params['id_comunidad'] ? +params['id_comunidad'] : 0;
+
+      const idPago = params['id_pagoPendiente'];  // Cambiar aquí para leer el nombre actualizado
+      this.id_pagoPendiente = idPago && !isNaN(+idPago) && +idPago > 0 ? +idPago : 0;
+
+      if (!this.id_pagoPendiente) {
+        alert('No hay pago pendiente para esta comunidad');
+      }
+
+
     });
   }
 
@@ -95,7 +108,8 @@ export class SelectionComponent implements OnInit {
     });
   }*/
   //ult
-  confirmarSeleccion() {
+  //esto queda antes
+  /*confirmarSeleccion() {
   if (!this.id_pagoPendiente) {
     alert('No hay pago pendiente para realizar.');
     return;
@@ -109,5 +123,55 @@ export class SelectionComponent implements OnInit {
       alert(err.error?.detail || 'Error al realizar el pago');
     }
   });
-}
+}*/
+//probamos
+  /*confirmarSeleccion() {
+      if (!this.id_pagoPendiente) {
+        alert('No hay pago pendiente para realizar.');
+        return;
+      }
+
+      if (!this.id_comunidad) {
+        alert('No se encontró la comunidad asociada al pago.');
+        return;
+      }
+
+      this.pagoService.pagarComunidad(this.id_comunidad).subscribe({
+        next: res => {
+          alert('Pago realizado con éxito');
+          this.router.navigate(['/pago/confirmacion']);
+        },
+        error: err => {
+          alert(err.error?.detail || 'Error al realizar el pago');
+        }
+      });
+    }*/
+   //ultimooo
+   confirmarSeleccion() {
+    console.log('Id comunidad:', this.id_comunidad);
+    console.log('Token en localStorage:', localStorage.getItem('access_token'));
+    if (!this.id_pagoPendiente) {
+      alert('No hay pago pendiente para realizar.');
+      return;
+    }
+
+    if (!this.id_comunidad) {
+      alert('No se encontró la comunidad asociada al pago.');
+      return;
+    }
+
+    this.pagoService.pagarComunidad(this.id_comunidad).subscribe({
+      next: res => {
+        console.log('Respuesta pago:', res);
+        alert('Pago realizado con éxito');
+        this.router.navigate(['/confirmacion']);
+      },
+      error: err => {
+        alert(err.error?.detail || 'Error al realizar el pago');
+      }
+    });
+  }
+
+
+
 }
