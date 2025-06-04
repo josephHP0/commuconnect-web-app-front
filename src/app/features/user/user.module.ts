@@ -11,6 +11,7 @@ import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-com
 import { MisComunidadesComponent } from './mis-comunidades/mis-comunidades.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SesionesComponent } from './sesiones/sesiones.component';
+import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar-servicio.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { SesionesComponent } from './sesiones/sesiones.component';
     SeleccionComunidadComponent,
     MisComunidadesComponent,
     HomepageComponent,
-    SesionesComponent
+    SesionesComponent,
+    SeleccionarServicioComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-sesiones',
@@ -6,88 +7,79 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sesiones.component.css']
 })
 export class SesionesComponent implements OnInit {
+  idServicio = 1; // <- puedes cambiar esto dinámicamente si lo pasas por queryParams
+  distritos: any[] = [];
+  localesFiltrados: any[] = [];
 
-  distritos: string[] = ['San Miguel', 'San Isidro'];
   distritoSeleccionado = '';
   localSeleccionado = '';
 
-  locales = [
-    {
-      nombre: 'La Tiendita',
-      distrito: 'San Miguel',
-      imagen: '/assets/tiendita.png',
-      direccion: 'Mz. F Lote 30 Urb. Sta...'
-    },
-    {
-      nombre: 'YOGABOX',
-      distrito: 'San Miguel',
-      imagen: '/assets/yogabox.png',
-      direccion: 'Mz. F Lote 30 Urb. Sta...'
-    },
-    {
-      nombre: 'FITBOX',
-      distrito: 'San Miguel',
-      imagen: '/assets/fitbox.png',
-      direccion: 'Mz. F Lote 30 Urb. Sta...'
-    },
-    {
-      nombre: 'UrbanFit',
-      distrito: 'San Isidro',
-      imagen: '/assets/urbanfit.png',
-      direccion: 'Av. Lima 123, San Isidro'
-    }
-  ];
-
-  localesFiltrados: {
-    nombre: string;
-    distrito: string;
-    imagen: string;
-    direccion: string;
-  }[] = [];
-
   fechasDisponibles: string[] = [
-    '13/05/2025',
-    '14/05/2025',
-    '15/05/2025',
-    '16/05/2025',
-    '17/05/2025',
-    '18/05/2025'
+    '13/05/2025', '14/05/2025', '15/05/2025',
+    '16/05/2025', '17/05/2025', '18/05/2025'
   ];
   fechasFiltradas: string[] = [];
 
-  fechaInicioFiltro: string = '';
-  fechaFinFiltro: string = '';
+  fechaInicioFiltro = '';
+  fechaFinFiltro = '';
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Solo distritos al inicio
-    this.localesFiltrados = this.getLocalesRepresentativosPorDistrito();
+    this.obtenerDistritos();
     this.fechasFiltradas = [];
   }
 
+  obtenerDistritos(): void {
+    this.http.get<any[]>(`/api/services/usuario/servicio/${this.idServicio}/distritos`)
+      .subscribe({
+        next: (res) => {
+          this.distritos = res;
+          this.localesFiltrados = this.getLocalesRepresentativos(res);
+        },
+        error: (err) => console.error('Error al obtener distritos:', err)
+      });
+  }
 
-  // ✅ Nivel 1 → Al seleccionar distrito, desbloquear locales
+  getLocalesRepresentativos(lista: any[]): any[] {
+    const mapa = new Map<string, any>();
+    lista.forEach(local => {
+      if (!mapa.has(local.distrito)) {
+        mapa.set(local.distrito, local);
+      }
+    });
+    return Array.from(mapa.values());
+  }
+
   filtrarPorDistrito(): void {
     this.localSeleccionado = '';
     this.fechaInicioFiltro = '';
     this.fechaFinFiltro = '';
     this.fechasFiltradas = [];
 
-    if (this.distritoSeleccionado) {
-      this.localesFiltrados = this.locales.filter(
-        l => l.distrito === this.distritoSeleccionado
-      );
-    } else {
-      this.localesFiltrados = this.getLocalesRepresentativosPorDistrito();
+    if (!this.distritoSeleccionado) {
+      this.localesFiltrados = this.getLocalesRepresentativos(this.distritos);
+      return;
     }
+
+    const distrito = encodeURIComponent(this.distritoSeleccionado);
+    this.http.get<any[]>(`/api/services/usuario/servicio/${this.idServicio}/distrito/${distrito}/locales`)
+      .subscribe({
+        next: (res) => this.localesFiltrados = res,
+        error: (err) => console.error('Error al obtener locales:', err)
+      });
   }
 
-  // ✅ Nivel 2 → Al seleccionar local, desbloquear fechas
   seleccionarLocal(local: any): void {
     this.localSeleccionado = local.nombre;
     this.fechasFiltradas = [...this.fechasDisponibles];
   }
 
-  // ✅ Nivel 3 → Rango de fechas para filtrar
+  seleccionarLocalPorNombre(): void {
+    const local = this.localesFiltrados.find(l => l.nombre === this.localSeleccionado);
+    if (local) this.seleccionarLocal(local);
+  }
+
   filtrarFechasPorRango(): void {
     if (!this.fechaInicioFiltro || !this.fechaFinFiltro) {
       this.fechasFiltradas = [...this.fechasDisponibles];
@@ -109,20 +101,4 @@ export class SesionesComponent implements OnInit {
       localStorage.setItem('local_seleccionado', this.localSeleccionado);
     }
   }
-
-  // Muestra solo un local por distrito al inicio
-  private getLocalesRepresentativosPorDistrito(): any[] {
-    const mapa = new Map<string, any>();
-    this.locales.forEach(local => {
-      if (!mapa.has(local.distrito)) {
-        mapa.set(local.distrito, local);
-      }
-    });
-    return Array.from(mapa.values());
-  }
-  seleccionarLocalPorNombre(): void {
-    const local = this.localesFiltrados.find(l => l.nombre === this.localSeleccionado);
-    if (local) this.seleccionarLocal(local);
-  }
-
 }
