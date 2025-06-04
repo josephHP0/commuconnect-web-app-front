@@ -121,8 +121,8 @@ export class SesionesComponent implements OnInit {
     return Array.from(mapa.values());
   }
   seleccionarLocalPorNombre(): void {
-  const local = this.localesFiltrados.find(l => l.nombre === this.localSeleccionado);
-  if (local) this.seleccionarLocal(local);
-}
+    const local = this.localesFiltrados.find(l => l.nombre === this.localSeleccionado);
+    if (local) this.seleccionarLocal(local);
+  }
 
 }
