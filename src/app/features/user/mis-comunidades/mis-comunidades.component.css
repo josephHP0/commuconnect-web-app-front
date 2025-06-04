@@ -143,3 +143,12 @@
   width: 24px;
   height: 24px;
 }
+.activa {
+  color: green;
+  font-weight: bold;
+}
+
+.inactiva {
+  color: gray;
+  font-weight: bold;
+}

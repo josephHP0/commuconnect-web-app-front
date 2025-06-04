@@ -1,43 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ComunidadService, ComunidadContexto } from '../services/comunidad.service';
+
 @Component({
   selector: 'app-mis-comunidades',
   templateUrl: './mis-comunidades.component.html',
   styleUrls: ['./mis-comunidades.component.css']
 })
-export class MisComunidadesComponent {
-  // Búsqueda actual
+export class MisComunidadesComponent implements OnInit {
   busqueda: string = '';
+  comunidades: ComunidadContexto[] = [];
+  comunidadesFiltradas: ComunidadContexto[] = [];
 
-  // Lista completa de comunidades
-  comunidades = [
-    {
-      nombre: 'Mamás Primerizas',
-      imagen: '/assets/mamas-primerizas.png',
-      servicios: ['Sesiones de Yoga', 'Atención nutricional']
-    },
-    {
-      nombre: 'Runners',
-      imagen: '/assets/comunidad_runners.jpg',
-      servicios: ['Acceso a gimnasios', 'Atención nutricional']
-    }
-  ];
+  constructor(
+    private comunidadService: ComunidadService,
+    private router: Router
+  ) {}
 
-  // Lista que se va filtrando
-  comunidadesFiltradas = [...this.comunidades];
-
-  constructor(private router: Router) {}
-
-  // Redirección a la pantalla de selección
-  irASeleccionComunidad() {
-    this.router.navigate(['/user/seleccion-comunidad']);
+  ngOnInit(): void {
+    this.comunidadService.obtenerComunidades().subscribe({
+      next: (data) => {
+        this.comunidades = data;
+        this.comunidadesFiltradas = [...data];
+      },
+      error: (error) => {
+        console.error('Error al obtener comunidades:', error);
+      }
+    });
   }
 
-  // Filtra la lista en tiempo real según la búsqueda
-  filtrarComunidades() {
+  filtrarComunidades(): void {
     const termino = this.busqueda.toLowerCase();
     this.comunidadesFiltradas = this.comunidades.filter(comunidad =>
       comunidad.nombre.toLowerCase().includes(termino)
     );
+  }
+
+  irASeleccionComunidad(): void {
+    this.router.navigate(['/user/seleccion-comunidad']);
+  }
+
+  accederAComunidad(comunidad: ComunidadContexto): void {
+    localStorage.setItem('comunidad_seleccionada', JSON.stringify(comunidad));
+    // this.router.navigate(['/user/homepage']); // o a donde desees ir
   }
 }

@@ -1,0 +1,103 @@
+<!-- Barra superior -->
+<header class="navbar-top">
+  <img src="/assets/logo_monkey_fit.png" alt="Logo" class="logo-top" />
+  <div class="navbar-icons">
+    <i class="bi bi-box-arrow-right" title="Cerrar sesión"></i>
+    <i class="bi bi-house" title="Inicio"></i>
+    <i class="bi bi-person-circle" title="Perfil"></i>
+  </div>
+</header>
+
+<!-- Contenedor principal -->
+<div class="dashboard-container">
+  <!-- Menú lateral -->
+  <aside class="sidebar">
+    <ul class="menu">
+      <li><i class="bi bi-house"></i> Mi Comunidad</li>
+      <li><i class="bi bi-card-checklist"></i> Membresía</li>
+      <li><i class="bi bi-grid"></i> Servicios y Horarios</li>
+      <li><i class="bi bi-calendar-event"></i> Mis Reservas</li>
+    </ul>
+  </aside>
+
+  <!-- Contenido -->
+  <main class="contenido">
+    <div class="bloque-central">
+      <h2 class="titulo-comunidad">Sesiones Disponibles</h2>
+
+      <!-- FILTRO DISTRITO: SIEMPRE visible -->
+      <div style="margin-bottom: 1.5rem;">
+        <label><strong>Filtrar por distrito:</strong></label>
+        <select [(ngModel)]="distritoSeleccionado" (change)="filtrarPorDistrito()" class="form-select">
+          <option value="">Seleccionar distrito</option>
+          <option *ngFor="let d of distritos" [value]="d">{{ d }}</option>
+        </select>
+      </div>
+
+      <!-- Nivel 1: Tarjetas de distritos -->
+      <div class="tarjetas" *ngIf="!distritoSeleccionado">
+        <div
+          class="tarjeta"
+          *ngFor="let local of localesFiltrados"
+          (click)="distritoSeleccionado = local.distrito; filtrarPorDistrito()"
+        >
+          <img [src]="local.imagen" [alt]="local.distrito" />
+          <div>
+            <h4>{{ local.distrito }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILTRO LOCAL: visible si hay distrito seleccionado -->
+      <!-- FILTRO LOCAL: siempre visible si hay distrito seleccionado -->
+<div *ngIf="distritoSeleccionado" style="margin-bottom: 1rem;">
+  <label><strong>Filtrar por local:</strong></label>
+  <select [(ngModel)]="localSeleccionado" (change)="seleccionarLocalPorNombre()" class="form-select">
+    <option value="">Seleccionar local</option>
+    <option *ngFor="let local of localesFiltrados" [value]="local.nombre">{{ local.nombre }}</option>
+  </select>
+</div>
+
+
+      <!-- Nivel 2: Tarjetas de locales -->
+      <div class="tarjetas" *ngIf="distritoSeleccionado && !localSeleccionado">
+        <div
+          class="tarjeta"
+          *ngFor="let local of localesFiltrados"
+          (click)="seleccionarLocal(local)"
+        >
+          <img [src]="local.imagen" [alt]="local.nombre" />
+          <div>
+            <h4>{{ local.nombre }}</h4>
+            <p>{{ local.direccion }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILTRO RANGO DE FECHAS: visible si hay local seleccionado -->
+      <div *ngIf="localSeleccionado" style="margin-top: 2rem;">
+        <label><strong>Filtrar fechas por rango:</strong></label>
+        <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+          <input type="date" [(ngModel)]="fechaInicioFiltro" (change)="filtrarFechasPorRango()" />
+          <span>a</span>
+          <input type="date" [(ngModel)]="fechaFinFiltro" (change)="filtrarFechasPorRango()" />
+        </div>
+      </div>
+
+      <!-- Nivel 3: Fechas disponibles -->
+      <div *ngIf="localSeleccionado && fechasFiltradas.length > 0" style="margin-top: 1.5rem;">
+        <label><strong>Fechas disponibles:</strong></label>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+          <button *ngFor="let fecha of fechasFiltradas" class="btn btn-outline-secondary">
+            {{ fecha }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón continuar -->
+      <div style="margin-top: 2rem; text-align: right;">
+        <button class="btn-verde" [disabled]="!localSeleccionado" (click)="continuar()">Continuar</button>
+      </div>
+    </div>
+  </main>
+</div>

@@ -8,6 +8,8 @@ import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-com
 import { MisComunidadesComponent } from './mis-comunidades/mis-comunidades.component';
 //const routes: Routes = [{ path: '', component: UserComponent }];
 import { HomepageComponent } from './homepage/homepage.component'; // importa el componente
+//Para mis sesiones
+import { SesionesComponent } from './sesiones/sesiones.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,8 @@ const routes: Routes = [
       { path: 'seleccion-comunidad', component: SeleccionComunidadComponent },
       // otras rutas hijas futuras pueden ir aquí
       { path: 'mis-comunidades', component: MisComunidadesComponent }, // ✅ Nueva ruta
+        { path: 'sesiones', component: SesionesComponent },  // ✅ NUEVA RUTA
+
       { path: '', redirectTo: 'mis-comunidades', pathMatch: 'full' }
     ]
   }
