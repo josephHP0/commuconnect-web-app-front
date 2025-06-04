@@ -27,17 +27,33 @@
       <img src="/assets/icono-mas.png" alt="+" />
     </div>
 
-    <!-- Comunidades filtradas -->
-    <div
-      class="comunidad-card"
-      *ngFor="let comunidad of comunidadesFiltradas"
-    >
-      <img [src]="comunidad.imagen" [alt]="comunidad.nombre" class="imagen-comunidad">
+    <!-- Lista de comunidades -->
+    <div class="comunidad-card" *ngFor="let comunidad of comunidadesFiltradas">
+      <img
+        [src]="comunidad.imagen_base64"
+        [alt]="comunidad.nombre"
+        class="imagen-comunidad"
+      />
       <h2 class="nombre-comunidad">{{ comunidad.nombre }}</h2>
+      <p class="descripcion-comunidad">{{ comunidad.descripcion }}</p>
+
       <ul class="servicios">
-        <li *ngFor="let servicio of comunidad.servicios">{{ servicio }}</li>
+        <li *ngFor="let servicio of comunidad.servicios">{{ servicio.nombre }}</li>
       </ul>
-      <button class="btn-acceder">ACCEDER</button>
+
+      <p
+        class="estado"
+        [ngClass]="{
+          'activa': comunidad.estado_membresia === 'activa',
+          'inactiva': comunidad.estado_membresia === 'inactiva'
+        }"
+      >
+        {{ comunidad.estado_membresia | uppercase }}
+      </p>
+
+      <button class="btn-acceder" (click)="accederAComunidad(comunidad)">
+        ACCEDER
+      </button>
     </div>
   </div>
 </div>

@@ -22,31 +22,25 @@
 
   <!-- Contenido -->
   <main class="contenido">
-    <div class="bloque-central">
-      <h2 class="titulo-comunidad">Mamás primerizas</h2>
+    <div class="bloque-central" *ngIf="comunidad">
+      <h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>
 
-      <img src="/assets/mamas-primerizas.png" alt="Mamás" class="imagen-principal pequeña" />
+      <img [src]="comunidad.imagen_base64" [alt]="comunidad.nombre" class="imagen-principal pequeña" />
 
       <p class="descripcion">
-        Ser mamá es transformador, desafiante y hermoso. En CommuConnect, te acompañamos en esta nueva etapa con clases de yoga, entrenamiento suave y asesoría nutricional pensada para tu bienestar físico y emocional. Porque cuidarte a ti también es parte de cuidar a tu bebé.
+        {{ comunidad.descripcion }}
       </p>
 
       <div class="tarjetas">
-        <div class="tarjeta">
-          <img src="/assets/novedades.png" alt="Novedades" />
-          <button class="btn-verde">Novedades</button>
-        </div>
-
-        <div class="tarjeta">
-          <img src="/assets/servicios.png" alt="Servicios" />
-          <button class="btn-verde">Servicios</button>
-        </div>
-
-        <div class="tarjeta">
-          <img src="/assets/reservas.png" alt="Reservas" />
-          <button class="btn-verde">Mis reservas</button>
+        <div class="tarjeta" *ngFor="let servicio of comunidad.servicios">
+          <img src="/assets/servicios.png" alt="Servicio" />
+          <button class="btn-verde">{{ servicio.nombre }}</button>
         </div>
       </div>
+    </div>
+
+    <div class="bloque-central" *ngIf="!comunidad">
+      <p style="text-align: center; margin-top: 2rem;">Cargando comunidad...</p>
     </div>
   </main>
 </div>
