@@ -12,6 +12,7 @@ import { PlanComponent } from '../pago/pages/plan/plan.component';
 import { HomepageComponent } from './homepage/homepage.component'; // importa el componente
 //Para mis sesiones
 import { SesionesComponent } from './sesiones/sesiones.component';
+import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar-servicio.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
       // otras rutas hijas futuras pueden ir aquí
       { path: 'mis-comunidades', component: MisComunidadesComponent }, // ✅ Nueva ruta
       { path: 'sesiones', component: SesionesComponent },  // ✅ NUEVA RUTA
-
+      { path: 'seleccionar-servicio', component: SeleccionarServicioComponent },  // ✅ NUEVA RUTA
       { path: '', redirectTo: 'mis-comunidades', pathMatch: 'full' }
 
     ]

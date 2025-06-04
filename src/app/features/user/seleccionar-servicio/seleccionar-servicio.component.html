@@ -1,0 +1,44 @@
+<!-- Barra superior -->
+<header class="navbar-top">
+  <img src="/assets/logo_monkey_fit.png" alt="Logo" class="logo-top" />
+  <div class="navbar-icons">
+    <i class="bi bi-box-arrow-right" title="Cerrar sesión"></i>
+    <i class="bi bi-house" title="Inicio"></i>
+    <i class="bi bi-person-circle" title="Perfil"></i>
+  </div>
+</header>
+
+<!-- Contenedor principal -->
+<div class="dashboard-container">
+  <!-- Menú lateral -->
+  <aside class="sidebar">
+    <ul class="menu">
+      <li><i class="bi bi-house"></i> Mi Comunidad</li>
+      <li><i class="bi bi-card-checklist"></i> Membresía</li>
+      <li><i class="bi bi-grid"></i> Servicios y Horarios</li>
+      <li><i class="bi bi-calendar-event"></i> Mis Reservas</li>
+    </ul>
+  </aside>
+
+  <!-- Contenido -->
+  <main class="contenido">
+    <div class="bloque-central">
+      <h2 class="titulo-comunidad">Servicios</h2>
+
+      <!-- Topes -->
+      <div *ngIf="topes > 0" class="alert alert-warning">
+        Reservas disponibles: {{ topes }}
+      </div>
+
+      <!-- Servicios -->
+      <div class="tarjetas">
+        <div class="tarjeta" *ngFor="let servicio of servicios">
+          <img [src]="servicio.imagen" [alt]="servicio.nombre" />
+          <h4>{{ servicio.nombre }}</h4>
+          <p>{{ servicio.descripcion }}</p>
+          <button class="btn-verde" (click)="seleccionarServicio(servicio.id)">Reservar</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
