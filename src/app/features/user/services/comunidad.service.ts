@@ -7,7 +7,21 @@ export interface Comunidad {
   id_comunidad: number;
   nombre: string;
   slogan: string;
-  imagen: string | null;  
+  imagen: string | null;
+}
+
+
+export interface Servicio {
+  nombre: string;
+}
+
+export interface ComunidadContexto {
+  id_comunidad: number;
+  nombre: string;
+  descripcion: string;
+  imagen_base64: string;
+  servicios: Servicio[];
+  estado_membresia: string;
 }
 
 @Injectable({
@@ -35,6 +49,25 @@ export class ComunidadService {
 
     return this.http.post(`${this.baseUrl}/usuarios/unir_cliente_comunidad`, null, { headers, params });
   }
+  obtenerComunidades(): Observable<ComunidadContexto[]> {
+    const token = localStorage.getItem('token');
 
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
 
+      return this.http.get<ComunidadContexto[]>(`${this.baseUrl}/comunidades/listar_comunidad`, { headers });
+  }
+  obtenerComunidadPorId(id: number): Observable<ComunidadContexto> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<ComunidadContexto>(
+      `${this.baseUrl}/usuarios/usuario/comunidad/${id}`,
+      { headers }
+    );
+  }
 }

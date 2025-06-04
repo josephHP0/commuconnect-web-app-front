@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+.page-item.active .page-link {
+  background-color: black !important;
+  border-color: black !important;
+  color: white !important;
+}

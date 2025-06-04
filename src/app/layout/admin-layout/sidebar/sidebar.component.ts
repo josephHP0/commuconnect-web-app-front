@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+
+usuariosSubmenuOpen = false;
+
+toggleUsuariosSubmenu() {
+  this.usuariosSubmenuOpen = !this.usuariosSubmenuOpen;
+}
+
+
 }

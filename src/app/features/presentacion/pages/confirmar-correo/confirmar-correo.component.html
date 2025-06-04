@@ -1,0 +1,28 @@
+<header class="main-header">
+  <div class="logo-container">
+    <img src="assets/logo_monkey_fit.png" alt="Logo" />
+  </div>
+  <button class="primary-button" routerLink="/">Ir a Página Principal</button>
+</header>
+
+<div class="container-confirmar-correo">
+  <div class="imagen-lado">
+    <img src="assets/corredora.png" alt="Corredora" />
+  </div>
+
+  <div class="contenido-lado">
+    <h2 *ngIf="!confirmado && !error">Confirme su <br /> correo electrónico</h2>
+    <div class="icono-mail">✉️</div>
+
+    <!-- Estado: Esperando confirmación -->
+    <p *ngIf="!confirmado && !error">Siga el enlace para verificar su dirección de correo electrónico.</p>
+
+    <!-- Estado: Confirmado con éxito -->
+    <p *ngIf="confirmado" class="success-msg">✅ Correo confirmado correctamente.</p>
+
+    <!-- Estado: Error al confirmar -->
+    <p *ngIf="error" class="error-msg">❌ {{ error }}</p>
+
+    <a href="#" class="volver-enviar" *ngIf="!confirmado && !error">Volver a enviar</a>
+  </div>
+</div>
