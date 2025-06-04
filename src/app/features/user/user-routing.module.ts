@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'mis-comunidades', pathMatch: 'full' },
       { path: 'homepage', component: HomepageComponent },
       { path: 'seleccion-comunidad', component: SeleccionComunidadComponent },
-      { path: 'pago/plan', component: PlanComponent }
+      { path: 'pago/plan', component: PlanComponent },
 
       // otras rutas hijas futuras pueden ir aquí
       { path: 'mis-comunidades', component: MisComunidadesComponent }, // ✅ Nueva ruta
