@@ -17,7 +17,8 @@ idComunidad: number | null = null;
 
 comunidad = {
     nombre: '',
-    slogan: ''
+    slogan: '',
+    imagen:''
 
   };
 
@@ -34,7 +35,7 @@ constructor(
   private readonly route: ActivatedRoute
 ) {}
 
-/*
+
 ngOnInit(): void {
   this.idComunidad = Number(this.route.snapshot.paramMap.get('id'));
 
@@ -43,13 +44,15 @@ ngOnInit(): void {
       next: (data) => {
         this.comunidad = {
           nombre: data.nombre,
-          slogan: data.slogan
+          slogan: data.slogan,
+          imagen: data.imagen
+
           // Agrega otros campos si los tienes
         };
 
-        if (data.logoBase64) {
-          this.imagenURL = data.logoBase64;
-        }
+      //  if (data.logoBase64) {
+          this.imagenURL = `data:image/png;base64,${data.imagen}`;
+      //  }
       },
       error: (err) => {
         console.error('Error al obtener comunidad', err);
@@ -59,7 +62,7 @@ ngOnInit(): void {
 }
 
 
-*/
+
 
 
 onFileSelected(event: any): void {
@@ -126,11 +129,21 @@ editarComunidad(): void {
     alert('ID de comunidad no encontrado');
     return;
   }
-/*
+
+
+ if (!this.archivoLogo && this.imagenURL) {
+    // Extraer solo el base64, removiendo el prefijo 'data:image/png;base64,'
+    const base64 = (this.imagenURL as string).split(',')[1];
+    this.comunidad.imagen = base64;
+  }
+
+
+
+
   this.comunidadService.editarComunidad(this.idComunidad, this.comunidad, this.archivoLogo).subscribe({
     next: (res) => {
       console.log('Comunidad actualizada', res);
-      this.router.navigate(['/comunidades']);
+      this.router.navigate(['/admin/lista-comunidad']);
     },
     error: (err) => {
       console.error('Error al actualizar comunidad', err);
@@ -138,7 +151,7 @@ editarComunidad(): void {
   });
 
 
-*/
+
 
 
 }

@@ -98,4 +98,38 @@ crearComunidad(comunidad: Comunidad, logo?: File): Observable<any> {
 }
 
 
+editarComunidad(id: number, comunidad: any, logo?: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('nombre', comunidad.nombre);
+  formData.append('slogan', comunidad.slogan);
+
+
+
+   if (logo) {
+      //formData.append('logo', logo, logo.name);
+      formData.append('imagen', logo, logo.name); // ✅ debe coincidir con el backend
+
+    }
+
+
+  const token = localStorage.getItem('access_token');
+const headers = new HttpHeaders({
+  'Authorization': `Bearer ${token}`
+});
+
+return this.http.put(`${this.baseUrl}/comunidades/editar_comunidad/${id}`, formData, { headers });
+
+
+}
+
+
+ obtenerPorId(id: number) {
+    return this.http.get<any>(`${this.baseUrl}/comunidades/comunidad/${id}`);
+  }
+
+
+
+
+
+
 }

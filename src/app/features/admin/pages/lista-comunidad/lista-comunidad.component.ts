@@ -62,6 +62,11 @@ eliminarComunidad(id: number): void {
 }
 
 
+editarComunidad(id: number): void {
+  this.router.navigate(['/admin/editar-comunidad', id]);
+}
+
+
 
 
 

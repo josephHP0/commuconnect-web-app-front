@@ -26,10 +26,10 @@ const routes: Routes = [
       { path: '', redirectTo: 'lista-comunidad', pathMatch: 'full' },
       { path: 'lista-comunidad', component: ListaComunidadComponent },
       { path: 'registro-comunidad', component: RegistroComunidadComponent },
-      { path: 'editar-comunidad', component: EditarComunidadComponent },
+     // { path: 'editar-comunidad', component: EditarComunidadComponent },
+     { path: 'editar-comunidad/:id', component: EditarComunidadComponent },
+
       { path: 'lista-cliente', component: ListaClienteComponent}
-
-
 
       // otras rutas como dashboard, usuarios, etc.
     ]
