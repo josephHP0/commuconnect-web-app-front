@@ -1,13 +1,8 @@
 //este import viene por defecto del componente
 import { Component } from '@angular/core';
 
-
 // Importa el servicio de autenticación, que probablemente esta en el modulo autenticacion que esta como auth.service.ts
 import { AuthService } from '../../auth.service';
-
-
-// Importa las variables de entorno, como la URL de la API
-import { environment } from 'src/environments/environment';
 
 // Importa el Router de Angular para redireccionar a otras rutas desde el código
 import { Router } from '@angular/router';
@@ -47,13 +42,16 @@ export class LoginComponent {
         // Autenticación exitosa
         localStorage.setItem('access_token', response.access_token);
         localStorage.setItem('token_type', response.token_type);
+        localStorage.setItem('user_rol', response.user_rol);
         this.isAuthenticated = true; // Establece isAuthenticated a true
         this.errorMessage = ''; // Limpia cualquier mensaje de error previo
 
-        // Opcional: Redirigir al usuario después de mostrar el mensaje
-        setTimeout(() => {
-          this.router.navigate(['/']); // Por ahora redirige a la raiz - pagina inicial (ajusta según tu necesidad)
-        }, 1500); // Muestra el mensaje por 1.5 segundos
+         // Redirección según el rol del usuario
+        if (response.user_rol === 'Administrador') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/user']);
+        }
       },
       error: (error) => {
         // Error en la autenticación

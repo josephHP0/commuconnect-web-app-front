@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  <!-- Fila del título -->
+  <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h5 class="text-black fw-bold m-0" style="font-size: 24px;">
+        Clientes
+      </h5>
+    </div>
+  </div>
+
+  <!-- Fila de búsqueda y botones -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar usuario..."
+      />
+    </div>
+    <div class="col-md-8 text-end">
+      <button class="btn btn-primary me-2">Cargar Usuarios</button>
+      <button class="btn btn-warning me-2">Pagar Membresías</button>
+      <button class="btn btn-success">Crear Usuario</button>
+    </div>
+  </div>
+
+  <!-- Fila para la tabla -->
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientesPaginados">
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>{{ cliente.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Fila de paginación -->
+  <div class="row">
+    <div class="col-12">
+      <nav>
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="paginaActual === 1">
+            <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</a>
+          </li>
+          <li
+            class="page-item"
+            *ngFor="let p of totalPaginasArray"
+            [class.active]="p === paginaActual"
+          >
+            <a class="page-link" (click)="cambiarPagina(p)">{{ p }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+            <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

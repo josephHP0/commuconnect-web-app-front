@@ -9,11 +9,17 @@ import { RegistroComunidadComponent } from './pages/registro-comunidad/registro-
 import { AdminLayoutModule } from 'src/app/layout/admin-layout/admin-layout.module';
 
 import { FormsModule } from '@angular/forms';
+import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad.component';
+import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
+import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-cliente.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    RegistroComunidadComponent
+    RegistroComunidadComponent,
+    ListaComunidadComponent,
+    EditarComunidadComponent,
+    ListaClienteComponent
   ],
   imports: [
     CommonModule,
