@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { jwtDecode } from 'jwt-decode';
+//import { jwtDecode } from 'jwt-decode';
 
 export interface UserTokenPayload {
   sub: string;
@@ -29,7 +29,7 @@ export class PagoService {
 
   constructor(private http: HttpClient) { }
 
-  
+
   //para planes
   getPlanes(): Observable<Plan[]> {
       return this.http.get<Plan[]>(`${this.baseUrl}/billing/planes`);
@@ -72,7 +72,7 @@ export class PagoService {
       { headers, params }
     );
   }*/
-  //preuba 3 quedaba 
+  //preuba 3 quedaba
   /*registrarInscripcion(id_comunidad: number, id_plan?: number, id_pago?: number): Observable<any> {
     const token_type = localStorage.getItem('token_type') || 'Bearer';
     const access_token = localStorage.getItem('access_token') || '';
@@ -113,7 +113,7 @@ export class PagoService {
       return this.http.post(`${this.baseUrl}/billing/planes/${id_plan}/seleccionar`, {}, { headers });
     }
     getDatosUsuarioDesdeToken(): UserTokenPayload | null {
-    const token = localStorage.getItem('access_token'); // 
+    const token = localStorage.getItem('access_token'); //
     if (!token) return null;
 
     try {
@@ -173,11 +173,11 @@ export class PagoService {
     const headers = new HttpHeaders({
       'Authorization': `${token_type} ${access_token}`
     });
-    
+
 
     return this.http.post(`${this.baseUrl}/billing/comunidades/${id_comunidad}/pagar`, {}, { headers });
   }
 
-  
+
 
 }
