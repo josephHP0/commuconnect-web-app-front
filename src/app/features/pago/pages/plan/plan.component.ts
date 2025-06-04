@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Para redireccionar al usuario
+import { ActivatedRoute, Router } from '@angular/router'; // Para redireccionar al usuario
 import { Plan,  PagoService } from '../../pago.service';
 
 @Component({
@@ -12,14 +12,24 @@ export class PlanComponent implements OnInit{
   planesPremium: Plan[] = [];
   planesTopes: Plan[] = [];
 
+  //agrego para inscripción
+  id_comunidad: number = 0;  
 
 
   constructor(
     private pagoService: PagoService,
-    private router: Router // Para redirigir al usuario luego del registro
+    private router: Router, // Para redirigir al usuario luego del registro
+    private route: ActivatedRoute // Para obtener parámetros de la ruta actual
   ) {}
 
   ngOnInit(): void {
+    //agrego para obtener el id_comunidad desde la ruta
+     // Obtener id_comunidad de query params o route params
+    this.route.queryParams.subscribe(params => {
+      this.id_comunidad = +params['id_comunidad'] || 0;
+    });
+
+    // luego cargas los planes
     this.pagoService.getPlanes().subscribe({
       next: (data) => {
         console.log('Planes recibidos:', data);
@@ -33,7 +43,7 @@ export class PlanComponent implements OnInit{
     });
   }
 
-  comprarPlan(id_plan: number, titulo: string, precio: number) {
+  /*comprarPlan(id_plan: number, titulo: string, precio: number) {
   this.pagoService.seleccionarPlan(id_plan).subscribe({
     next: (respuesta) => {
       // Redirige a la pantalla de selección de pago con los datos del plan
@@ -50,6 +60,62 @@ export class PlanComponent implements OnInit{
       alert('Hubo un error al procesar el plan. Intenta nuevamente.');
     }
   });
-}
+}*/
+  /*comprarPlan(id_plan: number, titulo: string, precio: number, id_comunidad: number) {
+    this.pagoService.registrarInscripcion(id_comunidad, id_plan).subscribe({
+      next: (respuesta) => {
+        console.log('Inscripción registrada:', respuesta);
+        // Redirige a la pantalla de selección de pago
+        this.router.navigate(['/pago/selection'], {
+          queryParams: {
+            titulo,
+            precio,
+            id_plan,
+            id_comunidad // para usarlo luego en el pago final
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error al registrar inscripción:', error);
+        alert('No se pudo registrar la inscripción.');
+      }
+    });
+  }*/
+  comprarPlan(id_plan: number, titulo: string, precio: number, id_comunidad: number) {
+    // 1. Crear pago pendiente llamando al endpoint correspondiente
+    this.pagoService.seleccionarPlan(id_plan).subscribe({
+    next: (respPagoPendiente) => {
+      console.log('Pago pendiente creado:', respPagoPendiente);
+
+      this.pagoService.registrarInscripcion(id_comunidad, id_plan, respPagoPendiente.id_pago).subscribe({
+        next: (respInscripcion) => {
+          console.log('Inscripción registrada:', respInscripcion);
+
+          this.router.navigate(['/pago/selection'], {
+            queryParams: {
+              titulo,
+              precio,
+              id_plan,
+              id_comunidad,
+              id_pagoPendiente: respPagoPendiente.id_pago // <- Agregado
+            }
+          });
+        },
+        error: (error) => {
+          console.error('Error al registrar inscripción:', error);
+          alert('No se pudo registrar la inscripción.');
+        }
+      });
+    },
+    error: (error) => {
+      console.error('Error al crear pago pendiente:', error);
+      alert('No se pudo crear el pago pendiente.');
+    }
+  });
+
+  }
+
+
+
 
 }

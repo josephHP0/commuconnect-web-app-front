@@ -20,7 +20,7 @@
         <p class="price">S/. {{ plan.precio }}</p>
         <button 
           class="btn btn-primary btn-lg"
-          (click)="comprarPlan(plan.id_plan, plan.titulo, plan.precio)">
+          (click)="comprarPlan(plan.id_plan, plan.titulo, plan.precio, id_comunidad)">
           Comprar ahora
         </button>
       </div>
@@ -37,7 +37,7 @@
         <p class="price">S/. {{ plan.precio }}</p>
         <button 
           class="btn btn-primary btn-lg"
-          (click)="comprarPlan(plan.id_plan, plan.titulo, plan.precio)">
+          (click)="comprarPlan(plan.id_plan, plan.titulo, plan.precio, id_comunidad)">
           Comprar ahora
         </button>
       </div>

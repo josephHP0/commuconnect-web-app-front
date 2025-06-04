@@ -71,7 +71,7 @@ export class SeleccionComunidadComponent implements OnInit {
     this.setCurrentCommunity();
   }
 
-  unirse(): void {
+  /*unirse(): void {
     if (!this.currentCommunity) return;
     
     this.comunidadService.unirseAComunidad(this.currentCommunity.id_comunidad).subscribe({
@@ -81,6 +81,21 @@ export class SeleccionComunidadComponent implements OnInit {
     },
     error: () => alert('Error al intentar unirte a la comunidad')
   });
+  }*/
+  //agrego para registrar la inscripción
+  unirse(): void {
+    if (!this.currentCommunity) return;
+
+    this.comunidadService.unirseAComunidad(this.currentCommunity.id_comunidad).subscribe({
+      next: () => {
+        alert(`Te uniste a la comunidad: ${this.currentCommunity?.nombre}`);
+        this.router.navigate(['/pago/plan'], {
+          queryParams: { id_comunidad: this.currentCommunity?.id_comunidad }
+        });
+
+      },
+      error: () => alert('Error al intentar unirte a la comunidad')
+    });
   }
 
 
