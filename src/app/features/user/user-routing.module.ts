@@ -25,7 +25,7 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: '', redirectTo: 'homepage', pathMatch: 'full' },
-      { path: 'homepage', component: HomepageComponent },
+      { path: 'homepage/:id', component: HomepageComponent },
       { path: 'sesiones', component: SesionesComponent },  // ✅ NUEVA RUTA
       { path: 'seleccionar-servicio', component: SeleccionarServicioComponent }
     ]

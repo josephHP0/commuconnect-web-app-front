@@ -50,13 +50,19 @@ export class ComunidadService {
     return this.http.post(`${this.baseUrl}/usuarios/unir_cliente_comunidad`, null, { headers, params });
   }
   obtenerComunidades(): Observable<ComunidadContexto[]> {
-    const token = localStorage.getItem('token');
 
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
 
-      return this.http.get<ComunidadContexto[]>(`${this.baseUrl}/comunidades/listar_comunidad`, { headers });
+
+const tokenType = localStorage.getItem('token_type');     // Por ejemplo: "Bearer"
+  const accessToken = localStorage.getItem('access_token'); // El token JWT
+
+  const headers = new HttpHeaders({
+    Authorization: `${tokenType} ${accessToken}`            // "Bearer eyJ..."
+  });
+
+
+
+      return this.http.get<ComunidadContexto[]>(`${this.baseUrl}/usuarios/usuario/comunidades`, { headers });
   }
   obtenerComunidadPorId(id: number): Observable<ComunidadContexto> {
     const token = localStorage.getItem('token');
@@ -70,4 +76,9 @@ export class ComunidadService {
       { headers }
     );
   }
+
+
+
+
+
 }

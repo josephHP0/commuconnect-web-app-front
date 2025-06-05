@@ -49,10 +49,26 @@ export class LoginComponent {
          // Redirección según el rol del usuario
         if (response.user_rol === 'Administrador') {
           this.router.navigate(['/admin']);
+        }  else if (response.user_rol === 'Cliente') {
+          // Validar comunidades activas
+          //const comunidades = response.comunidades_activas || [];
+
+          //if (comunidades.length === 0) {
+            //this.router.navigate(['/seleccionar-comunidad']);
+          //} else {
+            // Guardar comunidades si es necesario
+            //localStorage.setItem('comunidades', JSON.stringify(comunidades));
+            //localStorage.setItem('comunidad_activa', JSON.stringify(comunidades[0]));
+            this.router.navigate(['/user/mis-comunidades']);
+          //}
         } else {
-          this.router.navigate(['/user']);
+          // Otros roles no contemplados (opcional)
+          this.errorMessage = 'Rol de usuario no reconocido.';
         }
       },
+
+
+
       error: (error) => {
         // Error en la autenticación
 
