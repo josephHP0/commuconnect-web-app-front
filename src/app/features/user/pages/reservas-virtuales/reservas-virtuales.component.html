@@ -1,0 +1,77 @@
+<div class="container-padre">
+  <!-- HEADER -->
+  <div class="header">
+    <button class="btn-back" (click)="retroceder()" [disabled]="step === 1">&#x2039;</button>
+    <div class="titulo-header">
+      <span class="badge-step">Paso {{ step }} de 3</span>
+      <h2>Reserva Virtual</h2>
+    </div>
+  </div>
+  <hr />
+
+  <!-- PASO 1: Selección de Profesional -->
+  <div *ngIf="step === 1" class="step-container">
+    <div class="card">
+      <label>Profesional:</label>
+      <select [(ngModel)]="profesionalSeleccionado" (change)="onProfesionalSeleccionado()">
+        <option [ngValue]="null">-- Seleccione un profesional --</option>
+        <option *ngFor="let profesional of profesionales" [value]="profesional.id_profesional">
+          {{ profesional.nombre_completo }}
+        </option>
+      </select>
+
+    </div>
+    <div class="footer-step">
+      <button class="btn-continuar" [disabled]="!profesionalSeleccionado" (click)="continuar()">Continuar</button>
+    </div>
+  </div>
+
+  <!-- PASO 2: Selección de Fecha -->
+  <div *ngIf="step === 2" class="step-container">
+    <div class="card">
+      <label>Fecha:</label>
+      <select [(ngModel)]="fechaSeleccionada">
+        <option *ngFor="let fecha of fechasDisponibles" [value]="fecha.dia">{{ fecha.dia }}</option>
+      </select>
+    </div>
+    <div class="footer-step">
+      <button class="btn-continuar" [disabled]="!fechaSeleccionada" (click)="continuar()">Continuar</button>
+    </div>
+  </div>
+
+  <!-- PASO 3: Tabla de Sesiones -->
+  <div *ngIf="step === 3" class="step-container sesiones-container">
+    <div class="card-row">
+      <div class="card"><label>Profesional:</label><input [value]="nombreProfesional()" readonly /></div>
+      <div class="card"><label>Fecha:</label><input [value]="fechaSeleccionada" readonly /></div>
+    </div>
+
+    <div *ngIf="cargandoSesiones" class="text-muted">Cargando sesiones disponibles…</div>
+    <div *ngIf="!cargandoSesiones && sinSesiones" class="text-danger">No hay sesiones disponibles.</div>
+
+    <div *ngIf="!cargandoSesiones && !sinSesiones" class="tabla-wrapper">
+      <table class="tabla-sesiones">
+        <thead>
+          <tr>
+            <th>Fecha</th><th>Ubicación</th><th>Responsable</th><th>Hora Inicio</th>
+            <th>Hora Fin</th><th>Vacantes totales</th><th>Vacantes libres</th><th>Seleccionar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of sesionesDisponibles; let i = index">
+            <td>{{ s.fecha }}</td><td>{{ s.ubicacion }}</td><td>{{ s.responsable }}</td>
+            <td>{{ s.hora_inicio }}</td><td>{{ s.hora_fin }}</td>
+            <td>{{ s.vacantes_totales }}</td><td>{{ s.vacantes_libres }}</td>
+            <td>
+              <input type="radio" name="radioSesion" [checked]="sesionSeleccionadaIndex === i" (change)="seleccionarSesion(i)" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer-step sesiones-footer">
+      <button class="btn-reservar" [disabled]="sesionSeleccionadaIndex === null" (click)="reservar()">RESERVAR</button>
+    </div>
+  </div>
+</div>

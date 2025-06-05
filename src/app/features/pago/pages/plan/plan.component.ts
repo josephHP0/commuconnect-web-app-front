@@ -139,6 +139,9 @@ export class PlanComponent implements OnInit{
     });
   }*/
  //ahor asi ultimo
+  irAOtraPagina() {
+      this.router.navigate(['/presentacion/comunidades']);
+    }
  comprarPlan(id_plan: number, titulo: string, precio: number, id_comunidad: number) {
   this.pagoService.registrarInscripcion(id_comunidad, id_plan).subscribe({
     next: (respInscripcion) => {

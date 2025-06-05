@@ -8,12 +8,14 @@ import { FormsModule } from '@angular/forms';
 
 import { LayoutModule } from '../../layout/layout.module';
 import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-comunidad.component';
+import { ReservasVirtualesComponent } from './pages/reservas-virtuales/reservas-virtuales.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    SeleccionComunidadComponent
+    SeleccionComunidadComponent,
+    ReservasVirtualesComponent,
   ],
   imports: [
     CommonModule,
