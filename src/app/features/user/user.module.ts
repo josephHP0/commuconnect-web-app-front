@@ -6,12 +6,13 @@ import { UserComponent } from './user.component';
 import { FormsModule } from '@angular/forms';
 
 
-import { LayoutModule } from '../../layout/layout.module';
 import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-comunidad.component';
 import { MisComunidadesComponent } from './mis-comunidades/mis-comunidades.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SesionesComponent } from './sesiones/sesiones.component';
 import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar-servicio.component';
+
+import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar
     CommonModule,
     UserRoutingModule,
     FormsModule,  // 👈 Asegúrate de tener esto aquí
-    LayoutModule
+    UserLayoutModule
+
   ]
 })
 export class UserModule { }

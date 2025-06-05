@@ -1,18 +1,22 @@
-<nav class="navbar">
-  <div class="navbar-logo">
-    <img src="assets/logo_monkey_fit.png" alt="Logo" />
-    <span class="nombre-app">CommuConnect</span>
-  </div>
 
-  <ul class="navbar-links">
-    <li><a routerLink="/presentacion/inicio">Home</a></li>
-    <li><a routerLink="#">Nosotros</a></li>
-    <li><a routerLink="/presentacion/membresias">Membresías</a></li>
-  </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
 
-  <div class="navbar-actions">
-    <button class="btn-outline">Iniciar Sesión</button>
-    <button class="btn-filled">¡Inscríbete Ya!</button>
+    <!-- Izquierda: Imagen y Marca -->
+    <div class="d-flex align-items-center">
+      <img src="assets/logo_monkey_fit.png" alt="Logo Izquierda" height="40" class="me-2" />
+
+    </div>
+
+    <!-- Derecha: Imagen -->
+     <div class="d-flex align-items-center">
+        <!-- Botón Cerrar Sesión -->
+        <button class="btn btn-outline-danger me-3" (click)="cerrarSesion()">Cerrar sesión</button>
+
+        <!-- Logo Admin -->
+        <img src="assets/iconoAdmin.jpg" alt="Logo Derecha" height="40" />
+    </div>
+
   </div>
 </nav>
 

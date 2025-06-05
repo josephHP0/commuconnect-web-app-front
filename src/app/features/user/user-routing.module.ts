@@ -1,6 +1,7 @@
+import { UserLayoutModule } from './../../layout/user-layout/user-layout.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserComponent } from './user.component';
+
 
 //Para las comunidades
 import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-comunidad.component';
@@ -14,24 +15,23 @@ import { HomepageComponent } from './homepage/homepage.component'; // importa el
 import { SesionesComponent } from './sesiones/sesiones.component';
 import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar-servicio.component';
 
+
+import { AdminComponent } from '../../layout/user-layout/admin/admin.component';
+
+
 const routes: Routes = [
   {
     path: '',
-    component: UserComponent,
+    component: AdminComponent,
     children: [
-      { path: '', redirectTo: 'mis-comunidades', pathMatch: 'full' },
+      { path: '', redirectTo: 'homepage', pathMatch: 'full' },
       { path: 'homepage', component: HomepageComponent },
-      { path: 'seleccion-comunidad', component: SeleccionComunidadComponent },
-      { path: 'pago/plan', component: PlanComponent },
-
-      // otras rutas hijas futuras pueden ir aquí
-      { path: 'mis-comunidades', component: MisComunidadesComponent }, // ✅ Nueva ruta
       { path: 'sesiones', component: SesionesComponent },  // ✅ NUEVA RUTA
-      { path: 'seleccionar-servicio', component: SeleccionarServicioComponent },  // ✅ NUEVA RUTA
-      { path: '', redirectTo: 'mis-comunidades', pathMatch: 'full' }
-
+      { path: 'seleccionar-servicio', component: SeleccionarServicioComponent }
     ]
-  }
+  },
+   {path:'mis-comunidades',component:MisComunidadesComponent},
+    {path:'seleccion-comunidad',component:SeleccionComunidadComponent}
 ];
 
 @NgModule({
