@@ -29,11 +29,11 @@
 
     <!-- Lista de comunidades -->
     <div class="comunidad-card" *ngFor="let comunidad of comunidadesFiltradas">
-      <img
-        [src]="comunidad.imagen_base64"
-        [alt]="comunidad.nombre"
-        class="imagen-comunidad"
-      />
+   <img
+  [src]="comunidad.imagen"
+  [alt]="comunidad.nombre"
+  class="imagen-comunidad"
+/>
       <h2 class="nombre-comunidad">{{ comunidad.nombre }}</h2>
       <p class="descripcion-comunidad">{{ comunidad.descripcion }}</p>
 

@@ -16,7 +16,7 @@ export class MisComunidadesComponent implements OnInit {
     private comunidadService: ComunidadService,
     private router: Router
   ) {}
-
+/*
   ngOnInit(): void {
     this.comunidadService.obtenerComunidades().subscribe({
       next: (data) => {
@@ -28,6 +28,24 @@ export class MisComunidadesComponent implements OnInit {
       }
     });
   }
+*/
+ngOnInit(): void {
+  this.comunidadService.obtenerComunidades().subscribe({
+    next: (data) => {
+      this.comunidades = data.map(comunidad => ({
+        ...comunidad,
+        imagen: comunidad.imagen
+          ? `data:image/png;base64,${comunidad.imagen}`
+          : 'assets/imagen-por-defecto.png' // fallback si está vacía
+      }));
+      this.comunidadesFiltradas = [...this.comunidades];
+    },
+    error: (error) => {
+      console.error('Error al obtener comunidades:', error);
+    }
+  });
+}
+
 
   filtrarComunidades(): void {
     const termino = this.busqueda.toLowerCase();

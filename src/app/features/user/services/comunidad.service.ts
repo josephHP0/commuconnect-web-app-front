@@ -19,7 +19,7 @@ export interface ComunidadContexto {
   id_comunidad: number;
   nombre: string;
   descripcion: string;
-  imagen_base64: string;
+  imagen: string;
   servicios: Servicio[];
   estado_membresia: string;
 }

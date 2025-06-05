@@ -25,7 +25,7 @@
     <div class="bloque-central" *ngIf="comunidad">
       <h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>
 
-      <img [src]="comunidad.imagen_base64" [alt]="comunidad.nombre" class="imagen-principal pequeña" />
+      <img [src]="comunidad.imagen" [alt]="comunidad.nombre" class="imagen-principal pequeña" />
 
       <p class="descripcion">
         {{ comunidad.descripcion }}
