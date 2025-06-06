@@ -8,6 +8,7 @@ export interface FechaSesion {
   id_sesion: number | null;
   dia: string | null;
   hora: string | null;
+  vacantes_libres?: number;
 }
 
 @Injectable({
@@ -45,10 +46,9 @@ export class ReservasVirtualesService {
 
 
   // GET /api/reservations/reserva-existe/{id_sesion}
-  verificarReservaExiste(idSesion: number): Observable<boolean> {
-    return this.http.get<{ reserva_existente: boolean }>(`${this.baseUrl}/reservations/reserva-existe/${idSesion}`)
-      .pipe(
-        map(response => response.reserva_existente)
-      );
+
+  verificarReservaExiste(id_sesion: number): Observable<{ reserva_existente: boolean }> {
+    return this.http.get<{ reserva_existente: boolean }>(`${this.baseUrl}/reservations/reserva-existe/${id_sesion}`);
   }
+
 }

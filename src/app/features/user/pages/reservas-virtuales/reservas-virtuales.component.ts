@@ -18,8 +18,15 @@ export class ReservasVirtualesComponent implements OnInit {
   fechaSeleccionada: string | null = null;
   cargandoFechas = false;
 
+  fechasMapeadas: { [key: string]: FechaSesion[] } = {};
+  horasDisponibles: FechaSesion[] = [];
+  horaSeleccionada: FechaSesion | null = null;
+
   // Horas y sesiones NO están disponibles por endpoints, los removemos por ahora
   // Si luego agregas endpoints para horas y sesiones, puedes volver a implementar
+  cargandoReserva: boolean = false;
+  vacantesLibres: number = 0;
+  reservaExistente: boolean = false;
 
   sesionesDisponibles: any[] = [];
   cargandoSesiones = false;
@@ -29,6 +36,7 @@ export class ReservasVirtualesComponent implements OnInit {
   idServicioSeleccionado!: number;
   id_comunidad: number = 0;
   topesEstado: string | null = null;
+  
   constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -38,6 +46,7 @@ export class ReservasVirtualesComponent implements OnInit {
 
     // Hardcodeas idServicio por ahora
     this.idServicioSeleccionado = 4;
+    
 
     this.reservaService.getProfesionales(this.idServicioSeleccionado).subscribe({
       next: (data) => {
@@ -78,6 +87,10 @@ export class ReservasVirtualesComponent implements OnInit {
     if (this.step < 3) {
       this.step++;
     }
+    if (this.step === 2 && this.fechaSeleccionada && this.horaSeleccionada) {
+      this.cargarSesionesDisponibles();
+    }
+
   }
 
 
@@ -108,7 +121,7 @@ export class ReservasVirtualesComponent implements OnInit {
   }
 
 
-  cargarFechas() {
+  /*cargarFechas() {
     if (this.profesionalSeleccionado == null) return;
 
     this.cargandoFechas = true;
@@ -122,7 +135,74 @@ export class ReservasVirtualesComponent implements OnInit {
         this.cargandoFechas = false;
       }
     });
+  }*/
+  cargarFechas() {
+    if (this.profesionalSeleccionado == null) return;
+
+    this.cargandoFechas = true;
+    this.reservaService.getFechasDisponibles(this.profesionalSeleccionado).subscribe({
+      next: fechas => {
+        this.fechasDisponibles = fechas;
+
+        // Agrupar por fecha
+        this.fechasMapeadas = fechas.reduce((acc, f) => {
+          if (!f.dia) return acc;
+          if (!acc[f.dia]) acc[f.dia] = [];
+          acc[f.dia].push(f);
+          return acc;
+        }, {} as { [key: string]: FechaSesion[] });
+
+        this.cargandoFechas = false;
+      },
+      error: err => {
+        console.error('Error al cargar fechas:', err);
+        this.cargandoFechas = false;
+      }
+    });
   }
+  onFechaSeleccionada(fecha: string | null) {
+    if (!fecha) return;
+
+    this.fechaSeleccionada = fecha;
+    this.horasDisponibles = this.fechasMapeadas[fecha] || [];
+    this.horaSeleccionada = null;
+  }
+  cargarSesionesDisponibles() {
+    this.cargandoSesiones = true;
+    this.sinSesiones = false;
+    this.sesionSeleccionadaIndex = null;
+    this.vacantesLibres = 0; // Reset
+
+    const sesiones = this.horasDisponibles.filter(h => h.hora === this.horaSeleccionada?.hora);
+    const promesas = sesiones.map(async (sesion) => {
+      const existe = await this.reservaService.verificarReservaExiste(sesion.id_sesion!).toPromise();
+      return {
+        ...sesion,
+        vacantes_libres: existe ? 0 : 1,
+        existeReserva: existe
+      };
+    });
+
+    Promise.all(promesas).then(sesionesConVacantes => {
+      this.sesionesDisponibles = sesionesConVacantes;
+
+      // Actualizar contadores globales
+      const vacantes = sesionesConVacantes.filter(s => s.vacantes_libres > 0).length;
+      const algunaReservaExiste = sesionesConVacantes.some(s => s.existeReserva);
+
+      this.vacantesLibres = vacantes;
+      this.reservaExistente = algunaReservaExiste;
+
+      this.cargandoSesiones = false;
+      this.sinSesiones = this.sesionesDisponibles.length === 0;
+    }).catch(err => {
+      console.error('Error cargando sesiones:', err);
+      this.cargandoSesiones = false;
+      this.sinSesiones = true;
+    });
+  }
+
+
 
 
   seleccionarSesion(index: number) {
@@ -135,7 +215,9 @@ export class ReservasVirtualesComponent implements OnInit {
       return;
     }
 
-    const sesion = this.fechasDisponibles[this.sesionSeleccionadaIndex];
+    //const sesion = this.fechasDisponibles[this.sesionSeleccionadaIndex];
+    const sesion = this.sesionesDisponibles[this.sesionSeleccionadaIndex];
+
     if (!sesion || !sesion.id_sesion_virtual) {
       alert("Sesión inválida.");
       return;

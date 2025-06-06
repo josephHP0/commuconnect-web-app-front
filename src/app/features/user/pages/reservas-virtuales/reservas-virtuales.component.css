@@ -74,8 +74,9 @@ hr {
   display: block;
   font-weight: bold;
   margin-bottom: 6px;
-  color: #2e7d32;
+  color: #444444; /* negro suave */
 }
+
 
 /* SELECT E INPUT DENTRO DE .card */
 .card select,
@@ -277,4 +278,95 @@ input[type="radio"] {
   display: flex;
   align-items: center;
   gap: 12px;  /* separa el badge del bloque del título */
+}
+.resumen-seleccion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Rectángulo para profesional */
+.card-profesional {
+  background-color: #FFF; /* celeste claro amigable */
+  border: 1.5px solid b2dfdb; /* borde negro */
+  border-radius: 8px;
+  padding: 0 16px;
+  height: 40px; /* delgado */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* alineado a la izquierda */
+  font-weight: 600;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7); /* negro menos intenso */
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* Rectángulo para fecha y hora juntos */
+.card-fecha-hora {
+  background-color: #FFF;
+  border: 1.5px solid b2dfdb;
+  border-radius: 8px;
+  padding: 0 16px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* alineado a la izquierda */
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  gap: 40px; /* separación entre fecha y hora */
+}
+
+.card-fecha-hora > div {
+  /* texto alineado a la izquierda */
+  flex: none; /* para que no se estiren */
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+
+.tabla-wrapper {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.tabla-sesiones {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-sesiones th,
+.tabla-sesiones td {
+  border: 1px solid #b2dfdb;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #2e7d32;
+}
+
+.tabla-sesiones th {
+  background-color: #d4edda;
+  font-weight: 700;
+}
+.cuadro-resumen {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 15px;
+  max-width: 400px;
+  color: #2D2D2D;
+}
+.cuadro-resumen div {
+  margin-bottom: 6px;
 }

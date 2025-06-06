@@ -52,51 +52,107 @@
           class="fecha-item"
           *ngFor="let fecha of fechasDisponibles"
           [class.selected]="fechaSeleccionada === fecha.dia"
-          (click)="fechaSeleccionada = fecha.dia"
+          (click)="onFechaSeleccionada(fecha.dia)"
         >
           {{ fecha.dia }}
+        </div>
+
+
+      </div>
+    </div>
+    <!-- Nuevo bloque: Horas disponibles para la fecha -->
+    <div class="card" *ngIf="fechaSeleccionada && horasDisponibles.length">
+      <label>Horas disponibles para {{ fechaSeleccionada }}</label>
+      <div class="fechas-container">
+        <div
+          class="fecha-item"
+          *ngFor="let hora of horasDisponibles"
+          [class.selected]="horaSeleccionada?.hora === hora.hora"
+          (click)="horaSeleccionada = hora"
+        >
+          {{ hora.hora }}
         </div>
       </div>
     </div>
 
     <div class="footer-step">
-      <button class="btn-continuar" [disabled]="!fechaSeleccionada" (click)="continuar()">Continuar</button>
+            <button
+        class="btn-continuar"
+        [disabled]="!fechaSeleccionada || !horaSeleccionada"
+        (click)="continuar()"
+      >
+        Continuar
+      </button>
     </div>
   </div>
 
-  <!-- PASO 3: Tabla de Sesiones -->
-  <div *ngIf="step === 3" class="step-container sesiones-container">
-    <div class="card-row">
-      <div class="card"><label>Profesional elegido:</label><input [value]="nombreProfesional()" readonly /></div>
-      <div class="card"><label>Fecha elegida:</label><input [value]="fechaSeleccionada" readonly /></div>
+  <!-- PASO 3: Confirmación de la sesión -->
+  <div *ngIf="step === 3" class="step-container sesiones-container container-padre">
+
+    <div *ngIf="cargandoReserva" class="text-muted">
+      Verificando disponibilidad…
     </div>
 
-    <div *ngIf="cargandoSesiones" class="text-muted">Cargando sesiones disponibles…</div>
-    <div *ngIf="!cargandoSesiones && sinSesiones" class="text-danger">No hay sesiones disponibles.</div>
+    <div *ngIf="!cargandoReserva">
 
-    <div *ngIf="!cargandoSesiones && !sinSesiones" class="tabla-wrapper">
-      <table class="tabla-sesiones">
-        <thead>
-          <tr>
-            <th>Fecha</th><th>Ubicación</th><th>Responsable</th><th>Hora Inicio</th>
-            <th>Hora Fin</th><th>Vacantes totales</th><th>Vacantes libres</th><th>Seleccionar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let s of sesionesDisponibles; let i = index">
-            <td>{{ s.fecha }}</td><td>{{ s.ubicacion }}</td><td>{{ s.responsable }}</td>
-            <td>{{ s.hora_inicio }}</td><td>{{ s.hora_fin }}</td>
-            <td>{{ s.vacantes_totales }}</td><td>{{ s.vacantes_libres }}</td>
-            <td>
-              <input type="radio" name="radioSesion" [checked]="sesionSeleccionadaIndex === i" (change)="seleccionarSesion(i)" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Resumen arriba en formato tarjetas -->
+      <!-- Resumen en un recuadro blanco -->
+      <!-- NUEVO RESUMEN EN FORMATO TARJETAS -->
+      <div class="resumen-seleccion">
+        <div class="card-profesional">
+          <span>👩‍⚕️ {{ nombreProfesional() }}</span>
+        </div>
+
+        <div class="card-fecha-hora">
+          <div>📅 {{ fechaSeleccionada }}</div>
+          <div>⏰ {{ horaSeleccionada?.hora }}</div>
+        </div>
+      </div>
+
+
+
+
+
+      <!-- Tabla con detalle de la sesión -->
+      <div class="tabla-wrapper">
+        <table class="tabla-sesiones">
+          <thead>
+            <tr>
+              <th>Profesional</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Vacantes libres</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ nombreProfesional() }}</td>
+              <td>{{ fechaSeleccionada }}</td>
+              <td>{{ horaSeleccionada?.hora }}</td>
+              <td>{{ vacantesLibres }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="reservaExistente" class="text-danger" style="margin-top: 0.5rem;">
+        Ya tienes una reserva para esta sesión.
+      </div>
+
+      <div class="footer-step sesiones-footer">
+        <button
+          class="btn-reservar"
+          [disabled]="reservaExistente || vacantesLibres === 0"
+          (click)="reservar()"
+        >
+          Confirmar Reserva
+        </button>
+      </div>
     </div>
 
-    <div class="footer-step sesiones-footer">
-      <button class="btn-reservar" [disabled]="sesionSeleccionadaIndex === null" (click)="reservar()">RESERVAR</button>
-    </div>
   </div>
+
+
+
+  
 </div>
