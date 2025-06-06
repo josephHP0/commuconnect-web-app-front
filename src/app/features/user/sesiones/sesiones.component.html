@@ -14,11 +14,13 @@
         <label><strong>Filtrar por distrito:</strong></label>
         <select [(ngModel)]="distritoSeleccionado" (change)="filtrarPorDistrito()" class="form-select">
           <option value="">Seleccionar distrito</option>
-          <option *ngFor="let d of distritos" [value]="d">{{ d }}</option>
+          <option *ngFor="let d of distritos" [ngValue]="d">{{ d.nombre }}</option>
+
+         <!--<option *ngFor="let d of distritos" [value]="d">{{ d }}</option>-->
         </select>
       </div>
 
-      <!-- Nivel 1: Tarjetas de distritos -->
+      <!-- Nivel 1: Tarjetas de distritos
       <div class="tarjetas" *ngIf="!distritoSeleccionado">
         <div
           class="tarjeta"
@@ -27,10 +29,31 @@
         >
           <img [src]="local.imagen" [alt]="local.distrito" />
           <div>
-            <h4>{{ local.distrito }}</h4>
+            <h4>{{ local.distrito?.distrito }}</h4>
           </div>
         </div>
       </div>
+ -->
+
+<div class="tarjetas" *ngIf="!distritoSeleccionado">
+  <div
+    class="tarjeta"
+    *ngFor="let d of distritos"
+    (click)="distritoSeleccionado = d; filtrarPorDistrito()"
+  >
+    <img [src]="d.imagen || 'ruta-default.jpg'" [alt]="d.nombre" />
+    <div>
+      <h4>{{ d.nombre }}</h4>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
 
       <!-- FILTRO LOCAL: visible si hay distrito seleccionado -->
       <!-- FILTRO LOCAL: siempre visible si hay distrito seleccionado -->
@@ -53,7 +76,7 @@
           <img [src]="local.imagen" [alt]="local.nombre" />
           <div>
             <h4>{{ local.nombre }}</h4>
-            <p>{{ local.direccion }}</p>
+            <p>{{ local.direccion_detallada }}</p>
           </div>
         </div>
       </div>

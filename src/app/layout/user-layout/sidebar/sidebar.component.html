@@ -22,12 +22,18 @@
   </li>
 
 
-  <li class="sidebar-item">
-    <a href="#" class="sidebar-link" (click)="$event.preventDefault()">
-      <i class="bi bi-grid-fill me-2"></i>
-      <span>Servicios y Horarios</span>
-    </a>
-  </li>
+
+
+
+<li class="sidebar-item">
+  <a class="sidebar-link" [routerLink]="['seleccionar-servicio']">
+    <i class="bi bi-grid-fill me-2"></i>
+    <span>Servicios y Horarios</span>
+  </a>
+</li>
+
+
+
 
   <li class="sidebar-item">
     <a href="#" class="sidebar-link" (click)="$event.preventDefault()">
