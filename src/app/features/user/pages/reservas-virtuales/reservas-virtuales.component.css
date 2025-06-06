@@ -197,13 +197,13 @@ input[type="radio"] {
 
 .fecha-item:hover {
   background-color: #e6f2e6;
-  border-color: #28a745;
+  border-color: #E0E0E0;
 }
 
 .fecha-item.selected {
-  background-color: #28a745;
-  color: white;
-  border-color: #28a745;
+  background-color: #E0E0E0;
+  /*color: white;*/
+  border-color: #E0E0E0;
   font-weight: bold;
 }
 /*profesionañ*/
@@ -229,13 +229,13 @@ input[type="radio"] {
 
 .profesional-item:hover {
   background-color: #e6f2e6;
-  border-color: #28a745;
+  border-color: #E0E0E0;
 }
 
 .profesional-item.selected {
-  background-color: #28a745;
-  color: white;
-  border-color: #28a745;
+  background-color: #E0E0E0;
+  /*color: white;*/
+  border-color: #E0E0E0;
   font-weight: bold;
 }
 
