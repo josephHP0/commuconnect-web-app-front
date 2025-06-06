@@ -27,18 +27,17 @@ export class ReservasVirtualesComponent implements OnInit {
   sinSesiones: boolean = false;
 
   idServicioSeleccionado!: number;
-
+  id_comunidad: number = 0;
+  topesEstado: string | null = null;
   constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    /*this.route.params.subscribe(params => {
-      this.idServicioSeleccionado = +params['id_servicio'];
-      this.reservaService.getProfesionales(this.idServicioSeleccionado).subscribe(data => {
-        this.profesionales = data;
-      });
-    });*/
-     // TEMPORAL: Hardcodeamos el ID del servicio (por ejemplo: 1)
-    this.idServicioSeleccionado = 4; // HARDCODEADO
+    // Recuperar id_comunidad desde localStorage
+    const storedId = localStorage.getItem('id_comunidad');
+    this.id_comunidad = storedId ? +storedId : 0;
+
+    // Hardcodeas idServicio por ahora
+    this.idServicioSeleccionado = 4;
 
     this.reservaService.getProfesionales(this.idServicioSeleccionado).subscribe({
       next: (data) => {
@@ -49,7 +48,22 @@ export class ReservasVirtualesComponent implements OnInit {
         console.error('Error cargando profesionales:', err);
       }
     });
+
+    this.reservaService.getTopes(this.id_comunidad).subscribe({
+      next: (topes) => {
+        if (topes.estado === 'Ilimitado') {
+          this.topesEstado = '¡Reservas ilimitadas!';
+        } else {
+          this.topesEstado = `Reservas disponibles: ${topes.topes_disponibles}`;
+        }
+      },
+      error: (err) => {
+        console.error('Error obteniendo topes:', err);
+        this.topesEstado = null;
+      }
+    });
   }
+
 
   continuar() {
     if (this.step === 1) {

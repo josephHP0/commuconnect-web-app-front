@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -30,6 +30,19 @@ export class ReservasVirtualesService {
         map(response => response.fechas_inicio)
       );
   }
+
+ getTopes(idComunidad: number): Observable<any> {
+    const token_type = localStorage.getItem('token_type') || 'Bearer';
+    const access_token = localStorage.getItem('access_token') || '';
+
+    const headers = new HttpHeaders({
+      'Authorization': `${token_type} ${access_token}`
+    });
+
+    return this.http.get<any>(`${this.baseUrl}/usuarios/usuario/comunidad/${idComunidad}/topes`,{ headers });
+  }
+
+
 
   // GET /api/reservations/reserva-existe/{id_sesion}
   verificarReservaExiste(idSesion: number): Observable<boolean> {

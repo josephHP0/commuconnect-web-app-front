@@ -8,9 +8,15 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
+  padding: 0 10px; /* opcional para algo de margen horizontal */
 }
-
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .btn-back {
   font-size: 24px;
   background: none;
@@ -238,4 +244,37 @@ input[type="radio"] {
   border-color: #E0E0E0;
   font-weight: bold;
 }
+/* Contenedor centro: título y reservas, centrados vertical y horizontalmente */
+.titulo-con-reservas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1; /* para tomar todo el espacio restante */
+}
+/* Título centrado */
+.titulo-con-reservas h2 {
+  margin: 0;
+  font-weight: 700;
+}
+/* Estilo para el texto de “!Reservas disponibles: X!” */
+.reservas-disponibles {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2D2D2D; /* verde oscuro amigable para texto */
+  background-color: #FFEAB2; /* verde muy suave de fondo */
+  border: 1.5px solid #FFEAB2; /* borde verde claro */
+  border-radius: 8px; /* bordes redondeados tipo cápsula */
+  padding: 4px 12px;
+  margin-top: 6px;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(21, 87, 40, 0.3);
+  max-width: fit-content; /* que el tamaño se ajuste al contenido */
+}
 
+
+/* Opcional: si quieres espaciar más el badge con el bloque del título */
+.titulo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;  /* separa el badge del bloque del título */
+}

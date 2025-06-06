@@ -87,7 +87,8 @@ export class SeleccionComunidadComponent implements OnInit {
   //agrego para registrar la inscripción
 
 
-unirse(): void {
+  //esto es con queryparams
+/*unirse(): void {
   if (!this.currentCommunity) return;
 
   this.comunidadService.unirseAComunidad(this.currentCommunity.id_comunidad).subscribe({
@@ -100,7 +101,7 @@ unirse(): void {
       }).then(() => {
         this.router.navigate(['/pago/plan'], {
           queryParams: { id_comunidad: this.currentCommunity?.id_comunidad }
-        });
+        }); 
       });
     },
     error: () => {
@@ -111,11 +112,41 @@ unirse(): void {
         confirmButtonText: 'Cerrar'
       });
     }
-  });
+  });*/
+  unirse(): void {
+    if (!this.currentCommunity) return;
+
+    const comunidad = this.currentCommunity; // Alias con tipo no nulo
+
+    this.comunidadService.unirseAComunidad(comunidad.id_comunidad).subscribe({
+      next: () => {
+        localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString());
+
+        Swal.fire({
+          icon: 'success',
+          title: '¡Te uniste con éxito!',
+          text: `Ahora formas parte de: ${comunidad.nombre}`,
+          confirmButtonText: 'Continuar'
+        }).then(() => {
+          this.router.navigate(['/pago/plan']);
+        });
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo unir a la comunidad. Intenta nuevamente.',
+          confirmButtonText: 'Cerrar'
+        });
+      }
+    });
+  }
+
+
 }
 
 
 
 
-}
+
 

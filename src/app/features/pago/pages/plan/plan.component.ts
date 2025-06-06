@@ -23,11 +23,9 @@ export class PlanComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    //agrego para obtener el id_comunidad desde la ruta
-     // Obtener id_comunidad de query params o route params
-    this.route.queryParams.subscribe(params => {
-      this.id_comunidad = +params['id_comunidad'] || 0;
-    });
+    // Obtener id_comunidad desde localStorage
+    const storedId = localStorage.getItem('id_comunidad');
+    this.id_comunidad = storedId ? +storedId : 0;
 
     // luego cargas los planes
     this.pagoService.getPlanes().subscribe({
@@ -43,102 +41,7 @@ export class PlanComponent implements OnInit{
     });
   }
 
-  /*comprarPlan(id_plan: number, titulo: string, precio: number) {
-  this.pagoService.seleccionarPlan(id_plan).subscribe({
-    next: (respuesta) => {
-      // Redirige a la pantalla de selección de pago con los datos del plan
-      this.router.navigate(['/pago/selection'], {
-        queryParams: {
-          titulo,
-          precio,
-          id_plan
-        }
-      });
-    },
-    error: (error) => {
-      console.error('Error al seleccionar el plan:', error);
-      alert('Hubo un error al procesar el plan. Intenta nuevamente.');
-    }
-  });
-}*/
-  /*comprarPlan(id_plan: number, titulo: string, precio: number, id_comunidad: number) {
-    this.pagoService.registrarInscripcion(id_comunidad, id_plan).subscribe({
-      next: (respuesta) => {
-        console.log('Inscripción registrada:', respuesta);
-        // Redirige a la pantalla de selección de pago
-        this.router.navigate(['/pago/selection'], {
-          queryParams: {
-            titulo,
-            precio,
-            id_plan,
-            id_comunidad // para usarlo luego en el pago final
-          }
-        });
-      },
-      error: (error) => {
-        console.error('Error al registrar inscripción:', error);
-        alert('No se pudo registrar la inscripción.');
-      }
-    });
-  }*/
- //esto queda antes
-  /*comprarPlan(id_plan: number, titulo: string, precio: number, id_comunidad: number) {
-    // 1. Crear pago pendiente llamando al endpoint correspondiente
-    this.pagoService.seleccionarPlan(id_plan).subscribe({
-    next: (respPagoPendiente) => {
-      console.log('Pago pendiente creado:', respPagoPendiente);
 
-      this.pagoService.registrarInscripcion(id_comunidad, id_plan, respPagoPendiente.id_pago).subscribe({
-        next: (respInscripcion) => {
-          console.log('Inscripción registrada:', respInscripcion);
-
-          this.router.navigate(['/pago/selection'], {
-            queryParams: {
-              titulo,
-              precio,
-              id_plan,
-              id_comunidad,
-              id_pagoPendiente: respPagoPendiente.id_pago // <- Agregado
-            }
-          });
-        },
-        error: (error) => {
-          console.error('Error al registrar inscripción:', error);
-          alert('No se pudo registrar la inscripción.');
-        }
-      });
-    },
-    error: (error) => {
-      console.error('Error al crear pago pendiente:', error);
-      alert('No se pudo crear el pago pendiente.');
-    }
-  });
-
-  }*/
-  //probamos
-  /*comprarPlan(id_plan: number, titulo: string, precio: number, id_comunidad: number) {
-    // Llama al nuevo endpoint que gestiona la inscripción y el pago si es necesario
-    this.pagoService.registrarInscripcion(id_comunidad, id_plan).subscribe({
-      next: (respInscripcion) => {
-        console.log('Inscripción registrada:', respInscripcion);
-
-        this.router.navigate(['/pago/selection'], {
-          queryParams: {
-            titulo,
-            precio,
-            id_plan,
-            id_comunidad,
-            id_pagoPendiente: respInscripcion.id_pago // <- asumiendo que lo devuelve
-          }
-        });
-      },
-      error: (error) => {
-        console.error('Error al registrar inscripción:', error);
-        alert('No se pudo registrar la inscripción.');
-      }
-    });
-  }*/
- //ahor asi ultimo
   irAOtraPagina() {
       this.router.navigate(['/presentacion/comunidades']);
     }

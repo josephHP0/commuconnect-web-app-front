@@ -2,15 +2,21 @@
 
   <!-- =========== HEADER =========== -->
   <div class="header">
-    <!-- Flecha para retroceder (Paso actual > 1) -->
-    <button class="btn-back" (click)="retroceder()" [disabled]="step === 1">&#x2039;</button>
-
-    <!-- Indicador de paso y título -->
-    <div class="titulo-header">
+    <!-- Izquierda: Flecha y badge de paso -->
+    <div class="header-left">
+      <button class="btn-back" (click)="retroceder()" [disabled]="step === 1">&#x2039;</button>
       <span class="badge-step">Paso {{ step }} de 3</span>
+    </div>
+
+    <!-- Centro: título y reservas -->
+    <div class="titulo-con-reservas">
       <h2>Sesiones Disponibles</h2>
+      <span *ngIf="topesEstado" class="reservas-disponibles">
+        {{ topesEstado }}
+      </span>
     </div>
   </div>
+
   <hr />
 
   <!-- PASO 1: Selección de Profesional -->
