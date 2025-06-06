@@ -31,9 +31,10 @@ export class PagoService {
 
 
   //para planes
-  getPlanes(): Observable<Plan[]> {
-      return this.http.get<Plan[]>(`${this.baseUrl}/billing/planes`);
+  getPlanesPorComunidad(idComunidad: number): Observable<Plan[]> {
+    return this.http.get<Plan[]>(`${this.baseUrl}/billing/comunidades/${idComunidad}/planes`);
   }
+
   
   registrarInscripcion(id_comunidad: number, id_plan?: number): Observable<any> {
     const token_type = localStorage.getItem('token_type') || 'Bearer';

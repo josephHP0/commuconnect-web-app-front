@@ -28,7 +28,7 @@ export class PlanComponent implements OnInit{
     this.id_comunidad = storedId ? +storedId : 0;
 
     // luego cargas los planes
-    this.pagoService.getPlanes().subscribe({
+    this.pagoService.getPlanesPorComunidad(this.id_comunidad).subscribe({
       next: (data) => {
         console.log('Planes recibidos:', data);
         this.planes = data;
