@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ServicioService } from '../services/servicio.service';
 
 @Component({
   selector: 'app-seleccionar-servicio',
@@ -9,10 +9,13 @@ import { Router } from '@angular/router';
 })
 export class SeleccionarServicioComponent implements OnInit {
   servicios: any[] = [];
-  idComunidad: number = 1; // puedes setearlo dinámicamente si lo tienes en sesión
+  idComunidad: number = 1;
   topes: number = 0;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private servicioService: ServicioService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.obtenerServicios();
@@ -20,7 +23,7 @@ export class SeleccionarServicioComponent implements OnInit {
   }
 
   obtenerServicios() {
-    this.http.get<any[]>(`/usuario/comunidad/${this.idComunidad}`)
+    this.servicioService.obtenerServiciosPorComunidad(this.idComunidad)
       .subscribe({
         next: (data) => this.servicios = data,
         error: (err) => console.error('Error al cargar servicios', err)
@@ -28,7 +31,7 @@ export class SeleccionarServicioComponent implements OnInit {
   }
 
   obtenerTopes() {
-    this.http.get<any>(`/usuario/comunidad/${this.idComunidad}/topes`)
+    this.servicioService.obtenerTopesPorComunidad(this.idComunidad)
       .subscribe({
         next: (res) => this.topes = res.tope || 0,
         error: (err) => console.error('Error al cargar topes', err)
