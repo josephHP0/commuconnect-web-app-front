@@ -76,6 +76,10 @@ export class ReservasVirtualesComponent implements OnInit {
     this.fechasDisponibles = [];
     this.step = 1;
   }
+  seleccionarProfesional(profesional: any) {
+    this.profesionalSeleccionado = profesional.id_profesional;
+    this.onProfesionalSeleccionado(); 
+  }
 
   onProfesionalSeleccionado() {
     this.resetFechas();

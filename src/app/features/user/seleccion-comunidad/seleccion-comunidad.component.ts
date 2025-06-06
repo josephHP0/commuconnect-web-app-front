@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Comunidad,ComunidadService } from '../services/comunidad.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-seleccion-comunidad',
   templateUrl: './seleccion-comunidad.component.html',
@@ -14,6 +15,7 @@ export class SeleccionComunidadComponent implements OnInit {
   currentCommunity: Comunidad | null = null;
   busqueda: string = '';
   errorMessage: string = '';
+  mensajeConfirmacion: string | null = null;
 
   constructor(
     private comunidadService: ComunidadService,
@@ -83,20 +85,36 @@ export class SeleccionComunidadComponent implements OnInit {
   });
   }*/
   //agrego para registrar la inscripción
-  unirse(): void {
-    if (!this.currentCommunity) return;
 
-    this.comunidadService.unirseAComunidad(this.currentCommunity.id_comunidad).subscribe({
-      next: () => {
-        alert(`Te uniste a la comunidad: ${this.currentCommunity?.nombre}`);
+
+unirse(): void {
+  if (!this.currentCommunity) return;
+
+  this.comunidadService.unirseAComunidad(this.currentCommunity.id_comunidad).subscribe({
+    next: () => {
+      Swal.fire({
+        icon: 'success',
+        title: '¡Te uniste con éxito!',
+        text: `Ahora formas parte de: ${this.currentCommunity?.nombre}`,
+        confirmButtonText: 'Continuar'
+      }).then(() => {
         this.router.navigate(['/pago/plan'], {
           queryParams: { id_comunidad: this.currentCommunity?.id_comunidad }
         });
+      });
+    },
+    error: () => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo unir a la comunidad. Intenta nuevamente.',
+        confirmButtonText: 'Cerrar'
+      });
+    }
+  });
+}
 
-      },
-      error: () => alert('Error al intentar unirte a la comunidad')
-    });
-  }
+
 
 
 }

@@ -1,3 +1,12 @@
+.purchase-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* altura total de la pantalla */
+  background-color: #f0f2f5; /* opcional: fondo suave */
+  padding: 20px; /* para que no se pegue en pantallas pequeñas */
+}
+
 .purchase-summary {
   max-width: 480px;
   margin: 40px auto;

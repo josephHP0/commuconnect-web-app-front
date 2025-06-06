@@ -1,10 +1,14 @@
 <div class="container-padre">
-  <!-- HEADER -->
+
+  <!-- =========== HEADER =========== -->
   <div class="header">
+    <!-- Flecha para retroceder (Paso actual > 1) -->
     <button class="btn-back" (click)="retroceder()" [disabled]="step === 1">&#x2039;</button>
+
+    <!-- Indicador de paso y título -->
     <div class="titulo-header">
       <span class="badge-step">Paso {{ step }} de 3</span>
-      <h2>Reserva Virtual</h2>
+      <h2>Sesiones Disponibles</h2>
     </div>
   </div>
   <hr />
@@ -12,15 +16,19 @@
   <!-- PASO 1: Selección de Profesional -->
   <div *ngIf="step === 1" class="step-container">
     <div class="card">
-      <label>Profesional:</label>
-      <select [(ngModel)]="profesionalSeleccionado" (change)="onProfesionalSeleccionado()">
-        <option [ngValue]="null">-- Seleccione un profesional --</option>
-        <option *ngFor="let profesional of profesionales" [value]="profesional.id_profesional">
+      <label>Profesionales:</label>
+      <div class="profesionales-container">
+        <div
+          class="profesional-item"
+          *ngFor="let profesional of profesionales"
+          [class.selected]="profesionalSeleccionado === profesional.id_profesional"
+          (click)="seleccionarProfesional(profesional)"
+        >
           {{ profesional.nombre_completo }}
-        </option>
-      </select>
-
+        </div>
+      </div>
     </div>
+
     <div class="footer-step">
       <button class="btn-continuar" [disabled]="!profesionalSeleccionado" (click)="continuar()">Continuar</button>
     </div>
@@ -28,12 +36,23 @@
 
   <!-- PASO 2: Selección de Fecha -->
   <div *ngIf="step === 2" class="step-container">
-    <div class="card">
-      <label>Fecha:</label>
-      <select [(ngModel)]="fechaSeleccionada">
-        <option *ngFor="let fecha of fechasDisponibles" [value]="fecha.dia">{{ fecha.dia }}</option>
-      </select>
+    <div class="card-row">
+      <div class="card"><label>Profesional elegido:</label><input [value]="nombreProfesional()" readonly /></div>
     </div>
+    <div class="card">
+      <label>Fecha de inicio</label>
+      <div class="fechas-container">
+        <div
+          class="fecha-item"
+          *ngFor="let fecha of fechasDisponibles"
+          [class.selected]="fechaSeleccionada === fecha.dia"
+          (click)="fechaSeleccionada = fecha.dia"
+        >
+          {{ fecha.dia }}
+        </div>
+      </div>
+    </div>
+
     <div class="footer-step">
       <button class="btn-continuar" [disabled]="!fechaSeleccionada" (click)="continuar()">Continuar</button>
     </div>
@@ -42,8 +61,8 @@
   <!-- PASO 3: Tabla de Sesiones -->
   <div *ngIf="step === 3" class="step-container sesiones-container">
     <div class="card-row">
-      <div class="card"><label>Profesional:</label><input [value]="nombreProfesional()" readonly /></div>
-      <div class="card"><label>Fecha:</label><input [value]="fechaSeleccionada" readonly /></div>
+      <div class="card"><label>Profesional elegido:</label><input [value]="nombreProfesional()" readonly /></div>
+      <div class="card"><label>Fecha elegida:</label><input [value]="fechaSeleccionada" readonly /></div>
     </div>
 
     <div *ngIf="cargandoSesiones" class="text-muted">Cargando sesiones disponibles…</div>

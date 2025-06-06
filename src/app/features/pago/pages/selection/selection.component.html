@@ -1,26 +1,28 @@
-<div class="purchase-summary">
-  <header class="summary-header">
-    <h2>Resumen de tu compra</h2>
-  </header>
+<div class="purchase-wrapper">
+  <div class="purchase-summary">
+    <header class="summary-header">
+      <h2>Resumen de tu compra</h2>
+    </header>
 
-  <section class="payment-methods">
-    <div class="cards-container">
-      <img src="assets/visa.jpg" alt="Visa" />
-      <img src="assets/mastercard.png" alt="Mastercard" />
-      <img src="assets/amex.png" alt="American Express" />
-      <!-- agrega otras tarjetas que aceptes -->
-    </div>
-  </section>
-
-  <section class="plan-info">
-    <div class="plan-details">      
-      <div class="details-text">
-        <p class="precio">S/. {{ precioSeleccionado }}</p>
-        <p class="plan-suave">Detalle: {{ planSeleccionado | uppercase }}</p>
+    <section class="payment-methods">
+      <div class="cards-container">
+        <img src="assets/visa.jpg" alt="Visa" />
+        <img src="assets/mastercard.png" alt="Mastercard" />
+        <img src="assets/amex.png" alt="American Express" />
+        <!-- agrega otras tarjetas que aceptes -->
       </div>
-    </div>
-  </section>  
+    </section>
 
-  <button class="pay-btn" (click)="confirmarSeleccion()">Realizar Pago</button>
+    <section class="plan-info">
+      <div class="plan-details">      
+        <div class="details-text">
+          <p class="precio">S/. {{ precioSeleccionado }}</p>
+          <p class="plan-suave">Detalle: {{ planSeleccionado | uppercase }}</p>
+        </div>
+      </div>
+    </section>  
+
+    <button class="pay-btn" (click)="confirmarSeleccion()">Realizar Pago</button>
+  </div>
 </div>
 
