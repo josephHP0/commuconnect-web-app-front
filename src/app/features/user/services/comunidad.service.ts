@@ -33,9 +33,22 @@ export class ComunidadService {
   constructor(private http: HttpClient) {}
 
 
+
+
   getComunidades(): Observable<Comunidad[]> {
-      return this.http.get<Comunidad[]>(`${this.baseUrl}/comunidades/listar_comunidad`);
-    }
+      const token_type = localStorage.getItem('token_type');       // "Bearer"
+      const access_token = localStorage.getItem('access_token');   // JWT
+
+      const headers = new HttpHeaders({
+        'Authorization': `${token_type} ${access_token}`
+      });
+
+      return this.http.get<Comunidad[]>(
+        `${this.baseUrl}/comunidades/comunidades-sin-inscripcion`,
+        { headers }
+      );
+  }
+
 
   unirseAComunidad(idComunidad: number): Observable<any> {
     const token_type = localStorage.getItem('token_type');       // "Bearer"

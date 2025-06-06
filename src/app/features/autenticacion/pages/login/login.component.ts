@@ -50,17 +50,25 @@ export class LoginComponent {
         if (response.user_rol === 'Administrador') {
           this.router.navigate(['/admin']);
         }  else if (response.user_rol === 'Cliente') {
-          // Validar comunidades activas
-          //const comunidades = response.comunidades_activas || [];
 
-          //if (comunidades.length === 0) {
-            //this.router.navigate(['/seleccionar-comunidad']);
-          //} else {
-            // Guardar comunidades si es necesario
-            //localStorage.setItem('comunidades', JSON.stringify(comunidades));
-            //localStorage.setItem('comunidad_activa', JSON.stringify(comunidades[0]));
-            this.router.navigate(['/user/mis-comunidades']);
-          //}
+              this.authService.tieneComunidades().subscribe({
+              next: (tieneComunidades: boolean) => {
+                console.log('¿Tiene comunidades?:', tieneComunidades);
+
+                if (tieneComunidades) {
+                  console.log('✅ El cliente ya tiene comunidades.');
+                  this.router.navigate(['/user/mis-comunidades']);
+                } else {
+                  console.log('ℹ️ El cliente no tiene comunidades, debe seleccionar.');
+                  this.router.navigate(['/user/seleccion-comunidad']);
+                }
+              },
+              error: (err) => {
+                console.error('Error al verificar comunidades:', err);
+                // Manejo de errores opcional
+              }
+            });
+
         } else {
           // Otros roles no contemplados (opcional)
           this.errorMessage = 'Rol de usuario no reconocido.';

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Cliente HTTP de Angular
+import { HttpClient,HttpHeaders } from '@angular/common/http'; // Cliente HTTP de Angular
 import { Observable } from 'rxjs'; // Para manejar respuestas asincrónicas
 import { environment } from 'src/environments/environment'; // Para obtener la URL base del backend
+import { map } from 'rxjs/operators';
 
 
 interface LoginRequest {
@@ -60,4 +61,22 @@ export class AuthService {
     // Hacemos una petición POST a la URL: https://tu-api.com/usuarios/register
     return this.http.post<any>(`${this.baseUrl}/usuarios/cliente`, data);
   }
+
+
+
+ tieneComunidades(): Observable<boolean> {
+  const tokenType = localStorage.getItem('token_type');
+  const accessToken = localStorage.getItem('access_token');
+
+  const headers = new HttpHeaders({
+    Authorization: `${tokenType} ${accessToken}`
+  });
+
+  return this.http.get<{ tiene_comunidades: boolean }>(
+    `${this.baseUrl}/auth/tiene-comunidades`,
+    { headers }
+  ).pipe(
+    map(response => response.tiene_comunidades)
+  );
+}
 }
