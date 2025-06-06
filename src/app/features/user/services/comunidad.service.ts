@@ -18,7 +18,7 @@ export interface Servicio {
 export interface ComunidadContexto {
   id_comunidad: number;
   nombre: string;
-  descripcion: string;
+  slogan: string; /**/
   imagen: string;
   servicios: Servicio[];
   estado_membresia: string;
@@ -77,6 +77,7 @@ const tokenType = localStorage.getItem('token_type');     // Por ejemplo: "Beare
 
       return this.http.get<ComunidadContexto[]>(`${this.baseUrl}/usuarios/usuario/comunidades`, { headers });
   }
+  /*
   obtenerComunidadPorId(id: number): Observable<ComunidadContexto> {
     const token = localStorage.getItem('token');
 
@@ -89,6 +90,25 @@ const tokenType = localStorage.getItem('token_type');     // Por ejemplo: "Beare
       { headers }
     );
   }
+    */
+
+  obtenerComunidadPorId(id: number): Observable<ComunidadContexto> {
+  const token_type = localStorage.getItem('token_type') || 'Bearer';
+  const access_token = localStorage.getItem('access_token') || '';
+
+  const headers = new HttpHeaders({
+    'Authorization': `${token_type} ${access_token}`
+  });
+
+  return this.http.get<ComunidadContexto>(
+    `${this.baseUrl}/usuarios/usuario/comunidad/${id}`,
+    { headers }
+  );
+}
+
+
+
+
 
 
 

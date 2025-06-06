@@ -10,7 +10,7 @@ export class HomepageComponent implements OnInit {
   comunidad: ComunidadContexto | null = null;
 
   constructor(private comunidadService: ComunidadService) {}
-
+/*
   ngOnInit(): void {
     const comunidadGuardada = localStorage.getItem('comunidad_seleccionada');
     if (comunidadGuardada) {
@@ -23,4 +23,27 @@ export class HomepageComponent implements OnInit {
       });
     }
   }
+*/
+
+  ngOnInit(): void {
+  const comunidadGuardada = localStorage.getItem('comunidad_seleccionada');
+  if (comunidadGuardada) {
+    const comunidad = JSON.parse(comunidadGuardada);
+    const id = comunidad.id_comunidad;
+
+    this.comunidadService.obtenerComunidadPorId(id).subscribe({
+      next: (data) => {
+        console.log(data)
+        // Transformar la imagen si es base64 crudo
+        if (data.imagen && !data.imagen.startsWith('data:image')) {
+          data.imagen = 'data:image/png;base64,' + data.imagen;
+        }
+
+        this.comunidad = data;
+      },
+      error: (err) => console.error('Error al cargar comunidad:', err)
+    });
+  }
+}
+
 }
