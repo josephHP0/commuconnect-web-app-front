@@ -1,0 +1,59 @@
+<!-- ENCABEZADO -->
+<div class="encabezado">
+  <img src="/assets/logo_monkey_fit.png" alt="Logo" class="logo">
+  <div class="acciones-encabezado">
+    <input
+      type="text"
+      [(ngModel)]="busqueda"
+      (input)="filtrarComunidades()"
+      placeholder="Buscar comunidad"
+      class="buscador"
+    />
+    <button class="btn-sesion">Cerrar Sesión</button>
+  </div>
+</div>
+
+<!-- CUERPO -->
+<div class="contenedor">
+  <h1 class="titulo">Bienvenido a CommuConnect</h1>
+  <p class="subtitulo">
+    Elige la comunidad con la que deseas conectar.<br>
+    Cada comunidad tiene experiencias únicas pensadas para ti.
+  </p>
+
+  <div class="comunidades">
+    <!-- Botón para añadir comunidad -->
+    <div class="boton-anadir" (click)="irASeleccionComunidad()">
+      <img src="/assets/icono-mas.png" alt="+" />
+    </div>
+
+    <!-- Lista de comunidades -->
+    <div class="comunidad-card" *ngFor="let comunidad of comunidadesFiltradas">
+   <img
+  [src]="comunidad.imagen"
+  [alt]="comunidad.nombre"
+  class="imagen-comunidad"
+/>
+      <h2 class="nombre-comunidad">{{ comunidad.nombre }}</h2>
+      <p class="descripcion-comunidad">{{ comunidad.slogan }}</p>
+
+      <ul class="servicios">
+        <li *ngFor="let servicio of comunidad.servicios">{{ servicio.nombre }}</li>
+      </ul>
+
+      <p
+        class="estado"
+        [ngClass]="{
+          'activa': comunidad.estado_membresia === 'activa',
+          'inactiva': comunidad.estado_membresia === 'inactiva'
+        }"
+      >
+        {{ comunidad.estado_membresia | uppercase }}
+      </p>
+
+      <button class="btn-acceder" (click)="accederAComunidad(comunidad)">
+        ACCEDER
+      </button>
+    </div>
+  </div>
+</div>

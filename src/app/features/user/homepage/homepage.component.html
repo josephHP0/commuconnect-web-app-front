@@ -1,0 +1,30 @@
+
+
+<!-- Contenedor principal -->
+<div class="dashboard-container">
+
+
+  <!-- Contenido -->
+  <main class="contenido">
+    <div class="bloque-central" *ngIf="comunidad">
+      <h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>
+
+      <img [src]="comunidad.imagen" [alt]="comunidad.nombre" class="imagen-principal pequeña" />
+
+      <p class="descripcion">
+        {{ comunidad.slogan }}
+      </p>
+
+      <div class="tarjetas">
+        <div class="tarjeta" *ngFor="let servicio of comunidad.servicios">
+          <img src="/assets/servicios.png" alt="Servicio" />
+          <button class="btn-verde">{{ servicio.nombre }}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque-central" *ngIf="!comunidad">
+      <p style="text-align: center; margin-top: 2rem;">Cargando comunidad...</p>
+    </div>
+  </main>
+</div>

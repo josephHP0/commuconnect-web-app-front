@@ -1,0 +1,23 @@
+<!-- Contenido -->
+  <main class="contenido">
+    <div class="bloque-central">
+      <h2 class="titulo-comunidad">Servicios</h2>
+
+      <!-- Topes -->
+      <div *ngIf="topes > 0" class="alert alert-warning">
+        Reservas disponibles: {{ topes }}
+      </div>
+
+      <!-- Servicios -->
+      <div class="tarjetas">
+        <div class="tarjeta" *ngFor="let servicio of servicios">
+          <i class="bi bi-gear" style="font-size: 3rem;" *ngIf="!servicio.imagen"></i>
+          <img *ngIf="servicio.imagen" [src]="servicio.imagen" [alt]="servicio.nombre"
+              style="width: 100px; height: 100px; object-fit: contain;" />
+          <h4>{{ servicio.nombre }}</h4>
+          <p>{{ servicio.descripcion }}</p>
+          <button class="btn-verde" (click)="seleccionarServicio(servicio.id_servicio)">Reservar</button>
+        </div>
+      </div>
+    </div>
+  </main>

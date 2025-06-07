@@ -55,82 +55,147 @@ this.registroForm = this.fb.group({
       peso: ['', Validators.required],
       talla: ['', Validators.required]
     });
-
-
-
-
-
-
-
-
-
-
-
   }
 
   // Método que se ejecuta al enviar el formulario
-  onSubmit() {
+    onSubmit() {
+
+//debugger;
+
+
+Object.keys(this.registroForm.controls).forEach(key => {
+  const control = this.registroForm.get(key);
+  if (control?.invalid) {
+    console.log(`Campo inválido: ${key}`, control.errors);
+  }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+ if (this.registroForm.invalid) {
+    this.registroForm.markAllAsTouched(); // 👈 Marca todos los campos como tocados
+    this.errorMessage = 'Por favor, completa todos los campos requeridos.';
+    return;
+  }
+/*
     if (this.registroForm.invalid) {
       this.errorMessage = 'Por favor, completa todos los campos requeridos.';
       return;
     }
-
+*/
     const formValues = this.registroForm.value;
 
-    // Validamos que las contraseñas coincidan
-     if (formValues.password !== formValues.repetir_password) {
+    // Validar que las contraseñas coincidan
+    if (formValues.password !== formValues.repetir_password) {
       this.errorMessage = 'Las contraseñas no coinciden.';
       return;
     }
 
-  /*
-    const requestBody = {
-      nombres: formValues.nombres,
-      apellidos: formValues.apellidos,
-      email: formValues.correo,
-      password: formValues.contrasena,
-      fechaNacimiento: formValues.fechaNacimiento,
-      departamento: formValues.departamento,
-      ciudad: formValues.ciudad,
-      direccion: formValues.direccion,
-      telefono: formValues.telefono,
-      genero: formValues.genero,
-      peso: formValues.peso,
-      talla: formValues.talla
-    };
+    // Validar fecha de nacimiento coherente y mayor de edad
+    const fechaNac = new Date(formValues.fecha_nac);
+    const hoy = new Date();
+    const edadMinima = 18;
+    const edadMaxima = 120;
+
+    if (fechaNac > hoy) {
+      this.errorMessage = 'Fecha de nacimiento inválida.';
+      return;
+    }
+    const edad = hoy.getFullYear() - fechaNac.getFullYear();
+    const mes = hoy.getMonth() - fechaNac.getMonth();
+    const dia = hoy.getDate() - fechaNac.getDate();
+    if (
+      edad < edadMinima ||
+      (edad === edadMinima && (mes < 0 || (mes === 0 && dia < 0)))
+    ) {
+      this.errorMessage = 'Debes ser mayor de 18 años.';
+      return;
+    }
+    if (edad > edadMaxima) {
+      this.errorMessage = 'Fecha de nacimiento inválida.';
+      return;
+    }
+
+    // Validar número de teléfono peruano (+51 y 9 dígitos)
+    let telefono = formValues.numero_telefono;
+    // Remover espacios, guiones u otros caracteres para validar solo números
+    telefono = telefono.replace(/[\s\-]/g, '');
+    // Permitir que ingrese con o sin +51, normalizamos
+    if (telefono.startsWith('+51')) {
+      telefono = telefono.slice(3);
+    }
+    if (!/^\d{9}$/.test(telefono)) {
+      this.errorMessage = 'El número de teléfono debe tener 9 dígitos válidos en Perú.';
+      return;
+    }
+
+    /*
+    const peso = parseFloat(formValues.peso);
+    if (isNaN(peso) || peso < 30 || peso > 300) {
+      this.errorMessage = 'Ingresa un peso válido entre 30 y 300 kg.';
+      return;
+    }
+
+
+    const talla = parseFloat(formValues.talla);
+    if (isNaN(talla) || talla > 2.5 || talla < 0.5) {
+      this.errorMessage = 'Ingresa una talla válida entre 0.5 y 2.5 metros.';
+      return;
+    }
 */
-const requestBody = {
+
+const peso = parseInt(formValues.peso, 10);
+if (isNaN(peso) || peso < 30 || peso > 300) {
+  this.errorMessage = 'Ingresa un peso válido entre 30 y 300 kg.';
+  return;
+}
+
+const talla = parseInt(formValues.talla, 10);
+if (isNaN(talla) || talla < 50 || talla > 250) { // Si la talla es cm, ajusta el rango
+  this.errorMessage = 'Ingresa una talla válida entre 50 y 250 cm.';
+  return;
+}
+
+    // Si pasa todas las validaciones, se construye el requestBody y se envía
+    const requestBody = {
       nombre: formValues.nombre,
       apellido: formValues.apellido,
       email: formValues.email,
       tipo_documento: formValues.tipo_documento,
       num_doc: formValues.num_doc,
       password: formValues.password,
-      repetir_password: formValues.repetir_password,
+    //  repetir_password: formValues.repetir_password,
       fecha_nac: formValues.fecha_nac,
       id_departamento: parseInt(formValues.id_departamento),
       id_distrito: parseInt(formValues.id_distrito),
       direccion: formValues.direccion,
       numero_telefono: formValues.numero_telefono,
       genero: formValues.genero,
-      peso: parseInt(formValues.peso),
-      talla: parseInt(formValues.talla),
+      peso: peso,
+      talla: talla,
     };
 
-
-    // Llamamos al método `register()` del AuthService para enviar los datos al backend
     this.authService.register(requestBody).subscribe({
       next: (res) => {
         console.log('Usuario registrado con éxito', res);
         this.successMessage = 'Registro exitoso. Redirigiendo...';
         setTimeout(() => {
-          this.router.navigate(['/']); // Redirige al home
+          this.router.navigate(['/presentacion/confirmar-correo']);
         }, 1500);
       },
       error: (err) => {
         console.error('Error en el registro', err);
         this.errorMessage = 'Error al registrarse. Verifica tus datos.';
-      }
+      },
     });
   }
 }

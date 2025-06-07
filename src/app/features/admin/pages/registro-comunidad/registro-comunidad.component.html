@@ -9,7 +9,7 @@
       <form (ngSubmit)="crearComunidad()" #formComunidad="ngForm">
         <!-- Nombre -->
         <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre de la comunidad</label>
+          <label for="nombre" class="form-label">Nombre de la comunidad <span class="text-danger">*</span></label>
           <input
             type="text"
             class="form-control"
@@ -17,7 +17,16 @@
             name="nombre"
             [(ngModel)]="comunidad.nombre"
             required
+            #nombre="ngModel"
+            [ngClass]="{ 'is-invalid': nombre.invalid && nombre.touched }"
+
           />
+          <div *ngIf="nombre.invalid && nombre.touched" class="invalid-feedback">
+            Este campo es obligatorio.
+          </div>
+
+
+
         </div>
 
         <!-- Slogan -->
@@ -46,10 +55,9 @@
             accept="image/png, image/jpeg"
           />
 <p></p>
-          <p>Dimensiones máximas: 500x500 px.</p>
-          <p>Dimensiones mínimas: 100x100 px.</p>
-
-          <p>Peso máximo: 1 MB (opcional, pero útil).</p>
+           <p class="form-text">
+            Dimensiones mín: 100x100px, máx: 500x500px. Tamaño máx: 1 MB.
+          </p>
 
 
         </div>
@@ -62,7 +70,11 @@
         </div>
 
         <!-- Botón final -->
-        <button type="submit" class="btn btn-primary">Añadir comunidad</button>
+        <button type="submit" class="btn btn-primary" [disabled]="formComunidad.invalid">Añadir comunidad</button>
+
+        <button type="button" class="btn btn-secondary ms-2" [routerLink]="['/admin/lista-comunidad']">
+          Cancelar
+        </button>
       </form>
     </div>
 

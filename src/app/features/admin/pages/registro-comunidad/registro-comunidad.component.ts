@@ -100,15 +100,21 @@ comunidad = {
 
  crearComunidad(): void {
 
-    if (!this.comunidad.nombre ) {
-      alert('Por favor, completa los campos requeridos');
+    if (!this.comunidad.nombre || this.comunidad.nombre.trim() === '' ) {
+      alert('El nombre de la comunidad es obligatorio.');
       return;
     }
+
+   if (this.archivoLogo && this.archivoLogo.size > 1 * 1024 * 1024) {
+    alert('El logo no debe superar 1MB');
+    return;
+   }
+
 
     this.comunidadService.crearComunidad(this.comunidad, this.archivoLogo).subscribe({
       next: (res) => {
         console.log('Comunidad creada', res);
-        this.router.navigate(['/comunidades']);
+        this.router.navigate(['/admin/lista-comunidad']);
       },
       error: (err) => {
         console.error('Error al crear comunidad', err);
