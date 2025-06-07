@@ -53,30 +53,32 @@ obtenerServicios() {
         error: (err) => console.error('Error al cargar topes', err)
       });
   }
-
+/*
   seleccionarServicio(servicioId: number) {
     this.router.navigate(['/user/sesiones'], {
       queryParams: { servicioId }
     });
   }
+*/
 
-/*
   seleccionarServicio(servicio: any) {
-  if (servicio.tipo === 'Presencial') {
+  if (servicio.modalidad === 'Presencial') {
     // Si es presencial, redirige a sesiones presenciales
+    console.log('Redirigir presenciales');
+
     this.router.navigate(['/user/sesiones'], {
-      queryParams: { servicioId: servicio.id }
+      queryParams: { servicioId: servicio.id_servicio }
     });
-  } else if (servicio.tipo === 'Virtual') {
+  } else if (servicio.modalidad === 'Virtual') {
     // Por ahora solo muestra mensaje, puedes cambiar la ruta cuando esté lista
     console.log('Redirigir a sesiones virtuales (pendiente implementar)');
-    // this.router.navigate(['/user/sesiones-virtual'], {
-    //   queryParams: { servicioId: servicio.id }
-    // });
+     this.router.navigate(['/user/reservas-virtuales'], {
+       queryParams: { servicioId: servicio.id_servicio }
+     });
   } else {
-    console.warn('Tipo de servicio no reconocido:', servicio.tipo);
+    console.warn('Tipo de servicio no reconocido:', servicio.modalidad);
   }
 }
-*/
+
 
 }
