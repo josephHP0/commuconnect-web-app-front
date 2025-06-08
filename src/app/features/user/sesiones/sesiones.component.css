@@ -1,3 +1,6 @@
+/* sesiones.component.css */
+
+/* --- Navbar y sidebar --- */
 .navbar-top {
   height: 56px;
   background-color: white;
@@ -54,17 +57,18 @@
   gap: 0.5rem;
 }
 
+/* --- Contenido principal --- */
 .contenido {
   flex: 1;
   padding: 2rem;
   overflow-x: auto;
 }
 
-
 .titulo-comunidad {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
 }
+
 .imagen-principal {
   width: 100%;
   max-width: 1100px;
@@ -82,8 +86,7 @@
   max-width: 500px;
 }
 
-
-
+/* --- Tarjetas --- */
 .tarjetas {
   display: flex;
   flex-wrap: wrap;
@@ -114,28 +117,22 @@
   box-shadow: 0 0 5px #4CAF50;
 }
 
-.btn-verde {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
+/* --- Bloque central --- */
 .bloque-central {
   width: 100%;
-  max-width: 1200px; /* o más si tu pantalla es muy ancha */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   text-align: left;
 }
 
+/* --- Seleccionados genéricos --- */
 .seleccionado {
   border: 2px solid #4CAF50;
   box-shadow: 0 0 6px #4CAF50;
 }
+
+/* --- Botones de filtro --- */
 .btn-outline-secondary {
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
@@ -148,4 +145,25 @@
 
 .btn-outline-secondary:hover {
   background-color: #f3f3f3;
+}
+
+/* --- Botón verde y efecto hover --- */
+.btn-verde {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-verde:hover {
+  /* Efecto de resplandor */
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.7);
+  /* Ligeramente más grande */
+  transform: scale(1.05);
+  /* Un poco más brillante */
+  filter: brightness(1.1);
 }

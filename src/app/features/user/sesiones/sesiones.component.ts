@@ -1,162 +1,181 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-
 import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-sesiones',
   templateUrl: './sesiones.component.html',
   styleUrls: ['./sesiones.component.css']
 })
 export class SesionesComponent implements OnInit {
-  idServicio = 1; // <- puedes cambiar esto dinámicamente si lo pasas por queryParams
+  idServicio = 1;
+
+  // Nivel 1
   distritos: any[] = [];
+  distritoSeleccionado: any = null;
+
+  // Nivel 2
   localesFiltrados: any[] = [];
+  localSeleccionado: any = null;
+
+  // Nivel 3
+  fechasFiltradas: string[] = [];
+  fechaSeleccionada = '';
+
+  // Nivel 4
+  horasFiltradas: string[] = [];
+  horaSeleccionada = '';
+
+  // Nivel 5
+  sesionesDisponibles: any[] = [];
 
   private readonly baseUrl = environment.apiUrl;
-  distritoSeleccionado : any = null;
-  localSeleccionado = '';
 
-  fechasDisponibles: string[] = [
-    '13/05/2025', '14/05/2025', '15/05/2025',
-    '16/05/2025', '17/05/2025', '18/05/2025'
-  ];
-  fechasFiltradas: string[] = [];
-
-  fechaInicioFiltro = '';
-  fechaFinFiltro = '';
-
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-     // Leer el servicioId desde query params
     this.route.queryParams.subscribe(params => {
-      const id = params['servicioId'];
-      if (id) {
-        this.idServicio = +id; // convertir a número
+      if (params['servicioId']) {
+        this.idServicio = +params['servicioId'];
       }
       this.obtenerDistritos();
-
-
-      console.log("servicio que me dan "+this.idServicio);
     });
-
-    this.fechasFiltradas = [];
   }
 
+  // ─── Nivel 1: Distritos ───────────────────────────────────────────
   obtenerDistritos(): void {
-   // this.http.get<any[]>(`/api/services/usuario/servicio/${this.idServicio}/distritos`)
-    //this.http.get<any[]>(`${this.baseUrl}/services/usuario/servicio/${this.idServicio}/distritos`)
-    this.http.get<any[]>(`${this.baseUrl}/services/usuario/servicio/${this.idServicio}/distritos`)
-    ///api/services/usuario/servicio/{id_servicio}/distritos
+    this.http
+      .get<any[]>(`${this.baseUrl}/services/usuario/servicio/${this.idServicio}/distritos`)
       .subscribe({
-        next: (res) => {
-          console.log('Respuesta de distritos:', res);
+        next: res => {
           this.distritos = res;
           this.localesFiltrados = this.getLocalesRepresentativos(res);
         },
-        error: (err) => console.error('Error al obtener distritos:', err)
+        error: err => console.error('Error al obtener distritos:', err)
       });
   }
 
-  getLocalesRepresentativos(lista: any[]): any[] {
+  private getLocalesRepresentativos(lista: any[]): any[] {
     const mapa = new Map<string, any>();
-    lista.forEach(local => {
-      if (!mapa.has(local.nombre)) {
-        mapa.set(local.nombre, local);
+    lista.forEach(item => {
+      if (!mapa.has(item.nombre)) {
+        mapa.set(item.nombre, item);
       }
     });
     return Array.from(mapa.values());
   }
 
-
-/*
   filtrarPorDistrito(): void {
-    this.localSeleccionado = '';
-    this.fechaInicioFiltro = '';
-    this.fechaFinFiltro = '';
-    this.fechasFiltradas = [];
+    this.localSeleccionado = null;
+    this.resetFechasHorasSesiones();
 
     if (!this.distritoSeleccionado) {
       this.localesFiltrados = this.getLocalesRepresentativos(this.distritos);
       return;
     }
 
-    const distrito = encodeURIComponent(this.distritoSeleccionado);
-    this.http.get<any[]>(`${this.baseUrl}/services/usuario/servicio/10/distrito/${distrito}/locales`)
-
-   // this.http.get<any[]>(`/services/usuario/servicio/${this.idServicio}/distrito/${distrito}/locales`)
+    const distritoId = this.distritoSeleccionado.id_distrito;
+    this.http
+      .get<any[]>(`${this.baseUrl}/services/servicio/${this.idServicio}/distrito/${distritoId}/locales`)
       .subscribe({
-        next: (res) => this.localesFiltrados = res,
-        error: (err) => console.error('Error al obtener locales:', err)
+        next: res => this.localesFiltrados = res,
+        error: err => console.error('Error al obtener locales:', err)
       });
   }
-*/
 
-
-
-filtrarPorDistrito(): void {
-  this.localSeleccionado = '';
-  this.fechaInicioFiltro = '';
-  this.fechaFinFiltro = '';
-  this.fechasFiltradas = [];
-
-  if (!this.distritoSeleccionado) {
-    this.localesFiltrados = this.getLocalesRepresentativos(this.distritos);
-    return;
-  }
-const distritoId = this.distritoSeleccionado.id_distrito; // o el nombre del campo id que tengas
-  console.log("distrito seleccionado ojo"+distritoId)
-this.http.get<any[]>(`${this.baseUrl}/services/servicio/${this.idServicio}/distrito/${distritoId}/locales`)
-//127.0.0.1:8000/api/services/servicio/10%7D/distrito/undefined/locales:1
-
-
-           //Failed to load resource: the server responded with a status of 422 (Unprocessable Content)
-
-  //const distritoNombre = encodeURIComponent(this.distritoSeleccionado.nombre); // ✅ usa nombre o id_distrito
-  //this.http.get<any[]>(`${this.baseUrl}/services/usuario/servicio/10/distrito/${distritoId}/locales`)
-
-    .subscribe({
-    next: (res) => {
-        console.log('Respuesta de locales filtrados:', res); // 👈 aquí lo agregas
-        this.localesFiltrados = res;
-      },
-      error: (err) => console.error('Error al obtener locales:', err)
-    });
-}
-
-
-
-
+  // ─── Nivel 2: Locales ─────────────────────────────────────────────
   seleccionarLocal(local: any): void {
-    this.localSeleccionado = local.nombre;
-    this.fechasFiltradas = [...this.fechasDisponibles];
+    this.localSeleccionado = local;
+    this.resetFechasHorasSesiones();
+    this.obtenerFechasPresenciales();
   }
 
-  seleccionarLocalPorNombre(): void {
-    const local = this.localesFiltrados.find(l => l.nombre === this.localSeleccionado);
-    if (local) this.seleccionarLocal(local);
+  // ─── Nivel 3: Fechas ──────────────────────────────────────────────
+  private obtenerFechasPresenciales(): void {
+    const params = new HttpParams()
+      .set('id_servicio', this.idServicio.toString())
+      .set('id_distrito', this.distritoSeleccionado.id_distrito)
+      .set('id_local', this.localSeleccionado.id_local);
+
+    this.http
+      .get<{ fechas: string[] }>(`${this.baseUrl}/reservations/fechas-presenciales`, { params })
+      .subscribe({
+        next: res => this.fechasFiltradas = res.fechas,
+        error: err => console.error('Error al obtener fechas:', err)
+      });
   }
 
-  filtrarFechasPorRango(): void {
-    if (!this.fechaInicioFiltro || !this.fechaFinFiltro) {
-      this.fechasFiltradas = [...this.fechasDisponibles];
-      return;
-    }
-
-    const inicio = new Date(this.fechaInicioFiltro);
-    const fin = new Date(this.fechaFinFiltro);
-
-    this.fechasFiltradas = this.fechasDisponibles.filter(fecha => {
-      const actual = new Date(fecha.split('/').reverse().join('-'));
-      return actual >= inicio && actual <= fin;
-    });
+  seleccionarFecha(fecha: string): void {
+    this.fechaSeleccionada = fecha;
+    this.horasFiltradas = [];
+    this.horaSeleccionada = '';
+    this.sesionesDisponibles = [];
+    this.obtenerHorasPresenciales();
   }
 
-  continuar(): void {
-    if (this.localSeleccionado) {
-      console.log('Local seleccionado:', this.localSeleccionado);
-      localStorage.setItem('local_seleccionado', this.localSeleccionado);
-    }
+  // ─── Nivel 4: Horas ───────────────────────────────────────────────
+  private obtenerHorasPresenciales(): void {
+    const params = new HttpParams()
+      .set('id_servicio', this.idServicio.toString())
+      .set('id_distrito', this.distritoSeleccionado.id_distrito)
+      .set('id_local', this.localSeleccionado.id_local)
+      .set('fecha', this.fechaSeleccionada);  // << aquí sin transformar
+
+    this.http
+      .get<{ horas: string[] }>(`${this.baseUrl}/reservations/horas-presenciales`, { params })
+      .subscribe({
+        next: res => this.horasFiltradas = res.horas,
+        error: err => console.error('Error al obtener horas:', err)
+      });
+  }
+
+  seleccionarHora(hora: string): void {
+    this.horaSeleccionada = hora;
+    this.sesionesDisponibles = [];
+    this.obtenerSesionesPresenciales();
+  }
+
+  // ─── Nivel 5: Sesiones ────────────────────────────────────────────
+  private obtenerSesionesPresenciales(): void {
+    const params = new HttpParams()
+      .set('id_servicio', this.idServicio.toString())
+      .set('id_distrito', this.distritoSeleccionado.id_distrito)
+      .set('id_local', this.localSeleccionado.id_local)
+      .set('fecha', this.fechaSeleccionada)   // << fecha en DD/MM/YYYY
+      .set('hora', this.horaSeleccionada);
+
+    this.http
+      .get<{ sesiones: any[] }>(`${this.baseUrl}/reservations/sesiones-presenciales`, { params })
+      .subscribe({
+        next: res => this.sesionesDisponibles = res.sesiones,
+        error: err => console.error('Error al obtener sesiones:', err)
+      });
+  }
+
+  reservarSesion(sesion: any): void {
+    this.http
+      .get<string>(`${this.baseUrl}/reservations/reserva-existe/${sesion.id_sesion}`)
+      .subscribe({
+        next: res => {
+          if (res === 'true') {
+            alert('Ya existe una reserva para esta sesión.');
+          } else {
+            alert('Puedes proceder a reservar esta sesión.');
+          }
+        },
+        error: err => console.error('Error al verificar reserva:', err)
+      });
+  }
+
+  private resetFechasHorasSesiones(): void {
+    this.fechasFiltradas = [];
+    this.fechaSeleccionada = '';
+    this.horasFiltradas = [];
+    this.horaSeleccionada = '';
+    this.sesionesDisponibles = [];
   }
 }
