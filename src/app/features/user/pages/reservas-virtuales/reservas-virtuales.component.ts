@@ -36,8 +36,30 @@ export class ReservasVirtualesComponent implements OnInit {
   idServicioSeleccionado!: number;
   id_comunidad: number = 0;
   topesEstado: string | null = null;
-  
+
   constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute) {}
+/*
+ ngOnInit(): void {
+     // Leer el servicioId desde query params
+    this.route.queryParams.subscribe(params => {
+      const id = params['servicioId'];
+      if (id) {
+        this.idServicio = +id; // convertir a número
+      }
+      this.obtenerDistritos();
+
+
+      console.log("servicio que me dan "+this.idServicio);
+    });
+
+    this.fechasFiltradas = [];
+  }
+
+*/
+
+
+idServicio=1;
+
 
   ngOnInit() {
     // Recuperar id_comunidad desde localStorage
@@ -46,9 +68,15 @@ export class ReservasVirtualesComponent implements OnInit {
 
     // Hardcodeas idServicio por ahora
     this.idServicioSeleccionado = 4;
-    
 
-    this.reservaService.getProfesionales(this.idServicioSeleccionado).subscribe({
+  this.route.queryParams.subscribe(params => {
+      const id = params['servicioId'];
+      if (id) {
+        this.idServicio = +id; // convertir a número
+
+      }
+
+       this.reservaService.getProfesionales(this.idServicioSeleccionado).subscribe({
       next: (data) => {
         console.log('Profesionales cargados:', data);
         this.profesionales = data;
@@ -57,6 +85,18 @@ export class ReservasVirtualesComponent implements OnInit {
         console.error('Error cargando profesionales:', err);
       }
     });
+
+
+
+
+    });
+
+
+
+
+
+
+
 
     this.reservaService.getTopes(this.id_comunidad).subscribe({
       next: (topes) => {
@@ -105,7 +145,7 @@ export class ReservasVirtualesComponent implements OnInit {
   }
   seleccionarProfesional(profesional: any) {
     this.profesionalSeleccionado = profesional.id_profesional;
-    this.onProfesionalSeleccionado(); 
+    this.onProfesionalSeleccionado();
   }
 
   onProfesionalSeleccionado() {

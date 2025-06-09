@@ -19,7 +19,7 @@ export class SeleccionComunidadComponent implements OnInit {
 
   constructor(
     private comunidadService: ComunidadService,
-    private router: Router 
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class SeleccionComunidadComponent implements OnInit {
     const texto = this.busqueda.toLowerCase().trim();
     if (texto) {
       this.comunidadesFiltradas = this.comunidades.filter(c =>
-        c.nombre.toLowerCase().includes(texto) || 
+        c.nombre.toLowerCase().includes(texto) ||
         c.slogan.toLowerCase().includes(texto)
       );
     } else {
@@ -75,7 +75,7 @@ export class SeleccionComunidadComponent implements OnInit {
 
   /*unirse(): void {
     if (!this.currentCommunity) return;
-    
+
     this.comunidadService.unirseAComunidad(this.currentCommunity.id_comunidad).subscribe({
     next: () => {
       alert(`Te uniste a la comunidad: ${this.currentCommunity?.nombre}`);
@@ -101,7 +101,7 @@ export class SeleccionComunidadComponent implements OnInit {
       }).then(() => {
         this.router.navigate(['/pago/plan'], {
           queryParams: { id_comunidad: this.currentCommunity?.id_comunidad }
-        }); 
+        });
       });
     },
     error: () => {
