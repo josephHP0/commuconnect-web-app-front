@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { SeleccionarServicioComponent } from 'src/app/features/user/seleccionar-servicio/seleccionar-servicio.component';
+import { HomepageComponent } from 'src/app/features/user/homepage/homepage.component';
 
 const routes: Routes = [
 
@@ -11,8 +12,8 @@ const routes: Routes = [
     component: AdminComponent,
     children :[
 
-      {path: 'seleccionar-servicio',component:SeleccionarServicioComponent}
-
+      {path: 'seleccionar-servicio',component:SeleccionarServicioComponent},
+      {path: 'homepage/:id',component:HomepageComponent}
     ]
 
 

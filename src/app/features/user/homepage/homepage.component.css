@@ -126,3 +126,24 @@
   text-align: left;
 }
 
+
+
+.titulo-con-tarjeta {
+  display: flex;
+  justify-content: space-between; /* Empuja elementos a extremos opuestos */
+  align-items: center;
+  width: 100%;
+}
+
+.tarjeta-amarilla {
+  background-color: #ffeb3b;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+
+.descripcion {
+  text-align: justify;
+}

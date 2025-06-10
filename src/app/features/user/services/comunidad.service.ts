@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { identifierName } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -104,6 +105,39 @@ const tokenType = localStorage.getItem('token_type');     // Por ejemplo: "Beare
     `${this.baseUrl}/usuarios/usuario/comunidad/${id}`,
     { headers }
   );
+}
+
+
+
+
+obtenerCantidadTopes(id: number): Observable<number> {
+  const tokenType = localStorage.getItem('token_type');     // Por ejemplo: "Bearer"
+  const accessToken = localStorage.getItem('access_token'); // El token JWT
+
+  const headers = new HttpHeaders({
+    Authorization: `${tokenType} ${accessToken}`            // "Bearer eyJ..."
+  });
+
+  return this.http.get<number>(`${this.baseUrl}/usuarios/usuario/comunidad/${id}/topes`, { headers });
+
+
+
+
+}
+
+
+
+verificarSiTieneTopes(id: number): Observable<number> {
+  const tokenType = localStorage.getItem('token_type');     // Por ejemplo: "Bearer"
+  const accessToken = localStorage.getItem('access_token'); // El token JWT
+
+  const headers = new HttpHeaders({
+    Authorization: `${tokenType} ${accessToken}`            // "Bearer eyJ..."
+  });
+
+  return this.http.get<number>(`${this.baseUrl}/billing/usuario/comunidad/${id}/tiene-topes`, { headers });
+
+  
 }
 
 

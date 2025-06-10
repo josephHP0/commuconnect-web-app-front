@@ -7,7 +7,8 @@
 
 
     <li class="sidebar-item">
-      <a href="#" class="sidebar-link" (click)="$event.preventDefault()">
+      <a class="sidebar-link" [routerLink]="['/user/homepage', comunidadSeleccionada.id_comunidad]">
+
        <i class="bi bi-globe2 me-2"></i>
         <span>Mi Comunidad</span>
       </a>

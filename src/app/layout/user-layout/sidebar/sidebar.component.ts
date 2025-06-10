@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  comunidadSeleccionada: any;
+  ngOnInit(): void {
+    const comunidadJson = localStorage.getItem('comunidad_seleccionada');
+    if (comunidadJson) {
+      this.comunidadSeleccionada = JSON.parse(comunidadJson);
+    }
+  }
+
 }
