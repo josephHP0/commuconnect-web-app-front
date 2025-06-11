@@ -16,6 +16,7 @@ import { SesionesComponent } from './sesiones/sesiones.component';
 import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar-servicio.component';
 
 import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module';
+import { MembresiasComponent } from './membresias/membresias.component';
 
 
 
@@ -29,14 +30,15 @@ import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module'
     MisComunidadesComponent,
     HomepageComponent,
     SesionesComponent,
-    SeleccionarServicioComponent
+    SeleccionarServicioComponent,
+    MembresiasComponent
 
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
 
-    FormsModule,  // 👈 Asegúrate de tener esto aquí
+    FormsModule,  
     UserLayoutModule
 
 

@@ -1,0 +1,43 @@
+<div class="contenedor">
+  <div class="titulo">
+    <h2>TU PLAN ACTUAL</h2>
+    <p>Revisa los detalles de tu plan actual, paga tu membresía y más.</p>
+  </div>
+
+  <div class="contenido">
+    <div class="info-plan">
+      <h3 class="plan">{{ infoInscripcion?.titulo?.toUpperCase() }}</h3>
+      <div class="precio">S/. {{ infoInscripcion?.precio }}</div>
+      <div class="periodo">{{ infoInscripcion?.periodo?.toUpperCase() }}</div>
+
+      <ul class="beneficios">
+        <li *ngIf="!esConTopes">Reservas ilimitadas</li>
+        <li>Acceso a todos los servicios</li>
+        <li>Disponible en todas las comunidades</li>
+        <li>Soporte Preferencial</li>
+      </ul>
+
+      <p class="vigencia">
+        Periodo de vigencia: desde el <span>10/04/2025</span> hasta el
+        <span>{{ infoInscripcion?.fecha_fin | date: 'dd/MM/yyyy' }}</span>
+      </p>
+
+      <p class="estado">
+        Estado: <span class="activo">{{ infoInscripcion?.estado }}</span>
+      </p>
+
+      <div class="acciones">
+        <button class="gris">Solicitar suspensión de membresía</button>
+        <button class="rojo">Cancelar membresía</button>
+        <button class="verde">Pagar membresía</button>
+      </div>
+
+      <a class="historial" href="#">Ver historial de pagos</a>
+    </div>
+
+    <div class="imagen">
+      <img src="assets/fitness-couple.png" alt="pareja fit" />
+    </div>
+  </div>
+</div>
+

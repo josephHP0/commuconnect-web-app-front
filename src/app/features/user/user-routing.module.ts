@@ -18,6 +18,7 @@ import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar
 
 
 import { AdminComponent } from '../../layout/user-layout/admin/admin.component';
+import { MembresiasComponent } from './membresias/membresias.component';
 
 
 const routes: Routes = [
@@ -31,9 +32,10 @@ const routes: Routes = [
 
       { path: '', redirectTo: 'homepage', pathMatch: 'full' },
       { path: 'homepage/:id', component: HomepageComponent },
-      { path: 'sesiones', component: SesionesComponent },  // ✅ NUEVA RUTA
+      { path: 'sesiones', component: SesionesComponent },  
       { path: 'seleccionar-servicio', component: SeleccionarServicioComponent },
-      { path: 'reservas-virtuales', component: ReservasVirtualesComponent }
+      { path: 'reservas-virtuales', component: ReservasVirtualesComponent },
+      { path: 'membresias', component: MembresiasComponent }
 
     ]
   },
