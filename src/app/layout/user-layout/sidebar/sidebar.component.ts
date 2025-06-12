@@ -83,14 +83,14 @@ verificarSiPuedeAccederAServicios(): void {
   const comunidad = JSON.parse(comunidadGuardada);
   const id = comunidad.id_comunidad;
 
-  console.log(id + "topes traidos")
+  //console.log(id + "topes traidos")
 
  
 
   this.comunidadService.verificarSiTieneTopes(id).pipe(
     switchMap((valor: any) => {
 
-      console.log("Valor retornado por verificarSiTieneTopes:", valor);
+      //console.log("Valor retornado por verificarSiTieneTopes:", valor);
       const tieneTopes = valor.tieneTopes === true;
 
       if (tieneTopes) {
@@ -103,10 +103,10 @@ verificarSiPuedeAccederAServicios(): void {
     })
   ).subscribe((data: any) => {
 
-    console.log("🟢 Valor retornado por obtenerCantidadTopes:", data);
+    //console.log("🟢 Valor retornado por obtenerCantidadTopes:", data);
 
-   // this.topesDisponibles = data.topes_disponibles;
-    this.topesDisponibles = 0;
+    this.topesDisponibles = data.topes_disponibles;
+  
 
     if (this.topesDisponibles > 0) {
       // Tiene topes disponibles, permitir navegación
