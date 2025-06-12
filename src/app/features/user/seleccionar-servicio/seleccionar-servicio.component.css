@@ -73,31 +73,90 @@
 .tarjetas {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .tarjeta {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 250px;
   padding: 1rem;
-  width: 260px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-height: 350px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: white;
+}
+
+.tarjeta i {
+  font-size: 3rem;
   text-align: center;
 }
 
 .tarjeta img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 6px;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  align-self: center;
+}
+
+.tarjeta h4,
+.tarjeta p {
+  margin: 0.5rem 0;
+}
+
+.tarjeta button {
+  margin-top: auto; /* empuja el botón al fondo */
+  align-self: center;
+}
+
+.btn-verde {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-verde:hover {
+  background-color: #218838;
+}
+
+
+
+.modalidad {
+  font-weight: bold;
+  color: #007bff; /* azul para destacar */
   margin-bottom: 0.5rem;
 }
 
-.tarjeta:hover {
-  transform: scale(1.02);
-  border-color: #4CAF50;
+
+
+/*
+.tarjetas {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.tarjeta {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  width: 180px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+*/
+.tarjeta img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
 }
 
 .btn-verde {
@@ -110,13 +169,63 @@
   cursor: pointer;
 }
 
-.alert {
-  background-color: #fff3cd;
-  border: 1px solid #ffeeba;
-  color: #856404;
-  padding: 0.8rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-weight: 500;
-  display: inline-block;
+.bloque-central {
+  width: 100%;
+  max-width: 1200px; /* o más si tu pantalla es muy ancha */
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left;
 }
+
+
+
+.titulo-con-tarjeta {
+  display: flex;
+  justify-content: space-between; /* Empuja elementos a extremos opuestos */
+  align-items: center;
+  width: 100%;
+}
+
+.tarjeta-amarilla {
+  background-color: #ffeb3b;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+
+.descripcion {
+  text-align: justify;
+}
+
+
+
+
+
+
+
+
+.tarjetas {
+  display: flex;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+/* Limitar a 3 por fila */
+@media (min-width: 992px) {
+  .tarjetas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tarjeta {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

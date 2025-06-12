@@ -25,13 +25,30 @@
 
 
 
-
 <li class="sidebar-item">
-  <a class="sidebar-link" [routerLink]="['seleccionar-servicio']">
+  <a class="sidebar-link" (click)="verificarSiPuedeAccederAServicios()">
     <i class="bi bi-grid-fill me-2"></i>
     <span>Servicios y Horarios</span>
   </a>
 </li>
+
+<div
+  *ngIf="mostrarAlerta"
+  class="alert alert-warning alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow"
+  role="alert"
+  style="z-index: 1055; width: 90%; max-width: 600px;"
+>
+  <strong>Lo sentimos</strong>, las reservas han sido agotadas.
+  <button type="button" class="btn-close" aria-label="Close" (click)="cerrarAlerta()"></button>
+</div>
+
+
+
+
+
+
+
+
 
 
 
