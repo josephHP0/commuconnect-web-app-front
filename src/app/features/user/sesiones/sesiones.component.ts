@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpParams ,HttpHeaders} from '@angular/common/http';
+import { ActivatedRoute ,Router} from '@angular/router';
 import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-sesiones',
@@ -10,6 +11,13 @@ import { environment } from 'src/environments/environment';
 })
 export class SesionesComponent implements OnInit {
   idServicio = 1;
+
+  paginaActual = 1;
+
+  sesionSeleccionada: any = null;
+
+
+  step = 1;
 
   // Nivel 1
   distritos: any[] = [];
@@ -34,7 +42,8 @@ export class SesionesComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +99,7 @@ export class SesionesComponent implements OnInit {
   // ─── Nivel 2: Locales ─────────────────────────────────────────────
   seleccionarLocal(local: any): void {
     this.localSeleccionado = local;
+    console.log("seleccion",this.localSeleccionado)
     this.resetFechasHorasSesiones();
     this.obtenerFechasPresenciales();
   }
@@ -139,7 +149,22 @@ export class SesionesComponent implements OnInit {
     this.obtenerSesionesPresenciales();
   }
 
+/*
+"id_sesion": 0,
+      "id_sesion_presencial": 0,
+      "fecha": "2025-06-13",
+      "ubicacion": "string",
+      "responsable": "string",
+      "hora_inicio": "string",
+      "hora_fin": "string",
+      "vacantes_totales": 0,
+      "vacantes_libres": 0
+*/
+
+
+
   // ─── Nivel 5: Sesiones ────────────────────────────────────────────
+  /*
   private obtenerSesionesPresenciales(): void {
     const params = new HttpParams()
       .set('id_servicio', this.idServicio.toString())
@@ -155,10 +180,65 @@ export class SesionesComponent implements OnInit {
         error: err => console.error('Error al obtener sesiones:', err)
       });
   }
+*/
 
+
+  private obtenerSesionesPresenciales(): void {
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
+  
+    const headers = new HttpHeaders({
+      Authorization: `${tokenType} ${accessToken}`
+    });
+  
+    const params = new HttpParams()
+      .set('id_servicio', this.idServicio.toString())
+      .set('id_distrito', this.distritoSeleccionado.id_distrito)
+      .set('id_local', this.localSeleccionado.id_local)
+      .set('fecha', this.fechaSeleccionada) // formato DD/MM/YYYY
+      .set('hora', this.horaSeleccionada);
+  
+    this.http
+      .get<{ sesiones: any[] }>(
+        `${this.baseUrl}/reservations/sesiones-presenciales`,
+        { headers, params }
+      )
+      .subscribe({
+        next: res => this.sesionesDisponibles = res.sesiones,
+        error: err => console.error('Error al obtener sesiones:', err)
+      });
+  }
+  
+/*
   reservarSesion(sesion: any): void {
     this.http
       .get<string>(`${this.baseUrl}/reservations/reserva-existe/${sesion.id_sesion}`)
+      .subscribe({
+        next: res => {
+          if (res === 'true') {
+            alert('Ya existe una reserva para esta sesión.');
+          } else {
+            alert('Puedes proceder a reservar esta sesión.');
+          }
+        },
+        error: err => console.error('Error al verificar reserva:', err)
+      });
+  }
+*/
+  reservarSesion(sesion: any): void {
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
+  
+    if (!tokenType || !accessToken) {
+      console.error('Token de autenticación no encontrado.');
+      alert('No estás autenticado. Por favor, inicia sesión.');
+      return;
+    }
+  
+    const headers = new HttpHeaders().set('Authorization', `${tokenType} ${accessToken}`);
+  
+    this.http
+      .get<string>(`${this.baseUrl}/reservations/reserva-existe/${sesion.id_sesion}`, { headers })
       .subscribe({
         next: res => {
           if (res === 'true') {
@@ -178,4 +258,94 @@ export class SesionesComponent implements OnInit {
     this.horaSeleccionada = '';
     this.sesionesDisponibles = [];
   }
+
+
+/*
+  retroceder(): void {
+    if (this.step > 1) {
+      this.step--;
+    }
+  }
+    */
+
+
+  retroceder(): void {
+    if (this.step > 1) {
+      this.step = 1;
+      this.resetFechasHorasSesiones();  // Limpia la selección al volver
+    }
+  }
+  
+  
+/*
+  continuar(): void {
+    switch (this.step) {
+      case 1:
+        if (!this.distritoSeleccionado) {
+          alert('Por favor selecciona un distrito.');
+          return;
+        }
+        this.filtrarPorDistrito();
+        break;
+  
+      case 2:
+        if (!this.localSeleccionado) {
+          alert('Por favor selecciona un local.');
+          return;
+        }
+        this.obtenerFechasPresenciales();
+        break;
+  
+      case 3:
+        if (!this.fechaSeleccionada) {
+          alert('Por favor selecciona una fecha.');
+          return;
+        }
+        this.obtenerHorasPresenciales();
+        break;
+  
+      case 4:
+        if (!this.horaSeleccionada) {
+          alert('Por favor selecciona una hora.');
+          return;
+        }
+        this.obtenerSesionesPresenciales();
+        break;
+    }
+  
+    if (this.step < 5) {
+      this.step++;
+    }
+  }
+  
+*/
+  continuar(): void {
+    if (this.step === 1) {
+      if (!this.distritoSeleccionado || !this.localSeleccionado) {
+        alert('Por favor selecciona un distrito y un local.');
+        return;
+      }
+  
+      // Al pasar a la etapa 2, ya puedes obtener las fechas disponibles
+      this.obtenerFechasPresenciales();
+      this.step = 2;
+    }
+  }
+  
+
+  seleccionarSesion(sesion: any): void {
+    if (this.sesionSeleccionada === sesion) {
+      // Deseleccionar si ya estaba seleccionada
+      this.sesionSeleccionada = null;
+    } else {
+      this.sesionSeleccionada = sesion;
+    }
+  }
+
+  volverAServiciosTipo() {
+    this.router.navigate(['/user/seleccionar-servicio']);
+  }
+
+
+
 }

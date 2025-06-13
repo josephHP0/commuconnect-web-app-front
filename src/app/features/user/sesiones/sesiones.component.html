@@ -1,109 +1,202 @@
-<div class="dashboard-container">
-  <main class="contenido">
-    <div class="bloque-central">
-      <h2 class="titulo-comunidad">Reservar sesión presencial</h2>
+<div class="container-padre">
 
-      <!-- 1) Distrito -->
-      <div style="margin-bottom: 1.5rem;">
-        <label><strong>Filtrar por distrito:</strong></label>
-        <select
-          [(ngModel)]="distritoSeleccionado"
-          (change)="filtrarPorDistrito()"
-          class="form-select"
-        >
-          <option [ngValue]="null">Seleccionar distrito</option>
-          <option *ngFor="let d of distritos" [ngValue]="d">
-            {{ d.nombre }}
-          </option>
-        </select>
+  <div class="volver-container">
+    <button class="btn-volver-servicios" (click)="volverAServiciosTipo()">
+      ⬅  Volver a la selección de servicios
+    </button>
+  </div>
+
+  <!-- =========== HEADER =========== -->
+  <div class="header">
+    <div class="header-left">
+      <button class="btn-back" (click)="retroceder()" [disabled]="step === 1">&#x2039;</button>
+      <span class="badge-step">Paso {{ step }} de 2</span>
+    </div>
+    <div class="titulo-con-reservas">
+      <h2>Reservar sesión presencial</h2>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- PASO 1: Selección de distrito y local -->
+  <!-- PASO 1: Selección de distrito y local -->
+<div *ngIf="step === 1" class="step-container">
+
+  <!-- Distrito -->
+  <label><strong>Filtrar por distrito:</strong></label>
+
+  <div class="card">
+  <select
+    [(ngModel)]="distritoSeleccionado"
+    (change)="filtrarPorDistrito()"
+    class="form-select"
+  >
+    <option [ngValue]="null">Seleccionar distrito</option>
+    <option *ngFor="let d of distritos" [ngValue]="d">
+      {{ d.nombre }}
+    </option>
+  </select>
+  </div>
+
+  <div class="tarjetas" *ngIf="!distritoSeleccionado">
+    <div
+      class="tarjeta profesional-item"
+      *ngFor="let d of distritos"
+      (click)="distritoSeleccionado = d; filtrarPorDistrito()"
+      [class.selected]="distritoSeleccionado === d"
+    >
+      <h4>{{ d.nombre }}</h4>
+    </div>
+  </div>
+
+  <!-- Local: Mostrar solo si ya se eligió un distrito -->
+  <ng-container *ngIf="distritoSeleccionado">
+    <div class="card">
+    <label><strong>Seleccionar local:</strong></label>
+    <select
+      [(ngModel)]="localSeleccionado"
+      (change)="seleccionarLocal(localSeleccionado)"
+      class="form-select"
+    >
+      <option [ngValue]="null">Seleccionar local</option>
+      <option *ngFor="let local of localesFiltrados" [ngValue]="local">
+        {{ local.nombre }}
+      </option>
+    </select>
+</div>
+    <div class="tarjetas-locales" *ngIf="!localSeleccionado">
+      <div
+        class="tarjeta-local profesional-item"
+        *ngFor="let local of localesFiltrados"
+        (click)="seleccionarLocal(local)"
+        [class.selected]="localSeleccionado === local"
+      >
+        <img [src]="local.link" [alt]="local.nombre" />
+        <h4>{{ local.nombre }}</h4>
+        <p>{{ local.direccion_detallada }}</p>
       </div>
+    </div>
+  </ng-container>
 
-      <!-- tarjetas de distrito -->
-      <div class="tarjetas" *ngIf="!distritoSeleccionado">
-        <div
-          class="tarjeta"
-          *ngFor="let d of distritos"
-          (click)="distritoSeleccionado = d; filtrarPorDistrito()"
-        >
-          <img [src]="d.imagen || 'ruta-default.jpg'" [alt]="d.nombre" />
-          <h4>{{ d.nombre }}</h4>
-        </div>
-      </div>
+  <!-- Botón continuar -->
+  <div class="footer-step">
+    <button
+      class="btn-continuar"
+      [disabled]="!distritoSeleccionado || !localSeleccionado"
+      (click)="continuar()"
+    >Continuar</button>
+  </div>
+</div>
 
-      <!-- 2) Local -->
-      <div *ngIf="distritoSeleccionado" style="margin-bottom: 1rem;">
-        <label><strong>Filtrar por local:</strong></label>
-        <select
-          [(ngModel)]="localSeleccionado"
-          (change)="seleccionarLocal(localSeleccionado)"
-          class="form-select"
-        >
-          <option [ngValue]="null">Seleccionar local</option>
-          <option *ngFor="let local of localesFiltrados" [ngValue]="local">
-            {{ local.nombre }}
-          </option>
-        </select>
-      </div>
 
-      <!-- tarjetas de local -->
-      <div class="tarjetas" *ngIf="distritoSeleccionado && !localSeleccionado">
-        <div
-          class="tarjeta"
-          *ngFor="let local of localesFiltrados"
-          (click)="seleccionarLocal(local)"
-        >
-          <img [src]="local.imagen" [alt]="local.nombre" />
-          <h4>{{ local.nombre }}</h4>
-          <p>{{ local.direccion_detallada }}</p>
-        </div>
-      </div>
+  <!-- PASO 2: Selección de fecha, hora y sesión -->
+  <div *ngIf="step === 2" class="step-container">
 
-      <!-- 3) Fechas -->
-      <div *ngIf="localSeleccionado && fechasFiltradas.length">
-        <label><strong>Fechas disponibles:</strong></label>
-        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.5rem;">
-          <button
-            *ngFor="let fecha of fechasFiltradas"
-            class="btn btn-outline-secondary"
-            (click)="seleccionarFecha(fecha)"
-            [class.seleccionado]="fechaSeleccionada === fecha"
-          >
-            {{ fecha }}
+    <!-- Fechas -->
+    <div class="card">
+    <label><strong>Fechas disponibles:</strong></label>
+    <div class="fechas-container">
+      <button
+        *ngFor="let fecha of fechasFiltradas"
+        class="btn btn-outline-secondary"
+        (click)="seleccionarFecha(fecha)"
+        [class.seleccionado]="fechaSeleccionada === fecha"
+      >
+        {{ fecha }}
+      </button>
+    </div>
+    </div>
+    <!-- Horas -->
+    <div class="card">
+    <label><strong>Horas disponibles:</strong></label>
+    <div class="fechas-container">
+      <button
+        *ngFor="let hora of horasFiltradas"
+        class="btn btn-outline-secondary"
+        (click)="seleccionarHora(hora)"
+        [class.seleccionado]="horaSeleccionada === hora"
+      >
+        {{ hora }}
+      </button>
+    </div>
+    </div>
+    <!-- Sesiones 
+    <div *ngIf="sesionesDisponibles.length > 0">
+      <label><strong>Sesiones disponibles:</strong></label>
+      <div class="tarjetas">
+        <div class="tarjeta" *ngFor="let s of sesionesDisponibles">
+          <h4>{{ s.fecha }} • {{ s.hora_inicio }} – {{ s.hora_fin }}</h4>
+          <p>Responsable: {{ s.responsable }}</p>
+          <p>Vacantes: {{ s.vacantes_libres }} / {{ s.vacantes_totales }}</p>
+          <button class="btn-verde" (click)="reservarSesion(s)">
+            Reservar
           </button>
-        </div>
-      </div>
-
-      <!-- 4) Horas -->
-      <div *ngIf="fechaSeleccionada && horasFiltradas.length" style="margin-top:1.5rem;">
-        <label><strong>Horas disponibles:</strong></label>
-        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.5rem;">
-          <button
-            *ngFor="let hora of horasFiltradas"
-            class="btn btn-outline-secondary"
-            (click)="seleccionarHora(hora)"
-            [class.seleccionado]="horaSeleccionada === hora"
-          >
-            {{ hora }}
-          </button>
-        </div>
-      </div>
-
-      <!-- 5) Sesiones detalladas -->
-      <div *ngIf="sesionesDisponibles.length" style="margin-top:1.5rem;">
-        <label><strong>Sesiones disponibles:</strong></label>
-        <div class="tarjetas" style="margin-top:0.5rem;">
-          <div class="tarjeta" *ngFor="let s of sesionesDisponibles">
-            <h4>
-              {{ s.fecha }} • {{ s.hora_inicio }} – {{ s.hora_fin }}
-            </h4>
-            <p>Responsable: {{ s.responsable }}</p>
-            <p>Vacantes: {{ s.vacantes_libres }} / {{ s.vacantes_totales }}</p>
-            <button class="btn-verde" (click)="reservarSesion(s)">
-              Reservar
-            </button>
-          </div>
         </div>
       </div>
     </div>
-  </main>
+-->
+    <!-- Sesiones -->
+<div *ngIf="sesionesDisponibles.length > 0">
+  <label><strong>Sesiones disponibles:</strong></label>
+
+  <div class="tabla-sesiones-container">
+    <table class="tabla-sesiones">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Ubicación</th>
+          <th>Responsable</th>
+          <th>Hora inicio</th>
+          <th>Hora fin</th>
+          <th>Vacantes totales</th>
+          <th>Vacantes libres</th>
+          <th>Seleccionar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of sesionesDisponibles | paginate: { itemsPerPage: 5, currentPage: paginaActual }">
+          <td>{{ s.fecha }}</td>
+          <td>{{ s.ubicacion }}</td>
+          <td>{{ s.responsable }}</td>
+          <td>{{ s.hora_inicio }}</td>
+          <td>{{ s.hora_fin }}</td>
+          <td>{{ s.vacantes_totales }}</td>
+          <td>{{ s.vacantes_libres }}</td>
+          <td>
+        
+
+
+            <label class="circular-checkbox">
+              <input
+                type="checkbox"
+                [checked]="sesionSeleccionada === s"
+                (change)="seleccionarSesion(s)"
+              />
+              <span class="checkmark"></span>
+            </label>
+            
+
+
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Controles de paginación -->
+  <pagination-controls
+    (pageChange)="paginaActual = $event"
+    [autoHide]="true"
+    previousLabel="‹"
+    nextLabel="›"
+  ></pagination-controls>
+</div>
+
+
+
+
+  </div>
+
 </div>

@@ -13,6 +13,8 @@ import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad
 import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
 import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-cliente.component';
 
+
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -25,7 +27,8 @@ import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-
     CommonModule,
     AdminRoutingModule,
     AdminLayoutModule,
-    FormsModule
+    FormsModule,
+  
 
 
   ]

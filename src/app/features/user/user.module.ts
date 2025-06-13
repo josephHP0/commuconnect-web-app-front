@@ -17,7 +17,7 @@ import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar
 
 import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module';
 
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module'
     UserRoutingModule,
 
     FormsModule,  // 👈 Asegúrate de tener esto aquí
-    UserLayoutModule
+    UserLayoutModule,
+    NgxPaginationModule
 
 
   ]
