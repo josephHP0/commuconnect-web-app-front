@@ -30,7 +30,7 @@
   <select
     [(ngModel)]="distritoSeleccionado"
     (change)="filtrarPorDistrito()"
-    class="form-select"
+    class="form-select dropdown-pequeno"
   >
     <option [ngValue]="null">Seleccionar distrito</option>
     <option *ngFor="let d of distritos" [ngValue]="d">
@@ -52,12 +52,13 @@
 
   <!-- Local: Mostrar solo si ya se eligió un distrito -->
   <ng-container *ngIf="distritoSeleccionado">
+    
+    <label><strong>Filtrar po local :</strong></label>
     <div class="card">
-    <label><strong>Seleccionar local:</strong></label>
     <select
       [(ngModel)]="localSeleccionado"
       (change)="seleccionarLocal(localSeleccionado)"
-      class="form-select"
+      class="form-select dropdown-pequeno"
     >
       <option [ngValue]="null">Seleccionar local</option>
       <option *ngFor="let local of localesFiltrados" [ngValue]="local">
@@ -95,7 +96,11 @@
 
     <!-- Fechas -->
     <div class="card">
-    <label><strong>Fechas disponibles:</strong></label>
+    <label>
+      <strong>Fechas disponibles  </strong>
+      <i class="bi bi-calendar icono-calendario"></i>
+    </label>
+  </div>
     <div class="fechas-container">
       <button
         *ngFor="let fecha of fechasFiltradas"
@@ -105,11 +110,20 @@
       >
         {{ fecha }}
       </button>
+    
     </div>
-    </div>
+    <div style="height: 25px;"></div>
+ 
     <!-- Horas -->
+    <ng-container *ngIf="fechaSeleccionada">
     <div class="card">
-    <label><strong>Horas disponibles:</strong></label>
+      <label>
+        <strong>Horas disponibles  </strong>
+        <i class="bi bi-clock icono-hora"></i>
+      </label>
+      
+    </div>
+   
     <div class="fechas-container">
       <button
         *ngFor="let hora of horasFiltradas"
@@ -120,22 +134,9 @@
         {{ hora }}
       </button>
     </div>
-    </div>
-    <!-- Sesiones 
-    <div *ngIf="sesionesDisponibles.length > 0">
-      <label><strong>Sesiones disponibles:</strong></label>
-      <div class="tarjetas">
-        <div class="tarjeta" *ngFor="let s of sesionesDisponibles">
-          <h4>{{ s.fecha }} • {{ s.hora_inicio }} – {{ s.hora_fin }}</h4>
-          <p>Responsable: {{ s.responsable }}</p>
-          <p>Vacantes: {{ s.vacantes_libres }} / {{ s.vacantes_totales }}</p>
-          <button class="btn-verde" (click)="reservarSesion(s)">
-            Reservar
-          </button>
-        </div>
-      </div>
-    </div>
--->
+    <div style="height: 25px;"></div>
+  </ng-container>
+
     <!-- Sesiones -->
 <div *ngIf="sesionesDisponibles.length > 0">
   <label><strong>Sesiones disponibles:</strong></label>
@@ -165,8 +166,6 @@
           <td>{{ s.vacantes_libres }}</td>
           <td>
         
-
-
             <label class="circular-checkbox">
               <input
                 type="checkbox"
@@ -175,14 +174,15 @@
               />
               <span class="checkmark"></span>
             </label>
-            
-
-
-
+          
           </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Botón Continuar en Paso 2 -->
+
+
   </div>
 
   <!-- Controles de paginación -->
@@ -192,11 +192,25 @@
     previousLabel="‹"
     nextLabel="›"
   ></pagination-controls>
+
+  
+
+
+</div>
+
+<div class="footer-step">
+  <button
+    class="btn-continuar"
+    [disabled]="!sesionSeleccionada"
+    (click)="continuarReserva()"
+  >
+    Continuar
+  </button>
 </div>
 
 
-
-
   </div>
+
+
 
 </div>

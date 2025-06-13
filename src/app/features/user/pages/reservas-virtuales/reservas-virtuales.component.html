@@ -54,7 +54,10 @@
   <div *ngIf="step === 2" class="step-container">
 
     <div class="card-row">
-      <div class="card"><label>Profesional elegido:</label><input [value]="nombreProfesional()" readonly /></div>
+      <div class="card ">
+        <label>Profesional elegido:</label>
+        <input class="input-pequeno" [value]="nombreProfesional()" readonly />
+      </div>
     </div>
     <p class="mt-4 mb-2 fs-5 fw-semibold">Seleccione la fecha de su preferencia para la sesión :</p>
     <div class="card">

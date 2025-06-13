@@ -10,13 +10,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./sesiones.component.css']
 })
 export class SesionesComponent implements OnInit {
+
   idServicio = 1;
-
   paginaActual = 1;
-
   sesionSeleccionada: any = null;
-
-
   step = 1;
 
   // Nivel 1
@@ -149,38 +146,6 @@ export class SesionesComponent implements OnInit {
     this.obtenerSesionesPresenciales();
   }
 
-/*
-"id_sesion": 0,
-      "id_sesion_presencial": 0,
-      "fecha": "2025-06-13",
-      "ubicacion": "string",
-      "responsable": "string",
-      "hora_inicio": "string",
-      "hora_fin": "string",
-      "vacantes_totales": 0,
-      "vacantes_libres": 0
-*/
-
-
-
-  // ─── Nivel 5: Sesiones ────────────────────────────────────────────
-  /*
-  private obtenerSesionesPresenciales(): void {
-    const params = new HttpParams()
-      .set('id_servicio', this.idServicio.toString())
-      .set('id_distrito', this.distritoSeleccionado.id_distrito)
-      .set('id_local', this.localSeleccionado.id_local)
-      .set('fecha', this.fechaSeleccionada)   // << fecha en DD/MM/YYYY
-      .set('hora', this.horaSeleccionada);
-
-    this.http
-      .get<{ sesiones: any[] }>(`${this.baseUrl}/reservations/sesiones-presenciales`, { params })
-      .subscribe({
-        next: res => this.sesionesDisponibles = res.sesiones,
-        error: err => console.error('Error al obtener sesiones:', err)
-      });
-  }
-*/
 
 
   private obtenerSesionesPresenciales(): void {
@@ -209,22 +174,7 @@ export class SesionesComponent implements OnInit {
       });
   }
   
-/*
-  reservarSesion(sesion: any): void {
-    this.http
-      .get<string>(`${this.baseUrl}/reservations/reserva-existe/${sesion.id_sesion}`)
-      .subscribe({
-        next: res => {
-          if (res === 'true') {
-            alert('Ya existe una reserva para esta sesión.');
-          } else {
-            alert('Puedes proceder a reservar esta sesión.');
-          }
-        },
-        error: err => console.error('Error al verificar reserva:', err)
-      });
-  }
-*/
+
   reservarSesion(sesion: any): void {
     const tokenType = localStorage.getItem('token_type');
     const accessToken = localStorage.getItem('access_token');
@@ -260,13 +210,6 @@ export class SesionesComponent implements OnInit {
   }
 
 
-/*
-  retroceder(): void {
-    if (this.step > 1) {
-      this.step--;
-    }
-  }
-    */
 
 
   retroceder(): void {
@@ -276,49 +219,7 @@ export class SesionesComponent implements OnInit {
     }
   }
   
-  
-/*
-  continuar(): void {
-    switch (this.step) {
-      case 1:
-        if (!this.distritoSeleccionado) {
-          alert('Por favor selecciona un distrito.');
-          return;
-        }
-        this.filtrarPorDistrito();
-        break;
-  
-      case 2:
-        if (!this.localSeleccionado) {
-          alert('Por favor selecciona un local.');
-          return;
-        }
-        this.obtenerFechasPresenciales();
-        break;
-  
-      case 3:
-        if (!this.fechaSeleccionada) {
-          alert('Por favor selecciona una fecha.');
-          return;
-        }
-        this.obtenerHorasPresenciales();
-        break;
-  
-      case 4:
-        if (!this.horaSeleccionada) {
-          alert('Por favor selecciona una hora.');
-          return;
-        }
-        this.obtenerSesionesPresenciales();
-        break;
-    }
-  
-    if (this.step < 5) {
-      this.step++;
-    }
-  }
-  
-*/
+
   continuar(): void {
     if (this.step === 1) {
       if (!this.distritoSeleccionado || !this.localSeleccionado) {
@@ -346,6 +247,17 @@ export class SesionesComponent implements OnInit {
     this.router.navigate(['/user/seleccionar-servicio']);
   }
 
+
+  continuarReserva(): void {
+    if (this.sesionSeleccionada) {
+      // Lógica para continuar a la siguiente etapa
+      console.log('Sesión seleccionada:', this.sesionSeleccionada);
+      // Puedes navegar a otro componente o mostrar un resumen, etc.
+      //this.router.navigate(['/user/resumen-reserva']); // Ejemplo de ruta
+    }
+  }
+  
+  
 
 
 }

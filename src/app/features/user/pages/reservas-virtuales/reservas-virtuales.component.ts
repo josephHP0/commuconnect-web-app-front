@@ -38,27 +38,10 @@ export class ReservasVirtualesComponent implements OnInit {
   topesEstado: string | null = null;
 
   constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute,private router: Router) {}
-/*
- ngOnInit(): void {
-     // Leer el servicioId desde query params
-    this.route.queryParams.subscribe(params => {
-      const id = params['servicioId'];
-      if (id) {
-        this.idServicio = +id; // convertir a número
-      }
-      this.obtenerDistritos();
 
 
-      console.log("servicio que me dan "+this.idServicio);
-    });
 
-    this.fechasFiltradas = [];
-  }
-
-*/
-
-
-idServicio=1;
+  idServicio=1;
 
 
   ngOnInit() {
@@ -80,7 +63,7 @@ idServicio=1;
 
       }
 
-       this.reservaService.getProfesionales(this.idServicio).subscribe({
+       this.reservaService.getProfesionales(this.idServicioSeleccionado).subscribe({
       next: (data) => {
         console.log('Profesionales cargados:', data);
         this.profesionales = data;
@@ -165,21 +148,6 @@ idServicio=1;
   }
 
 
-  /*cargarFechas() {
-    if (this.profesionalSeleccionado == null) return;
-
-    this.cargandoFechas = true;
-    this.reservaService.getFechasDisponibles(this.profesionalSeleccionado).subscribe({
-      next: fechas => {
-        this.fechasDisponibles = fechas;
-        this.cargandoFechas = false;
-      },
-      error: err => {
-        console.error('Error al cargar fechas:', err);
-        this.cargandoFechas = false;
-      }
-    });
-  }*/
   cargarFechas() {
     if (this.profesionalSeleccionado == null) return;
 

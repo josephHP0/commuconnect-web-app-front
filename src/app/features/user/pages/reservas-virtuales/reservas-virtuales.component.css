@@ -391,3 +391,16 @@ input[type="radio"] {
 .btn-volver-servicios:hover {
   background-color: #dcdcdc;
 }
+
+
+.card-profesionalSeleccionado {
+  max-width: 300px; /* o el ancho que prefieras */
+  width: 100%;
+
+  
+}
+
+.input-pequeno {
+  max-width: 300px; /* ajusta este valor a tu gusto */
+  width: 100%;
+}

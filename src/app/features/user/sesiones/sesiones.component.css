@@ -461,3 +461,10 @@ input[type="radio"] {
   color: #666;
 }
 
+
+
+.dropdown-pequeno {
+  width: 100%;      /* o el ancho que prefieras */
+  max-width: 300px;   /* para que no se desborde en pantallas pequeñas */
+}
+
