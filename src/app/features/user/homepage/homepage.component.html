@@ -7,7 +7,25 @@
   <!-- Contenido -->
   <main class="contenido">
     <div class="bloque-central" *ngIf="comunidad">
-      <h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>
+      <!--<h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>-->
+
+      <div class="row align-items-center">
+        <div class="col-auto ms-auto" *ngIf="tieneTopes">
+          <div class="tarjeta-amarilla">
+            Topes disponibles: {{ topesDisponibles }}
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="row align-items-center">
+        <div class="col-auto ">
+          <h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>
+        </div>
+      </div>
+      
+      
+      
 
       <img [src]="comunidad.imagen" [alt]="comunidad.nombre" class="imagen-principal pequeña" />
 
@@ -15,10 +33,16 @@
         {{ comunidad.slogan }}
       </p>
 
+      <div style="height: 20px;"></div>
+
+      <p><strong>Servicios:</strong></p>
+
+
       <div class="tarjetas">
         <div class="tarjeta" *ngFor="let servicio of comunidad.servicios">
           <img src="/assets/servicios.png" alt="Servicio" />
-          <button class="btn-verde">{{ servicio.nombre }}</button>
+          <span class="nombre-servicio">{{ servicio.nombre }}</span>
+
         </div>
       </div>
     </div>

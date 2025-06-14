@@ -8,22 +8,16 @@ import { ComunidadService, ComunidadContexto } from '../services/comunidad.servi
 })
 export class HomepageComponent implements OnInit {
   comunidad: ComunidadContexto | null = null;
+  topesDisponibles: number = 0;
+
+
+  tieneTopes: boolean = false;
+
+
+
 
   constructor(private comunidadService: ComunidadService) {}
-/*
-  ngOnInit(): void {
-    const comunidadGuardada = localStorage.getItem('comunidad_seleccionada');
-    if (comunidadGuardada) {
-      const comunidad = JSON.parse(comunidadGuardada);
-      const id = comunidad.id_comunidad;
 
-      this.comunidadService.obtenerComunidadPorId(id).subscribe({
-        next: (data) => this.comunidad = data,
-        error: (err) => console.error('Error al cargar comunidad:', err)
-      });
-    }
-  }
-*/
 
   ngOnInit(): void {
   const comunidadGuardada = localStorage.getItem('comunidad_seleccionada');
@@ -43,6 +37,28 @@ export class HomepageComponent implements OnInit {
       },
       error: (err) => console.error('Error al cargar comunidad:', err)
     });
+
+    
+
+
+
+    this.comunidadService.verificarSiTieneTopes(id).subscribe((respuesta: any) => {
+      this.tieneTopes = respuesta.tieneTopes;
+
+      if (this.tieneTopes) {
+        // Si tiene topes, obtener cantidad
+        this.comunidadService.obtenerCantidadTopes(id).subscribe((data: any) => {
+          this.topesDisponibles = data.topes_disponibles;
+        });
+      }
+    });
+
+
+ 
+    
+
+   
+
   }
 }
 

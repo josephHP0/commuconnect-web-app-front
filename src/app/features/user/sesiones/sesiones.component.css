@@ -1,169 +1,470 @@
-/* sesiones.component.css */
+/* CONTENEDOR PRINCIPAL */
+.container-padre {
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
 
-/* --- Navbar y sidebar --- */
-.navbar-top {
-  height: 56px;
-  background-color: white;
-  border-bottom: 1px solid #ddd;
+/* HEADER CON FLECHA Y TÍTULO */
+.header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 1.5rem;
+  margin-bottom: 10px;
+  padding: 0 10px;
 }
 
-.logo-top {
-  height: 32px;
-}
-
-.navbar-icons i {
-  font-size: 1.4rem;
-  color: #333;
-  margin-left: 1rem;
-  cursor: pointer;
-}
-
-.navbar-icons i:hover {
-  color: #4CAF50;
-}
-
-.dashboard-container {
+.header-left {
   display: flex;
-  min-height: 100vh;
+  align-items: center;
+  gap: 10px;
 }
 
-.sidebar {
-  width: 220px;
-  background-color: white;
-  border-right: 1px solid #ddd;
-  padding: 1rem;
-}
-
-.logo-sidebar {
-  width: 40px;
-  margin-bottom: 2rem;
-}
-
-.menu {
-  list-style: none;
+.btn-back {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  user-select: none;
   padding: 0;
-  font-size: 14px;
+  line-height: 1;
 }
 
-.menu li {
-  margin: 1rem 0;
-  cursor: pointer;
+.btn-back[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.titulo-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 12px;
 }
 
-/* --- Contenido principal --- */
-.contenido {
-  flex: 1;
-  padding: 2rem;
-  overflow-x: auto;
+.badge-step {
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 8px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.titulo-comunidad {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+/* SEPARADOR */
+hr {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
 }
 
-.imagen-principal {
+/* CONTENEDOR DE CADA PASO */
+.step-container {
+  margin-top: 20px;
+}
+
+/* TARJETA INDIVIDUAL */
+.card {
+  background-color: #e9f7ef;
+  border: 1px solid #b2dfdb;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+  min-width: 250px;
+}
+
+.card label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #444444;
+}
+
+.card select,
+.card input {
   width: 100%;
-  max-width: 1100px;
-  border-radius: 20px;
-  margin-bottom: 1.5rem;
+  padding: 6px 8px;
+  border: 1px solid #b2dfdb;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
-.descripcion {
-  font-size: 1rem;
-  color: #444;
-  max-width: 900px;
+/* FOOTER DE CADA PASO CON BOTONES */
+.footer-step {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.pequeña {
-  max-width: 500px;
+.btn-continuar,
+.btn-reservar {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
-/* --- Tarjetas --- */
-.tarjetas {
+.btn-continuar[disabled],
+.btn-reservar[disabled] {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  color: #666666;
+}
+
+.btn-continuar:hover:not([disabled]),
+.btn-reservar:hover:not([disabled]) {
+  background-color: #218838;
+}
+
+/* TABLA DE SESIONES */
+.tabla-wrapper {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.tabla-sesiones {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-sesiones th,
+.tabla-sesiones td {
+  border: 1px solid #b2dfdb;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #2e7d32;
+}
+
+.tabla-sesiones th {
+  background-color: #d4edda;
+  font-weight: 700;
+}
+
+/* ESTILOS DE MENSAJES */
+.text-muted {
+  color: #6c757d;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.text-danger {
+  color: #dc3545;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* ESTILOS DE RADIO BUTTONS */
+input[type="radio"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+/* CONTENEDOR DEL FOOTER EN LA TABLA */
+.sesiones-footer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .card {
+    min-width: 100%;
+  }
+}
+
+/* SELECCIÓN DE FECHAS */
+.fechas-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 12px;
+  margin-top: 8px;
 }
 
-.tarjeta {
-  background-color: #fff;
-  border: 1px solid #ddd;
+.fecha-item {
+  padding: 10px 16px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 1rem;
-  width: 260px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background-color: white;
   cursor: pointer;
-  transition: border 0.2s ease;
+  min-width: 100px;
+  text-align: center;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-.tarjeta img {
+.fecha-item:hover {
+  background-color: #e6f2e6;
+  border-color: #e0e0e0;
+}
+
+.fecha-item.selected {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+  font-weight: bold;
+}
+
+/* SELECCIÓN DE PROFESIONALES */
+.profesionales-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.profesional-item {
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  min-width: 180px;
+  text-align: center;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.profesional-item:hover {
+  background-color: #e6f2e6;
+  border-color: #e0e0e0;
+}
+
+.profesional-item.selected {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+  font-weight: bold;
+}
+
+/* TÍTULO Y RESERVAS CENTRADOS */
+.titulo-con-reservas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.titulo-con-reservas h2 {
+  margin: 0;
+  font-weight: 700;
+}
+
+.reservas-disponibles {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d2d2d;
+  background-color: #ffeab2;
+  border: 1.5px solid #ffeab2;
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-top: 6px;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(21, 87, 40, 0.3);
+  max-width: fit-content;
+}
+
+/* CUADRO DE RESUMEN */
+.resumen-seleccion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
   width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
 }
 
-.tarjeta.seleccionado {
-  border: 2px solid #4CAF50;
-  box-shadow: 0 0 5px #4CAF50;
-}
-
-/* --- Bloque central --- */
-.bloque-central {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+.card-profesional {
+  background-color: #fff;
+  border: 1.5px solid #b2dfdb;
+  border-radius: 8px;
+  padding: 0 16px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
 
-/* --- Seleccionados genéricos --- */
-.seleccionado {
-  border: 2px solid #4CAF50;
-  box-shadow: 0 0 6px #4CAF50;
+.card-fecha-hora {
+  background-color: #fff;
+  border: 1.5px solid #b2dfdb;
+  border-radius: 8px;
+  padding: 0 16px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  gap: 40px;
 }
 
-/* --- Botones de filtro --- */
-.btn-outline-secondary {
-  padding: 0.5rem 1rem;
+.card-fecha-hora > div {
+  flex: none;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cuadro-resumen {
+  background-color: white;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  background: white;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 15px;
+  max-width: 400px;
+}
+
+
+
+
+.tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* antes 16px */
+  margin-top: 10px; /* antes 20px */
+}
+
+
+.tarjeta {
   cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 16px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  min-width: 180px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.btn-outline-secondary:hover {
-  background-color: #f3f3f3;
+.tarjeta:hover {
+  border-color: #a5d6a7;
+  background-color: #f1f8e9;
 }
 
-/* --- Botón verde y efecto hover --- */
-.btn-verde {
-  background-color: #4CAF50;
-  color: white;
+.tarjeta.seleccionada {
+  border-color: #4caf50;
+  background-color: #e8f5e9;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+
+
+.volver-container {
+  margin: 1rem 0;
+}
+
+.btn-volver-servicios {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 0.5rem 1rem;
   border: none;
-  padding: 0.4rem 1rem;
   border-radius: 6px;
-  font-weight: bold;
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-.btn-verde:hover {
-  /* Efecto de resplandor */
-  box-shadow: 0 0 8px rgba(76, 175, 80, 0.7);
-  /* Ligeramente más grande */
-  transform: scale(1.05);
-  /* Un poco más brillante */
-  filter: brightness(1.1);
+
+.circular-checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
 }
+
+.circular-checkbox input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.circular-checkbox .checkmark {
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border: 2px solid #28a745;
+  border-radius: 50%; /* Esto hace que sea circular */
+  display: inline-block;
+  transition: 0.2s;
+}
+
+.circular-checkbox input[type="checkbox"]:checked + .checkmark {
+  background-color: #28a745;
+  box-shadow: inset 0 0 0 4px white;
+}
+
+.tarjetas-locales {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start; /* <-- antes estaba 'center' */
+  margin-top: 10px;
+}
+
+
+.tarjeta-local {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  width: 260px;
+  height: 200px;  
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  background-color: white;
+  cursor: pointer;
+}
+
+.tarjeta-local:hover {
+  transform: scale(1.03);
+}
+
+.tarjeta-local img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.tarjeta-local h4 {
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.tarjeta-local p {
+  font-size: 12px;
+  margin: 0;
+  color: #666;
+}
+
+
+
+.dropdown-pequeno {
+  width: 100%;      /* o el ancho que prefieras */
+  max-width: 300px;   /* para que no se desborde en pantallas pequeñas */
+}
+

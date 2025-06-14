@@ -17,7 +17,8 @@ import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar
 
 import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module';
 
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module'
     MisComunidadesComponent,
     HomepageComponent,
     SesionesComponent,
-    SeleccionarServicioComponent
+    SeleccionarServicioComponent,
+    NuevaReservaPresencialComponent
 
   ],
   imports: [
@@ -37,7 +39,8 @@ import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module'
     UserRoutingModule,
 
     FormsModule,  // 👈 Asegúrate de tener esto aquí
-    UserLayoutModule
+    UserLayoutModule,
+    NgxPaginationModule
 
 
   ]

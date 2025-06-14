@@ -1,19 +1,30 @@
 <!-- Contenido -->
   <main class="contenido">
-    <div class="bloque-central">
+
+
+    <div class="row align-items-center">
+      <div class="col-auto ms-auto" *ngIf="tieneTopes">
+        <div class="tarjeta-amarilla">
+          Topes disponibles: {{ topesDisponibles }}
+        </div>
+      </div>
       <h2 class="titulo-comunidad">Servicios</h2>
+    </div>
+    <div class="bloque-central">
+
+     
+
+      
 
       <!-- Topes -->
       <div *ngIf="topes > 0" class="alert alert-warning">
         Reservas disponibles: {{ topes }}
       </div>
-
-      <!-- Servicios -->
       <div class="tarjetas">
         <div class="tarjeta" *ngFor="let servicio of servicios">
-          <i class="bi bi-gear" style="font-size: 3rem;" *ngIf="!servicio.imagen"></i>
-          <img *ngIf="servicio.imagen" [src]="servicio.imagen" [alt]="servicio.nombre"
-              style="width: 100px; height: 100px; object-fit: contain;" />
+          <span class="modalidad">{{ servicio.modalidad }}</span>
+          <i class="bi bi-gear" *ngIf="!servicio.imagen"></i>
+          <img *ngIf="servicio.imagen" [src]="servicio.imagen" [alt]="servicio.nombre" />
           <h4>{{ servicio.nombre }}</h4>
           <p>{{ servicio.descripcion }}</p>
           <button class="btn-verde" (click)="seleccionarServicio(servicio)">Reservar</button>

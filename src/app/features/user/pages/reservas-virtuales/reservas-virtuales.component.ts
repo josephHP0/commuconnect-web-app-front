@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservasVirtualesService, FechaSesion } from '../../services/reservas/reservas-virtuales.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservas-virtuales',
@@ -37,34 +37,20 @@ export class ReservasVirtualesComponent implements OnInit {
   id_comunidad: number = 0;
   topesEstado: string | null = null;
 
-  constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute) {}
-/*
- ngOnInit(): void {
-     // Leer el servicioId desde query params
-    this.route.queryParams.subscribe(params => {
-      const id = params['servicioId'];
-      if (id) {
-        this.idServicio = +id; // convertir a número
-      }
-      this.obtenerDistritos();
+  constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute,private router: Router) {}
 
 
-      console.log("servicio que me dan "+this.idServicio);
-    });
 
-    this.fechasFiltradas = [];
-  }
-
-*/
-
-
-idServicio=1;
+  idServicio=1;
 
 
   ngOnInit() {
     // Recuperar id_comunidad desde localStorage
     const storedId = localStorage.getItem('id_comunidad');
     this.id_comunidad = storedId ? +storedId : 0;
+
+   
+
 
     // Hardcodeas idServicio por ahora
     this.idServicioSeleccionado = 4;
@@ -73,6 +59,7 @@ idServicio=1;
       const id = params['servicioId'];
       if (id) {
         this.idServicio = +id; // convertir a número
+       // console.log('Servicio ID recibido:', id);
 
       }
 
@@ -161,21 +148,6 @@ idServicio=1;
   }
 
 
-  /*cargarFechas() {
-    if (this.profesionalSeleccionado == null) return;
-
-    this.cargandoFechas = true;
-    this.reservaService.getFechasDisponibles(this.profesionalSeleccionado).subscribe({
-      next: fechas => {
-        this.fechasDisponibles = fechas;
-        this.cargandoFechas = false;
-      },
-      error: err => {
-        console.error('Error al cargar fechas:', err);
-        this.cargandoFechas = false;
-      }
-    });
-  }*/
   cargarFechas() {
     if (this.profesionalSeleccionado == null) return;
 
@@ -274,5 +246,10 @@ idServicio=1;
       console.error('Error verificando reserva', error);
       alert("Error al verificar la reserva. Intenta nuevamente.");
     });
+  }
+
+
+  volverAServiciosTipo() {
+    this.router.navigate(['/user/seleccionar-servicio']);
   }
 }

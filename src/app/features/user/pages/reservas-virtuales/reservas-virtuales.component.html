@@ -1,5 +1,11 @@
 <div class="container-padre">
 
+  <div class="volver-container">
+    <button class="btn-volver-servicios" (click)="volverAServiciosTipo()">
+      ⬅  Volver a la selección de servicios
+    </button>
+  </div>
+
   <!-- =========== HEADER =========== -->
   <div class="header">
     <!-- Izquierda: Flecha y badge de paso -->
@@ -21,8 +27,12 @@
 
   <!-- PASO 1: Selección de Profesional -->
   <div *ngIf="step === 1" class="step-container">
+    <p class="mt-4 mb-2 fs-5 fw-semibold">Seleccione el profesional de su preferencia :</p>
     <div class="card">
-      <label>Profesionales:</label>
+      <label class="d-flex align-items-center">
+        Profesional:
+        <i class="bi bi-person-fill ms-2"></i>
+      </label>
       <div class="profesionales-container">
         <div
           class="profesional-item"
@@ -42,9 +52,14 @@
 
   <!-- PASO 2: Selección de Fecha -->
   <div *ngIf="step === 2" class="step-container">
+
     <div class="card-row">
-      <div class="card"><label>Profesional elegido:</label><input [value]="nombreProfesional()" readonly /></div>
+      <div class="card ">
+        <label>Profesional elegido:</label>
+        <input class="input-pequeno" [value]="nombreProfesional()" readonly />
+      </div>
     </div>
+    <p class="mt-4 mb-2 fs-5 fw-semibold">Seleccione la fecha de su preferencia para la sesión :</p>
     <div class="card">
       <label>Fecha de inicio</label>
       <div class="fechas-container">
@@ -60,8 +75,15 @@
 
       </div>
     </div>
+
+
+    <p class="mt-4 mb-2 fs-5 fw-semibold" *ngIf="fechaSeleccionada && horasDisponibles.length">
+      Seleccione el horario disponible para su sesión:
+    </p>
     <!-- Nuevo bloque: Horas disponibles para la fecha -->
+   
     <div class="card" *ngIf="fechaSeleccionada && horasDisponibles.length">
+
       <label>Horas disponibles para {{ fechaSeleccionada }}</label>
       <div class="fechas-container">
         <div
