@@ -4,6 +4,9 @@ import { ActivatedRoute ,Router} from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 
+import { ReservasPresencialesService} from '../../user/services/reservas/reservas-presenciales.service'
+
+
 @Component({
   selector: 'app-sesiones',
   templateUrl: './sesiones.component.html',
@@ -40,7 +43,8 @@ export class SesionesComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private reservaService: ReservasPresencialesService
   ) {}
 
   ngOnInit(): void {
@@ -247,7 +251,7 @@ export class SesionesComponent implements OnInit {
     this.router.navigate(['/user/seleccionar-servicio']);
   }
 
-
+/*
   continuarReserva(): void {
     if (this.sesionSeleccionada) {
       // Lógica para continuar a la siguiente etapa
@@ -255,6 +259,39 @@ export class SesionesComponent implements OnInit {
       // Puedes navegar a otro componente o mostrar un resumen, etc.
       //this.router.navigate(['/user/resumen-reserva']); // Ejemplo de ruta
     }
+  }ß
+*/
+
+  continuarReserva() {
+    if (this.sesionSeleccionada === null) {
+      alert("Por favor selecciona una sesión.");
+      return;
+    }
+
+    //const sesion = this.fechasDisponibles[this.sesionSeleccionadaIndex];
+    //const sesion = this.sesionesDisponibles[this.sesionSeleccionada];
+    const sesion = this.sesionSeleccionada;
+    
+
+    if (!sesion || !sesion.id_sesion) {
+      alert("Sesión inválida.");
+      return;
+    }
+    this.reservaService.verificarReservaExistePresencial(sesion.id_sesion).subscribe(res => {
+      if (res.reserva_existente) {
+        console.log("Sesión ya reservada:", sesion.id_sesion);
+        alert("Ya tienes una reserva activa para esta sesión.");
+      } else {
+        console.log('Reservando sesión:', sesion);
+        // Aquí puedes llamar al endpoint para crear la reserva
+        this.router.navigate(['/user/nueva-reserva-presencial'], {
+          state: { sesion }  // pasas la sesión a la nueva pantalla
+        });
+      }
+    }, error => {
+      console.error('Error verificando reserva', error);
+      alert("Error al verificar la reserva. Intenta nuevamente.");
+    });
   }
   
   
