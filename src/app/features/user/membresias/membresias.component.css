@@ -6,11 +6,13 @@
   color: #001845;
   font-size: 2rem;
   font-weight: bold;
+  text-align: center;
 }
 
 .titulo p {
   margin-top: 0.5rem;
   color: #666;
+  text-align: center;
 }
 
 .contenido {

@@ -34,7 +34,12 @@ interface RegisterRequest {
   talla: number;
   peso: number;
 }
-
+// DTO para el cambio de contraseña
+export interface CambioPasswordDTO {
+  actual: string;
+  nueva: string;
+  repetir: string;
+}
 
 
 @Injectable({
@@ -79,4 +84,5 @@ export class AuthService {
     map(response => response.tiene_comunidades)
   );
 }
+  
 }

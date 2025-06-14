@@ -120,7 +120,10 @@ export class SeleccionComunidadComponent implements OnInit {
 
     this.comunidadService.unirseAComunidad(comunidad.id_comunidad).subscribe({
       next: () => {
-        localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString());
+        // Solo setear si no existe aún
+        if (!localStorage.getItem('id_comunidad')) {
+          localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString());
+        }
 
         Swal.fire({
           icon: 'success',

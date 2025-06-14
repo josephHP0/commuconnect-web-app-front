@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { SeleccionComunidadComponent } from './seleccion-comunidad/seleccion-comunidad.component';
@@ -17,6 +18,7 @@ import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar
 
 import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module';
 import { MembresiasComponent } from './membresias/membresias.component';
+import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.component';
 
 
 
@@ -31,11 +33,13 @@ import { MembresiasComponent } from './membresias/membresias.component';
     HomepageComponent,
     SesionesComponent,
     SeleccionarServicioComponent,
-    MembresiasComponent
+    MembresiasComponent,
+    CambiarPasswordComponent
 
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     UserRoutingModule,
 
     FormsModule,  

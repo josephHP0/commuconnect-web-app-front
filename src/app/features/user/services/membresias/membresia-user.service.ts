@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 
 export interface InfoInscripcion {
   id_inscripcion: number;
-  estado: string;
+  estado: number;
   titulo: string;
   descripcion_plan: string;
   precio: number;
@@ -30,4 +30,17 @@ export class MembresiaUserService {
   esPlanConTopes(idInscripcion: number): Observable<EsConTopesResponse> {
     return this.http.get<EsConTopesResponse>(`${this.baseUrl}/billing/usuario/plan/${idInscripcion}/es-con-topes`);
   }
+//suspender membresia
+  congelarMembresia(idInscripcion: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/billing/inscripcion/${idInscripcion}/congelar`, {});
+  }
+  reactivarMembresia(idInscripcion: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/billing/inscripcion/${idInscripcion}/reactivar`, {});
+  }
+  // membresia-user.service.ts
+  cancelarMembresia(idInscripcion: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/billing/inscripcion/${idInscripcion}/cancelar`, {});
+  }
+
+
 }

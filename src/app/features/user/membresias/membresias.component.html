@@ -27,9 +27,28 @@
       </p>
 
       <div class="acciones">
-        <button class="gris">Solicitar suspensión de membresía</button>
+        <!-- Mostrar botón si el estado NO es 0 -->
+        <button class="gris"
+                *ngIf="infoInscripcion && infoInscripcion.estado !== 0"
+                (click)="solicitarSuspension()">
+            Solicitar suspensión de membresía
+        </button>
+
         <button class="rojo">Cancelar membresía</button>
-        <button class="verde">Pagar membresía</button>
+
+        <!-- Mostrar botón si el estado SÍ es 0 -->
+        <button class="verde"
+                *ngIf="infoInscripcion && infoInscripcion.estado === 0"
+                (click)="pagarMembresia()">
+            Pagar membresía
+        </button>
+
+        <button class="rojo"
+                *ngIf="infoInscripcion"
+                (click)="cancelarMembresia()">
+        Cancelar membresía
+        </button>
+
       </div>
 
       <a class="historial" href="#">Ver historial de pagos</a>

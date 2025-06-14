@@ -37,4 +37,67 @@ export class MembresiasComponent {
       }
     });
   }
+  solicitarSuspension(): void {
+    const idInscripcion = this.infoInscripcion?.id_inscripcion;
+
+    if (!idInscripcion) {
+      console.error('❌ ID de inscripción no disponible.');
+      return;
+    }
+
+    this.membresiaService.congelarMembresia(idInscripcion).subscribe({
+      next: (res) => {
+        console.log('✅ Suspensión de membresía realizada:', res);
+        alert('La membresía ha sido suspendida exitosamente.');
+        this.ngOnInit(); // Recarga la información actualizada
+      },
+      error: (err) => {
+        console.error('❌ Error al suspender la membresía:', err);
+        alert('Ocurrió un error al suspender la membresía.');
+      }
+    });
+  }
+  pagarMembresia(): void {
+    const idInscripcion = this.infoInscripcion?.id_inscripcion;
+
+    if (!idInscripcion) {
+      console.error('❌ ID de inscripción no disponible.');
+      return;
+    }
+
+    this.membresiaService.reactivarMembresia(idInscripcion).subscribe({
+      next: (res) => {
+        console.log('✅ Membresía reactivada:', res);
+        alert('La membresía ha sido reactivada exitosamente.');
+        this.ngOnInit(); // Para recargar el estado actualizado
+      },
+      error: (err) => {
+        console.error('❌ Error al reactivar la membresía:', err);
+        alert(err.error?.detail || 'Error al reactivar la membresía.');
+      }
+    });
+  }
+  // membresias.component.ts
+  cancelarMembresia(): void {
+    if (!this.infoInscripcion) {
+      console.error('❌ No hay información de inscripción para cancelar.');
+      return;
+    }
+
+    this.membresiaService.cancelarMembresia(this.infoInscripcion.id_inscripcion).subscribe({
+      next: (res) => {
+        console.log('✅ Membresía cancelada:', res.message);
+        alert('Membresía cancelada correctamente. Ahora está pendiente de pago.');
+        // Opcional: recargar los datos
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.error('❌ Error al cancelar membresía:', err);
+        alert('Ocurrió un error al cancelar la membresía.');
+      }
+    });
+  }
+
+
+
 }
