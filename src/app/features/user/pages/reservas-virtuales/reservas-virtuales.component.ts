@@ -265,6 +265,12 @@ export class ReservasVirtualesComponent implements OnInit {
       } else {
         console.log('Reservando sesión:', sesion);
         // Aquí podrías llamar al endpoint para reservar (si lo implementas)
+
+
+        this.router.navigate(['/user/nueva-reserva-virtual'], {
+          state: { sesion: sesion }
+        });
+
       }
     }, error => {
       console.error('Error verificando reserva', error);

@@ -61,6 +61,19 @@ export class ReservasVirtualesService {
       { headers }
     );
   }
+
+
+  crearReserva(idSesion: number,idComunidad:number): Observable<any> {
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
   
+    const headers = new HttpHeaders({
+      Authorization: `${tokenType} ${accessToken}`,
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.post(`${this.baseUrl}/reservations/virtual`, { id_sesion: idSesion ,id_comunidad:idComunidad}, { headers });
+  }
+
 
 }

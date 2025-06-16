@@ -19,6 +19,7 @@ import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module'
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
+import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencia
     HomepageComponent,
     SesionesComponent,
     SeleccionarServicioComponent,
-    NuevaReservaPresencialComponent
+    NuevaReservaPresencialComponent,
+    NuevaReservaVirtualComponent
 
   ],
   imports: [
