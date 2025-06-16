@@ -37,11 +37,13 @@ export class ReservasVirtualesComponent implements OnInit {
   id_comunidad: number = 0;
   topesEstado: string | null = null;
 
+  idServicio=1;
+
   constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute,private router: Router) {}
 
 
 
-  idServicio=1;
+ 
 
 
   ngOnInit() {
@@ -63,7 +65,7 @@ export class ReservasVirtualesComponent implements OnInit {
 
       }
 
-       this.reservaService.getProfesionales(this.idServicioSeleccionado).subscribe({
+       this.reservaService.getProfesionales(this.idServicio).subscribe({
       next: (data) => {
         console.log('Profesionales cargados:', data);
         this.profesionales = data;
@@ -84,7 +86,7 @@ export class ReservasVirtualesComponent implements OnInit {
 
 
 
-
+/*
     this.reservaService.getTopes(this.id_comunidad).subscribe({
       next: (topes) => {
         if (topes.estado === 'Ilimitado') {
@@ -98,6 +100,8 @@ export class ReservasVirtualesComponent implements OnInit {
         this.topesEstado = null;
       }
     });
+*/
+
   }
 
 
@@ -110,12 +114,14 @@ export class ReservasVirtualesComponent implements OnInit {
       this.cargarFechas();
     }
 
+    
+    if (this.step === 2 && this.fechaSeleccionada && this.horaSeleccionada) {
+      this.cargarSesionesDisponibles();
+    }
+
     // Solo avanzamos si no estamos en el último paso
     if (this.step < 3) {
       this.step++;
-    }
-    if (this.step === 2 && this.fechaSeleccionada && this.horaSeleccionada) {
-      this.cargarSesionesDisponibles();
     }
 
   }
@@ -186,8 +192,13 @@ export class ReservasVirtualesComponent implements OnInit {
     this.vacantesLibres = 0; // Reset
 
     const sesiones = this.horasDisponibles.filter(h => h.hora === this.horaSeleccionada?.hora);
+    console.log("Que sesion es>",this.horasDisponibles)
     const promesas = sesiones.map(async (sesion) => {
-      const existe = await this.reservaService.verificarReservaExiste(sesion.id_sesion!).toPromise();
+      
+      const respuesta = await this.reservaService.verificarReservaExiste(sesion.id_sesion!).toPromise();
+
+      const existe = respuesta?.reserva_existente ?? false;
+      console.log("valor del existe ",existe)
       return {
         ...sesion,
         vacantes_libres: existe ? 0 : 1,
@@ -201,12 +212,18 @@ export class ReservasVirtualesComponent implements OnInit {
       // Actualizar contadores globales
       const vacantes = sesionesConVacantes.filter(s => s.vacantes_libres > 0).length;
       const algunaReservaExiste = sesionesConVacantes.some(s => s.existeReserva);
+      console.log("hay reserva existente",algunaReservaExiste)
 
       this.vacantesLibres = vacantes;
       this.reservaExistente = algunaReservaExiste;
 
       this.cargandoSesiones = false;
       this.sinSesiones = this.sesionesDisponibles.length === 0;
+
+      if (this.sesionesDisponibles.length === 1) {
+        this.sesionSeleccionadaIndex = 0;
+      }
+
     }).catch(err => {
       console.error('Error cargando sesiones:', err);
       this.cargandoSesiones = false;
@@ -222,10 +239,15 @@ export class ReservasVirtualesComponent implements OnInit {
   }
 
   reservar() {
-    if (this.sesionSeleccionadaIndex === null) {
-      alert("Por favor selecciona una sesión.");
-      return;
-    }
+    // 👇 Ya no es necesario verificar selección si hay una sola
+  if (this.sesionSeleccionadaIndex === null && this.sesionesDisponibles.length === 1) {
+    this.sesionSeleccionadaIndex = 0;
+  }
+
+  if (this.sesionSeleccionadaIndex === null) {
+    alert("No hay una sesión seleccionada.");
+    return;
+  }
 
     //const sesion = this.fechasDisponibles[this.sesionSeleccionadaIndex];
     const sesion = this.sesionesDisponibles[this.sesionSeleccionadaIndex];
@@ -235,8 +257,10 @@ export class ReservasVirtualesComponent implements OnInit {
       return;
     }
 
-    this.reservaService.verificarReservaExiste(sesion.id_sesion_virtual).subscribe(existe => {
-      if (existe) {
+    this.reservaService.verificarReservaExiste(sesion.id_sesion_virtual).subscribe(respuesta => {
+
+
+      if (respuesta.reserva_existente) {
         alert("Ya tienes una reserva activa para esta sesión.");
       } else {
         console.log('Reservando sesión:', sesion);
@@ -247,6 +271,13 @@ export class ReservasVirtualesComponent implements OnInit {
       alert("Error al verificar la reserva. Intenta nuevamente.");
     });
   }
+
+
+
+  
+
+
+
 
 
   volverAServiciosTipo() {

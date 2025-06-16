@@ -33,6 +33,7 @@ export class NuevaReservaPresencialComponent {
       this.reservaService.obtenerResumenReserva(sesion.id_sesion).subscribe({
         next: (data) => {
           // Adaptar si es necesario
+          console.log('Datos de la reserva:', data);
           this.reservaConfirmada = {
             ...data,
             hora_inicio: this.combinarFechaYHora(data.fecha, data.hora_inicio),
@@ -50,10 +51,28 @@ export class NuevaReservaPresencialComponent {
    
   }
 
+  
+
+
   combinarFechaYHora(fecha: string, hora: string): Date {
-    const iso = `${fecha}T${hora.length === 5 ? hora + ':00' : hora}`; // Ej: "2025-06-10T09:00:00"
-    return new Date(iso);
+    if (!fecha || !hora) return new Date('');
+  
+    // Convertir de "12/06/2025" → "2025-06-12"
+    const [dia, mes, anio] = fecha.split('/');
+    const fechaISO = `${anio}-${mes}-${dia}`;
+  
+    const horaCompleta = hora.trim().length === 5 ? hora.trim() + ':00' : hora.trim();
+    const iso = `${fechaISO}T${horaCompleta}`;
+  
+    const date = new Date(iso);
+  
+    if (isNaN(date.getTime())) {
+      console.error(`Fecha inválida generada: ${iso}`);
+    }
+  
+    return date;
   }
+  
 
 
 

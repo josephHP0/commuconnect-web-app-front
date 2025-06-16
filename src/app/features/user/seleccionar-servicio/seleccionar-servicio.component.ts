@@ -23,8 +23,7 @@ export class SeleccionarServicioComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.obtenerServicios();
-    this.obtenerTopes();
+   
 
 
 
@@ -35,17 +34,35 @@ export class SeleccionarServicioComponent implements OnInit {
       const id = comunidad.id_comunidad;
 
 
+      this.idComunidad = id;
+
+      this.obtenerServicios();
+      //this.obtenerTopes();
+
+
+
+
       this.comunidadService.verificarSiTieneTopes(id).subscribe((respuesta: any) => {
+       
         this.tieneTopes = respuesta.tieneTopes;
+        console.log("Tiene topes verificacion", this.tieneTopes )
   
         if (this.tieneTopes) {
           // Si tiene topes, obtener cantidad
           this.comunidadService.obtenerCantidadTopes(id).subscribe((data: any) => {
-            this.topesDisponibles = data.topes_disponibles;
+            this.topesDisponibles = data.topes_disponibles-data.topes_consumidos;
           });
+        }else{
+          console.log("No tiene topes")
         }
       });
+
+
     }
+
+
+
+
 
   }
 /*

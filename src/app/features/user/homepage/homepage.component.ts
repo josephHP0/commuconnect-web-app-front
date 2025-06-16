@@ -48,7 +48,7 @@ export class HomepageComponent implements OnInit {
       if (this.tieneTopes) {
         // Si tiene topes, obtener cantidad
         this.comunidadService.obtenerCantidadTopes(id).subscribe((data: any) => {
-          this.topesDisponibles = data.topes_disponibles;
+          this.topesDisponibles = data.topes_disponibles-data.topes_consumidos;
         });
       }
     });

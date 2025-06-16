@@ -45,10 +45,22 @@ export class ReservasVirtualesService {
 
 
 
-  // GET /api/reservations/reserva-existe/{id_sesion}
+
+
 
   verificarReservaExiste(id_sesion: number): Observable<{ reserva_existente: boolean }> {
-    return this.http.get<{ reserva_existente: boolean }>(`${this.baseUrl}/reservations/reserva-existe/${id_sesion}`);
+    const token_type = localStorage.getItem('token_type') || 'Bearer';
+    const access_token = localStorage.getItem('access_token') || '';
+  
+    const headers = new HttpHeaders({
+      'Authorization': `${token_type} ${access_token}`
+    });
+  
+    return this.http.get<{ reserva_existente: boolean }>(
+      `${this.baseUrl}/reservations/reserva-existe/${id_sesion}`,
+      { headers }
+    );
   }
+  
 
 }

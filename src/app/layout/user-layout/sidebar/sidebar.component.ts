@@ -90,7 +90,7 @@ verificarSiPuedeAccederAServicios(): void {
   this.comunidadService.verificarSiTieneTopes(id).pipe(
     switchMap((valor: any) => {
 
-      //console.log("Valor retornado por verificarSiTieneTopes:", valor);
+      console.log("Valor retornado por verificarSiTieneTopes:", valor);
       const tieneTopes = valor.tieneTopes === true;
 
       if (tieneTopes) {
@@ -103,20 +103,38 @@ verificarSiPuedeAccederAServicios(): void {
     })
   ).subscribe((data: any) => {
 
-    //console.log("🟢 Valor retornado por obtenerCantidadTopes:", data);
+    console.log("🟢 Valor retornado por obtenerCantidadTopes:", data);
 
-    this.topesDisponibles = data.topes_disponibles;
+    if(data==0){
+      this.topesDisponibles = data;
+
+      if (this.topesDisponibles >= 0) {
+        // Tiene topes disponibles, permitir navegación
+        this.router.navigate(['/user/seleccionar-servicio']); // <-- Reemplaza con tu ruta real
+      } else{
+        this.mostrarAlertaProblemaTopesNegativos();
+      }
+
+
+    }else{
+      this.topesDisponibles = data.topes_disponibles-data.topes_consumidos;
+
+      if (this.topesDisponibles > 0) {
+        // Tiene topes disponibles, permitir navegación
+        this.router.navigate(['/user/seleccionar-servicio']); // <-- Reemplaza con tu ruta real
+      } else if(this.topesDisponibles == 0) {
+        // No tiene topes o están deshabilitados
+        this.mostrarAlerta = true; 
+      }else{
+        this.mostrarAlertaProblemaTopesNegativos();
+      }
+
+    }
+
+    
   
 
-    if (this.topesDisponibles > 0) {
-      // Tiene topes disponibles, permitir navegación
-      this.router.navigate(['/user/seleccionar-servicio']); // <-- Reemplaza con tu ruta real
-    } else if(this.topesDisponibles == 0) {
-      // No tiene topes o están deshabilitados
-      this.mostrarAlerta = true; 
-    }else{
-      this.mostrarAlertaProblemaTopesNegativos();
-    }
+  
   });
 
 }
