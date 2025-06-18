@@ -1,22 +1,43 @@
 <div class="home-page-public" style="display: flex; flex-direction: column; min-height: 100vh;">
 
-  <!-- Header personalizado -->
-  <header class="bg-white py-3 shadow-sm fixed-top"
-    style="border-bottom: 2px solid #A9A9A9; box-shadow: 0 4px 10px rgba(169, 169, 169, 0.5);">
+<!-- Header personalizado -->
+<header class="bg-white py-3 shadow-sm fixed-top"
+  style="border-bottom: 2px solid #A9A9A9; box-shadow: 0 4px 10px rgba(169, 169, 169, 0.5);">
+  <div class="container d-flex align-items-center">
 
-    <div class="container d-flex justify-content-between align-items-center">
-      <!-- Botón de navegación -->
-      <a class="btn btn-outline-primary" href="http://localhost:4200/presentacion/inicio">Ir a Página Principal</a>
+    <!-- Botones de navegación a la izquierda -->
+    <div class="d-flex gap-2">
+      <a class="btn btn-outline-secondary d-flex align-items-center gap-1"
+         href="http://localhost:4200/user/mis-comunidades">
+        <i class="bi bi-arrow-left-circle"></i>
+        <span>Atrás</span>
+      </a>
+      <a class="btn btn-outline-primary d-flex align-items-center gap-1"
+         href="http://localhost:4200/presentacion/inicio">
+        <i class="bi bi-house-fill"></i>
+        <span>Inicio</span>
+      </a>
+    </div>
 
-      <!-- Campo de búsqueda -->
+    <!-- Controles a la derecha -->
+    <div class="d-flex align-items-center gap-2 ms-auto">
       <input type="text"
              class="form-control"
              placeholder="Buscar comunidad"
-             style="max-width: 250px;"
+             style="max-width: 207px;"
              [(ngModel)]="busqueda"
              (input)="filtrarComunidades()" />
+      <button class="btn btn-outline-danger d-flex align-items-center gap-1"
+              (click)="cerrarSesion()">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Cerrar Sesión</span>
+      </button>
     </div>
-  </header>
+
+  </div>
+</header>
+
+
 
   <!-- Main Content -->
   <main class="main-content" style="margin-top: 100px; flex: 1;">

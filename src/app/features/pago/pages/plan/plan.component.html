@@ -1,9 +1,33 @@
 <div class="login-page">
-  <header class="main-header">
-    <div class="logo-container">
-      <img src="assets/logo_monkey_fit.png" alt="img-foto" />
+  <!-- Header personalizado -->
+  <header class="bg-white py-3 shadow-sm fixed-top"
+    style="border-bottom: 2px solid #A9A9A9; box-shadow: 0 4px 10px rgba(169, 169, 169, 0.5);">
+    <div class="container d-flex align-items-center">
+
+      <!-- Botones de navegación a la izquierda -->
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary d-flex align-items-center gap-1"
+          href="http://localhost:4200/user/seleccion-comunidad">
+          <i class="bi bi-arrow-left-circle"></i>
+          <span>Atrás</span>
+        </a>
+        <a class="btn btn-outline-primary d-flex align-items-center gap-1"
+          href="http://localhost:4200/presentacion/inicio">
+          <i class="bi bi-house-fill"></i>
+          <span>Inicio</span>
+        </a>
+      </div>
+
+      <!-- Controles a la derecha -->
+      <div class="d-flex align-items-center gap-2 ms-auto">
+        <button class="btn btn-outline-danger d-flex align-items-center gap-1"
+                (click)="cerrarSesion()">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>Cerrar Sesión</span>
+        </button>
+      </div>
+
     </div>
-    <button class="primary-button" routerLink="/">Ir a Página Principal</button>
   </header>
 
   <div class="container">
