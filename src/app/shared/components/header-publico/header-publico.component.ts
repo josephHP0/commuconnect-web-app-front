@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-servicios',
-  templateUrl: './servicios.component.html',
-  styleUrls: ['./servicios.component.css']
+  selector: 'app-header-publico',
+  templateUrl: './header-publico.component.html',
+  styleUrls: ['./header-publico.component.css']
 })
-export class ServiciosComponent {
-  constructor(private readonly router: Router) {}
+export class HeaderPublicoComponent {
 
-  // Getter dinámico para verificar si el usuario está logueado
+  constructor(private router: Router) {}
+
   get estaLogueado(): boolean {
     return !!localStorage.getItem('access_token');
   }
@@ -19,3 +19,4 @@ export class ServiciosComponent {
     this.router.navigate(['/presentacion/inicio']);
   }
 }
+

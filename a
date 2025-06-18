@@ -1,0 +1,83 @@
+[33m1733785[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/Percy_nuevo[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mPercy_nuevo[m[33m)[m Flujo desde iniciar sesión con cambios en el encabezado
+[33mcfe347c[m[33m ([m[1;31morigin/feature/reserva_virtual_completo_15_06[m[33m)[m completar flujo virtual y presencial con  casuisticas
+[33m1350ab3[m reservas virtuales hasta completar las fases
+[33m540cff3[m Registro y mis-comunidades completo
+[33m57df39c[m Finalizar merge con origin/main
+[33mfab1212[m[33m ([m[1;31morigin/feature/terminar_reservas_presenciales_14_06[m[33m)[m flujo completo de reservas presenciales
+[33m08e4938[m[33m ([m[1;31morigin/feature/correccion_vista_reservas_13_06[m[33m)[m correcciones finales a formato de reservas
+[33m30b4f38[m[33m ([m[1;31morigin/feature/user/unificacion_formatos_reservas_12_06_p2[m[33m)[m unificacion reservas virtuales y presenciales
+[33m591ff1d[m[33m ([m[1;31morigin/feature/user/unificacion_formatos_reservas_12_06[m[33m)[m correccion de acceso a servicios
+[33m3aadcb1[m[33m ([m[1;31morigin/features/correcciones_11_06_p2[m[33m)[m acceso a servicios y pop up
+[33m22cc7b7[m Pantalla de resgistro completa
+[33ma48b412[m[33m ([m[1;31morigin/features/correccioens_10_05_p1[m[33m)[m Correcciones en el homepage (contador y navegacion entre mi comunidad y servicios)
+[33m0f99b08[m[33m ([m[1;31morigin/RamaRomulo[m[33m)[m Merge branch 'main' into RamaRomulo
+[33m5f4744d[m Flujo reservas disp. presencial
+[33ma3d0810[m[33m ([m[1;31morigin/feature/sprint2_nuevo[m[33m)[m actualizacion de reservas virtuales y angular.json
+[33mc3eb992[m[33m ([m[1;31morigin/andrea2[m[33m)[m Merge branch 'main' into andrea2
+[33m51754f0[m homepage actualizado
+[33m4e0774f[m flujo reservaVirtual
+[33m40d8e90[m[33m ([m[1;31morigin/correcciones_y_servicios_06_06_p1[m[33m)[m fixeo de errores en flujo de reserva presencial
+[33mf85fc33[m Ingreso del service de los componente de servicio
+[33m3d99199[m cambio planxid_comunidad
+[33m9971b70[m agrego de topes
+[33mb3d73f7[m[33m ([m[1;31morigin/feature/correccion-flujo-incripcion-comunidad_05_06_p1[m[33m)[m Testeo de inscripcion de comunidades con varias casuisticas
+[33mc2fbaaa[m estilos
+[33m27f2922[m ajustes reserva-virtual y seleccion comunidad
+[33m9960e3d[m[33m ([m[1;31morigin/feature/login-modificacion-flujo_05_06[m[33m)[m modifico la interfaz de comunidades inscritos y entrar a su comunidad
+[33m2639fa7[m reservar-virtuales
+[33me2699a2[m[33m ([m[1;31morigin/feature/modificacion_layout_usuer_05_06[m[33m)[m modificacion heaser y sidebar entorno a botones
+[33m7d7caa1[m Modificacion de maquetacion de vista de sidebar,headerbar en el modulo usuario
+[33m9242337[m[33m ([m[1;31morigin/feature/admin-lista-cliente-dinamico[m[33m)[m Modificacion de mis-comunidades
+[33m21ef35f[m cambio de visibilidad sidebar
+[33ma35ca78[m[33m ([m[1;31morigin/feature/admin-editar-comunidad_04_06[m[33m)[m Merge branch 'main' into feature/admin-editar-comunidad_04_06
+[33m2fb7851[m edicion_comunidad
+[33m9206eaf[m Integrando pantallas Percy al main
+[33m36217dd[m Update user.module.ts
+[33m3b46485[m coma faltante en user routing
+[33mabb512b[m Merge branch 'main' into cambiosAndrea_04_06
+[33m2139142[m jwtDecode comentado
+[33m575fbd2[m corregir la redireccion
+[33mda1897d[m creacion del flujo de pago y seleccion de comunidad y plan
+[33m3bb23ec[m Merge pull request #1 from FrankDarkShadow/Percy
+[33mc674490[m Merge branch 'main' into Percy
+[33m170f763[m Integrado lo de la semana pasada, y las nuevas pantallas en hardcode
+[33mad0e08f[m Integrado lo de la semana pasada, y las nuevas pantallas en hardcode
+[33me4bcc46[m Integrado lo de la semana pasada, y las nuevas pantallas en hardcode
+[33m4c30178[m Integrado lo de la semana pasada, y las nuevas pantallas en hardcode
+[33m6b9181d[m Mensaje descriptivo de tus cambios
+[33m4e2ab29[m[33m ([m[1;31morigin/feature/admin/lista-usuario_03_06[m[33m)[m admin:Listado de cliente y creacion de cerrar sesion
+[33me3e8dcf[m[33m ([m[1;31morigin/feature/modificacion_login_tipo_usuario_02_06[m[33m)[m modificacion de response en el login y roles
+[33m3c084c2[m Verificacion de registro por Carnet de extranjeria
+[33m8cc74c8[m[33m ([m[1;31morigin/feature/ulitmasEdicionesRegistroComunidades[m[33m)[m Flujo de registro de usuario y correo completado
+[33mc3a5b8e[m add
+[33m1bc047e[m[33m ([m[1;31morigin/feature/crud-comunidad[m[33m)[m modificaciones en registro de usuario e implementacion parcial de confirmacion de correo
+[33m1e15108[m add
+[33m4512de2[m Merge branch 'main' into feature/crud-comunidad
+[33mccc6773[m Correcciones a registro con pruebas unitarias
+[33md05ef85[m Agregamos las pantallas de confirmacion de correo y correo confirmado
+[33mb213db8[m Listado de comunidades y el eliminar completado
+[33m4f8ac09[m Agregar el listado de comunidades
+[33m2b76d92[m Resolviendo conflictos entre RomuloLocal y Percy
+[33m8e6d60e[m Avance Pantallas Percy
+[33m6b447b0[m[33m ([m[1;31morigin/merge-sprint1[m[33m)[m integracion de cambios para sprint
+[33mdf303da[m Inclusión de pantalla nosotros y moficiación de pantalla servicios
+[33mfb20069[m Nuevo layout.module.ts
+[33me5ffa87[m Modificaciones en la rama Percy desde RomuloLocal
+[33mb947824[m Avance de pantallas integradas (Parte Percy, Andrea y Romulo)
+[33meeb7053[m Avance de pantallas integradas (Parte Percy)
+[33md45f6c4[m[33m ([m[1;33mtag: [m[1;33mv1.0.0[m[33m, [m[1;31morigin/feature/user-registro-comunidad[m[33m)[m Modificar registro de comunidades
+[33m2c90ca2[m Insertar paginas reutilizables del admin de layout y creacion de comunidades
+[33m84095d6[m Avance en módulo presentación y pantalla de servicios (Parte Percy)
+[33m3ebcf92[m Adicion de comentarios
+[33m0f56707[m Agregue comentarios guia en el componente de logeo como en su servicio
+[33m91dce4a[m Modifico los modulos de autenticacion y presentacion
+[33mfe92f74[m Modifico variables de entorno y assets
+[33m0155be3[m Creo el la pagina de inicio dentro del modulo presentacion
+[33ma691dbd[m Corrijo modularidad de layouts
+[33ma27b00d[m Agregando el modulo de presentacion
+[33m276109e[m Eliminar el modulo onboarding
+[33me51b188[m Agregue nuevos modulos de pago,onboarding y autenticacion
+[33me530b27[m Fusionado historiales no relacionados
+[33m62f5329[m Primer commit del proyecto Angular
+[33m097c87f[m Initial commit
+[33m80ada15[m initial commit
