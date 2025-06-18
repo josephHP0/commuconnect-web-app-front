@@ -13,10 +13,6 @@ export class InicioComponent implements OnInit {
 
   constructor(private readonly router: Router) {}
 
-  // Getter dinámico para verificar si el usuario está logueado
-  get estaLogueado(): boolean {
-    return !!localStorage.getItem('access_token');
-  }
 
   ngOnInit(): void {
     // Ya no necesitas nada acá para "estaLogueado", porque ahora es dinámico
@@ -26,8 +22,5 @@ export class InicioComponent implements OnInit {
     this.router.navigate(['/autenticacion']);
   }
 
-  cerrarSesion(): void {
-    localStorage.clear();
-    this.router.navigate(['/presentacion/inicio']);
-  }
+
 }

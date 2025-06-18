@@ -7,15 +7,5 @@ import { Router } from '@angular/router';
   styleUrls: ['./servicios.component.css']
 })
 export class ServiciosComponent {
-  constructor(private readonly router: Router) {}
 
-  // Getter dinámico para verificar si el usuario está logueado
-  get estaLogueado(): boolean {
-    return !!localStorage.getItem('access_token');
-  }
-
-  cerrarSesion(): void {
-    localStorage.clear();
-    this.router.navigate(['/presentacion/inicio']);
-  }
 }
