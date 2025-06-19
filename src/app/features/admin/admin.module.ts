@@ -12,8 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad.component';
 import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
 import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-cliente.component';
+import { ServiciosPorComunidadComponent } from './pages/servicios-por-comunidad/servicios-por-comunidad.component';
+import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-comunidad/nuevo-servicio-por-comunidad.component';
 
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,16 @@ import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-
     RegistroComunidadComponent,
     ListaComunidadComponent,
     EditarComunidadComponent,
-    ListaClienteComponent
+    ListaClienteComponent,
+    ServiciosPorComunidadComponent,
+    NuevoServicioPorComunidadComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     AdminLayoutModule,
     FormsModule,
+    ScrollingModule
   
 
 

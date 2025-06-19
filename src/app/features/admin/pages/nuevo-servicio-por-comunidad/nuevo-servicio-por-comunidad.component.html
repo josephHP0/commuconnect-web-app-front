@@ -1,0 +1,86 @@
+<!-- Contenido -->
+<main class="contenido">
+
+
+ 
+    <div class="bloque-central">
+
+
+       
+
+<div class="volver-container">
+  <button class="btn-volver-servicios" [routerLink]="['/admin/servicios-por-comunidad',idComunidad]">
+    ⬅  Volver
+  </button>
+</div>
+
+
+
+
+
+  <div class="fila-encabezado">
+    <div class="encabezado-servicios izquierda">
+      <h2>Agregue los servicios a la comunidad : {{comunidad.nombre}}</h2>
+    </div>
+  
+    <div class="encabezado-servicios derecha">
+      <h4>Total de servicios disponibles: {{ servicios.length }}</h4>
+  
+      <button *ngIf="servicioSeleccionado"
+        class="btn btn-success btn-lg px-4 py-2"
+        (click)="agregarServicioSeleccionado()">
+  Agregar
+</button>
+
+    </div>
+  </div>
+  
+
+
+    <!-- Tarjetas -->
+<cdk-virtual-scroll-viewport itemSize="350" class="tarjetas-viewport">
+    <div *cdkVirtualFor="let fila of serviciosAgrupados" class="fila-tarjetas">
+      <div *ngFor="let servicio of fila"
+           class="tarjeta"
+           [class.seleccionado]="servicio === servicioSeleccionado"
+           (click)="seleccionarServicio(servicio)">
+  
+        <span class="modalidad">{{ servicio.modalidad }}</span>
+        <i class="bi bi-gear" *ngIf="!servicio.imagen"></i>
+        <img *ngIf="servicio.imagen" [src]="servicio.imagen" [alt]="servicio.nombre" />
+        <h4>{{ servicio.nombre }}</h4>
+        <p>{{ servicio.descripcion }}</p>
+      </div>
+    </div>
+  </cdk-virtual-scroll-viewport>
+  
+ 
+  
+
+
+
+    
+      
+      
+      
+
+
+
+
+
+   
+
+    
+      
+
+     
+
+     
+
+
+    
+      
+    </div>
+  </main>
+
+
