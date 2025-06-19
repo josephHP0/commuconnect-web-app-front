@@ -1,0 +1,22 @@
+<div class="formulario-suspension">
+  <h2>Solicitud de suspensión de membresía</h2>
+  <p>Solicita la suspensión de tu membresía por hasta 30 días con al menos 7 días de anticipación.</p>
+
+  <form (ngSubmit)="confirmarSuspension()" #formSuspension="ngForm">
+    <input type="text" placeholder="Motivo de suspensión" [(ngModel)]="motivo" name="motivo" required />
+
+    <div class="fechas">
+      <label>Fecha de inicio</label>
+      <input type="date" [(ngModel)]="fechaInicio" name="fechaInicio" required />
+
+      <label>Fecha de fin</label>
+      <input type="date" [(ngModel)]="fechaFin" name="fechaFin" required />
+    </div>
+
+    <label>Cargar Archivo (jpg/png/pdf, máx 4MB)</label>
+    <input type="file" (change)="onArchivoSeleccionado($event)" />
+
+    <button type="submit" [disabled]="!formSuspension.form.valid">Solicitar suspensión</button>
+  </form>
+</div>
+

@@ -10,46 +10,47 @@
       <div class="precio">S/. {{ infoInscripcion?.precio }}</div>
       <div class="periodo">{{ infoInscripcion?.periodo?.toUpperCase() }}</div>
 
-      <ul class="beneficios">
-        <li *ngIf="!esConTopes">Reservas ilimitadas</li>
-        <li>Acceso a todos los servicios</li>
-        <li>Disponible en todas las comunidades</li>
-        <li>Soporte Preferencial</li>
+      <ul class="descripcion-lista">
+        <li>{{ infoInscripcion?.descripcion_plan }}</li>
       </ul>
 
+      
       <p class="vigencia">
         Periodo de vigencia: desde el <span>10/04/2025</span> hasta el
         <span>{{ infoInscripcion?.fecha_fin | date: 'dd/MM/yyyy' }}</span>
       </p>
 
       <p class="estado">
-        Estado: <span class="activo">{{ infoInscripcion?.estado }}</span>
+        Estado: <span class="activo">{{ esMembresiaActiva(infoInscripcion?.estado) }}</span>
       </p>
 
+
       <div class="acciones">
-        <!-- Mostrar botón si el estado NO es 0 -->
         <button class="gris"
-                *ngIf="infoInscripcion && infoInscripcion.estado !== 0"
+                [disabled]="infoInscripcion?.estado !== 1"
                 (click)="solicitarSuspension()">
-            Solicitar suspensión de membresía
-        </button>
-
-        <button class="rojo">Cancelar membresía</button>
-
-        <!-- Mostrar botón si el estado SÍ es 0 -->
-        <button class="verde"
-                *ngIf="infoInscripcion && infoInscripcion.estado === 0"
-                (click)="pagarMembresia()">
-            Pagar membresía
+          Solicitar suspensión de membresía
         </button>
 
         <button class="rojo"
-                *ngIf="infoInscripcion"
+                [disabled]="infoInscripcion?.estado !== 1"
                 (click)="cancelarMembresia()">
-        Cancelar membresía
+          Cancelar membresía
+        </button>
+
+        <button 
+          [ngClass]="{
+            'verde': infoInscripcion?.estado === 3 && esProximoAVencer(infoInscripcion?.fecha_fin),
+            'verde-desactivado': !(infoInscripcion?.estado === 3 && esProximoAVencer(infoInscripcion?.fecha_fin))
+          }"
+          [disabled]="!(infoInscripcion?.estado === 3 && esProximoAVencer(infoInscripcion?.fecha_fin))"
+          (click)="pagarMembresia()">
+          Pagar membresía
         </button>
 
       </div>
+
+
 
       <a class="historial" href="#">Ver historial de pagos</a>
     </div>
@@ -59,4 +60,5 @@
     </div>
   </div>
 </div>
+
 

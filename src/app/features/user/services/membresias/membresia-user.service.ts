@@ -8,7 +8,7 @@ export interface InfoInscripcion {
   id_inscripcion: number;
   estado: number;
   titulo: string;
-  descripcion_plan: string;
+  descripcion_plan: string; 
   precio: number;
   periodo: string;
   fecha_fin: string;
@@ -31,9 +31,10 @@ export class MembresiaUserService {
     return this.http.get<EsConTopesResponse>(`${this.baseUrl}/billing/usuario/plan/${idInscripcion}/es-con-topes`);
   }
 //suspender membresia
-  congelarMembresia(idInscripcion: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/billing/inscripcion/${idInscripcion}/congelar`, {});
+  congelarMembresiaConFormulario(idInscripcion: number, datos: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/billing/inscripcion/${idInscripcion}/congelar`, datos);
   }
+
   reactivarMembresia(idInscripcion: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/billing/inscripcion/${idInscripcion}/reactivar`, {});
   }

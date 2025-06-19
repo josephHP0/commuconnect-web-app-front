@@ -12,7 +12,7 @@ import { AuthInterceptor } from './features/autenticacion/auth.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
     // Agrega aquí tus componentes como SeleccionComunidadComponent si no están en otro módulo
   ],
   imports: [

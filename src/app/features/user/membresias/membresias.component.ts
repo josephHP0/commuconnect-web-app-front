@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { InfoInscripcion, MembresiaUserService } from '../services/membresias/membresia-user.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-membresias',
@@ -9,8 +11,15 @@ import { InfoInscripcion, MembresiaUserService } from '../services/membresias/me
 export class MembresiasComponent {
   infoInscripcion: InfoInscripcion | null = null;
   esConTopes: boolean | null = null;
+  //form
+  mostrarFormularioSuspension: boolean = false;
+  motivoSuspension: string = '';
+  fechaInicio: string = '';
+  fechaFin: string = '';
+  archivoAdjunto: File | null = null;
 
-  constructor(private membresiaService: MembresiaUserService) {}
+  constructor(private membresiaService: MembresiaUserService,
+              private router: Router) {}
 
   ngOnInit(): void {
     const idComunidad = Number(localStorage.getItem('id_comunidad'));
@@ -37,66 +46,86 @@ export class MembresiasComponent {
       }
     });
   }
+
+  esMembresiaActiva(estado: number | undefined): string {
+    if (estado === 1) {
+      return 'Activo';
+    }
+    return 'Inactivo';
+  }
+
+  esProximoAVencer(fechaFin: string): boolean {
+    if (!fechaFin) return false;
+    const hoy = new Date();
+    const fecha = new Date(fechaFin);
+    const diffMs = fecha.getTime() - hoy.getTime();
+    const diffDias = diffMs / (1000 * 60 * 60 * 24);
+    return diffDias <= 7 && diffDias >= 0;
+  }
+
   solicitarSuspension(): void {
-    const idInscripcion = this.infoInscripcion?.id_inscripcion;
-
-    if (!idInscripcion) {
-      console.error('❌ ID de inscripción no disponible.');
-      return;
+    // Guarda el id_inscripcion en localStorage (si no lo habías hecho aún)
+    if (this.infoInscripcion) {
+      localStorage.setItem('id_inscripcion', this.infoInscripcion.id_inscripcion.toString());
     }
 
-    this.membresiaService.congelarMembresia(idInscripcion).subscribe({
-      next: (res) => {
-        console.log('✅ Suspensión de membresía realizada:', res);
-        alert('La membresía ha sido suspendida exitosamente.');
-        this.ngOnInit(); // Recarga la información actualizada
-      },
-      error: (err) => {
-        console.error('❌ Error al suspender la membresía:', err);
-        alert('Ocurrió un error al suspender la membresía.');
-      }
-    });
+    // Navega a la nueva pantalla
+    this.router.navigate(['/user/suspension-membresia']);
+
   }
+
+
+
   pagarMembresia(): void {
-    const idInscripcion = this.infoInscripcion?.id_inscripcion;
+  const idInscripcion = this.infoInscripcion?.id_inscripcion;
 
-    if (!idInscripcion) {
-      console.error('❌ ID de inscripción no disponible.');
-      return;
-    }
-
-    this.membresiaService.reactivarMembresia(idInscripcion).subscribe({
-      next: (res) => {
-        console.log('✅ Membresía reactivada:', res);
-        alert('La membresía ha sido reactivada exitosamente.');
-        this.ngOnInit(); // Para recargar el estado actualizado
-      },
-      error: (err) => {
-        console.error('❌ Error al reactivar la membresía:', err);
-        alert(err.error?.detail || 'Error al reactivar la membresía.');
-      }
-    });
+  if (!idInscripcion) {
+    console.error('❌ ID de inscripción no disponible.');
+    return;
   }
+
+  this.membresiaService.reactivarMembresia(idInscripcion).subscribe({
+    next: () => {
+      Swal.fire('Éxito', 'La membresía ha sido reactivada exitosamente.', 'success');
+      this.ngOnInit(); // recargar info actualizada
+    },
+    error: (err) => {
+      Swal.fire('Error', err.error?.detail || 'Error al reactivar la membresía.', 'error');
+    }
+  });
+}
+
+
   // membresias.component.ts
   cancelarMembresia(): void {
     if (!this.infoInscripcion) {
-      console.error('❌ No hay información de inscripción para cancelar.');
+      Swal.fire('Error', 'No hay información de inscripción para cancelar.', 'error');
       return;
     }
 
-    this.membresiaService.cancelarMembresia(this.infoInscripcion.id_inscripcion).subscribe({
-      next: (res) => {
-        console.log('✅ Membresía cancelada:', res.message);
-        alert('Membresía cancelada correctamente. Ahora está pendiente de pago.');
-        // Opcional: recargar los datos
-        this.ngOnInit();
-      },
-      error: (err) => {
-        console.error('❌ Error al cancelar membresía:', err);
-        alert('Ocurrió un error al cancelar la membresía.');
+    Swal.fire({
+      title: '¿Estás seguro?',
+      //text: 'Tu membresía será cancelada y quedará pendiente de pago.',
+      text: 'Al cancelar perderás acceso a todos los beneficios, contenidos exclusivos y funcionalidades premium. Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'Volver'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.membresiaService.cancelarMembresia(this.infoInscripcion!.id_inscripcion).subscribe({
+          next: () => {
+            Swal.fire('Cancelado', 'Tu membresía está ahora pendiente de pago.', 'success');
+            this.ngOnInit();
+          },
+          error: (err) => {
+            Swal.fire('Error', 'Ocurrió un error al cancelar la membresía.', 'error');
+          }
+        });
       }
     });
   }
+
 
 
 

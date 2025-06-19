@@ -19,6 +19,7 @@ import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar
 import { UserLayoutModule } from 'src/app/layout/user-layout/user-layout.module';
 import { MembresiasComponent } from './membresias/membresias.component';
 import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.component';
+import { SuspensionMembresiaComponent } from './membresias/pages/suspension-membresia/suspension-membresia.component';
 
 
 
@@ -34,7 +35,8 @@ import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.co
     SesionesComponent,
     SeleccionarServicioComponent,
     MembresiasComponent,
-    CambiarPasswordComponent
+    CambiarPasswordComponent,
+    SuspensionMembresiaComponent
 
   ],
   imports: [

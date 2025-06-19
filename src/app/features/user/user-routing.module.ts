@@ -20,6 +20,7 @@ import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar
 import { AdminComponent } from '../../layout/user-layout/admin/admin.component';
 import { MembresiasComponent } from './membresias/membresias.component';
 import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.component';
+import { SuspensionMembresiaComponent } from './membresias/pages/suspension-membresia/suspension-membresia.component';
 
 
 const routes: Routes = [
@@ -37,7 +38,8 @@ const routes: Routes = [
       { path: 'seleccionar-servicio', component: SeleccionarServicioComponent },
       { path: 'reservas-virtuales', component: ReservasVirtualesComponent },
       { path: 'membresias', component: MembresiasComponent },
-      { path: 'cambiar-password', component: CambiarPasswordComponent }
+      { path: 'cambiar-password', component: CambiarPasswordComponent },
+      { path: 'suspension-membresia', component: SuspensionMembresiaComponent },
 
     ]
   },
