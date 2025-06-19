@@ -19,7 +19,8 @@ import { SeleccionarServicioComponent } from './seleccionar-servicio/seleccionar
 
 import { AdminComponent } from '../../layout/user-layout/admin/admin.component';
 import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
-import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component'; 
+import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
+import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component'; 
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
       { path: 'seleccionar-servicio', component: SeleccionarServicioComponent },
       { path: 'reservas-virtuales', component: ReservasVirtualesComponent },
       { path: 'nueva-reserva-presencial',component: NuevaReservaPresencialComponent},
-      { path: 'nueva-reserva-virtual',component: NuevaReservaVirtualComponent}
+      { path: 'nueva-reserva-virtual',component: NuevaReservaVirtualComponent},
+      { path: 'completar-formulario/:id', component: CompletarFormularioComponent }
 
     ]
   },
