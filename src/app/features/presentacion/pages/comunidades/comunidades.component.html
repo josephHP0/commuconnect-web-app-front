@@ -21,10 +21,28 @@
       </nav>
 
       <!-- Botones -->
-      <div class="d-flex gap-2">
+      <!-- Botones -->
+    <div class="d-flex gap-2">
+
+      <!-- Si está logueado -->
+      <ng-container *ngIf="estaLogueado; else botonesPublicos">
+        <button class="btn btn-outline-success btn-sm" routerLink="/user/home">
+          Mi Panel
+        </button>
+        <button class="btn btn-outline-danger btn-sm" (click)="cerrarSesion()">
+          Cerrar sesión
+        </button>
+      </ng-container>
+
+      <!-- Si NO está logueado -->
+      <ng-template #botonesPublicos>
         <button class="btn btn-primary btn-sm" routerLink="/autenticacion/login">INICIAR SESIÓN</button>
         <button class="btn btn-primary btn-sm" routerLink="/autenticacion/register">REGISTRARSE</button>
-      </div>
+      </ng-template>
+
+    </div>
+
+
     </div>
   </header>
 

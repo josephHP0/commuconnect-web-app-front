@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,16 +7,20 @@ import { Router } from '@angular/router';
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
 })
-export class InicioComponent {
+export class InicioComponent implements OnInit {
 
   apiUrl = environment.apiUrl;
 
-  constructor(private readonly router: Router) {
-    //console.log('API URL cargada:', this.apiUrl);
+  constructor(private readonly router: Router) {}
+
+
+  ngOnInit(): void {
+    // Ya no necesitas nada acá para "estaLogueado", porque ahora es dinámico
   }
 
   navegarALogin() {
-   this.router.navigate(['/autenticacion']);
-}
+    this.router.navigate(['/autenticacion']);
+  }
+
 
 }
