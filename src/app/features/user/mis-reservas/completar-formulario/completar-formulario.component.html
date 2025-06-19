@@ -1,0 +1,172 @@
+<div class="container-fluid p-4">
+  <!-- ↩️ Botón Volver -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <button class="btn btn-outline-secondary" (click)="volver()">
+        <i class="fas fa-arrow-left me-2"></i>
+        Volver a Mis Reservas
+      </button>
+    </div>
+  </div>
+
+  <!-- ⏳ Loading -->
+  <div *ngIf="cargando" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="mt-3 text-muted">Cargando información de la reserva...</p>
+  </div>
+
+  <!-- ❌ Error -->
+  <div *ngIf="error && !exitoso" class="alert alert-danger" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    {{ error }}
+  </div>
+
+  <!-- ✅ Éxito Modal -->
+  <div *ngIf="exitoso" class="modal d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center py-4">
+          <i class="fas fa-check-circle text-success mb-3" style="font-size: 3rem;"></i>
+          <h5 class="text-success mb-3">Archivo enviado al profesional correspondiente.</h5>
+          <p class="text-muted">Serás redirigido a Mis Reservas en unos segundos...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📝 Formulario Principal -->
+  <div *ngIf="!cargando && formularioInfo">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <!-- 📋 Información de la Sesión -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body text-center py-5" style="background-color: #f8f9fa;">
+            <h3 class="mb-4 text-dark">Completar Formulario</h3>
+            
+            <div class="text-start">
+              <p class="mb-3">
+                <strong>Profesional:</strong> {{ formularioInfo.profesional_nombre }}
+              </p>
+              <p class="mb-3">
+                <strong>Fecha de la sesión:</strong> {{ formatearFecha(formularioInfo.fecha_sesion) }}
+              </p>
+              <p class="mb-3">
+                <strong>Hora de inicio:</strong> {{ formularioInfo.hora_inicio }}
+              </p>
+              <p class="mb-3">
+                <strong>Hora fin:</strong> {{ formularioInfo.hora_fin }}
+              </p>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ Formulario ya completado -->
+        <div *ngIf="formularioInfo.formulario_completado" class="alert alert-success mb-4">
+          <i class="fas fa-check-circle me-2"></i>
+          <strong>Formulario ya completado:</strong> El formulario de esta sesión virtual ya ha sido enviado al profesional.
+        </div>
+
+        <!-- 🔗 Link del Profesional -->
+        <div class="mb-4">
+          <button 
+            *ngIf="formularioInfo.url_formulario"
+            class="btn btn-primary btn-lg w-100"
+            (click)="abrirEnlaceProfesional()">
+            <i class="fas fa-external-link-alt me-2"></i>
+            Link del formulario profesional
+          </button>
+        </div>
+
+        <!-- 📁 Zona de Subida de Archivos -->
+        <div class="card border-2 border-dashed mb-4" 
+             [class.border-secondary]="!formularioInfo.formulario_completado"
+             [class.border-muted]="formularioInfo.formulario_completado"
+             [class.bg-light]="formularioInfo.formulario_completado"
+             style="min-height: 300px;">
+          <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+            
+            <!-- 📤 Zona de Drop -->
+            <div 
+              *ngIf="!archivoSeleccionado && !formularioInfo.formulario_completado"
+              class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+              style="min-height: 250px;">
+              
+              <i class="fas fa-cloud-upload-alt text-muted mb-3" style="font-size: 4rem;"></i>
+              <h5 class="text-muted mb-3">Suelte aquí sus archivos</h5>
+              
+              <input 
+                type="file" 
+                id="archivoInput"
+                class="d-none" 
+                accept=".pdf,.doc,.docx"
+                (change)="onArchivoSeleccionado($event)">
+              
+              <button 
+                class="btn btn-primary"
+                (click)="abrirSelectorArchivo()">
+                <i class="fas fa-search me-2"></i>
+                Búsquedas
+              </button>
+              
+              <p class="text-muted mt-3 small">
+                Formatos permitidos: PDF, DOC, DOCX (maximo 10MB)
+              </p>
+            </div>
+
+            <!-- 🚫 Formulario ya completado -->
+            <div 
+              *ngIf="formularioInfo.formulario_completado"
+              class="w-100 h-100 d-flex flex-column justify-content-center align-items-center text-muted"
+              style="min-height: 250px;">
+              
+              <i class="fas fa-check-circle mb-3" style="font-size: 4rem;"></i>
+              <h5 class="mb-3">Formulario ya enviado</h5>
+              <p class="text-center">
+                El formulario de esta sesión virtual ya ha sido completado y enviado al profesional.
+              </p>
+            </div>
+
+            <!-- 📄 Archivo Seleccionado -->
+            <div *ngIf="archivoSeleccionado && !formularioInfo.formulario_completado" class="w-100">
+              <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-file-alt text-primary me-3" style="font-size: 1.5rem;"></i>
+                  <div>
+                    <h6 class="mb-1">{{ nombreArchivo }}</h6>
+                    <small class="text-muted">{{ tamanioArchivo }}</small>
+                  </div>
+                </div>
+                <button 
+                  class="btn btn-outline-danger btn-sm"
+                  (click)="eliminarArchivo()">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ℹ️ Información adicional -->
+        <div *ngIf="!formularioInfo.formulario_completado" class="alert alert-info">
+          <i class="fas fa-info-circle me-2"></i>
+          <strong>Instrucciones:</strong> Sube el formulario completado que recibiste del profesional.
+        </div>
+
+        <!-- 📤 Botón Enviar -->
+        <div *ngIf="!formularioInfo.formulario_completado" class="text-end">
+          <button 
+            class="btn btn-success btn-lg px-5"
+            [disabled]="enviando || !archivoSeleccionado"
+            (click)="enviarFormulario()">
+            <span *ngIf="enviando" class="spinner-border spinner-border-sm me-2"></span>
+            <i *ngIf="!enviando" class="fas fa-paper-plane me-2"></i>
+            {{ enviando ? 'Enviando...' : 'Enviar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
