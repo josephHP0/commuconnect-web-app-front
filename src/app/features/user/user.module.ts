@@ -25,6 +25,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
 import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
 import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component';
+import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CompletarFormularioComponent } from './mis-reservas/completar-formulari
     SuspensionMembresiaComponent,
     NuevaReservaPresencialComponent,
     NuevaReservaVirtualComponent,
-    CompletarFormularioComponent
+    CompletarFormularioComponent,
+    GestionCuentaComponent
 
   ],
   imports: [

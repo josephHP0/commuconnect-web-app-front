@@ -25,6 +25,7 @@ import { SuspensionMembresiaComponent } from './membresias/pages/suspension-memb
 import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
 import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
 import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component'; 
+import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.component';
 
 
 const routes: Routes = [
@@ -48,7 +49,8 @@ const routes: Routes = [
 
       { path: 'nueva-reserva-presencial',component: NuevaReservaPresencialComponent},
       { path: 'nueva-reserva-virtual',component: NuevaReservaVirtualComponent},
-      { path: 'completar-formulario/:id', component: CompletarFormularioComponent }
+      { path: 'completar-formulario/:id', component: CompletarFormularioComponent },
+      { path: 'gestion-cuenta', component: GestionCuentaComponent }
 
 
     ]
