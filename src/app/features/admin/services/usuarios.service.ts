@@ -12,16 +12,20 @@ export class UsuariosService {
 
   constructor(private http: HttpClient) {}
 
-  cargarMasivamente(clientes: any[]): Observable<any> {
+  cargarMasivamente(archivo: File): Observable<any> {
     const tokenType = localStorage.getItem('token_type');
     const accessToken = localStorage.getItem('access_token');
+    
+    const formData = new FormData();
+    formData.append('archivo', archivo);
   
     return this.http.post(
       `${this.baseUrl}/usuarios/clientes/carga-masiva`,
-      clientes,
+      formData,
       {
         headers: new HttpHeaders({
           Authorization: `${tokenType} ${accessToken}`
+          // No agregar Content-Type, el navegador lo hará automáticamente para FormData
         })
       }
     );

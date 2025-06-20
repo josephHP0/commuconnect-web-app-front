@@ -17,6 +17,9 @@ import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-c
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-cliente-masivo/cargar-cliente-masivo.component';
+import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
+import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,17 +30,17 @@ import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-client
     ListaClienteComponent,
     ServiciosPorComunidadComponent,
     NuevoServicioPorComunidadComponent,
-    CargarClienteMasivoComponent
+    CargarClienteMasivoComponent,
+    GestionServiciosComponent,
+    CrearServicioComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     AdminLayoutModule,
     FormsModule,
-    ScrollingModule
-  
-
-
+    ScrollingModule,
+    SharedModule
   ]
 })
 export class AdminModule { }

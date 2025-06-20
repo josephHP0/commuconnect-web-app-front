@@ -1,0 +1,108 @@
+<main class="contenido">
+  <div class="bloque-central">
+    
+    <!-- Header con título y botón de agregar -->
+    <div class="encabezado-servicios">
+      <h2 class="titulo-seccion">Servicios</h2>
+      <button type="button" class="btn btn-success" (click)="agregarServicio()">
+        + Agregar Servicio
+      </button>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="barra-busqueda">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Buscar..." 
+        [(ngModel)]="terminoBusqueda"
+      >
+    </div>
+
+    <!-- Grid de servicios -->
+    <div class="grid-servicios">
+      <div class="tarjeta-servicio" *ngFor="let servicio of serviciosFiltrados">
+        
+        <!-- Imagen del servicio -->
+        <div class="imagen-servicio">
+          <img 
+            *ngIf="servicio.imagen" 
+            [src]="servicio.imagen" 
+            [alt]="servicio.nombre"
+          >
+          <div *ngIf="!servicio.imagen" class="placeholder-imagen">
+            <i class="bi bi-image"></i>
+          </div>
+        </div>
+
+        <!-- Información del servicio -->
+        <div class="info-servicio">
+          <h3>{{ servicio.nombre }}</h3>
+          <p class="descripcion">{{ servicio.descripcion }}</p>
+          <span class="modalidad" [class.presencial]="servicio.modalidad === 'Presencial'" 
+                                  [class.virtual]="servicio.modalidad === 'Virtual'">
+            {{ servicio.modalidad }}
+          </span>
+        </div>
+
+        <!-- Menú de opciones -->
+        <div class="menu-opciones">
+          <div class="dropdown">
+            <button
+              class="btn btn-sm btn-light dropdown-toggle"
+              type="button"
+              [id]="'dropdownMenuButton' + servicio.id_servicio"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              ⋮
+            </button>
+            <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton' + servicio.id_servicio">
+              <li>
+                <a class="dropdown-item" href="javascript:void(0)" (click)="editarServicio(servicio.id_servicio)">
+                  <i class="bi bi-pencil"></i> Editar visualización
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="javascript:void(0)" (click)="verLocalesYProfesionales(servicio)">
+                  <i class="bi bi-geo-alt"></i> Ver locales y profesionales
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item text-danger" href="javascript:void(0)" (click)="eliminarServicio(servicio)">
+                  <i class="bi bi-trash"></i> Eliminar servicio
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mensaje cuando no hay servicios -->
+    <div *ngIf="serviciosFiltrados.length === 0" class="sin-resultados">
+      <p>No se encontraron servicios</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- Confirmation Dialog -->
+<app-confirmation-dialog
+  [show]="showConfirmDialog"
+  title="Confirmar eliminación"
+  [message]="confirmationMessage"
+  confirmText="Eliminar"
+  cancelText="Cancelar"
+  type="danger"
+  (confirm)="confirmarEliminacion()"
+  (cancel)="cancelarEliminacion()"
+></app-confirmation-dialog>
+
+<!-- Notification Component -->
+<app-notification
+  [show]="showNotification"
+  [data]="notificationData"
+  (close)="onNotificationClose()"
+></app-notification> 

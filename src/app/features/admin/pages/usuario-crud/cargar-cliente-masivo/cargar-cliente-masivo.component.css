@@ -12,3 +12,120 @@
     font-weight: bold;
     transition: background-color 0.3s ease;
   }
+
+  .btn-volver-servicios:hover {
+    background-color: #e0e0e0;
+  }
+
+  /* Zona de drag & drop mejorada */
+  .border-2 {
+    border-width: 2px !important;
+  }
+
+  .border-2:hover {
+    border-width: 3px !important;
+  }
+
+  /* Indicadores de estado */
+  .border-success {
+    border-color: #28a745 !important;
+    background-color: #f8fff9 !important;
+  }
+
+  .border-warning {
+    border-color: #ffc107 !important;
+    background-color: #fffbf0 !important;
+  }
+
+  /* Tabla mejorada */
+  .table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .table th {
+    font-weight: 600;
+    font-size: 0.875rem;
+    vertical-align: middle;
+  }
+
+  .table td {
+    font-size: 0.875rem;
+    vertical-align: middle;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Badges y estados */
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* Botones mejorados */
+  .btn-lg {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* Spinner personalizado */
+  .spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  /* Alertas mejoradas */
+  .alert {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .alert-info {
+    background-color: #e3f2fd;
+    color: #1565c0;
+  }
+
+  .alert-success {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+  }
+
+  .alert-warning {
+    background-color: #fff8e1;
+    color: #ef6c00;
+  }
+
+  /* Iconos de estado en headers */
+  .bi-check-circle {
+    color: #28a745 !important;
+  }
+
+  .bi-question-circle {
+    color: #ffc107 !important;
+  }
+
+  /* Animaciones sutiles */
+  .btn, .alert, .table {
+    transition: all 0.2s ease;
+  }
+
+  /* Mejoras responsive */
+  @media (max-width: 768px) {
+    .table td {
+      max-width: 100px;
+      font-size: 0.8rem;
+    }
+    
+    .btn-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+    
+    .fs-5 {
+      font-size: 1rem !important;
+    }
+  }

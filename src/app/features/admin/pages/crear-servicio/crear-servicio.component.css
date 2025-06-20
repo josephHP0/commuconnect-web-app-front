@@ -1,0 +1,327 @@
+.contenido {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.contenedor-formulario {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+}
+
+/* Sección del formulario */
+.formulario-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-formulario {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.campo-formulario {
+  margin-bottom: 25px;
+}
+
+.label-formulario {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.input-formulario, .textarea-formulario {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.input-formulario:focus, .textarea-formulario:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.input-formulario:disabled, .textarea-formulario:disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.textarea-formulario {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Radio buttons */
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+
+.radio-option input[type="radio"] {
+  display: none;
+}
+
+.radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  margin-right: 8px;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.radio-option input[type="radio"]:checked + .radio-custom {
+  border-color: #007bff;
+}
+
+.radio-option input[type="radio"]:checked + .radio-custom::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-color: #007bff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Zona de subida de archivos */
+.texto-ayuda {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.zona-subida {
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  min-height: 200px;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.zona-subida:hover {
+  border-color: #007bff;
+}
+
+.zona-subida-vacia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  text-align: center;
+}
+
+.icono-subida {
+  font-size: 3rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.texto-subida {
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.btn-buscar {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-buscar:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.btn-buscar:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.preview-imagen {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.preview-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-eliminar-imagen {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-eliminar-imagen:hover:not(:disabled) {
+  background-color: rgba(220, 53, 69, 1);
+}
+
+/* Sección de vista previa */
+.vista-previa-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.titulo-vista-previa {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.tarjeta-preview {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.imagen-preview {
+  height: 150px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagen-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-preview {
+  color: #6c757d;
+  font-size: 2rem;
+}
+
+.info-preview {
+  padding: 15px;
+}
+
+.info-preview h4 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.info-preview p {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Botones de acción */
+.botones-accion {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secundario {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secundario:hover:not(:disabled) {
+  background-color: #545b62;
+}
+
+.btn-primario {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-primario:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.btn:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contenedor-formulario {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .formulario-section, .vista-previa-section {
+    padding: 20px;
+  }
+  
+  .vista-previa-section {
+    position: static;
+  }
+  
+  .radio-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+} 

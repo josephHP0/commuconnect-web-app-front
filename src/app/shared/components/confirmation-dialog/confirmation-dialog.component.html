@@ -1,0 +1,28 @@
+<!-- Overlay -->
+<div class="confirmation-overlay" *ngIf="show" (click)="onCancel()">
+  <!-- Dialog Card -->
+  <div class="confirmation-dialog" [ngClass]="'dialog-' + type" (click)="$event.stopPropagation()">
+    
+    <!-- Header -->
+    <div class="dialog-header">
+      <div class="dialog-icon">
+        <i [class]="getIcon()"></i>
+      </div>
+      <div class="dialog-content">
+        <h4 class="dialog-title">{{ title }}</h4>
+        <p class="dialog-message">{{ message }}</p>
+      </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="dialog-actions">
+      <button class="btn-dialog btn-cancel" (click)="onCancel()">
+        {{ cancelText }}
+      </button>
+      <button class="btn-dialog btn-confirm" [ngClass]="'btn-' + type" (click)="onConfirm()">
+        {{ confirmText }}
+      </button>
+    </div>
+    
+  </div>
+</div> 
