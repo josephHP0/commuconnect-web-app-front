@@ -11,6 +11,7 @@ import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comuni
 import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-cliente.component';
 import { ServiciosPorComunidadComponent } from './pages/servicios-por-comunidad/servicios-por-comunidad.component';
 import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-comunidad/nuevo-servicio-por-comunidad.component';
+import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-cliente-masivo/cargar-cliente-masivo.component';
 
 
 
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'editar-comunidad/:id', component: EditarComunidadComponent },
       { path: 'lista-cliente', component: ListaClienteComponent},
       { path: 'servicios-por-comunidad/:id',component:ServiciosPorComunidadComponent},
-      { path: 'nuevo-servicio-por-comunidad/:id',component:NuevoServicioPorComunidadComponent}
+      { path: 'nuevo-servicio-por-comunidad/:id',component:NuevoServicioPorComunidadComponent},
+      { path: 'cargar-cliente-masivo',component:CargarClienteMasivoComponent}
 
   
       // otras rutas como dashboard, usuarios, etc.

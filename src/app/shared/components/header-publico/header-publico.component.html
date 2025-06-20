@@ -21,7 +21,7 @@
     <!-- Botones -->
     <div class="d-flex gap-2">
       <ng-container *ngIf="estaLogueado; else botonesPublicos">
-        <button class="btn btn-outline-success btn-sm" routerLink="/user/home">Mi Panel</button>
+        <button class="btn btn-outline-success btn-sm" routerLink="/user/mis-comunidades">Mi Panel</button>
         <button class="btn btn-outline-danger btn-sm" (click)="cerrarSesion()">Cerrar sesión</button>
       </ng-container>
       <ng-template #botonesPublicos>

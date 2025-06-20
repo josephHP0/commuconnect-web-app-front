@@ -16,6 +16,7 @@ import { ServiciosPorComunidadComponent } from './pages/servicios-por-comunidad/
 import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-comunidad/nuevo-servicio-por-comunidad.component';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-cliente-masivo/cargar-cliente-masivo.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     EditarComunidadComponent,
     ListaClienteComponent,
     ServiciosPorComunidadComponent,
-    NuevoServicioPorComunidadComponent
+    NuevoServicioPorComunidadComponent,
+    CargarClienteMasivoComponent
   ],
   imports: [
     CommonModule,
