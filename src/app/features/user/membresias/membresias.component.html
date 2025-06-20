@@ -1,0 +1,65 @@
+<div class="contenedor">
+  <div class="titulo">
+    <h2>TU PLAN ACTUAL</h2>
+    <p>Revisa los detalles de tu plan actual, paga tu membresía y más.</p>
+  </div>
+
+  <div class="contenido">
+    <div class="info-plan">
+      <h3 class="plan">{{ infoInscripcion?.titulo?.toUpperCase() }}</h3>
+      <div class="precio">S/. {{ infoInscripcion?.precio }}</div>
+      <div class="periodo">{{ infoInscripcion?.periodo?.toUpperCase() }}</div>
+
+      <ul class="descripcion-lista">
+        <li>{{ infoInscripcion?.descripcion_plan }}</li>
+      </ul>
+
+      
+      <p class="vigencia">
+        Periodo de vigencia: desde el <span>{{ infoInscripcion?.fecha_inicio | date: 'dd/MM/yyyy' }}          
+        </span> hasta el <span>{{ infoInscripcion?.fecha_fin | date: 'dd/MM/yyyy' }}</span>
+      </p>
+
+      <p class="estado">
+        Estado: <span class="activo">{{ esMembresiaActiva(infoInscripcion?.estado) }}</span>
+      </p>
+
+
+      <div class="acciones">
+        <button class="gris"
+                [disabled]="infoInscripcion?.estado !== 1"
+                (click)="solicitarSuspension()">
+          Solicitar suspensión de membresía
+        </button>
+
+        <button class="rojo"
+                [disabled]="infoInscripcion?.estado !== 1"
+                (click)="cancelarMembresia()">
+          Cancelar membresía
+        </button>
+
+        <button 
+          [ngClass]="{
+            'verde': infoInscripcion?.estado === 3,
+            'verde-desactivado': infoInscripcion?.estado !== 3
+          }"
+          [disabled]="infoInscripcion?.estado !== 3"
+          (click)="pagarMembresia()">
+          Pagar membresía
+        </button>
+
+
+      </div>
+
+
+
+      <a class="historial" href="#">Ver historial de pagos</a>
+    </div>
+
+    <div class="imagen">
+      <img src="assets/fitness-couple.png" alt="pareja fit" />
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,16 @@
+.formulario-suspension {
+  max-width: 600px;
+  margin: auto;
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="file"],
+button {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}

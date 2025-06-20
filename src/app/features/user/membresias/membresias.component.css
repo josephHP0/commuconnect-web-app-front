@@ -1,0 +1,131 @@
+.contenedor {
+  padding: 2rem;
+}
+
+.titulo h2 {
+  color: #001845;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.titulo p {
+  margin-top: 0.5rem;
+  color: #666;
+  text-align: center;
+}
+
+.contenido {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.info-plan {
+  flex: 1;
+}
+.descripcion-lista {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.descripcion-lista li {
+  list-style-type: disc;
+  color: #444;
+  font-size: 14px;
+}
+
+.plan {
+  color: #1e66c9;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.precio {
+  font-size: 2rem;
+  font-style: italic;
+  color: #333;
+}
+
+.periodo {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.beneficios {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.beneficios li {
+  margin-bottom: 0.5rem;
+}
+
+.vigencia,
+.estado {
+  margin-bottom: 0.5rem;
+}
+
+.estado .activo {
+  color: green;
+  font-weight: bold;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.acciones button {
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.verde {
+  background-color: #28a745; /* verde fuerte */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-weight: bold;
+}
+
+.verde-desactivado {
+  background-color: #c8e6c9; /* verde claro apagado */
+  color: #5c5c5c;
+  cursor: not-allowed;
+  padding: 10px 15px;
+  font-weight: normal;
+  border: none;
+  opacity: 0.7;
+}
+
+.gris {
+  background-color: #ccc;
+}
+
+.rojo {
+  background-color: #d9534f;
+  color: white;
+}
+
+.verde {
+  background-color: #28a745;
+  color: white;
+}
+
+.historial {
+  display: block;
+  margin-top: 1rem;
+  color: #1e66c9;
+  text-decoration: underline;
+}
+
+.imagen img {
+  max-width: 350px;
+  height: auto;
+}

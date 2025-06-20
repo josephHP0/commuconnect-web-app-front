@@ -60,7 +60,8 @@ ngOnInit(): void {
 
   accederAComunidad(comunidad: ComunidadContexto): void {
     localStorage.setItem('comunidad_seleccionada', JSON.stringify(comunidad));
-     this.router.navigate(['/user/homepage', comunidad.id_comunidad]);
+    localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString()); 
+    this.router.navigate(['/user/homepage', comunidad.id_comunidad]);
   }
   cerrarSesion() {
     // Elimina cualquier dato de sesión que hayas almacenado
