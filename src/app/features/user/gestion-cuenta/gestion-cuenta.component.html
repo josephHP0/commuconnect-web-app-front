@@ -1,0 +1,74 @@
+<!-- Contenedor principal -->
+<div class="dashboard-container">
+
+  <!-- Contenido -->
+  <main class="contenido">
+    <div class="bloque-central">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="titulo-comunidad">Datos del usuario</h2>
+        <button class="btn btn-success" (click)="editar = !editar">{{ editar ? 'Guardar' : 'Editar ✎' }}</button>
+      </div>
+
+      <form *ngIf="usuario" (ngSubmit)="guardarCambios()" #form="ngForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Nombres</label>
+            <input class="form-control" [(ngModel)]="usuario.nombre" name="nombre" [readonly]="!editar" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Apellidos</label>
+            <input class="form-control" [(ngModel)]="usuario.apellido" name="apellido" [readonly]="!editar" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Correo Electrónico</label>
+            <input class="form-control" [(ngModel)]="usuario.email" name="email" [readonly]="!editar" required type="email" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Tipo de documento</label>
+            <input class="form-control" [(ngModel)]="usuario.tipo_documento" name="tipo_documento" [readonly]="!editar" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Número de documento</label>
+            <input class="form-control" [(ngModel)]="usuario.num_doc" name="num_doc" [readonly]="!editar" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Fecha de nacimiento</label>
+            <input class="form-control" [(ngModel)]="usuario.fecha_nac" name="fecha_nac" [readonly]="!editar" type="date" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Número de Teléfono</label>
+            <input class="form-control" [(ngModel)]="usuario.numero_telefono" name="numero_telefono" [readonly]="!editar" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Departamento</label>
+            <input class="form-control" [(ngModel)]="usuario.departamento" name="departamento" [readonly]="!editar" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Distrito</label>
+            <input class="form-control" [(ngModel)]="usuario.distrito" name="distrito" [readonly]="!editar" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Dirección domiciliaria</label>
+            <input class="form-control" [(ngModel)]="usuario.direccion" name="direccion" [readonly]="!editar" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Peso (Kg)</label>
+            <input class="form-control" [(ngModel)]="usuario.peso" name="peso" [readonly]="!editar" type="number" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Talla (CM)</label>
+            <input class="form-control" [(ngModel)]="usuario.talla" name="talla" [readonly]="!editar" type="number" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Género</label>
+            <input class="form-control" [(ngModel)]="usuario.genero" name="genero" [readonly]="!editar" />
+          </div>
+        </div>
+
+        <div *ngIf="editar" class="text-end">
+          <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
