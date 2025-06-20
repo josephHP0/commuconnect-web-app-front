@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+  
+        <!-- Título principal -->
+        <h2 class="mb-3">Nueva reserva</h2>
+  
+        <!-- Mensaje en rojo -->
+        <div class="alert alert-danger" role="alert">
+          El sistema solo permitirá cancelaciones con al menos 1 hora de anticipación respecto a la hora de la reserva.
+        </div>
+  
+        <!-- Contenido dinámico de la reserva -->
+        <div class="card text-start mt-4" *ngIf="reservaConfirmada">
+          <div class="card-body">
+            <h5 class="card-title">{{ reservaConfirmada.nombre_servicio }}</h5>
+            <p class="card-text">
+              <strong>Cliente:</strong> {{ reservaConfirmada.nombres }} {{ reservaConfirmada.apellidos }}<br>
+              <strong>Fecha:</strong> {{ reservaConfirmada.fecha }}<br>
+              <strong>Hora de inicio:</strong> {{ reservaConfirmada.hora_inicio | date: 'shortTime' }}<br>
+              <strong>Hora de fin:</strong> {{ reservaConfirmada.hora_fin | date: 'shortTime' }}<br>
+              <strong>Ubicación:</strong> {{ reservaConfirmada.ubicacion }}<br>
+            
+             
+             
+
+
+            </p>
+          </div>
+          
+        </div>
+        <div class="mt-4 text-center">
+            <button class="btn btn-secondary me-3" (click)="cancelarReserva()">Cancelar</button>
+            <button class="btn btn-primary" (click)="confirmarReserva()">Reservar</button>
+          </div>
+  
+      </div>
+    </div>
+  </div>
+  

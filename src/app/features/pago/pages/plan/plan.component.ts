@@ -40,6 +40,7 @@ export class PlanComponent implements OnInit{
       }
     });
   }
+  
 
 
   irAOtraPagina() {
@@ -74,7 +75,16 @@ export class PlanComponent implements OnInit{
       alert('No se pudo registrar la inscripción.');
     }
   });
+  
 }
+  cerrarSesion() {
+    // Elimina cualquier dato de sesión que hayas almacenado
+    localStorage.clear(); // O sessionStorage.clear(), dependiendo de cómo lo manejes
+    //localStorage.removeItem('token');
+
+    // Redirige a la página de presentación
+    this.router.navigate(['/presentacion/inicio']);
+  }
 
 
 

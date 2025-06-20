@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpParams ,HttpHeaders} from '@angular/common/http';
+import { ActivatedRoute ,Router} from '@angular/router';
 import { environment } from 'src/environments/environment';
+
+
+import { ReservasPresencialesService} from '../../user/services/reservas/reservas-presenciales.service'
+
 
 @Component({
   selector: 'app-sesiones',
@@ -9,7 +13,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./sesiones.component.css']
 })
 export class SesionesComponent implements OnInit {
+
   idServicio = 1;
+  paginaActual = 1;
+  sesionSeleccionada: any = null;
+  step = 1;
 
   // Nivel 1
   distritos: any[] = [];
@@ -34,7 +42,9 @@ export class SesionesComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private reservaService: ReservasPresencialesService
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +100,7 @@ export class SesionesComponent implements OnInit {
   // ─── Nivel 2: Locales ─────────────────────────────────────────────
   seleccionarLocal(local: any): void {
     this.localSeleccionado = local;
+    console.log("seleccion",this.localSeleccionado)
     this.resetFechasHorasSesiones();
     this.obtenerFechasPresenciales();
   }
@@ -139,26 +150,49 @@ export class SesionesComponent implements OnInit {
     this.obtenerSesionesPresenciales();
   }
 
-  // ─── Nivel 5: Sesiones ────────────────────────────────────────────
+
+
   private obtenerSesionesPresenciales(): void {
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
+  
+    const headers = new HttpHeaders({
+      Authorization: `${tokenType} ${accessToken}`
+    });
+  
     const params = new HttpParams()
       .set('id_servicio', this.idServicio.toString())
       .set('id_distrito', this.distritoSeleccionado.id_distrito)
       .set('id_local', this.localSeleccionado.id_local)
-      .set('fecha', this.fechaSeleccionada)   // << fecha en DD/MM/YYYY
+      .set('fecha', this.fechaSeleccionada) // formato DD/MM/YYYY
       .set('hora', this.horaSeleccionada);
-
+  
     this.http
-      .get<{ sesiones: any[] }>(`${this.baseUrl}/reservations/sesiones-presenciales`, { params })
+      .get<{ sesiones: any[] }>(
+        `${this.baseUrl}/reservations/sesiones-presenciales`,
+        { headers, params }
+      )
       .subscribe({
         next: res => this.sesionesDisponibles = res.sesiones,
         error: err => console.error('Error al obtener sesiones:', err)
       });
   }
+  
 
   reservarSesion(sesion: any): void {
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
+  
+    if (!tokenType || !accessToken) {
+      console.error('Token de autenticación no encontrado.');
+      alert('No estás autenticado. Por favor, inicia sesión.');
+      return;
+    }
+  
+    const headers = new HttpHeaders().set('Authorization', `${tokenType} ${accessToken}`);
+  
     this.http
-      .get<string>(`${this.baseUrl}/reservations/reserva-existe/${sesion.id_sesion}`)
+      .get<string>(`${this.baseUrl}/reservations/reserva-existe/${sesion.id_sesion}`, { headers })
       .subscribe({
         next: res => {
           if (res === 'true') {
@@ -178,4 +212,89 @@ export class SesionesComponent implements OnInit {
     this.horaSeleccionada = '';
     this.sesionesDisponibles = [];
   }
+
+
+
+
+  retroceder(): void {
+    if (this.step > 1) {
+      this.step = 1;
+      this.resetFechasHorasSesiones();  // Limpia la selección al volver
+    }
+  }
+  
+
+  continuar(): void {
+    if (this.step === 1) {
+      if (!this.distritoSeleccionado || !this.localSeleccionado) {
+        alert('Por favor selecciona un distrito y un local.');
+        return;
+      }
+  
+      // Al pasar a la etapa 2, ya puedes obtener las fechas disponibles
+      this.obtenerFechasPresenciales();
+      this.step = 2;
+    }
+  }
+  
+
+  seleccionarSesion(sesion: any): void {
+    if (this.sesionSeleccionada === sesion) {
+      // Deseleccionar si ya estaba seleccionada
+      this.sesionSeleccionada = null;
+    } else {
+      this.sesionSeleccionada = sesion;
+    }
+  }
+
+  volverAServiciosTipo() {
+    this.router.navigate(['/user/seleccionar-servicio']);
+  }
+
+/*
+  continuarReserva(): void {
+    if (this.sesionSeleccionada) {
+      // Lógica para continuar a la siguiente etapa
+      console.log('Sesión seleccionada:', this.sesionSeleccionada);
+      // Puedes navegar a otro componente o mostrar un resumen, etc.
+      //this.router.navigate(['/user/resumen-reserva']); // Ejemplo de ruta
+    }
+  }ß
+*/
+
+  continuarReserva() {
+    if (this.sesionSeleccionada === null) {
+      alert("Por favor selecciona una sesión.");
+      return;
+    }
+
+    //const sesion = this.fechasDisponibles[this.sesionSeleccionadaIndex];
+    //const sesion = this.sesionesDisponibles[this.sesionSeleccionada];
+    const sesion = this.sesionSeleccionada;
+    
+
+    if (!sesion || !sesion.id_sesion) {
+      alert("Sesión inválida.");
+      return;
+    }
+    this.reservaService.verificarReservaExistePresencial(sesion.id_sesion).subscribe(res => {
+      if (res.reserva_existente) {
+        console.log("Sesión ya reservada:", sesion.id_sesion);
+        alert("Ya tienes una reserva activa para esta sesión.");
+      } else {
+        console.log('Reservando sesión:', sesion);
+        // Aquí puedes llamar al endpoint para crear la reserva
+        this.router.navigate(['/user/nueva-reserva-presencial'], {
+          state: { sesion }  // pasas la sesión a la nueva pantalla
+        });
+      }
+    }, error => {
+      console.error('Error verificando reserva', error);
+      alert("Error al verificar la reserva. Intenta nuevamente.");
+    });
+  }
+  
+  
+
+
 }

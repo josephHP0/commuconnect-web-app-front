@@ -1,0 +1,34 @@
+<header class="bg-white py-3 shadow-sm fixed-top"
+  style="border-bottom: 2px solid #A9A9A9; box-shadow: 0 4px 10px rgba(169, 169, 169, 0.5);">
+  <div class="container d-flex justify-content-between align-items-center">
+
+    <!-- Logo -->
+    <div class="logo d-flex align-items-center gap-4">
+      <img src="assets/logo_monkey_fit.png" alt="Logo Monkey Fit" height="50">
+      <span class="fw-bold fs-5 text-primary">CommuConnect</span>
+    </div>
+
+    <!-- Menú -->
+    <nav class="flex-grow-1">
+      <ul class="nav justify-content-center">
+        <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/inicio">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/servicios">Servicios</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" routerLink="/presentacion/membresias">Membresías</a></li>
+      </ul>
+    </nav>
+
+    <!-- Botones -->
+    <div class="d-flex gap-2">
+      <ng-container *ngIf="estaLogueado; else botonesPublicos">
+        <button class="btn btn-outline-success btn-sm" routerLink="/user/home">Mi Panel</button>
+        <button class="btn btn-outline-danger btn-sm" (click)="cerrarSesion()">Cerrar sesión</button>
+      </ng-container>
+      <ng-template #botonesPublicos>
+        <button class="btn btn-primary btn-sm" routerLink="/autenticacion/login">INICIAR SESIÓN</button>
+        <button class="btn btn-primary btn-sm" routerLink="/autenticacion/register">REGISTRARSE</button>
+      </ng-template>
+    </div>
+
+  </div>
+</header>

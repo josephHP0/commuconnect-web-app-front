@@ -9,6 +9,8 @@ import { RegistroComunidadComponent } from './pages/registro-comunidad/registro-
 import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad.component';
 import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
 import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-cliente.component';
+import { ServiciosPorComunidadComponent } from './pages/servicios-por-comunidad/servicios-por-comunidad.component';
+import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-comunidad/nuevo-servicio-por-comunidad.component';
 
 
 
@@ -26,11 +28,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'lista-comunidad', pathMatch: 'full' },
       { path: 'lista-comunidad', component: ListaComunidadComponent },
       { path: 'registro-comunidad', component: RegistroComunidadComponent },
-     // { path: 'editar-comunidad', component: EditarComunidadComponent },
-     { path: 'editar-comunidad/:id', component: EditarComunidadComponent },
+      { path: 'editar-comunidad/:id', component: EditarComunidadComponent },
+      { path: 'lista-cliente', component: ListaClienteComponent},
+      { path: 'servicios-por-comunidad/:id',component:ServiciosPorComunidadComponent},
+      { path: 'nuevo-servicio-por-comunidad/:id',component:NuevoServicioPorComunidadComponent}
 
-      { path: 'lista-cliente', component: ListaClienteComponent}
-
+  
       // otras rutas como dashboard, usuarios, etc.
     ]
   }

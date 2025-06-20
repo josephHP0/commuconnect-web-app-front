@@ -21,7 +21,10 @@ import { MembresiasComponent } from './membresias/membresias.component';
 import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.component';
 import { SuspensionMembresiaComponent } from './membresias/pages/suspension-membresia/suspension-membresia.component';
 
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
+import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
+import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component';
 
 @NgModule({
   declarations: [
@@ -36,16 +39,19 @@ import { SuspensionMembresiaComponent } from './membresias/pages/suspension-memb
     SeleccionarServicioComponent,
     MembresiasComponent,
     CambiarPasswordComponent,
-    SuspensionMembresiaComponent
+    SuspensionMembresiaComponent,
+    NuevaReservaPresencialComponent,
+    NuevaReservaVirtualComponent,
+    CompletarFormularioComponent
 
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     UserRoutingModule,
-
-    FormsModule,  
-    UserLayoutModule
+    FormsModule,  // 👈 Asegúrate de tener esto aquí
+    UserLayoutModule,
+    NgxPaginationModule
 
 
   ]

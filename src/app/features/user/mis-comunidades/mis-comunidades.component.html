@@ -1,6 +1,13 @@
 <!-- ENCABEZADO -->
 <div class="encabezado">
-  <img src="/assets/logo_monkey_fit.png" alt="Logo" class="logo">
+  <!-- Botones de navegación a la izquierda -->
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-primary d-flex align-items-center gap-1"
+        href="http://localhost:4200/presentacion/inicio">
+      <i class="bi bi-house-fill"></i>
+      <span>Inicio</span>
+    </a>
+  </div>
   <div class="acciones-encabezado">
     <input
       type="text"
@@ -9,7 +16,12 @@
       placeholder="Buscar comunidad"
       class="buscador"
     />
-    <button class="btn-sesion">Cerrar Sesión</button>
+      <a class="btn btn-outline-danger d-flex align-items-center gap-1"
+        (click)="cerrarSesion()"
+        style="cursor: pointer;">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Cerrar Sesión</span>
+      </a>
   </div>
 </div>
 

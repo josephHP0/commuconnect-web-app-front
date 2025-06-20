@@ -45,10 +45,35 @@ export class ReservasVirtualesService {
 
 
 
-  // GET /api/reservations/reserva-existe/{id_sesion}
+
+
 
   verificarReservaExiste(id_sesion: number): Observable<{ reserva_existente: boolean }> {
-    return this.http.get<{ reserva_existente: boolean }>(`${this.baseUrl}/reservations/reserva-existe/${id_sesion}`);
+    const token_type = localStorage.getItem('token_type') || 'Bearer';
+    const access_token = localStorage.getItem('access_token') || '';
+  
+    const headers = new HttpHeaders({
+      'Authorization': `${token_type} ${access_token}`
+    });
+  
+    return this.http.get<{ reserva_existente: boolean }>(
+      `${this.baseUrl}/reservations/reserva-existe/${id_sesion}`,
+      { headers }
+    );
   }
+
+
+  crearReserva(idSesion: number,idComunidad:number): Observable<any> {
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
+  
+    const headers = new HttpHeaders({
+      Authorization: `${tokenType} ${accessToken}`,
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.post(`${this.baseUrl}/reservations/virtual`, { id_sesion: idSesion ,id_comunidad:idComunidad}, { headers });
+  }
+
 
 }

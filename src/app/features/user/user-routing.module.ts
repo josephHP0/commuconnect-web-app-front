@@ -22,6 +22,10 @@ import { MembresiasComponent } from './membresias/membresias.component';
 import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.component';
 import { SuspensionMembresiaComponent } from './membresias/pages/suspension-membresia/suspension-membresia.component';
 
+import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
+import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
+import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component'; 
+
 
 const routes: Routes = [
   {
@@ -37,9 +41,15 @@ const routes: Routes = [
       { path: 'sesiones', component: SesionesComponent },  
       { path: 'seleccionar-servicio', component: SeleccionarServicioComponent },
       { path: 'reservas-virtuales', component: ReservasVirtualesComponent },
+
       { path: 'membresias', component: MembresiasComponent },
       { path: 'cambiar-password', component: CambiarPasswordComponent },
       { path: 'suspension-membresia', component: SuspensionMembresiaComponent },
+
+      { path: 'nueva-reserva-presencial',component: NuevaReservaPresencialComponent},
+      { path: 'nueva-reserva-virtual',component: NuevaReservaVirtualComponent},
+      { path: 'completar-formulario/:id', component: CompletarFormularioComponent }
+
 
     ]
   },

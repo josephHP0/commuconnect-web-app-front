@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservasVirtualesService, FechaSesion } from '../../services/reservas/reservas-virtuales.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservas-virtuales',
@@ -37,34 +37,22 @@ export class ReservasVirtualesComponent implements OnInit {
   id_comunidad: number = 0;
   topesEstado: string | null = null;
 
-  constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute) {}
-/*
- ngOnInit(): void {
-     // Leer el servicioId desde query params
-    this.route.queryParams.subscribe(params => {
-      const id = params['servicioId'];
-      if (id) {
-        this.idServicio = +id; // convertir a número
-      }
-      this.obtenerDistritos();
+  idServicio=1;
+
+  constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute,private router: Router) {}
 
 
-      console.log("servicio que me dan "+this.idServicio);
-    });
 
-    this.fechasFiltradas = [];
-  }
-
-*/
-
-
-idServicio=1;
+ 
 
 
   ngOnInit() {
     // Recuperar id_comunidad desde localStorage
     const storedId = localStorage.getItem('id_comunidad');
     this.id_comunidad = storedId ? +storedId : 0;
+
+   
+
 
     // Hardcodeas idServicio por ahora
     this.idServicioSeleccionado = 4;
@@ -73,10 +61,11 @@ idServicio=1;
       const id = params['servicioId'];
       if (id) {
         this.idServicio = +id; // convertir a número
+       // console.log('Servicio ID recibido:', id);
 
       }
 
-       this.reservaService.getProfesionales(this.idServicioSeleccionado).subscribe({
+       this.reservaService.getProfesionales(this.idServicio).subscribe({
       next: (data) => {
         console.log('Profesionales cargados:', data);
         this.profesionales = data;
@@ -97,7 +86,7 @@ idServicio=1;
 
 
 
-
+/*
     this.reservaService.getTopes(this.id_comunidad).subscribe({
       next: (topes) => {
         if (topes.estado === 'Ilimitado') {
@@ -111,6 +100,8 @@ idServicio=1;
         this.topesEstado = null;
       }
     });
+*/
+
   }
 
 
@@ -123,12 +114,14 @@ idServicio=1;
       this.cargarFechas();
     }
 
+    
+    if (this.step === 2 && this.fechaSeleccionada && this.horaSeleccionada) {
+      this.cargarSesionesDisponibles();
+    }
+
     // Solo avanzamos si no estamos en el último paso
     if (this.step < 3) {
       this.step++;
-    }
-    if (this.step === 2 && this.fechaSeleccionada && this.horaSeleccionada) {
-      this.cargarSesionesDisponibles();
     }
 
   }
@@ -161,21 +154,6 @@ idServicio=1;
   }
 
 
-  /*cargarFechas() {
-    if (this.profesionalSeleccionado == null) return;
-
-    this.cargandoFechas = true;
-    this.reservaService.getFechasDisponibles(this.profesionalSeleccionado).subscribe({
-      next: fechas => {
-        this.fechasDisponibles = fechas;
-        this.cargandoFechas = false;
-      },
-      error: err => {
-        console.error('Error al cargar fechas:', err);
-        this.cargandoFechas = false;
-      }
-    });
-  }*/
   cargarFechas() {
     if (this.profesionalSeleccionado == null) return;
 
@@ -214,8 +192,13 @@ idServicio=1;
     this.vacantesLibres = 0; // Reset
 
     const sesiones = this.horasDisponibles.filter(h => h.hora === this.horaSeleccionada?.hora);
+    console.log("Que sesion es>",this.horasDisponibles)
     const promesas = sesiones.map(async (sesion) => {
-      const existe = await this.reservaService.verificarReservaExiste(sesion.id_sesion!).toPromise();
+      
+      const respuesta = await this.reservaService.verificarReservaExiste(sesion.id_sesion!).toPromise();
+
+      const existe = respuesta?.reserva_existente ?? false;
+      console.log("valor del existe ",existe)
       return {
         ...sesion,
         vacantes_libres: existe ? 0 : 1,
@@ -229,12 +212,18 @@ idServicio=1;
       // Actualizar contadores globales
       const vacantes = sesionesConVacantes.filter(s => s.vacantes_libres > 0).length;
       const algunaReservaExiste = sesionesConVacantes.some(s => s.existeReserva);
+      console.log("hay reserva existente",algunaReservaExiste)
 
       this.vacantesLibres = vacantes;
       this.reservaExistente = algunaReservaExiste;
 
       this.cargandoSesiones = false;
       this.sinSesiones = this.sesionesDisponibles.length === 0;
+
+      if (this.sesionesDisponibles.length === 1) {
+        this.sesionSeleccionadaIndex = 0;
+      }
+
     }).catch(err => {
       console.error('Error cargando sesiones:', err);
       this.cargandoSesiones = false;
@@ -250,10 +239,15 @@ idServicio=1;
   }
 
   reservar() {
-    if (this.sesionSeleccionadaIndex === null) {
-      alert("Por favor selecciona una sesión.");
-      return;
-    }
+    // 👇 Ya no es necesario verificar selección si hay una sola
+  if (this.sesionSeleccionadaIndex === null && this.sesionesDisponibles.length === 1) {
+    this.sesionSeleccionadaIndex = 0;
+  }
+
+  if (this.sesionSeleccionadaIndex === null) {
+    alert("No hay una sesión seleccionada.");
+    return;
+  }
 
     //const sesion = this.fechasDisponibles[this.sesionSeleccionadaIndex];
     const sesion = this.sesionesDisponibles[this.sesionSeleccionadaIndex];
@@ -263,16 +257,36 @@ idServicio=1;
       return;
     }
 
-    this.reservaService.verificarReservaExiste(sesion.id_sesion_virtual).subscribe(existe => {
-      if (existe) {
+    this.reservaService.verificarReservaExiste(sesion.id_sesion_virtual).subscribe(respuesta => {
+
+
+      if (respuesta.reserva_existente) {
         alert("Ya tienes una reserva activa para esta sesión.");
       } else {
         console.log('Reservando sesión:', sesion);
         // Aquí podrías llamar al endpoint para reservar (si lo implementas)
+
+
+        this.router.navigate(['/user/nueva-reserva-virtual'], {
+          state: { sesion: sesion }
+        });
+
       }
     }, error => {
       console.error('Error verificando reserva', error);
       alert("Error al verificar la reserva. Intenta nuevamente.");
     });
+  }
+
+
+
+  
+
+
+
+
+
+  volverAServiciosTipo() {
+    this.router.navigate(['/user/seleccionar-servicio']);
   }
 }

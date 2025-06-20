@@ -68,7 +68,9 @@ editarComunidad(id: number): void {
 
 
 
-
+verServicios(id: number): void {
+  this.router.navigate(['/admin/servicios-por-comunidad', id]);
+}
 
 
 

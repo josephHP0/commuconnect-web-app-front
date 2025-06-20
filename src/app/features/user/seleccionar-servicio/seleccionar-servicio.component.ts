@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicioService } from '../services/servicio.service';
+import { ComunidadService, ComunidadContexto } from '../services/comunidad.service';
 
 @Component({
   selector: 'app-seleccionar-servicio',
@@ -12,14 +13,57 @@ export class SeleccionarServicioComponent implements OnInit {
   idComunidad: number = 3;
   topes: number = 0;
 
+  tieneTopes: boolean = false;
+  topesDisponibles: number = 0;
+
   constructor(
     private servicioService: ServicioService,
+    private comunidadService: ComunidadService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.obtenerServicios();
-    this.obtenerTopes();
+   
+
+
+
+
+    const comunidadGuardada = localStorage.getItem('comunidad_seleccionada');
+    if (comunidadGuardada) {
+      const comunidad = JSON.parse(comunidadGuardada);
+      const id = comunidad.id_comunidad;
+
+
+      this.idComunidad = id;
+
+      this.obtenerServicios();
+      //this.obtenerTopes();
+
+
+
+
+      this.comunidadService.verificarSiTieneTopes(id).subscribe((respuesta: any) => {
+       
+        this.tieneTopes = respuesta.tieneTopes;
+        console.log("Tiene topes verificacion", this.tieneTopes )
+  
+        if (this.tieneTopes) {
+          // Si tiene topes, obtener cantidad
+          this.comunidadService.obtenerCantidadTopes(id).subscribe((data: any) => {
+            this.topesDisponibles = data.topes_disponibles-data.topes_consumidos;
+          });
+        }else{
+          console.log("No tiene topes")
+        }
+      });
+
+
+    }
+
+
+
+
+
   }
 /*
   obtenerServicios() {

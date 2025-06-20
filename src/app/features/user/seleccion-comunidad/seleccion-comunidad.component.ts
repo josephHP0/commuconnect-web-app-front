@@ -144,7 +144,14 @@ export class SeleccionComunidadComponent implements OnInit {
       }
     });
   }
+  cerrarSesion() {
+    // Elimina cualquier dato de sesión que hayas almacenado
+    localStorage.clear(); // O sessionStorage.clear(), dependiendo de cómo lo manejes
+    //localStorage.removeItem('token');
 
+    // Redirige a la página de presentación
+    this.router.navigate(['/presentacion/inicio']);
+  }
 
 }
 
