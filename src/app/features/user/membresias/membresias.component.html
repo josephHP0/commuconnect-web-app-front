@@ -16,8 +16,8 @@
 
       
       <p class="vigencia">
-        Periodo de vigencia: desde el <span>10/04/2025</span> hasta el
-        <span>{{ infoInscripcion?.fecha_fin | date: 'dd/MM/yyyy' }}</span>
+        Periodo de vigencia: desde el <span>{{ infoInscripcion?.fecha_inicio | date: 'dd/MM/yyyy' }}          
+        </span> hasta el <span>{{ infoInscripcion?.fecha_fin | date: 'dd/MM/yyyy' }}</span>
       </p>
 
       <p class="estado">
@@ -40,13 +40,14 @@
 
         <button 
           [ngClass]="{
-            'verde': infoInscripcion?.estado === 3 && esProximoAVencer(infoInscripcion?.fecha_fin),
-            'verde-desactivado': !(infoInscripcion?.estado === 3 && esProximoAVencer(infoInscripcion?.fecha_fin))
+            'verde': infoInscripcion?.estado === 3,
+            'verde-desactivado': infoInscripcion?.estado !== 3
           }"
-          [disabled]="!(infoInscripcion?.estado === 3 && esProximoAVencer(infoInscripcion?.fecha_fin))"
+          [disabled]="infoInscripcion?.estado !== 3"
           (click)="pagarMembresia()">
           Pagar membresía
         </button>
+
 
       </div>
 

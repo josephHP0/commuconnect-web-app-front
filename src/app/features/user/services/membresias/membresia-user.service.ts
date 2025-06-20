@@ -11,6 +11,7 @@ export interface InfoInscripcion {
   descripcion_plan: string; 
   precio: number;
   periodo: string;
+  fecha_inicio: string;
   fecha_fin: string;
 }
 export interface EsConTopesResponse {
@@ -42,6 +43,10 @@ export class MembresiaUserService {
   cancelarMembresia(idInscripcion: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/billing/inscripcion/${idInscripcion}/cancelar`, {});
   }
+  pagarMembresia(idComunidad: number) {
+    return this.http.post(`${this.baseUrl}/billing/comunidades/${idComunidad}/pagar`, {});
+  }
+
 
 
 }

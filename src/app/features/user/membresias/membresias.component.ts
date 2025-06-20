@@ -17,35 +17,40 @@ export class MembresiasComponent {
   fechaInicio: string = '';
   fechaFin: string = '';
   archivoAdjunto: File | null = null;
+  idComunidadSeleccionada!: number; 
 
   constructor(private membresiaService: MembresiaUserService,
               private router: Router) {}
 
   ngOnInit(): void {
-    const idComunidad = Number(localStorage.getItem('id_comunidad'));
-    if (isNaN(idComunidad)) {
+    this.idComunidadSeleccionada = Number(localStorage.getItem('id_comunidad'));
+    if (isNaN(this.idComunidadSeleccionada)) {
       console.error('❌ No se encontró un id_comunidad válido en localStorage');
       return;
     }
 
-    this.membresiaService.obtenerInfoInscripcion(idComunidad).subscribe({
+    this.membresiaService.obtenerInfoInscripcion(this.idComunidadSeleccionada).subscribe({
       next: (info) => {
         this.infoInscripcion = info;
 
-        this.membresiaService.esPlanConTopes(info.id_inscripcion).subscribe({
-          next: (res) => {
-            this.esConTopes = res.esPlanConTopes;
-          },
-          error: (err) => {
-            console.error('❌ Error al verificar si el plan tiene topes:', err);
-          }
-        });
+        //  Solo si la inscripción está activa
+        if (info.estado === 1) {
+          this.membresiaService.esPlanConTopes(info.id_inscripcion).subscribe({
+            next: (res) => {
+              this.esConTopes = res.esPlanConTopes;
+            },
+            error: (err) => {
+              console.error('❌ Error al verificar si el plan tiene topes:', err);
+            }
+          });
+        }
       },
       error: (err) => {
         console.error('❌ Error al obtener información de inscripción:', err);
       }
     });
   }
+
 
   esMembresiaActiva(estado: number | undefined): string {
     if (estado === 1) {
@@ -54,14 +59,19 @@ export class MembresiasComponent {
     return 'Inactivo';
   }
 
-  esProximoAVencer(fechaFin: string): boolean {
-    if (!fechaFin) return false;
-    const hoy = new Date();
-    const fecha = new Date(fechaFin);
-    const diffMs = fecha.getTime() - hoy.getTime();
-    const diffDias = diffMs / (1000 * 60 * 60 * 24);
-    return diffDias <= 7 && diffDias >= 0;
-  }
+  esProximoAVencer(fechaFinIso?: string | null): boolean {
+  if (!fechaFinIso) return false;
+
+  const fechaFin = new Date(fechaFinIso);
+  const hoy = new Date();
+
+  const diffMs = fechaFin.getTime() - hoy.getTime();
+  const diffDias = diffMs / (1000 * 60 * 60 * 24);
+
+  return diffDias <= 7 && diffDias >= 0;
+}
+
+
 
   solicitarSuspension(): void {
     // Guarda el id_inscripcion en localStorage (si no lo habías hecho aún)
@@ -77,23 +87,26 @@ export class MembresiasComponent {
 
 
   pagarMembresia(): void {
-  const idInscripcion = this.infoInscripcion?.id_inscripcion;
+    const idComunidad = this.idComunidadSeleccionada;
 
-  if (!idInscripcion) {
-    console.error('❌ ID de inscripción no disponible.');
-    return;
+    if (this.infoInscripcion?.estado === 3 && idComunidad) {
+      this.membresiaService.pagarMembresia(idComunidad).subscribe({
+        next: (res) => {
+          Swal.fire('✅ Membresía activada', 'Tu membresía ha sido reactivada con éxito.', 'success');
+          this.ngOnInit(); // para refrescar el estado en pantalla
+        },
+        error: (err) => {
+          console.error('❌ Error al pagar membresía:', err);
+          Swal.fire('Error', err?.error?.detail || 'Ocurrió un error al activar la membresía.', 'error');
+        }
+      });
+    } else {
+      Swal.fire('Atención', 'Solo puedes pagar si la membresía está pendiente de pago.', 'info');
+    }
   }
 
-  this.membresiaService.reactivarMembresia(idInscripcion).subscribe({
-    next: () => {
-      Swal.fire('Éxito', 'La membresía ha sido reactivada exitosamente.', 'success');
-      this.ngOnInit(); // recargar info actualizada
-    },
-    error: (err) => {
-      Swal.fire('Error', err.error?.detail || 'Error al reactivar la membresía.', 'error');
-    }
-  });
-}
+
+
 
 
   // membresias.component.ts
