@@ -43,6 +43,9 @@
           {{ profesional.nombre_completo }}
         </div>
       </div>
+      <div *ngIf="sinProfesionales" class="mensaje-vacio mt-3">
+      ⚠️ No hay profesionales disponibles para este servicio en este momento.
+    </div>
     </div>
 
     <div class="footer-step">

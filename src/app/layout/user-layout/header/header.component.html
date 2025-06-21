@@ -27,12 +27,18 @@
 
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li>
-              <a class="dropdown-item" [routerLink]="['/user/gestion-cuenta']">Gestión de Cuenta</a>
+              <a class="dropdown-item" [routerLink]="['/user/gestion-cuenta']">Informacion personal</a>
             </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/user/cambiar-password']">Cambio de contraseña</a>
+            </li>
+
             <li><hr class="dropdown-divider"></li>
             <li>
               <button class="dropdown-item text-danger" (click)="cerrarSesion()">Cerrar sesión</button>
             </li>
+          
           </ul>
         </div>
       </ng-container>

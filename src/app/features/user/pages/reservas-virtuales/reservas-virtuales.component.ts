@@ -39,6 +39,8 @@ export class ReservasVirtualesComponent implements OnInit {
 
   idServicio=1;
 
+  sinProfesionales = false;
+
   constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute,private router: Router) {}
 
 
@@ -56,6 +58,7 @@ export class ReservasVirtualesComponent implements OnInit {
 
     // Hardcodeas idServicio por ahora
     this.idServicioSeleccionado = 4;
+    
 
   this.route.queryParams.subscribe(params => {
       const id = params['servicioId'];
@@ -64,6 +67,7 @@ export class ReservasVirtualesComponent implements OnInit {
        // console.log('Servicio ID recibido:', id);
 
       }
+      
 
        this.reservaService.getProfesionales(this.idServicio).subscribe({
       next: (data) => {
@@ -72,6 +76,7 @@ export class ReservasVirtualesComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error cargando profesionales:', err);
+        this.sinProfesionales = true;
       }
     });
 
