@@ -1,0 +1,13 @@
+.header-profesionales {
+  gap: 1rem;
+  margin-top: 2rem; /* Ajusta el valor según lo que necesites */
+}
+
+.acciones-profesionales > * {
+  margin-left: 0.5rem;
+}
+
+.busqueda-profesionales input {
+  min-width: 200px;
+  max-width: 400px;
+}
