@@ -92,9 +92,8 @@ export class GestionServiciosComponent implements OnInit {
     this.showConfirmDialog = false;
   }
 
-  verLocalesYProfesionales(servicio: Servicio): void {
-    // Implementar navegación a pantalla de locales y profesionales
-    console.log('Ver locales y profesionales para:', servicio.nombre);
+  verProfesionales(servicio: Servicio): void {
+    this.router.navigate(['/admin/servicio', servicio.id_servicio, 'profesionales']);
   }
 
   private showNotificationMessage(type: 'success' | 'error' | 'warning' | 'info', title: string, message: string): void {
