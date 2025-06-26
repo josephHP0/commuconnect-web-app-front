@@ -10,10 +10,20 @@
     <div class="d-flex align-items-center">
 
       <!-- Icono de Casita -->
+      
+<!--
       <i class="bi bi-house-door-fill fs-4 text-primary me-3"
-         title="Inicio"
-         routerLink="/user/homepage"
-         style="cursor: pointer;"></i>
+          title="Inicio"
+          style="cursor: pointer;"
+          [routerLink]="['/user/homepage', idComunidad]">
+      </i>
+    -->
+      <i *ngIf="idComunidad"
+   class="bi bi-house-door-fill fs-4 text-primary me-3"
+   title="Inicio"
+   style="cursor: pointer;"
+   [routerLink]="['/user/mis-comunidades']">
+</i>
 
       <!-- Dropdown Usuario, solo si está logueado -->
       <ng-container *ngIf="estaLogueado">

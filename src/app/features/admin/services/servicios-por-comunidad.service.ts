@@ -61,7 +61,7 @@ export class ServiciosPorComunidadService {
       });
     
       return this.http.post(
-        `${this.baseUrl}/services/admin/comunidad/${idComunidad}/servicio/${idServicio}/añadir`,
+        `${this.baseUrl}/services/admin/comunidad/${idComunidad}/servicio/${idServicio}/anhadir`,
         {}, // body vacío
         {
           headers: new HttpHeaders({
