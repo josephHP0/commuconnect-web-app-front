@@ -1,0 +1,112 @@
+/* Contenedor principal que tiene los calendarios */
+.calendar-container {
+  display: flex;
+  justify-content: flex-start; /* Alineación a la izquierda */
+  gap: 20px; /* Espaciado entre los calendarios */
+  margin: 20px;
+  flex-wrap: wrap; /* Para ajustarse en pantallas más pequeñas */
+  max-width: 100%; /* Esto asegura que el contenedor ocupe todo el ancho disponible */
+}
+
+/* Estilo para el calendario mensual */
+.calendar-month {
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cabecera del calendario mensual */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Estilo para los días de la semana */
+.calendar-days {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+/* Estilo para la cuadrícula de días */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 5px;
+}
+
+.calendar-cell {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+.calendar-cell.reserved {
+  background-color: #4caf50;
+  color: white;
+}
+
+.calendar-cell:hover {
+  background-color: #f0f0f0;
+}
+
+/* Estilo para el calendario semanal */
+.calendar-week {
+  width: 100%;
+  max-width: 70%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  grid-gap: 10px;
+  align-items: start;
+  min-width: 600px;
+  width: 100%;
+}
+
+.week-header {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  background-color: #f2f2f2;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.week-cell {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.time-slot {
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.reserved {
+  background-color: #4caf50;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.week-cell .time-slot {
+  display: block;
+  text-align: left;
+}

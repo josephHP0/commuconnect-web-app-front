@@ -1,0 +1,43 @@
+<div class="calendar-container">
+  <!-- Calendario semanal con las horas -->
+  <div class="calendar-week">
+    <div class="week-header">
+      <div></div> <!-- Espacio vacío para alinear los días -->
+      <div *ngFor="let day of daysOfWeek">{{ day }}</div>
+    </div>
+
+    <!-- Las horas y las celdas de los días con las reservas -->
+    <div *ngFor="let hour of hours" class="week-cell">
+      <div class="time-slot">{{ hour }}</div>
+      <div *ngFor="let day of daysOfWeek" class="week-cell">
+        <div *ngIf="isReservedForHour(day, hour)" class="reserved">
+          {{ getServiceForTime(day, hour) }} <!-- Llama al método en TS para obtener el servicio -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendario mensual en la esquina superior derecha -->
+  <div class="calendar-month">
+    <div class="calendar-header">
+      <button (click)="previousMonth()">Prev</button>
+      <span>{{ monthName }} {{ year }}</span>
+      <button (click)="nextMonth()">Next</button>
+    </div>
+    <div class="calendar-days">
+      <div class="calendar-day" *ngFor="let day of daysOfWeek">{{ day }}</div>
+    </div>
+    <div class="calendar-grid">
+      <div
+        class="calendar-cell"
+        *ngFor="let day of daysInMonth"
+        [class.reserved]="isReserved(day)"
+        (click)="selectDay(day)">
+        {{ day }}
+        <div *ngIf="isReserved(day)" class="reserved">
+          {{ getServiceForTime(day.toString(), '08:00') }} <!-- Llama al método para mostrar el servicio -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
