@@ -26,7 +26,7 @@ import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencia
 import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
 import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component'; 
 import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.component';
-
+import { HistorialPagosComponent } from './membresias/pages/historial-pagos/historial-pagos.component';
 
 const routes: Routes = [
   {
@@ -50,7 +50,8 @@ const routes: Routes = [
       { path: 'nueva-reserva-presencial',component: NuevaReservaPresencialComponent},
       { path: 'nueva-reserva-virtual',component: NuevaReservaVirtualComponent},
       { path: 'completar-formulario/:id', component: CompletarFormularioComponent },
-      { path: 'gestion-cuenta', component: GestionCuentaComponent }
+      { path: 'gestion-cuenta', component: GestionCuentaComponent },
+      { path: 'historial-pagos', component: HistorialPagosComponent }
 
 
     ]

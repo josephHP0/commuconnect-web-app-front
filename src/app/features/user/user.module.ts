@@ -26,6 +26,7 @@ import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencia
 import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
 import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component';
 import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.component';
+import { HistorialPagosComponent } from './membresias/pages/historial-pagos/historial-pagos.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.componen
     NuevaReservaPresencialComponent,
     NuevaReservaVirtualComponent,
     CompletarFormularioComponent,
-    GestionCuentaComponent
+    GestionCuentaComponent,
+    HistorialPagosComponent
 
   ],
   imports: [
