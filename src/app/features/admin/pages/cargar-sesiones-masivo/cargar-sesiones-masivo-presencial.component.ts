@@ -4,11 +4,11 @@ import { SesionesService } from '../../services/sesiones.service';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-cargar-sesiones-masivo',
-  templateUrl: './cargar-sesiones-masivo.component.html',
-  styleUrls: ['./cargar-sesiones-masivo.component.css']
+  selector: 'app-cargar-sesiones-masivo-presencial',
+  templateUrl: './cargar-sesiones-masivo-presencial.component.html',
+  styleUrls: ['./cargar-sesiones-masivo-presencial.component.css']
 })
-export class CargarSesionesMasivoComponent implements OnInit {
+export class CargarSesionesMasivoPresencialComponent implements OnInit {
   idServicio: number = 0;
   nombreServicio: string = '';
   archivoSeleccionado: File | null = null;
@@ -193,4 +193,4 @@ export class CargarSesionesMasivoComponent implements OnInit {
   verSesiones(): void {
     this.router.navigate(['/admin/locales', this.idServicio]);
   }
-}
+} 

@@ -70,7 +70,7 @@ export class GestionServiciosComponent implements OnInit {
     this.router.navigate(['/admin/editar-servicio', idServicio]);
   }
 
-  eliminarServicio(servicio: Servicio): void {
+  eliminarServicio(servicio: any): void {
     this.servicioAEliminar = servicio;
     this.showConfirmDialog = true;
   }

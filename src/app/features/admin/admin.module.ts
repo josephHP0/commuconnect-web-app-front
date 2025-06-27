@@ -25,7 +25,7 @@ import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servic
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 import { LocalesComponent } from './pages/locales/locales.component';
 import { CargarLocalesMasivoComponent } from './pages/cargar-locales-masivo/cargar-locales-masivo.component';
-import { CargarSesionesMasivoComponent } from './pages/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
+import { CargarSesionesMasivoPresencialComponent } from './pages/cargar-sesiones-masivo/cargar-sesiones-masivo-presencial.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,13 @@ import { CargarSesionesMasivoComponent } from './pages/cargar-sesiones-masivo/ca
     NuevoServicioPorComunidadComponent,
     CargarClienteMasivoComponent,
     GestionServiciosComponent,
-    CrearServicioComponent
+    CrearServicioComponent,
+    ProfesionalesServicioComponent,
+    CargarProfesionalesMasivoComponent,
+    CargarSesionesMasivoComponent,
+    LocalesComponent,
+    CargarLocalesMasivoComponent,
+    CargarSesionesMasivoPresencialComponent
   ],
   imports: [
     CommonModule,
