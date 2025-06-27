@@ -13,7 +13,7 @@
       <form (ngSubmit)="editarComunidad()" #formComunidad="ngForm">
         <!-- Nombre -->
         <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre de la comunidad</label>
+          <label for="nombre" class="form-label">Nombre de la comunidad<span class="text-danger">*</span></label>
           <input
             type="text"
             class="form-control"
@@ -21,8 +21,14 @@
             name="nombre"
             [(ngModel)]="comunidad.nombre"
             required
+             #nombre="ngModel"
+            [ngClass]="{ 'is-invalid': nombre.invalid && nombre.touched }"
           />
+           <div *ngIf="nombre.invalid && nombre.touched" class="invalid-feedback">
+            Este campo es obligatorio.
+          </div>
         </div>
+
 
         <!-- Slogan -->
         <div class="mb-3">
@@ -66,7 +72,7 @@
         </div>
 
         <!-- Botón final -->
-        <button type="submit" class="btn btn-primary">Guardar comunidad</button>
+        <button type="submit" class="btn btn-primary" [disabled]="formComunidad.invalid">Guardar comunidad</button>
 
         <button type="button" class="btn btn-secondary ms-2" [routerLink]="['/admin/lista-comunidad']">
           Cancelar

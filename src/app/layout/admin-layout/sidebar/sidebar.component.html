@@ -38,11 +38,11 @@
 
 
   <li class="sidebar-item">
-  <a href="#" class="sidebar-link" (click)="$event.preventDefault()">
-    <i class="bi bi-grid-fill me-2"></i>
-    <span>Servicios y Horarios</span>
-  </a>
-</li>
+    <a [routerLink]="['/admin/gestion-servicios']" class="sidebar-link">
+      <i class="bi bi-grid-fill me-2"></i>
+      <span>Servicios y Horarios</span>
+    </a>
+  </li>
 
     <li class="sidebar-item">
   <a href="#" class="sidebar-link" (click)="$event.preventDefault()">

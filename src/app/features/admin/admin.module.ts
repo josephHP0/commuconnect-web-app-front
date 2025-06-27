@@ -8,7 +8,7 @@ import { AdminComponent } from './admin.component';
 import { RegistroComunidadComponent } from './pages/registro-comunidad/registro-comunidad.component';
 import { AdminLayoutModule } from 'src/app/layout/admin-layout/admin-layout.module';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad.component';
 import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
 import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-cliente.component';
@@ -17,6 +17,12 @@ import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-c
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-cliente-masivo/cargar-cliente-masivo.component';
+import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
+import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ProfesionalesServicioComponent } from './pages/profesionales-servicio/profesionales-servicio.component';
+import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servicio/cargar-profesionales-masivo/cargar-profesionales-masivo.component';
+import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 
 @NgModule({
   declarations: [
@@ -27,17 +33,21 @@ import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-client
     ListaClienteComponent,
     ServiciosPorComunidadComponent,
     NuevoServicioPorComunidadComponent,
-    CargarClienteMasivoComponent
+    CargarClienteMasivoComponent,
+    GestionServiciosComponent,
+    CrearServicioComponent,
+    ProfesionalesServicioComponent,
+    CargarProfesionalesMasivoComponent,
+    CargarSesionesMasivoComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     AdminLayoutModule,
     FormsModule,
-    ScrollingModule
-  
-
-
+    ReactiveFormsModule,
+    ScrollingModule,
+    SharedModule
   ]
 })
 export class AdminModule { }

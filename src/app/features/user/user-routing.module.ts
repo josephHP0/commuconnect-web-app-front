@@ -16,7 +16,11 @@ import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.co
 import { SuspensionMembresiaComponent } from './membresias/pages/suspension-membresia/suspension-membresia.component';
 import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
 import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
-import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component';
+
+import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component'; 
+import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.component';
+
+
 
 const routes: Routes = [
   {
@@ -35,7 +39,8 @@ const routes: Routes = [
       { path: 'nueva-reserva-virtual', component: NuevaReservaVirtualComponent },
       { path: 'completar-formulario/:id', component: CompletarFormularioComponent },
       { path: 'mis-reservas', component: MisReservacionesComponent }, // Ruta para "Mis Reservas"
-      { path: 'mis-reservas/reserva-detalle/:id', component: ReservaDetalleComponent } // Ruta para "Detalle Reserva"
+      { path: 'mis-reservas/reserva-detalle/:id', component: ReservaDetalleComponent }, // Ruta para "Detalle Reserva"
+      { path: 'gestion-cuenta', component: GestionCuentaComponent }
     ]
   },
   { path: 'mis-comunidades', component: MisComunidadesComponent },

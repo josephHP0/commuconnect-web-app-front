@@ -1,0 +1,166 @@
+<main class="contenido">
+  <div class="contenedor-formulario">
+    
+    <div class="formulario-section">
+      <h2 class="titulo-formulario">{{ tituloFormulario }}</h2>
+      
+      <form (ngSubmit)="guardarServicio()" #servicioForm="ngForm">
+        
+        <!-- Nombre del servicio -->
+        <div class="campo-formulario">
+          <label for="nombre" class="label-formulario">Nombre del servicio*</label>
+          <input 
+            type="text" 
+            id="nombre"
+            class="input-formulario"
+            placeholder="Ejemplo: Yoga"
+            [(ngModel)]="nombre"
+            name="nombre"
+            required
+            [disabled]="cargando || guardando"
+          >
+        </div>
+
+        <!-- Descripción del servicio -->
+        <div class="campo-formulario">
+          <label for="descripcion" class="label-formulario">Descripción del servicio*</label>
+          <textarea 
+            id="descripcion"
+            class="textarea-formulario"
+            placeholder="Escribe aquí"
+            [(ngModel)]="descripcion"
+            name="descripcion"
+            required
+            [disabled]="cargando || guardando"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <!-- Modalidad -->
+        <div class="campo-formulario">
+          <label class="label-formulario">Modalidad</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input 
+                type="radio" 
+                name="modalidad" 
+                value="Presencial"
+                [(ngModel)]="modalidad"
+                [disabled]="cargando || guardando"
+              >
+              <span class="radio-custom"></span>
+              Presencial
+            </label>
+            <label class="radio-option">
+              <input 
+                type="radio" 
+                name="modalidad" 
+                value="Virtual"
+                [(ngModel)]="modalidad"
+                [disabled]="cargando || guardando"
+              >
+              <span class="radio-custom"></span>
+              Virtual
+            </label>
+          </div>
+        </div>
+
+        <!-- Imagen representativa -->
+        <div class="campo-formulario">
+          <label class="label-formulario">Imagen representativa</label>
+          <p class="texto-ayuda">Solo archivos .jpg o .png (máx. 4MB)</p>
+          
+          <div class="zona-subida" [class.con-imagen]="imagenPreview">
+            
+            <!-- Zona de subida cuando no hay imagen -->
+            <div *ngIf="!imagenPreview" class="zona-subida-vacia">
+              <div class="icono-subida">
+                <i class="bi bi-cloud-upload"></i>
+              </div>
+              <p class="texto-subida">Suelte aquí sus archivo<br>o</p>
+              <button 
+                type="button" 
+                class="btn-buscar"
+                (click)="fileInput.click()"
+                [disabled]="cargando || guardando"
+              >
+                Busquelos
+              </button>
+            </div>
+
+            <!-- Preview de imagen -->
+            <div *ngIf="imagenPreview" class="preview-imagen">
+              <img [src]="imagenPreview" alt="Preview del servicio">
+              <button 
+                type="button" 
+                class="btn-eliminar-imagen"
+                (click)="eliminarImagen()"
+                [disabled]="cargando || guardando"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+
+          </div>
+
+          <input 
+            #fileInput
+            type="file" 
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            style="display: none"
+          >
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Vista previa -->
+    <div class="vista-previa-section">
+      <h3 class="titulo-vista-previa">Vista previa</h3>
+      
+      <div class="tarjeta-preview">
+        <div class="imagen-preview">
+          <img *ngIf="imagenPreview" [src]="imagenPreview" [alt]="nombre || 'Nombre del servicio'">
+          <div *ngIf="!imagenPreview" class="placeholder-preview">
+            <i class="bi bi-image"></i>
+          </div>
+        </div>
+        
+        <div class="info-preview">
+          <h4>{{ nombre || 'Nombre del servicio' }}</h4>
+          <p>{{ descripcion || 'Descripcion' }}</p>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="botones-accion">
+        <button 
+          type="button" 
+          class="btn btn-secundario"
+          (click)="cancelar()"
+          [disabled]="guardando"
+        >
+          Cerrar
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn btn-primario"
+          (click)="guardarServicio()"
+          [disabled]="cargando || guardando || !nombre.trim() || !descripcion.trim()"
+        >
+          {{ textoBotonGuardar }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Notification Component -->
+<app-notification
+  [show]="showNotification"
+  [data]="notificationData"
+  (close)="onNotificationClose()"
+></app-notification> 

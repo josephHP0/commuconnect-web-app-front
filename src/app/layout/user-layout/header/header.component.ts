@@ -1,28 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/features/autenticacion/auth.service';
 
+
+import { ComunidadContexto } from '../../../features/user/services/comunidad.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-   constructor(private router: Router) {}
+  estaLogueado = false;
 
-   cerrarSesion() {
-    localStorage.removeItem('token');
+   idComunidad: number | null = null;
 
-    // Verificar si realmente borró
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.log('Token eliminado correctamente, sesión cerrada.');
-    } else {
-      console.warn('Error: Token todavía existe en localStorage.');
-    }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
-    this.router.navigate(['/login']);
+  ngOnInit(): void {
+    this.authService.logueado$.subscribe(estado => {
+      this.estaLogueado = estado;
+    });
+
+    this.authService.verificarToken().subscribe(valid => {
+      this.authService.setEstadoLogin(valid);
+    });
+
+    const comunidadGuardada = localStorage.getItem('comunidad_seleccionada');
+  if (comunidadGuardada) {
+    const comunidad = JSON.parse(comunidadGuardada);
+    const id = comunidad.id_comunidad;
+    this.idComunidad=id;
+
+    console.log(id);
   }
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout();
+    this.router.navigate(['/presentacion/inicio']);
+  }
+
+
 
 }

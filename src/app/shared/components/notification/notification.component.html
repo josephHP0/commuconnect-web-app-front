@@ -1,0 +1,26 @@
+<!-- Overlay -->
+<div class="notification-overlay" *ngIf="show" (click)="closeNotification()">
+  <!-- Notification Card -->
+  <div class="notification-card" [ngClass]="'notification-' + data.type" (click)="$event.stopPropagation()">
+    <!-- Header -->
+    <div class="notification-header">
+      <div class="notification-icon">
+        <i [class]="getIcon()"></i>
+      </div>
+      <div class="notification-content">
+        <h4 class="notification-title">{{ data.title }}</h4>
+        <p class="notification-message">{{ data.message }}</p>
+      </div>
+      <button class="notification-close" (click)="closeNotification()">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+    
+    <!-- Actions -->
+    <div class="notification-actions">
+      <button class="btn-notification btn-primary" (click)="closeNotification()">
+        Aceptar
+      </button>
+    </div>
+  </div>
+</div> 

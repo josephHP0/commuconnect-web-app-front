@@ -22,6 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NuevaReservaPresencialComponent } from './pages/nueva-reserva-presencial/nueva-reserva-presencial.component';
 import { NuevaReservaVirtualComponent } from './pages/nueva-reserva-virtual/nueva-reserva-virtual.component';
 import { CompletarFormularioComponent } from './mis-reservas/completar-formulario/completar-formulario.component';
+
 import { MisReservacionesComponent } from './mis-reservas/mis-reservaciones/mis-reservaciones.component';
 import { ReservaDetalleComponent } from './mis-reservas/reserva-detalle/reserva-detalle.component';
 
@@ -36,6 +37,9 @@ const calendarConfig = CalendarModule.forRoot({
   useFactory: adapterFactory,
 });
 
+
+
+import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.component';
 
 
 @NgModule({
@@ -54,7 +58,8 @@ const calendarConfig = CalendarModule.forRoot({
     NuevaReservaVirtualComponent,
     CompletarFormularioComponent,
     MisReservacionesComponent,
-    ReservaDetalleComponent
+    ReservaDetalleComponent,
+    GestionCuentaComponent
   ],
   imports: [
     CommonModule,

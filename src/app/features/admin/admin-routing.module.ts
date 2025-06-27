@@ -12,8 +12,11 @@ import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-
 import { ServiciosPorComunidadComponent } from './pages/servicios-por-comunidad/servicios-por-comunidad.component';
 import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-comunidad/nuevo-servicio-por-comunidad.component';
 import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-cliente-masivo/cargar-cliente-masivo.component';
-
-
+import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
+import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
+import { ProfesionalesServicioComponent } from './pages/profesionales-servicio/profesionales-servicio.component';
+import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servicio/cargar-profesionales-masivo/cargar-profesionales-masivo.component';
+import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 
 const routes: Routes = [
 
@@ -33,8 +36,13 @@ const routes: Routes = [
       { path: 'lista-cliente', component: ListaClienteComponent},
       { path: 'servicios-por-comunidad/:id',component:ServiciosPorComunidadComponent},
       { path: 'nuevo-servicio-por-comunidad/:id',component:NuevoServicioPorComunidadComponent},
-      { path: 'cargar-cliente-masivo',component:CargarClienteMasivoComponent}
-
+      { path: 'cargar-cliente-masivo',component:CargarClienteMasivoComponent},
+      { path: 'gestion-servicios', component: GestionServiciosComponent },
+      { path: 'crear-servicio', component: CrearServicioComponent },
+      { path: 'editar-servicio/:id', component: CrearServicioComponent },
+      { path: 'servicio/:id/profesionales', component: ProfesionalesServicioComponent },
+      { path: 'cargar-profesionales-masivo', component: CargarProfesionalesMasivoComponent },
+      { path: 'cargar-sesiones-masivo', component: CargarSesionesMasivoComponent }
   
       // otras rutas como dashboard, usuarios, etc.
     ]

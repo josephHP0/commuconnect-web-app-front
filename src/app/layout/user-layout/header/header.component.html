@@ -1,34 +1,59 @@
-
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
   <div class="container-fluid d-flex justify-content-between align-items-center">
 
     <!-- Izquierda: Imagen y Marca -->
     <div class="d-flex align-items-center">
       <img src="assets/logo_monkey_fit.png" alt="Logo Izquierda" height="40" class="me-2" />
-
     </div>
 
-    <!-- Derecha: Imagen -->
-     <div class="d-flex align-items-center">
+    <!-- Derecha: Imagen e Iconos -->
+    <div class="d-flex align-items-center">
 
-         <!-- Icono de Casita -->
-        <i class="bi bi-house-door-fill fs-4 text-primary me-3" title="Inicio"></i>
+      <!-- Icono de Casita -->
+      
+<!--
+      <i class="bi bi-house-door-fill fs-4 text-primary me-3"
+          title="Inicio"
+          style="cursor: pointer;"
+          [routerLink]="['/user/homepage', idComunidad]">
+      </i>
+    -->
+      <i *ngIf="idComunidad"
+   class="bi bi-house-door-fill fs-4 text-primary me-3"
+   title="Inicio"
+   style="cursor: pointer;"
+   [routerLink]="['/user/mis-comunidades']">
+</i>
 
-         <!-- Dropdown Usuario -->
-      <div class="dropdown">
-        <i class="bi bi-person-circle fs-4 text-secondary dropdown-toggle" id="userDropdown"
-        role="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+      <!-- Dropdown Usuario, solo si está logueado -->
+      <ng-container *ngIf="estaLogueado">
+        <div class="dropdown">
+          <i class="bi bi-person-circle fs-4 text-secondary dropdown-toggle"
+             id="userDropdown"
+             role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false"
+             style="cursor: pointer;"></i>
 
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-          <li> <a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">
-              Gestión de Cuenta
-            </a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><button class="dropdown-item text-danger" (click)="cerrarSesion()">Cerrar sesión</button></li>
-        </ul>
-      </div>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li>
+              <a class="dropdown-item" [routerLink]="['/user/gestion-cuenta']">Informacion personal</a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/user/cambiar-password']">Cambio de contraseña</a>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <button class="dropdown-item text-danger" (click)="cerrarSesion()">Cerrar sesión</button>
+            </li>
+          
+          </ul>
+        </div>
+      </ng-container>
+
     </div>
 
   </div>
 </nav>
-
