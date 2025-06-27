@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MembresiaxcomunidadService, PlanPorComunidad } from '../../services/membresiaxcomunidad.service';
 import Swal from 'sweetalert2';
+import { ComunidadxplanCreateComponent } from '../comunidadxplan-create/comunidadxplan-create.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-membresiaxcomunidad',
@@ -15,7 +17,7 @@ export class PlanesPorComunidadComponent implements OnInit {
   paginaActual = 1;
   entradasPorPagina = 4;
 
-  constructor(private planesService: MembresiaxcomunidadService) {}
+  constructor(private planesService: MembresiaxcomunidadService,private router: Router) {}
 
   ngOnInit(): void {
     //this.idComunidad = Number(localStorage.getItem('id_comunidad'));
@@ -27,6 +29,7 @@ export class PlanesPorComunidadComponent implements OnInit {
   cargarPlanes(): void {
     this.planesService.obtenerPlanesPorComunidad(this.idComunidad).subscribe({
       next: (res) => {
+        console.log('Planes cargados:', res);
         this.planes = res;
         this.aplicarFiltro();
       },
@@ -39,10 +42,17 @@ export class PlanesPorComunidadComponent implements OnInit {
   aplicarFiltro(): void {
     const texto = this.buscarTexto.toLowerCase();
     this.planesFiltrados = this.planes.filter(plan =>
-      plan.nombre.toLowerCase().includes(texto)
+      plan.titulo?.toLowerCase().includes(texto)
     );
     this.paginaActual = 1;
   }
+
+  abrirAgregarPlan(): void {
+    this.router.navigate(['/admin/comunidadxplan-create'], {
+      queryParams: { id_comunidad: this.idComunidad }
+    });
+  }
+
 
   eliminarPlan(idPlan: number): void {
     Swal.fire({
@@ -68,7 +78,7 @@ export class PlanesPorComunidadComponent implements OnInit {
   }
 
   verDetalle(plan: PlanPorComunidad): void {
-    Swal.fire('Detalle del Plan', `Nombre: ${plan.nombre}\nDuración: ${plan.duracion} meses\nTopes: ${plan.topes ?? '-'}\nPrecio: S/. ${plan.precio.toFixed(2)}`, 'info');
+    Swal.fire('Detalle del Plan', `Nombre: ${plan.titulo}\nDuración: ${plan.duracion} meses\nTopes: ${plan.topes ?? '-'}\nPrecio: S/. ${plan.precio.toFixed(2)}`, 'info');
   }
 
   getPlanesPaginados(): PlanPorComunidad[] {

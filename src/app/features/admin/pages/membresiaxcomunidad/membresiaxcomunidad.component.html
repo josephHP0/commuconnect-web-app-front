@@ -2,7 +2,7 @@
   <h2>Planes: Mamás primerizas</h2>
   <div class="top-bar">
     <input type="text" placeholder="🔍 Buscar plan" [(ngModel)]="buscarTexto" (input)="aplicarFiltro()" />
-    <button class="btn-agregar">+ Agregar Plan</button>
+    <button (click)="abrirAgregarPlan()">+ Agregar Plan</button>
   </div>
 
   <table class="tabla-planes">
@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let plan of getPlanesPaginados()">
-        <td>{{ plan.nombre }}</td>
+        <td>{{ plan.titulo }}</td>
         <td>{{ plan.duracion }}</td>
         <td>{{ plan.topes ?? '-' }}</td>
         <td>S/. {{ plan.precio.toFixed(2) }}</td>

@@ -1,0 +1,21 @@
+<h2>Agregar Nuevo Plan</h2>
+
+<form>
+  <label>Nombre del Plan:</label>
+  <input type="text" [(ngModel)]="nuevoPlan.titulo" name="titulo" required />
+
+  <label>Duración (meses):</label>
+  <input type="number" [(ngModel)]="nuevoPlan.duracion" name="duracion" required min="1" />
+
+  <label>Topes:</label>
+  <input type="number" [(ngModel)]="nuevoPlan.topes" name="topes" />
+
+  <label>Precio (S/):</label>
+  <input type="number" [(ngModel)]="nuevoPlan.precio" name="precio" required min="0" step="0.01" />
+
+  <div class="botones">
+    <button type="button" (click)="cancelar()">Cancelar</button>
+    <button type="button" (click)="agregar()">Agregar</button>
+  </div>
+</form>
+

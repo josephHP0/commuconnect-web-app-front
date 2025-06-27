@@ -21,6 +21,8 @@ import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-ser
 import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membresiaxcomunidad.component';
+import { ComunidadxplanCreateComponent } from './pages/comunidadxplan-create/comunidadxplan-create.component';
+
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membres
     CargarClienteMasivoComponent,
     GestionServiciosComponent,
     CrearServicioComponent,
-    PlanesPorComunidadComponent
+    PlanesPorComunidadComponent,
+    ComunidadxplanCreateComponent
   ],
   imports: [
     CommonModule,
