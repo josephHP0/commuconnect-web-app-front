@@ -1,23 +1,41 @@
 <div class="calendar-container">
-  <!-- Calendario semanal con las horas -->
+  <!-- Calendario semanal -->
   <div class="calendar-week">
+    <!-- Cabecera: días de la semana -->
     <div class="week-header">
-      <div></div> <!-- Espacio vacío para alinear los días -->
-      <div *ngFor="let day of daysOfWeek">{{ day }}</div>
-    </div>
-
-    <!-- Las horas y las celdas de los días con las reservas -->
-    <div *ngFor="let hour of hours" class="week-cell">
-      <div class="time-slot">{{ hour }}</div>
-      <div *ngFor="let day of daysOfWeek" class="week-cell">
-        <div *ngIf="isReservedForHour(day, hour)" class="reserved">
-          {{ getServiceForTime(day, hour) }} <!-- Llama al método en TS para obtener el servicio -->
-        </div>
+      <div class="time-header"></div> <!-- espacio vacío para horas -->
+      <div *ngFor="let dayKey of currentWeekKeys" class="day-header">
+        {{ formatDateToLabel(dayKey) }}
       </div>
     </div>
+
+
+
+
+
+
+    <!-- Filas de horas -->
+    <!-- Filas de horas -->
+<div class="week-row" *ngFor="let hour of hours">
+  <div class="time-header">{{ hour }}</div>
+
+  <div
+    *ngFor="let dayKey of currentWeekKeys"
+    class="week-cell"
+    [class.reserved]="isReservedForHour(dayKey, hour)"
+    (click)="onCellClick(dayKey, hour)"
+  >
+    <span *ngIf="isReservedForHour(dayKey, hour)">
+      {{ getServiceForTime(dayKey, hour) }}
+    </span>
+
+   
+  </div>
+</div>
+
   </div>
 
-  <!-- Calendario mensual en la esquina superior derecha -->
+  <!-- Calendario mensual al lado -->
   <div class="calendar-month">
     <div class="calendar-header">
       <button (click)="previousMonth()">Prev</button>
@@ -25,7 +43,7 @@
       <button (click)="nextMonth()">Next</button>
     </div>
     <div class="calendar-days">
-      <div class="calendar-day" *ngFor="let day of daysOfWeek">{{ day }}</div>
+      <div *ngFor="let day of daysOfWeek" class="calendar-day">{{ day }}</div>
     </div>
     <div class="calendar-grid">
       <div
@@ -35,7 +53,7 @@
         (click)="selectDay(day)">
         {{ day }}
         <div *ngIf="isReserved(day)" class="reserved">
-          {{ getServiceForTime(day.toString(), '08:00') }} <!-- Llama al método para mostrar el servicio -->
+          {{ getServiceForTime(formatDateKeyFromDay(day), '08:00') }}
         </div>
       </div>
     </div>

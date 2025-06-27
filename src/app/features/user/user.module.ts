@@ -30,6 +30,14 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 // Importamos el adaptador de `date-fns` correctamente desde `angular-calendar`
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
+
+const calendarConfig = CalendarModule.forRoot({
+  provide: DateAdapter,
+  useFactory: adapterFactory,
+});
+
+
+
 @NgModule({
   declarations: [
     UserComponent,
@@ -56,10 +64,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     UserLayoutModule,
     NgxPaginationModule,
     HttpClientModule,  // Aquí agregamos HttpClientModule para habilitar las solicitudes HTTP
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory  // Usamos la fábrica del adaptador de `date-fns`
-    })  // Usamos la configuración correcta del adaptador de `date-fns`
+    calendarConfig
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]  // Agregamos esto para permitir elementos personalizados como 'mwl-calendar-month'
 })
