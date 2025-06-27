@@ -1,3 +1,14 @@
 {
-    "editor.fontSize": 14
+    "editor.fontSize": 14,
+    "typescript.preferences.includePackageJsonAutoImports": "off",
+    "typescript.suggest.autoImports": false,
+    "typescript.preferences.includeCompletionsForModuleExports": false,
+    "typescript.preferences.includeCompletionsWithSnippetText": false,
+    "typescript.suggest.completeFunctionCalls": false,
+    "files.associations": {
+        "*.spec.ts": "typescript"
+    },
+    "typescript.validate.enable": true,
+    "typescript.format.enable": true,
+    "typescript.preferences.useLabelDetailsInCompletionEntries": true
 }

@@ -16,12 +16,13 @@
         class="form-control" 
         placeholder="Buscar..." 
         [(ngModel)]="terminoBusqueda"
+        (input)="buscarServicios()"
       >
     </div>
 
     <!-- Grid de servicios -->
     <div class="grid-servicios">
-      <div class="tarjeta-servicio" *ngFor="let servicio of serviciosFiltrados">
+      <div class="tarjeta-servicio" *ngFor="let servicio of servicios">
         
         <!-- Imagen del servicio -->
         <div class="imagen-servicio">
@@ -49,7 +50,7 @@
         <div class="menu-opciones">
           <div class="dropdown">
             <button
-              class="btn btn-sm btn-light dropdown-toggle"
+              class="btn btn-sm btn-light"
               type="button"
               [id]="'dropdownMenuButton' + servicio.id_servicio"
               data-bs-toggle="dropdown"
@@ -62,9 +63,22 @@
                   <i class="bi bi-pencil"></i> Editar visualización
                 </a>
               </li>
-              <li *ngIf="servicio.modalidad === 'Virtual'">
-                <a class="dropdown-item" href="javascript:void(0)" (click)="verProfesionales(servicio)">
-                  <i class="bi bi-people"></i> Ver profesionales
+
+              <li>
+                <!-- Mostrar "Ver locales" para servicios presenciales -->
+                <a *ngIf="servicio.modalidad === 'Presencial'" 
+                   class="dropdown-item" 
+                   href="javascript:void(0)" 
+                   (click)="verLocales(servicio)">
+                  <i class="bi bi-geo-alt"></i> Ver locales
+                </a>
+                <!-- Mostrar "Ver profesionales" para servicios virtuales -->
+                <a *ngIf="servicio.modalidad === 'Virtual'" 
+                   class="dropdown-item" 
+                   href="javascript:void(0)" 
+                   (click)="verProfesionales(servicio)">
+                  <i class="bi bi-person"></i> Ver profesionales
+
                 </a>
               </li>
               <li><hr class="dropdown-divider"></li>
@@ -81,7 +95,7 @@
     </div>
 
     <!-- Mensaje cuando no hay servicios -->
-    <div *ngIf="serviciosFiltrados.length === 0" class="sin-resultados">
+    <div *ngIf="servicios.length === 0" class="sin-resultados">
       <p>No se encontraron servicios</p>
     </div>
 

@@ -118,7 +118,7 @@ export class SesionesComponent implements OnInit {
         next: res => this.fechasFiltradas = res.fechas,
         error: err => console.error('Error al obtener fechas:', err)
       });
-  }
+  } 
 
   seleccionarFecha(fecha: string): void {
     this.fechaSeleccionada = fecha;

@@ -14,6 +14,9 @@ import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-c
 import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-cliente-masivo/cargar-cliente-masivo.component';
 import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
 import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
+import { LocalesComponent } from './pages/locales/locales.component';
+import { CargarLocalesMasivoComponent } from './pages/cargar-locales-masivo/cargar-locales-masivo.component';
+import { CargarSesionesMasivoPresencialComponent } from './pages/cargar-sesiones-masivo/cargar-sesiones-masivo-presencial.component';
 import { ProfesionalesServicioComponent } from './pages/profesionales-servicio/profesionales-servicio.component';
 import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servicio/cargar-profesionales-masivo/cargar-profesionales-masivo.component';
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
@@ -42,6 +45,9 @@ const routes: Routes = [
       { path: 'gestion-servicios', component: GestionServiciosComponent },
       { path: 'crear-servicio', component: CrearServicioComponent },
       { path: 'editar-servicio/:id', component: CrearServicioComponent },
+      { path: 'locales/:id', component: LocalesComponent },
+      { path: 'cargar-locales-masivo/:id', component: CargarLocalesMasivoComponent },
+      { path: 'cargar-sesiones-masivo/:id', component: CargarSesionesMasivoPresencialComponent },
       { path: 'servicio/:id/profesionales', component: ProfesionalesServicioComponent },
       { path: 'cargar-profesionales-masivo', component: CargarProfesionalesMasivoComponent },
       { path: 'cargar-sesiones-masivo', component: CargarSesionesMasivoComponent },
