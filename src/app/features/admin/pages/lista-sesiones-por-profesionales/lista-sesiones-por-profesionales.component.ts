@@ -1,56 +1,90 @@
-import { Component } from '@angular/core';
+import { Component ,OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
+import { SesionesPorProfesionalService } from '../../services/sesiones-por-profesional.service';
 
 @Component({
   selector: 'app-lista-sesiones-por-profesionales',
   templateUrl: './lista-sesiones-por-profesionales.component.html',
   styleUrls: ['./lista-sesiones-por-profesionales.component.css']
 })
-export class ListaSesionesPorProfesionalesComponent {
+export class ListaSesionesPorProfesionalesComponent implements OnInit{
+idServicio!: number;
 
-
-
-  idServicio!: number;
-  //profesionales: Profesional[] = [];
+sesiones: any[] = [];
+  sesionesPaginadas: any[] = [];
   pageSize = 10;
   currentPage = 1;
+  idProfesional!: number;
 
- ngOnInit(): void {
-  /*
-    this.idServicio = Number(this.route.snapshot.paramMap.get('id'));
-    this.profesionalesService.getProfesionalesPorServicio(this.idServicio)
-      .subscribe(data => {
-        this.profesionales = data;
-      });
-  */
+
+
+filtro: string = '';
+
+sesionesFiltradas: any[] = []; // Después del filtro
+
+
+
+
+
+  constructor(
+    private route: ActivatedRoute,
+    private sesionesService: SesionesPorProfesionalService,
+    private router: Router
+  ) {}
+
+
+ 
+
+  ngOnInit(): void {
+    this.idServicio = Number(this.route.snapshot.queryParamMap.get('idServicio'));
+    this.idProfesional = Number(this.route.snapshot.paramMap.get('id'));
+    this.sesionesService.obtenerSesionesVirtuales(this.idProfesional).subscribe(
+      (data) => {
+        this.sesiones = data;
+        this.sesionesFiltradas = data;
+        this.cambiarPagina(1);
+      },
+      (error) => {
+        console.error('Error al cargar sesiones:', error);
+      }
+    );
+
+
+
+
+
   }
 
-
-  
   get totalPages(): number {
-   // return Math.ceil(this.profesionales.length / this.pageSize);
-    return 0;
+  return Math.ceil(this.sesionesFiltradas.length / this.pageSize);
+}
+
+ cambiarPagina(pagina: number): void {
+  if (pagina >= 1 && pagina <= this.totalPages) {
+    this.currentPage = pagina;
+    const start = (pagina - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.sesionesPaginadas = this.sesionesFiltradas.slice(start, end);
+  }
+}
+
+    volverAProfesionales(): void {
+    this.router.navigate(['/admin/servicio', this.idServicio, 'profesionales']);
   }
 
-  cambiarPagina(pagina: number) {
-    if (pagina >= 1 && pagina <= this.totalPages) {
-      this.currentPage = pagina;
-    }
-  }
+  filtrarSesiones(): void {
+  const texto = this.filtro.trim().toLowerCase();
 
-  getNombres(nombreCompleto: string): string {
-    if (!nombreCompleto) return '';
-    const partes = nombreCompleto.trim().split(' ');
-    return partes[0] || '';
-  }
+  this.sesionesFiltradas = this.sesiones.filter(s =>
+    s.fecha.toLowerCase().includes(texto) ||
+    s.hora_inicio.toLowerCase().includes(texto) ||
+    s.hora_fin.toLowerCase().includes(texto)
+  );
 
-  getApellidos(nombreCompleto: string): string {
-    if (!nombreCompleto) return '';
-    const partes = nombreCompleto.trim().split(' ');
-    return partes.slice(1).join(' ');
-  }
+  this.cambiarPagina(1);
+}
 
-  abrirFormulario(url: string): void {
-    window.open(url, '_blank');
-  }
 
 }

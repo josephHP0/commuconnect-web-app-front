@@ -17,6 +17,8 @@ import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.co
 import { ProfesionalesServicioComponent } from './pages/profesionales-servicio/profesionales-servicio.component';
 import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servicio/cargar-profesionales-masivo/cargar-profesionales-masivo.component';
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
+import { ListaSesionesPorProfesionalesComponent } from './pages/lista-sesiones-por-profesionales/lista-sesiones-por-profesionales.component';
+import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por-profesional/detalle-sesion-por-profesional.component';
 
 const routes: Routes = [
 
@@ -42,7 +44,9 @@ const routes: Routes = [
       { path: 'editar-servicio/:id', component: CrearServicioComponent },
       { path: 'servicio/:id/profesionales', component: ProfesionalesServicioComponent },
       { path: 'cargar-profesionales-masivo', component: CargarProfesionalesMasivoComponent },
-      { path: 'cargar-sesiones-masivo', component: CargarSesionesMasivoComponent }
+      { path: 'cargar-sesiones-masivo', component: CargarSesionesMasivoComponent },
+      { path: 'lista-sesiones-por-profesionales/:id', component: ListaSesionesPorProfesionalesComponent},
+      {path: 'detalle-sesion-por-profesional/:id', component:DetalleSesionPorProfesionalComponent}
   
       // otras rutas como dashboard, usuarios, etc.
     ]

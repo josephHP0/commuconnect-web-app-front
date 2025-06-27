@@ -1,61 +1,54 @@
-<div class="container mt-5">
-  <h2>Detalles de la sesión</h2>
+<div class="container mt-4">
+  <p></p>
+  <button class="btn-volver-servicios" (click)="volver()">
+    ⬅ Volver 
+  </button>
+  <p></p>
 
-  <form>
-    <div class="row mb-3">
-      <div class="col">
-        <label>Nombres</label>
-        <input class="form-control" type="text" placeholder="Patricia Natividad" />
-      </div>
-      <div class="col">
-        <label>Apellidos</label>
-        <input class="form-control" type="text" placeholder="Cántaro Márquez" />
-      </div>
+
+
+
+
+  <h2>Detalle de Sesión Virtual</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">{{ sesion?.descripcion }}</h5>
+      <p><strong>Fecha:</strong> {{ sesion?.fecha }}</p>
+      <p><strong>Hora:</strong> {{ sesion?.hora_inicio }} - {{ sesion?.hora_fin }}</p>
     </div>
+  </div>
 
-    <div class="mb-3">
-      <label>Correo electrónico</label>
-      <input class="form-control" type="email" placeholder="abcd@gmail.com" />
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Profesional Asignado</h5>
+      <p><strong>Nombre:</strong> {{ sesion?.profesional?.nombre }} {{ sesion?.profesional?.apellido }}</p>
+      <p><strong>Email:</strong> {{ sesion?.profesional?.email }}</p>
     </div>
+  </div>
 
-    <div class="mb-3">
-      <label>Descripción</label>
-      <textarea class="form-control" rows="3"></textarea>
-    </div>
-  </form>
-
-  <h5 class="mt-4">Inscritos</h5>
-  <table class="table table-bordered table-hover">
-    <thead class="table-light">
-      <tr>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Comunidad</th>
-        <th>Entrega de Archivos</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let persona of personas">
-        <td>{{ persona.nombres }}</td>
-        <td>{{ persona.apellidos }}</td>
-        <td>{{ persona.comunidad }}</td>
-        <td>{{ persona.entrega ? 'Sí' : 'No' }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Simulación de paginación simple -->
-  <div class="d-flex justify-content-between align-items-center mt-3">
-    <div>
-      Mostrar
-      <input class="form-control d-inline-block" style="width: 50px;" type="number" value="1" disabled />
-      entradas
-    </div>
-    <div>
-      <button class="btn btn-link" disabled>Previo</button>
-      <button class="btn btn-dark btn-sm">1</button>
-      <button class="btn btn-link" disabled>Siguiente</button>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Inscritos</h5>
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Comunidad</th>
+            <th>Entregó Archivo</th>
+          </tr>
+      </thead>
+        <tbody>
+          <tr *ngFor="let inscrito of sesion?.inscritos">
+            <td>{{ inscrito.nombre }}</td>
+            <td>{{ inscrito.apellido }}</td>
+            <td>{{ inscrito.comunidad }}</td>
+            <td>{{ inscrito.entrego_archivo ? 'Sí' : 'No' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="sesion?.inscritos?.length === 0">No hay inscritos registrados.</p>
     </div>
   </div>
 </div>
-

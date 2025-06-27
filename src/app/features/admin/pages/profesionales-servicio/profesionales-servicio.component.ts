@@ -13,6 +13,13 @@ export class ProfesionalesServicioComponent implements OnInit {
   pageSize = 10;
   currentPage = 1;
 
+
+
+  filtro: string = '';
+         // Todos
+profesionalesFiltrados: any[] = [];   // Después del filtro
+
+
   constructor(
     private route: ActivatedRoute,
     private profesionalesService: ProfesionalesService
@@ -23,17 +30,18 @@ export class ProfesionalesServicioComponent implements OnInit {
     this.profesionalesService.getProfesionalesPorServicio(this.idServicio)
       .subscribe(data => {
         this.profesionales = data;
+        this.filtrarProfesionales();
       });
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.profesionales.length / this.pageSize);
-  }
+ get totalPages(): number {
+  return Math.ceil(this.profesionalesFiltrados.length / this.pageSize);
+}
 
-  get profesionalesPaginados() {
-    const start = (this.currentPage - 1) * this.pageSize;
-    return this.profesionales.slice(start, start + this.pageSize);
-  }
+get profesionalesPaginados() {
+  const start = (this.currentPage - 1) * this.pageSize;
+  return this.profesionalesFiltrados.slice(start, start + this.pageSize);
+}
 
   cambiarPagina(pagina: number) {
     if (pagina >= 1 && pagina <= this.totalPages) {
@@ -56,4 +64,15 @@ export class ProfesionalesServicioComponent implements OnInit {
   abrirFormulario(url: string): void {
     window.open(url, '_blank');
   }
+
+  filtrarProfesionales(): void {
+  const texto = this.filtro.trim().toLowerCase();
+
+  this.profesionalesFiltrados = this.profesionales.filter(p =>
+    p.nombre_completo?.toLowerCase().includes(texto) ||
+    p.email?.toLowerCase().includes(texto)
+  );
+
+  this.cambiarPagina(1);
+}
 }

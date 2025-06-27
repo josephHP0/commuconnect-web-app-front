@@ -3,7 +3,7 @@
     <p>
      <div class="volver-container">
         <button class="btn-volver-servicios" [routerLink]="['/admin/gestion-servicios']">
-          ⬅  Volver a comunidades
+          ⬅  Volver a servicios
         </button>
       </div>
   <div class="d-flex align-items-center justify-content-between mb-4 header-profesionales mt-4">
@@ -16,8 +16,14 @@
   </div>
 
   <div class="busqueda-profesionales mb-4">
-    <input type="text" class="form-control" placeholder="Buscar" style="width: 40%;">
+   <input type="text" class="form-control" placeholder="Buscar"
+       style="width: 40%;" [(ngModel)]="filtro" (input)="filtrarProfesionales()">
   </div>
+
+
+
+
+
 
   <table class="table table-striped mb-4">
     <thead>
@@ -50,8 +56,21 @@
               <i class="bi bi-three-dots-vertical"></i>
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Ver sesiones</a></li>
-              <li><a class="dropdown-item" href="#">Eliminar</a></li>
+            
+
+  <li>
+  <a 
+    class="dropdown-item" 
+    [routerLink]="['/admin/lista-sesiones-por-profesionales', profesional.id_profesional]"
+    [queryParams]="{ idServicio: idServicio }">
+    Ver sesiones
+  </a>
+</li>
+
+
+
+
+             
             </ul>
           </div>
         </td>
