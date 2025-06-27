@@ -23,6 +23,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ProfesionalesServicioComponent } from './pages/profesionales-servicio/profesionales-servicio.component';
 import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servicio/cargar-profesionales-masivo/cargar-profesionales-masivo.component';
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
+import { ListaSesionesPorProfesionalesComponent } from './pages/lista-sesiones-por-profesionales/lista-sesiones-por-profesionales.component';
+import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por-profesional/detalle-sesion-por-profesional.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/ca
     CrearServicioComponent,
     ProfesionalesServicioComponent,
     CargarProfesionalesMasivoComponent,
-    CargarSesionesMasivoComponent
+    CargarSesionesMasivoComponent,
+    ListaSesionesPorProfesionalesComponent,
+    DetalleSesionPorProfesionalComponent
   ],
   imports: [
     CommonModule,

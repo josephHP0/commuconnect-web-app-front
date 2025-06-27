@@ -3,15 +3,14 @@
     <p>
      <div class="volver-container">
         <button class="btn-volver-servicios" [routerLink]="['/admin/gestion-servicios']">
-          ⬅  Volver a comunidades
+          ⬅  Volver 
         </button>
       </div>
   <div class="d-flex align-items-center justify-content-between mb-4 header-profesionales mt-4">
-    <h2 class="mb-0">Profesionales</h2>
+    <h2 class="mb-0">Sesiones</h2>
     <div class="acciones-profesionales d-flex gap-2">
-      <button class="btn btn-warning" [routerLink]="['/admin/cargar-sesiones-masivo']">+ Cargar sesiones</button>
-      <button class="btn btn-warning" [routerLink]="['/admin/cargar-profesionales-masivo']">+ Cargar profesionales</button>
-      <button class="btn btn-success" disabled>Crear Profesional</button>
+     
+      <button class="btn btn-success" disabled>Crear sesion</button>
     </div>
   </div>
 
@@ -22,14 +21,15 @@
   <table class="table table-striped mb-4">
     <thead>
       <tr>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Correo</th>
-        <th>Plantilla Asociada</th>
+        <th>Fecha</th>
+        <th>Hora inicio</th>
+        <th>Hora fin</th>
+        <th>Inscritos</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
+        <!--
       <tr *ngFor="let profesional of profesionalesPaginados">
         <td>{{ getNombres(profesional.nombre_completo) }}</td>
         <td>{{ getApellidos(profesional.nombre_completo) }}</td>
@@ -56,6 +56,8 @@
           </div>
         </td>
       </tr>
+
+-->
     </tbody>
   </table>
 
@@ -78,3 +80,4 @@
     </nav>
   </div>
 </div>
+
