@@ -100,17 +100,18 @@ export class GestionServiciosComponent implements OnInit {
 
   verLocales(servicio: any): void {
     console.log('Ver locales para servicio:', servicio.nombre);
-    console.log('ID del servicio:', servicio.id_servicio);
-    this.router.navigate(['/admin/locales', servicio.id_servicio], {
-      state: { nombreServicio: servicio.nombre }
-    });
+    // Navegar a la pantalla de locales, pasando el id del servicio
+    this.router.navigate(['/admin/locales', servicio.id_servicio]);
   }
 
   verProfesionales(servicio: Servicio): void {
-    // Implementar navegación a pantalla de profesionales para servicios virtuales
-    console.log('Ver profesionales para servicio virtual:', servicio.nombre);
-    // TODO: Navegar a la pantalla de profesionales
-    // this.router.navigate(['/admin/profesionales', servicio.id_servicio]);
+    this.router.navigate(['/admin/servicio', servicio.id_servicio, 'profesionales']);
+  }
+
+  verSesiones(servicio: any): void {
+    // Implementa la lógica para navegar a las sesiones de un servicio
+    console.log('Ver sesiones para servicio:', servicio.nombre);
+    // this.router.navigate(['/admin/sesiones', servicio.id_servicio]);
   }
 
   private showNotificationMessage(type: 'success' | 'error' | 'warning' | 'info', title: string, message: string): void {

@@ -47,13 +47,13 @@ this.registroForm = this.fb.group({
       password: ['', Validators.required],
       repetir_password: ['', Validators.required],
       fecha_nac: ['', Validators.required],
-      id_departamento: ['', Validators.required],
-      id_distrito: ['', Validators.required],
-      direccion: ['', Validators.required],
+      id_departamento: [''],
+      id_distrito: [''],
+      direccion: [''],
       numero_telefono: ['', Validators.required],
-      genero: ['', Validators.required],
-      peso: ['', Validators.required],
-      talla: ['', Validators.required]
+      genero: [''],
+      peso: [''],
+      talla: [''],
     });
   }
 
@@ -153,36 +153,45 @@ Object.keys(this.registroForm.controls).forEach(key => {
     }
 */
 
-const peso = parseInt(formValues.peso, 10);
-if (isNaN(peso) || peso < 30 || peso > 300) {
-  this.errorMessage = 'Ingresa un peso válido entre 30 y 300 kg.';
-  return;
+let peso: number | null = null;
+let talla: number | null = null;
+
+if (formValues.peso) {
+  peso = parseInt(formValues.peso, 10);
+  if (isNaN(peso) || peso < 30 || peso > 300) {
+    this.errorMessage = 'Ingresa un peso válido entre 30 y 300 kg.';
+    return;
+  }
 }
 
-const talla = parseInt(formValues.talla, 10);
-if (isNaN(talla) || talla < 50 || talla > 250) { // Si la talla es cm, ajusta el rango
-  this.errorMessage = 'Ingresa una talla válida entre 50 y 250 cm.';
-  return;
+if (formValues.talla) {
+  talla = parseInt(formValues.talla, 10);
+  if (isNaN(talla) || talla < 50 || talla > 250) {
+    this.errorMessage = 'Ingresa una talla válida entre 50 y 250 cm.';
+    return;
+  }
 }
+
 
     // Si pasa todas las validaciones, se construye el requestBody y se envía
-    const requestBody = {
-      nombre: formValues.nombre,
-      apellido: formValues.apellido,
-      email: formValues.email,
-      tipo_documento: formValues.tipo_documento,
-      num_doc: formValues.num_doc,
-      password: formValues.password,
-    //  repetir_password: formValues.repetir_password,
-      fecha_nac: formValues.fecha_nac,
-      id_departamento: parseInt(formValues.id_departamento),
-      id_distrito: parseInt(formValues.id_distrito),
-      direccion: formValues.direccion,
-      numero_telefono: formValues.numero_telefono,
-      genero: formValues.genero,
-      peso: peso,
-      talla: talla,
-    };
+  const requestBody = {
+    nombre: formValues.nombre,
+    apellido: formValues.apellido,
+    email: formValues.email,
+    tipo_documento: formValues.tipo_documento,
+    num_doc: formValues.num_doc,
+    password: formValues.password,
+    fecha_nac: formValues.fecha_nac,
+    numero_telefono: formValues.numero_telefono,
+
+    id_departamento: formValues.id_departamento ? parseInt(formValues.id_departamento) : 1,
+    id_distrito: formValues.id_distrito ? parseInt(formValues.id_distrito) : 1,
+
+    direccion: formValues.direccion?.trim() || "",
+    genero: formValues.genero?.trim() || "",
+    peso: peso ?? 0,
+    talla: talla ?? 0
+  };
 
     this.authService.register(requestBody).subscribe({
       next: (res) => {

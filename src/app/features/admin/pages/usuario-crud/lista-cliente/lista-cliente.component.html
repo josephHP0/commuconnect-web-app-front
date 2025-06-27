@@ -8,14 +8,21 @@
     </div>
   </div>
 
+
+
+ 
+
   <!-- Fila de búsqueda y botones -->
   <div class="row mb-3">
     <div class="col-md-4">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Buscar usuario..."
-      />
+      
+<input
+  type="text"
+  class="form-control"
+  placeholder="Buscar usuario..."
+  [(ngModel)]="textoBusqueda"
+  (input)="filtrarClientes()"
+/>
     </div>
     <div class="col-md-8 text-end">
       <button class="btn btn-primary me-2" [routerLink]="['/admin/cargar-cliente-masivo']">Cargar Usuarios</button>
@@ -37,12 +44,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cliente of clientesPaginados">
-            <td>{{ cliente.id }}</td>
-            <td>{{ cliente.nombre }}</td>
-            <td>{{ cliente.apellido }}</td>
-            <td>{{ cliente.email }}</td>
-          </tr>
+         <tr *ngFor="let cliente of clientesPaginados">
+          <td>{{ cliente.id_usuario }}</td>
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.apellido }}</td>
+          <td>{{ cliente.email }}</td>
+        </tr>
         </tbody>
       </table>
     </div>

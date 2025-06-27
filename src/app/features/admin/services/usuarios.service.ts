@@ -3,10 +3,41 @@ import { environment } from 'src/environments/environment';
 import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
+
+ export interface ClienteInterno {
+  id_cliente: number;
+  tipo_documento: string;
+  num_doc: string;
+  numero_telefono: string;
+  id_departamento: number;
+  id_distrito: number;
+  direccion: string;
+  fecha_nac: string;
+  genero: string;
+  talla: number;
+  peso: number;
+}
+
+export interface Cliente {
+  id_usuario: number;
+  nombre: string;
+  apellido: string;
+  email: string;
+  tipo: string;
+  fecha_creacion: string;
+  creado_por: string;
+  estado: boolean;
+  cliente: ClienteInterno;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
+
+ 
 
   private readonly baseUrl = environment.apiUrl;
 
@@ -29,7 +60,23 @@ export class UsuariosService {
         })
       }
     );
+
   }
+
+ listarClientes(): Observable<Cliente[]> {
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
+
+    return this.http.get<Cliente[]>(
+      `${this.baseUrl}/usuarios/clientes`,
+      {
+        headers: new HttpHeaders({
+          Authorization: `${tokenType} ${accessToken}`
+        })
+      }
+    );
+  }
+
   
 
 

@@ -14,20 +14,21 @@ export class HeaderPublicoComponent implements OnInit{
   constructor(private authService: AuthService,private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.logueado$.subscribe(estado => {
-      this.estaLogueado = estado;
-    });
+  this.estaLogueado = !!localStorage.getItem('access_token');
 
-    this.authService.verificarToken().subscribe(valid => {
-      this.authService.setEstadoLogin(valid);
-    });
-  }
+  // Escucha cambios de ruta para revalidar sesión
+  this.router.events.subscribe(() => {
+    this.estaLogueado = !!localStorage.getItem('access_token');
+  });
+}
+
 
   
 
   cerrarSesion(): void {
-    this.authService.logout(); // ← Notifica que ya no está logueado
+    localStorage.clear(); // Limpia todo lo relacionado a la sesión
     this.router.navigate(['/presentacion/inicio']);
   }
+
 }
 

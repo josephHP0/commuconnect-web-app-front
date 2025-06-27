@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/features/autenticacion/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,21 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-    constructor(private router: Router) {}
+  estaLogueado = false;
+
+    constructor(private router: Router, private authService: AuthService) {}
 
 
+ ngOnInit(): void {
+    this.authService.logueado$.subscribe(estado => {
+      this.estaLogueado = estado;
+    });
+
+    this.authService.verificarToken().subscribe(valid => {
+      this.authService.setEstadoLogin(valid);
+    });
+ }
+/*
    cerrarSesion() {
     localStorage.removeItem('token');
 
@@ -22,7 +35,15 @@ export class HeaderComponent {
       console.warn('Error: Token todavía existe en localStorage.');
     }
 
-    this.router.navigate(['/login']);
+    this.router.navigate(['/presentacion/inicio']);
   }
+*/
+  cerrarSesion(): void {
+    this.authService.logout();
+    this.router.navigate(['/presentacion/inicio']);
+  }
+
+
+  
 
 }

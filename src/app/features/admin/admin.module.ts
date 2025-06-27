@@ -8,7 +8,7 @@ import { AdminComponent } from './admin.component';
 import { RegistroComunidadComponent } from './pages/registro-comunidad/registro-comunidad.component';
 import { AdminLayoutModule } from 'src/app/layout/admin-layout/admin-layout.module';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad.component';
 import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
 import { ListaClienteComponent } from './pages/usuario-crud/lista-cliente/lista-cliente.component';
@@ -20,6 +20,9 @@ import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-client
 import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
 import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ProfesionalesServicioComponent } from './pages/profesionales-servicio/profesionales-servicio.component';
+import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servicio/cargar-profesionales-masivo/cargar-profesionales-masivo.component';
+import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 import { LocalesComponent } from './pages/locales/locales.component';
 import { CargarLocalesMasivoComponent } from './pages/cargar-locales-masivo/cargar-locales-masivo.component';
 import { CargarSesionesMasivoComponent } from './pages/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
@@ -35,16 +38,14 @@ import { CargarSesionesMasivoComponent } from './pages/cargar-sesiones-masivo/ca
     NuevoServicioPorComunidadComponent,
     CargarClienteMasivoComponent,
     GestionServiciosComponent,
-    CrearServicioComponent,
-    LocalesComponent,
-    CargarLocalesMasivoComponent,
-    CargarSesionesMasivoComponent
+    CrearServicioComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     AdminLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     ScrollingModule,
     SharedModule
   ]

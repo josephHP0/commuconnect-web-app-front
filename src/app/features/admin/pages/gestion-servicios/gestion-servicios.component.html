@@ -16,13 +16,12 @@
         class="form-control" 
         placeholder="Buscar..." 
         [(ngModel)]="terminoBusqueda"
-        (ngModelChange)="buscarServicios()"
       >
     </div>
 
     <!-- Grid de servicios -->
     <div class="grid-servicios">
-      <div class="tarjeta-servicio" *ngFor="let servicio of servicios">
+      <div class="tarjeta-servicio" *ngFor="let servicio of serviciosFiltrados">
         
         <!-- Imagen del servicio -->
         <div class="imagen-servicio">
@@ -50,7 +49,7 @@
         <div class="menu-opciones">
           <div class="dropdown">
             <button
-              class="btn btn-sm btn-light"
+              class="btn btn-sm btn-light dropdown-toggle"
               type="button"
               [id]="'dropdownMenuButton' + servicio.id_servicio"
               data-bs-toggle="dropdown"
@@ -93,7 +92,7 @@
     </div>
 
     <!-- Mensaje cuando no hay servicios -->
-    <div *ngIf="servicios.length === 0" class="sin-resultados">
+    <div *ngIf="serviciosFiltrados.length === 0" class="sin-resultados">
       <p>No se encontraron servicios</p>
     </div>
 
