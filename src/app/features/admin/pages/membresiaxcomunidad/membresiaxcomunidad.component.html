@@ -1,1 +1,49 @@
-<p>membresiaxcomunidad works!</p>
+<div class="contenedor">
+  <h2>Planes: Mamás primerizas</h2>
+  <div class="top-bar">
+    <input type="text" placeholder="🔍 Buscar plan" [(ngModel)]="buscarTexto" (input)="aplicarFiltro()" />
+    <button class="btn-agregar">+ Agregar Plan</button>
+  </div>
+
+  <table class="tabla-planes">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Duración(meses)</th>
+        <th>Topes</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plan of getPlanesPaginados()">
+        <td>{{ plan.nombre }}</td>
+        <td>{{ plan.duracion }}</td>
+        <td>{{ plan.topes ?? '-' }}</td>
+        <td>S/. {{ plan.precio.toFixed(2) }}</td>
+        <td>
+          <button class="btn-icono" (click)="verDetalle(plan)">👁️</button>
+          <button class="btn-icono" (click)="eliminarPlan(plan.id_plan)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="paginacion">
+    <label>
+      Mostrar 
+      <select [(ngModel)]="entradasPorPagina" (change)="paginaActual = 1">
+        <option [value]="4">4</option>
+        <option [value]="6">6</option>
+        <option [value]="10">10</option>
+      </select>
+      entradas
+    </label>
+    <div class="controles">
+      <button [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">Previo</button>
+      <span>{{ paginaActual }}</span>
+      <button [disabled]="paginaActual === totalPaginas()" (click)="cambiarPagina(paginaActual + 1)">Siguiente</button>
+    </div>
+  </div>
+</div>
+

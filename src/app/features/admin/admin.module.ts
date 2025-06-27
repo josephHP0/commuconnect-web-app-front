@@ -20,7 +20,8 @@ import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-client
 import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
 import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MembresiaxcomunidadComponent } from './pages/membresiaxcomunidad/membresiaxcomunidad.component';
+import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membresiaxcomunidad.component';
+
 
 @NgModule({
   declarations: [
@@ -34,10 +35,11 @@ import { MembresiaxcomunidadComponent } from './pages/membresiaxcomunidad/membre
     CargarClienteMasivoComponent,
     GestionServiciosComponent,
     CrearServicioComponent,
-    MembresiaxcomunidadComponent
+    PlanesPorComunidadComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     AdminRoutingModule,
     AdminLayoutModule,
     FormsModule,
