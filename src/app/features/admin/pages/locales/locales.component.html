@@ -1,0 +1,124 @@
+<div class="locales-container">
+  <!-- Flecha de volver fuera del header -->
+  <button class="btn-volver-outside" (click)="volver()">
+    <i class="bi bi-arrow-left"></i>
+  </button>
+  
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Locales {{ nombreServicio ? '- ' + nombreServicio : '' }}</h1>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline-success" (click)="cargarSesiones()">
+        <i class="fas fa-calendar-plus"></i> Cargar sesiones
+      </button>
+      <button class="btn btn-outline-success" (click)="cargarLocalesArchivo()">
+        <i class="fas fa-upload"></i> Cargar locales
+      </button>
+      <button class="btn btn-success" (click)="crearLocal()">
+        <i class="fas fa-plus"></i> Crear Local
+      </button>
+    </div>
+  </div>
+
+  <!-- Estado de carga -->
+  <div *ngIf="cargando" class="loading-container">
+    <div class="loading-spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Cargando locales...</p>
+    </div>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error && !cargando" class="error-container">
+    <div class="error-message">
+      <i class="fas fa-exclamation-triangle"></i>
+      <p>{{ error }}</p>
+      <button class="btn btn-primary" (click)="cargarLocales()">
+        <i class="fas fa-refresh"></i> Reintentar
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla de locales -->
+  <div *ngIf="!cargando && !error" class="table-container">
+    <table class="locales-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Dirección</th>
+          <th>Responsable</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let local of localesPaginados" class="table-row">
+          <td class="ubicacion">{{ local.nombre || 'Sin nombre' }}</td>
+          <td class="direccion">{{ local.direccion_detallada || 'Sin dirección' }}</td>
+          <td class="responsable">{{ local.responsable || '-' }}</td>
+          <td class="acciones">
+            <div class="dropdown" [class.active]="local.showMenu">
+              <button 
+                class="btn-dropdown" 
+                type="button"
+                (click)="toggleMenu(local, $event)">
+                ⋮
+              </button>
+              <div class="dropdown-menu">
+                <button class="dropdown-item" (click)="verSesiones(local)">
+                  <i class="fas fa-calendar-alt"></i> Ver sesiones
+                </button>
+                <button class="dropdown-item" (click)="editarLocal(local)">
+                  <i class="fas fa-edit"></i> Editar local
+                </button>
+                <button class="dropdown-item delete" (click)="eliminarLocal(local)">
+                  <i class="fas fa-trash"></i> Eliminar
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Mensaje cuando no hay locales -->
+    <div *ngIf="locales.length === 0" class="no-data">
+      <i class="fas fa-map-marker-alt"></i>
+      <p>No se encontraron locales</p>
+      <p class="subtitle">Comienza creando tu primer local</p>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div *ngIf="!cargando && !error && totalPaginas > 1" class="pagination-container">
+    <div class="pagination-info">
+      Mostrando {{ (paginaActual - 1) * elementosPorPagina + 1 }} - 
+      {{ Math.min(paginaActual * elementosPorPagina, totalElementos) }} 
+      de {{ totalElementos }} locales
+    </div>
+    <div class="pagination">
+      <button 
+        class="pagination-btn" 
+        [disabled]="paginaActual === 1"
+        (click)="paginaAnterior()">
+        Anterior
+      </button>
+      
+      <button 
+        *ngFor="let pagina of [].constructor(totalPaginas); let i = index"
+        class="pagination-btn"
+        [class.active]="i + 1 === paginaActual"
+        (click)="cambiarPagina(i + 1)">
+        {{ i + 1 }}
+      </button>
+      
+      <button 
+        class="pagination-btn" 
+        [disabled]="paginaActual === totalPaginas"
+        (click)="paginaSiguiente()">
+        Siguiente
+      </button>
+    </div>
+  </div>
+</div>

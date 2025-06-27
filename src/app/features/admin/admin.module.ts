@@ -20,6 +20,9 @@ import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-client
 import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
 import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { LocalesComponent } from './pages/locales/locales.component';
+import { CargarLocalesMasivoComponent } from './pages/cargar-locales-masivo/cargar-locales-masivo.component';
+import { CargarSesionesMasivoComponent } from './pages/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NuevoServicioPorComunidadComponent,
     CargarClienteMasivoComponent,
     GestionServiciosComponent,
-    CrearServicioComponent
+    CrearServicioComponent,
+    LocalesComponent,
+    CargarLocalesMasivoComponent,
+    CargarSesionesMasivoComponent
   ],
   imports: [
     CommonModule,
