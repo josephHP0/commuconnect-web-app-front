@@ -16,6 +16,7 @@ import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-ser
 import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
 import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membresiaxcomunidad.component';
 import { ComunidadxplanCreateComponent } from './pages/comunidadxplan-create/comunidadxplan-create.component';
+import { CrearClienteUnitarioComponent } from './pages/usuario-crud/crear-cliente-unitario/crear-cliente-unitario.component';
 
 
 
@@ -42,8 +43,8 @@ const routes: Routes = [
       { path: 'crear-servicio', component: CrearServicioComponent },
       { path: 'editar-servicio/:id', component: CrearServicioComponent },
       { path: 'membresiaxcomunidad', component: PlanesPorComunidadComponent },
-      { path: 'comunidadxplan-create', component: ComunidadxplanCreateComponent}
-  
+      { path: 'comunidadxplan-create', component: ComunidadxplanCreateComponent},
+      { path: 'crear-cliente-unitario', component: CrearClienteUnitarioComponent}
       // otras rutas como dashboard, usuarios, etc.
     ]
   }

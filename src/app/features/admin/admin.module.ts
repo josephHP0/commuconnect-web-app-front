@@ -22,6 +22,7 @@ import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.co
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membresiaxcomunidad.component';
 import { ComunidadxplanCreateComponent } from './pages/comunidadxplan-create/comunidadxplan-create.component';
+import { CrearClienteUnitarioComponent } from './pages/usuario-crud/crear-cliente-unitario/crear-cliente-unitario.component';
 
 
 
@@ -38,7 +39,8 @@ import { ComunidadxplanCreateComponent } from './pages/comunidadxplan-create/com
     GestionServiciosComponent,
     CrearServicioComponent,
     PlanesPorComunidadComponent,
-    ComunidadxplanCreateComponent
+    ComunidadxplanCreateComponent,
+    CrearClienteUnitarioComponent
   ],
   imports: [
     CommonModule,
