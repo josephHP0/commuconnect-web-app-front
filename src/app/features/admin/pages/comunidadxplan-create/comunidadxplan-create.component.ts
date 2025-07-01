@@ -11,12 +11,9 @@ import Swal from 'sweetalert2';
 })
 export class ComunidadxplanCreateComponent implements OnInit {
   idComunidad: number = 0;
-  nuevoPlan = {
-    titulo: '',
-    duracion: 1,
-    topes: null,
-    precio: 0
-  };
+  idPlanSeleccionado: number | null = null;
+  filtro: string = '';
+
 
   constructor(
     private servicio: ComunidadxplanCreateService,
@@ -24,28 +21,62 @@ export class ComunidadxplanCreateComponent implements OnInit {
     private router: Router
   ) {}
 
+  planesNoAsociados: PlanPorComunidad[] = [];
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.idComunidad = Number(params['id_comunidad']) || 0;
+      this.cargarPlanesNoAsociados();
     });
   }
 
-  agregar(): void {
-    const data: ComunidadXPlanCreate = {
-      id_comunidad: this.idComunidad,
-      ...this.nuevoPlan
-    };
-    console.log('Enviando a FastAPI:', data);
-    this.servicio.agregarPlanAComunidad(data).subscribe({
-      next: () => {
-        Swal.fire('Éxito', 'Plan agregado correctamente', 'success');
-        this.router.navigate(['/membresiaxcomunidad']);
+  cargarPlanesNoAsociados(): void {
+    this.servicio.obtenerPlanesNoAsociados(this.idComunidad).subscribe({
+      next: (res) => {
+        this.planesNoAsociados = res;
       },
-      error: (err) => {
-        Swal.fire('Error', 'No se pudo agregar el plan', 'error');
+      error: () => {
+        Swal.fire('Error', 'No se pudieron cargar los planes.', 'error');
       }
     });
   }
+  planesFiltrados(): any[] {
+    if (!this.filtro || this.filtro.trim() === '') {
+      return this.planesNoAsociados;
+    }
+
+    const texto = this.filtro.toLowerCase();
+    return this.planesNoAsociados.filter(plan =>
+      plan.titulo.toLowerCase().includes(texto)
+    );
+  }
+
+  agregar(): void {
+    if (!this.idPlanSeleccionado) {
+      Swal.fire('Atención', 'Debe seleccionar un plan', 'warning');
+      return;
+    }
+
+    const data: ComunidadXPlanCreate = {
+      id_comunidad: this.idComunidad,
+      id_plan: this.idPlanSeleccionado
+    };
+
+    this.servicio.agregarPlanAComunidad(data).subscribe({
+      next: () => {
+        Swal.fire('Éxito', 'Plan agregado correctamente', 'success');
+        this.router.navigate(['/admin/membresiaxcomunidad']);
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          Swal.fire('Atención', 'Este plan ya está asociado a la comunidad.', 'info');
+        } else {
+          Swal.fire('Error', 'No se pudo agregar el plan', 'error');
+        }
+      }
+    });
+  }
+
 
   cancelar(): void {
     this.router.navigate(['/membresiaxcomunidad']);

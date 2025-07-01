@@ -1,21 +1,39 @@
-<h2>Agregar Nuevo Plan</h2>
+<div class="modal-container">
+  <h2 class="titulo">Agregar Plan</h2>
 
-<form>
-  <label>Nombre del Plan:</label>
-  <input type="text" [(ngModel)]="nuevoPlan.titulo" name="titulo" required />
-
-  <label>Duración (meses):</label>
-  <input type="number" [(ngModel)]="nuevoPlan.duracion" name="duracion" required min="1" />
-
-  <label>Topes:</label>
-  <input type="number" [(ngModel)]="nuevoPlan.topes" name="topes" />
-
-  <label>Precio (S/):</label>
-  <input type="number" [(ngModel)]="nuevoPlan.precio" name="precio" required min="0" step="0.01" />
-
-  <div class="botones">
-    <button type="button" (click)="cancelar()">Cancelar</button>
-    <button type="button" (click)="agregar()">Agregar</button>
+  <!-- Buscador (opcional si ya lo necesitas funcional) -->
+  <div class="buscador">
+    <input type="text" placeholder="🔍 Buscar plan" [(ngModel)]="filtro">
   </div>
-</form>
 
+  <!-- Tabla de planes -->
+  <table class="tabla-planes">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Duración</th>
+        <th>Topes</th>
+        <th>Precio</th>
+        <th>Seleccionar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plan of planesFiltrados()">
+
+        <td>{{ plan.titulo }}</td>
+        <td>{{ plan.duracion }}</td>
+        <td>{{ plan.topes || '-' }}</td>
+        <td>S/ {{ plan.precio | number: '1.2-2' }}</td>
+        <td>
+          <input type="radio" name="plan" [value]="plan.id_plan" [(ngModel)]="idPlanSeleccionado" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Botones -->
+  <div class="botones">
+    <button class="btn-cancelar" (click)="cancelar()">CANCELAR</button>
+    <button class="btn-agregar" [disabled]="!idPlanSeleccionado" (click)="agregar()">AGREGAR</button>
+  </div>
+</div>

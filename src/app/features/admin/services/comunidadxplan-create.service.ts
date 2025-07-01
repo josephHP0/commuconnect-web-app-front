@@ -6,10 +6,7 @@ import { PlanPorComunidad } from './membresiaxcomunidad.service';
 
 export interface ComunidadXPlanCreate {
   id_comunidad: number;
-  titulo: string;
-  duracion: number;
-  topes: number | null;
-  precio: number;
+  id_plan: number;
 }
 
 
@@ -20,6 +17,9 @@ export class ComunidadxplanCreateService {
   private readonly baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
+  obtenerPlanesNoAsociados(idComunidad: number): Observable<PlanPorComunidad[]> {
+    return this.http.get<PlanPorComunidad[]>(`${this.baseUrl}/billing/no-asociados/${idComunidad}`);
+  }
 
   agregarPlanAComunidad(data: ComunidadXPlanCreate): Observable<any> {
     return this.http.post(`${this.baseUrl}/billing/agregar-plan`, data);
