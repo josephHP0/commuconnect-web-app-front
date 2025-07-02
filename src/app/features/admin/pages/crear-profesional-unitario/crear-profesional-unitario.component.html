@@ -1,0 +1,36 @@
+<div class="formulario-container">
+  <div class="formulario-box">
+    <div class="formulario-header">
+      <button class="btn-volver" (click)="volver()">← Volver</button>
+      <h2>Crear Profesional</h2>
+    </div>
+
+    <form (ngSubmit)="registrarProfesional()" #form="ngForm">
+      <div class="form-group">
+        <label>Nombre completo *</label>
+        <input type="text" name="nombre_completo" [(ngModel)]="profesional.nombre_completo" required />
+      </div>
+
+      <div class="form-group">
+        <label>Correo electrónico *</label>
+        <input type="email" name="email" [(ngModel)]="profesional.email" required />
+      </div>
+
+      <div class="form-group">
+        <label>Servicio *</label>
+        <select name="id_servicio" [(ngModel)]="profesional.id_servicio" required>
+          <option *ngFor="let servicio of servicios" [value]="servicio.id_servicio">{{ servicio.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Link del formulario (Drive) *</label>
+        <input type="url" name="formulario" [(ngModel)]="profesional.formulario" required placeholder="https://drive.google.com/..." />
+      </div>
+
+      <button type="submit" class="btn-registrar" [disabled]="form.invalid">Registrar</button>
+    </form>
+  </div>
+</div>
+
+
