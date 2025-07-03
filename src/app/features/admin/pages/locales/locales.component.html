@@ -65,10 +65,18 @@
                 (click)="toggleMenu(local, $event)">
                 ⋮
               </button>
+
               <div class="dropdown-menu">
-                <button class="dropdown-item" (click)="verSesiones(local)">
-                  <i class="fas fa-calendar-alt"></i> Ver sesiones
-                </button>
+                  <a 
+                    class="dropdown-item"
+                    role="button"
+                    [routerLink]="['/admin/lista-sesiones-por-local', local.id_local]"
+                    [queryParams]="{ idServicio: idServicio }">
+                    <i class="fas fa-calendar-alt"></i> Ver sesiones
+                  </a>
+
+
+
                 <button class="dropdown-item" (click)="editarLocal(local)">
                   <i class="fas fa-edit"></i> Editar local
                 </button>

@@ -22,6 +22,8 @@ import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por
 import {DetalleClienteComponent} from './pages/usuario-crud/detalle-cliente/detalle-cliente.component';
 import {EditarClienteComponent} from './pages/usuario-crud/editar-cliente/editar-cliente.component';
 import { PlanesCrudComponent } from './pages/planes-crud/planes-crud.component';
+import { ListaSesionesPorLocalComponent } from './pages/lista-sesiones-por-local/lista-sesiones-por-local.component'; 
+import { DetalleSesionPorLocalComponent } from './pages/detalle-sesion-por-local/detalle-sesion-por-local.component';
 
 
 const routes: Routes = [
@@ -53,7 +55,9 @@ const routes: Routes = [
       {
         path: 'gestion-planes',
         loadChildren: () => import('./pages/planes-crud/planes-crud.module').then(m => m.PlanesCrudModule)
-      }
+      },
+      {path:'lista-sesiones-por-local/:id',component:ListaSesionesPorLocalComponent},
+      {path:'detalle-sesion-por-local/:id',component:DetalleSesionPorLocalComponent}
 
     ]
   }

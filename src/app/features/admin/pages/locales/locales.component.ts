@@ -147,6 +147,13 @@ export class LocalesComponent implements OnInit {
     alert(`Funcionalidad "Ver sesiones" para el local "${local.nombre}" será implementada próximamente.`);
   }
 
+
+
+
+
+
+  
+
   editarLocal(local: LocalOut): void {
     this.cerrarTodosLosMenus(); // Cerrar todos los menús
     console.log('Editar local:', local);

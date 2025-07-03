@@ -50,8 +50,11 @@ export class LocalesService {
       'Content-Type': 'application/json'
     });
 
-    const url = `${this.baseUrl}/services/locales-por-servicio/${idServicio}`;
+    const url = `${this.baseUrl}/services/por-servicio/${idServicio}`;
     console.log('URL del request:', url); // Debug
+
+
+
 
     return this.http.get<LocalOut[]>(url, { headers });
   }

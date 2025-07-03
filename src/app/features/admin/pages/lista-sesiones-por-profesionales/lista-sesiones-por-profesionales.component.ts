@@ -50,11 +50,6 @@ sesionesFiltradas: any[] = []; // Después del filtro
         console.error('Error al cargar sesiones:', error);
       }
     );
-
-
-
-
-
   }
 
   get totalPages(): number {
