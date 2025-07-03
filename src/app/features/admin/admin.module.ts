@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -61,7 +62,8 @@ import { CargarSesionesMasivoPresencialComponent } from './pages/cargar-sesiones
     FormsModule,
     ReactiveFormsModule,
     ScrollingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ]
 })
 export class AdminModule { }
