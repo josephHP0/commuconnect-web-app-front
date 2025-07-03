@@ -1,0 +1,45 @@
+<div class="contenedor">
+  <div class="titulo">
+    <h2>Historial de pagos</h2>
+    <p><i>Estado:</i> <span class="activo">Activo</span></p>
+  </div>
+
+<div class="busqueda-filtro">
+  <input type="text" placeholder="Buscar" [(ngModel)]="filtroTexto" (input)="filtrarPagos()" />
+
+  <div class="filtro-dropdown-wrapper">
+    <div class="filtro-dropdown" (click)="toggleFiltro()">
+      <i class="bi bi-funnel"></i>
+    </div>
+
+    <div class="filtro-opciones" *ngIf="mostrarFiltro">
+      <div (click)="ordenar('reciente')">MÁS RECIENTE</div>
+      <div (click)="ordenar('antiguo')">MÁS ANTIGUO</div>
+      <div (click)="ordenar('mayor')">MAYOR MONTO</div>
+      <div (click)="ordenar('menor')">MENOR MONTO</div>
+    </div>
+  </div>
+</div>
+
+
+  <div *ngFor="let pago of pagosFiltrados" class="pago-box">
+    <div>
+      <p>{{ pago.fecha_inicio | date: 'dd/MM/yyyy' }}</p>
+      <strong>{{ pago.titulo_plan }}</strong>
+      <p>S/. {{ pago.precio }}</p>
+    </div>
+    <button (click)="abrirModal(pago.id_inscripcion)">Ver detalles</button>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal" *ngIf="detallePago">
+    <div class="modal-contenido">
+      <span class="cerrar" (click)="cerrarModal()">×</span>
+      <h4>{{ detallePago.nombre_membresia }}</h4>
+      <p><strong>Fecha:</strong> {{ detallePago.fecha_pago | date: 'dd/MM/yyyy' }}</p>
+      <p><strong>Hora:</strong> {{ detallePago.hora_pago }}</p>
+      <p><strong>Número de transacción:</strong> {{ detallePago.id_pago }}</p>
+      <p><strong>Tarjeta:</strong> {{ detallePago.tarjeta }}</p>
+    </div>
+  </div>
+</div>

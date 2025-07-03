@@ -14,6 +14,7 @@ interface LoginResponse {
   access_token: string;
   token_type: string;
   user_rol: string;
+  id_cliente: number; // 👈 Agrega esto
 }
 
 
@@ -88,6 +89,7 @@ export class AuthService {
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('token_type', response.token_type);
           localStorage.setItem('user_rol', response.user_rol);
+          localStorage.setItem('id_cliente', response.id_cliente.toString()); // ✅ IMPORTANTE
           this.logueadoSubject.next(true); // 🔔 Notifica que está logueado
         })
       );
