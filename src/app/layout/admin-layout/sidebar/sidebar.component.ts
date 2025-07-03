@@ -9,9 +9,14 @@ export class SidebarComponent {
 
 
 usuariosSubmenuOpen = false;
+membresiasSubmenuOpen = false;
 
 toggleUsuariosSubmenu() {
   this.usuariosSubmenuOpen = !this.usuariosSubmenuOpen;
+}
+
+toggleMembresiasSubmenu() {
+  this.membresiasSubmenuOpen = !this.membresiasSubmenuOpen;
 }
 
 

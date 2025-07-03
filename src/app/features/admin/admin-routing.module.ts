@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from '../../layout/admin-layout/admin/admin-layout.component';
-
-
-
-
 import { RegistroComunidadComponent } from './pages/registro-comunidad/registro-comunidad.component';
 import { ListaComunidadComponent } from './pages/lista-comunidad/lista-comunidad.component';
 import { EditarComunidadComponent } from './pages/editar-comunidad/editar-comunidad.component';
@@ -22,14 +18,9 @@ import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servic
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 import { ListaSesionesPorProfesionalesComponent } from './pages/lista-sesiones-por-profesionales/lista-sesiones-por-profesionales.component';
 import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por-profesional/detalle-sesion-por-profesional.component';
+import { PlanesCrudComponent } from './pages/planes-crud/planes-crud.component';
 
 const routes: Routes = [
-
- // { path: '', component: AdminComponent },
-
-
-
-
   {
     path: '',
     component: AdminLayoutComponent,
@@ -38,10 +29,10 @@ const routes: Routes = [
       { path: 'lista-comunidad', component: ListaComunidadComponent },
       { path: 'registro-comunidad', component: RegistroComunidadComponent },
       { path: 'editar-comunidad/:id', component: EditarComunidadComponent },
-      { path: 'lista-cliente', component: ListaClienteComponent},
-      { path: 'servicios-por-comunidad/:id',component:ServiciosPorComunidadComponent},
-      { path: 'nuevo-servicio-por-comunidad/:id',component:NuevoServicioPorComunidadComponent},
-      { path: 'cargar-cliente-masivo',component:CargarClienteMasivoComponent},
+      { path: 'lista-cliente', component: ListaClienteComponent },
+      { path: 'servicios-por-comunidad/:id', component: ServiciosPorComunidadComponent },
+      { path: 'nuevo-servicio-por-comunidad/:id', component: NuevoServicioPorComunidadComponent },
+      { path: 'cargar-cliente-masivo', component: CargarClienteMasivoComponent },
       { path: 'gestion-servicios', component: GestionServiciosComponent },
       { path: 'crear-servicio', component: CrearServicioComponent },
       { path: 'editar-servicio/:id', component: CrearServicioComponent },
@@ -51,13 +42,14 @@ const routes: Routes = [
       { path: 'servicio/:id/profesionales', component: ProfesionalesServicioComponent },
       { path: 'cargar-profesionales-masivo', component: CargarProfesionalesMasivoComponent },
       { path: 'cargar-sesiones-masivo', component: CargarSesionesMasivoComponent },
-      { path: 'lista-sesiones-por-profesionales/:id', component: ListaSesionesPorProfesionalesComponent},
-      {path: 'detalle-sesion-por-profesional/:id', component:DetalleSesionPorProfesionalComponent}
-  
-      // otras rutas como dashboard, usuarios, etc.
+      { path: 'lista-sesiones-por-profesionales/:id', component: ListaSesionesPorProfesionalesComponent },
+      { path: 'detalle-sesion-por-profesional/:id', component: DetalleSesionPorProfesionalComponent },
+      {
+        path: 'gestion-planes',
+        loadChildren: () => import('./pages/planes-crud/planes-crud.module').then(m => m.PlanesCrudModule)
+      }
     ]
   }
-
 ];
 
 @NgModule({
