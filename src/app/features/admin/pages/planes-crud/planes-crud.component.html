@@ -1,0 +1,103 @@
+<div class="planes-crud-container">
+  <div class="header">
+    <h2>Gestión de Planes</h2>
+    <button class="btn-crear" type="button">Crear plan</button>
+  </div>
+  <div class="buscador">
+    <input type="text" placeholder="Buscar" [(ngModel)]="buscar" />
+  </div>
+  <div class="tabla-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Duración<br>(meses)</th>
+          <th>Topes</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plan of pagedPlanes; let i = index">
+          <td>{{ plan.titulo }}</td>
+          <td>{{ plan.duracion }}</td>
+          <td>{{ plan.topes || '-' }}</td>
+          <td>S/. {{ plan.precio }}</td>
+          <td>
+            <span
+              [ngClass]="{
+                'estado-activo': plan.estado == '1',
+                'estado-inactivo': plan.estado == '0'
+              }"
+            >
+              {{ plan.estado == '1' ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td style="position: relative;">
+            <button class="btn-acciones" type="button" (click)="abrirMenu(i)">
+              ⋮
+            </button>
+            <ul *ngIf="menuAbierto === i" class="acciones-menu" (mouseleave)="cerrarMenu()">
+              <li (click)="editarPlan(plan)">Editar</li>
+              <li (click)="actualizarPlan(plan)">Actualizar</li>
+              <li (click)="desactivarPlan(plan)">Desactivar</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Controles de paginación -->
+  <div class="tabla-footer" *ngIf="totalPages > 1 || planesFiltrados.length > 0">
+    <div>
+      Mostrar
+      <span class="custom-select-wrapper">
+        <select [(ngModel)]="pageSize" (change)="setPage(1)">
+          <option *ngFor="let size of [5, 10, 20, 50]" [value]="size">{{ size }}</option>
+        </select>
+        <span class="custom-select-arrow">&#9662;</span>
+      </span>
+      entradas
+    </div>
+    <div class="paginacion">
+      <button (click)="setPage(page - 1)" [disabled]="page === 1">Anterior</button>
+      <span *ngFor="let p of [].constructor(totalPages); let i = index">
+        <button (click)="setPage(i + 1)" [class.pagina-activa]="page === i + 1">{{ i + 1 }}</button>
+      </span>
+      <button (click)="setPage(page + 1)" [disabled]="page === totalPages">Siguiente</button>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación -->
+  <div class="modal-backdrop" *ngIf="mostrarModal">
+    <div class="modal-confirmacion">
+      <h3>¿Estás seguro de desactivar este plan?</h3>
+      <div class="modal-botones">
+        <button (click)="confirmarDesactivacion()">Sí, desactivar</button>
+        <button (click)="cancelarDesactivacion()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de edición -->
+  <div class="modal-backdrop" *ngIf="mostrarModalEditar">
+    <div class="modal-confirmacion">
+      <h3>Datos del Plan</h3>
+      <div *ngIf="planAEditar">
+        <p><b>ID:</b> {{ planAEditar.id_plan }}</p>
+        <p><b>Título:</b> {{ planAEditar.titulo }}</p>
+        <p><b>Duración:</b> {{ planAEditar.duracion }}</p>
+        <p><b>Descripción:</b> {{ planAEditar.descripcion }}</p>
+        <p><b>Topes:</b> {{ planAEditar.topes }}</p>
+        <p><b>Precio:</b> {{ planAEditar.precio }}</p>
+        <p><b>Estado:</b> {{ planAEditar.estado == '1' ? 'Activo' : 'Inactivo' }}</p>
+      </div>
+      <div class="modal-botones">
+        <button (click)="cerrarModalEditar()">Cerrar</button>
+        <button>Editar</button>
+      </div>
+    </div>
+  </div>
+</div>
