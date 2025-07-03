@@ -22,6 +22,9 @@ import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servic
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 import { ListaSesionesPorProfesionalesComponent } from './pages/lista-sesiones-por-profesionales/lista-sesiones-por-profesionales.component';
 import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por-profesional/detalle-sesion-por-profesional.component';
+import {DetalleClienteComponent} from './pages/usuario-crud/detalle-cliente/detalle-cliente.component';
+import {EditarClienteComponent} from './pages/usuario-crud/editar-cliente/editar-cliente.component';
+
 
 const routes: Routes = [
 
@@ -52,7 +55,9 @@ const routes: Routes = [
       { path: 'cargar-profesionales-masivo', component: CargarProfesionalesMasivoComponent },
       { path: 'cargar-sesiones-masivo', component: CargarSesionesMasivoComponent },
       { path: 'lista-sesiones-por-profesionales/:id', component: ListaSesionesPorProfesionalesComponent},
-      {path: 'detalle-sesion-por-profesional/:id', component:DetalleSesionPorProfesionalComponent}
+      {path: 'detalle-sesion-por-profesional/:id', component:DetalleSesionPorProfesionalComponent},
+      {path:'detalle-cliente/:id',component:DetalleClienteComponent},
+      {path:'editar-cliente/:id',component:EditarClienteComponent}
   
       // otras rutas como dashboard, usuarios, etc.
     ]

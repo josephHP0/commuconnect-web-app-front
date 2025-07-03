@@ -96,7 +96,7 @@ const year = this.selectedDate.getFullYear();
  
 
 
-  const url = `http://127.0.0.1:8000/api/reservations/by-user-community?id_comunidad=${idComunidad}&fecha=${fecha}`;
+  const url = `http://127.0.0.1:8000/api/reservations/by-user-community?id_comunidad=${this.idComunidad}&fecha=${fecha}`;
   console.log('Intentando cargar reservas desde:', url);
 
   this.http.get<any>(url).subscribe(

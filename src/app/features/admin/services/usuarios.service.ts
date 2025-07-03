@@ -77,6 +77,60 @@ export class UsuariosService {
     );
   }
 
+
+  getClientePorId(id: number): Observable<any> {
+  const tokenType = localStorage.getItem('token_type');
+  const accessToken = localStorage.getItem('access_token');
+
+  return this.http.get<any>(
+    `${this.baseUrl}/usuarios/cliente/id/${id}`,
+    {
+      headers: new HttpHeaders({
+        Authorization: `${tokenType} ${accessToken}`
+      })
+    }
+  );
+}
+
+actualizarCliente(id: number, clienteDto: any): Observable<any> {
+  const tokenType = localStorage.getItem('token_type');       // Ej. "Bearer"
+  const accessToken = localStorage.getItem('access_token');   // JWT real
+
+ 
+
+  if (!tokenType || !accessToken) {
+    throw new Error('Token no disponible. ¿Estás autenticado?');
+  }
+
+  const headers = new HttpHeaders({
+    Authorization: `${tokenType} ${accessToken}`,
+    'Content-Type': 'application/json'
+  });
+
+  const url = `${this.baseUrl}/usuarios/cliente/${id}`; // Ajusta el path si es necesario
+
+  console.log('🟡 Enviando PUT a:', url);
+  console.log('📦 Cuerpo del DTO:', clienteDto);
+
+  return this.http.put(url, clienteDto, { headers });
+}
+
+
+
+
+  eliminarCliente(id: number): Observable<any> {
+
+
+  const token = localStorage.getItem('access_token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.delete(`${this.baseUrl}/usuarios/eliminar_cliente/${id}`, { headers });
+ 
+}
+
+
   
 
 
