@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface LocalCreate {
-  ubicacion: string;
-  direccion: string;
-  responsable_nombre: string;
-  responsable_apellido: string;
-  responsable_email: string;
+  id_departamento: number;
+  id_distrito: number;
   id_servicio?: number | null;
+  direccion_detallada?: string;
+  responsable?: string;
+  nombre?: string;
+  link?: string;
 }
+
 @Injectable({
   providedIn: 'root'
 })
