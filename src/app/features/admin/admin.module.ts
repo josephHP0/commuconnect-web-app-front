@@ -30,6 +30,8 @@ import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por
 import { LocalesComponent } from './pages/locales/locales.component';
 import { CargarLocalesMasivoComponent } from './pages/cargar-locales-masivo/cargar-locales-masivo.component';
 import { CargarSesionesMasivoPresencialComponent } from './pages/cargar-sesiones-masivo/cargar-sesiones-masivo-presencial.component';
+import { SolicitudesSuspensionComponent } from './pages/solicitudes-suspension/solicitudes-suspension.component';
+import { DetalleSuspensionComponent } from './pages/detalle-suspension/detalle-suspension.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { CargarSesionesMasivoPresencialComponent } from './pages/cargar-sesiones
     DetalleSesionPorProfesionalComponent,
     LocalesComponent,
     CargarLocalesMasivoComponent,
-    CargarSesionesMasivoPresencialComponent
+    CargarSesionesMasivoPresencialComponent,
+    SolicitudesSuspensionComponent,
+    DetalleSuspensionComponent
 
   ],
   imports: [

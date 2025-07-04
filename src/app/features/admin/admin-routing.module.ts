@@ -22,6 +22,8 @@ import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servic
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 import { ListaSesionesPorProfesionalesComponent } from './pages/lista-sesiones-por-profesionales/lista-sesiones-por-profesionales.component';
 import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por-profesional/detalle-sesion-por-profesional.component';
+import { SolicitudesSuspensionComponent } from './pages/solicitudes-suspension/solicitudes-suspension.component';
+import { DetalleSuspensionComponent } from './pages/detalle-suspension/detalle-suspension.component';
 
 const routes: Routes = [
 
@@ -52,7 +54,9 @@ const routes: Routes = [
       { path: 'cargar-profesionales-masivo', component: CargarProfesionalesMasivoComponent },
       { path: 'cargar-sesiones-masivo', component: CargarSesionesMasivoComponent },
       { path: 'lista-sesiones-por-profesionales/:id', component: ListaSesionesPorProfesionalesComponent},
-      {path: 'detalle-sesion-por-profesional/:id', component:DetalleSesionPorProfesionalComponent}
+      {path: 'detalle-sesion-por-profesional/:id', component:DetalleSesionPorProfesionalComponent},
+      { path: 'suspensiones', component: SolicitudesSuspensionComponent },
+      { path: 'suspensiones/detalle/:id', component: DetalleSuspensionComponent }
   
       // otras rutas como dashboard, usuarios, etc.
     ]

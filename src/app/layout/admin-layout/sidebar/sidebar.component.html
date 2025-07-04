@@ -45,10 +45,16 @@
   </li>
 
     <li class="sidebar-item">
-  <a href="#" class="sidebar-link" (click)="$event.preventDefault()">
+  <a href="#" class="sidebar-link" (click)="toggleMembresiasSubmenu(); $event.preventDefault()">
     <i class="bi bi-bag-fill me-2"></i>
     <span>Membresías</span>
+    <i class="bi bi-chevron-down ms-auto"></i>
   </a>
+  <ul *ngIf="membresiasSubmenuOpen" class="sidebar-submenu ps-4">
+    <li>
+      <a routerLink="/admin/suspensiones" class="sidebar-link">Solicitudes de suspensión</a>
+    </li>
+  </ul>
 </li>
    <li class="sidebar-item">
   <a href="#" class="sidebar-link" (click)="$event.preventDefault()">
