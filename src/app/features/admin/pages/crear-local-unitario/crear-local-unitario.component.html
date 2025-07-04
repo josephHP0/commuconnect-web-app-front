@@ -1,0 +1,57 @@
+<div class="modal-container">
+  <h2 class="titulo">Crear Local</h2>
+
+  <form (ngSubmit)="registrarLocal()" #form="ngForm">
+    <label>Ubicación *</label>
+    <input
+      type="text"
+      [(ngModel)]="local.ubicacion"
+      name="ubicacion"
+      required
+      class="input-field"
+    />
+
+    <label>Dirección *</label>
+    <input
+      type="text"
+      [(ngModel)]="local.direccion"
+      name="direccion"
+      required
+      class="input-field"
+    />
+
+    <div class="separador"></div>
+
+    <p class="subtitulo">DATOS DEL RESPONSABLE</p>
+
+    <label>Nombres</label>
+    <input
+      type="text"
+      [(ngModel)]="local.responsable_nombre"
+      name="responsable_nombre"
+      class="input-field"
+    />
+
+    <label>Apellidos</label>
+    <input
+      type="text"
+      [(ngModel)]="local.responsable_apellido"
+      name="responsable_apellido"
+      class="input-field"
+    />
+
+    <label>Correo Electrónico</label>
+    <input
+      type="email"
+      [(ngModel)]="local.responsable_email"
+      name="responsable_email"
+      class="input-field"
+    />
+
+    <div class="btn-acciones">
+      <button type="button" class="btn-volver" (click)="volver()">Volver</button>
+      <button type="submit" class="btn-crear">Crear</button>
+    </div>
+  </form>
+</div>
+

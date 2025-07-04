@@ -18,6 +18,7 @@ import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membres
 import { ComunidadxplanCreateComponent } from './pages/comunidadxplan-create/comunidadxplan-create.component';
 import { CrearClienteUnitarioComponent } from './pages/usuario-crud/crear-cliente-unitario/crear-cliente-unitario.component';
 import { CrearProfesionalUnitarioComponent } from './pages/crear-profesional-unitario/crear-profesional-unitario.component';
+import { CrearLocalUnitarioComponent } from './pages/crear-local-unitario/crear-local-unitario.component';
 
 
 
@@ -46,7 +47,8 @@ const routes: Routes = [
       { path: 'membresiaxcomunidad', component: PlanesPorComunidadComponent },
       { path: 'comunidadxplan-create', component: ComunidadxplanCreateComponent},
       { path: 'crear-cliente-unitario', component: CrearClienteUnitarioComponent},
-      { path: 'crear-profesional-unitario', component: CrearProfesionalUnitarioComponent}
+      { path: 'crear-profesional-unitario', component: CrearProfesionalUnitarioComponent},
+      { path: 'crear-local-unitario', component: CrearLocalUnitarioComponent}
       // otras rutas como dashboard, usuarios, etc.
     ]
   }

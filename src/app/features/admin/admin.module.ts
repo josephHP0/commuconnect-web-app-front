@@ -24,6 +24,7 @@ import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membres
 import { ComunidadxplanCreateComponent } from './pages/comunidadxplan-create/comunidadxplan-create.component';
 import { CrearClienteUnitarioComponent } from './pages/usuario-crud/crear-cliente-unitario/crear-cliente-unitario.component';
 import { CrearProfesionalUnitarioComponent } from './pages/crear-profesional-unitario/crear-profesional-unitario.component';
+import { CrearLocalUnitarioComponent } from './pages/crear-local-unitario/crear-local-unitario.component';
 
 
 
@@ -42,7 +43,8 @@ import { CrearProfesionalUnitarioComponent } from './pages/crear-profesional-uni
     PlanesPorComunidadComponent,
     ComunidadxplanCreateComponent,
     CrearClienteUnitarioComponent,
-    CrearProfesionalUnitarioComponent
+    CrearProfesionalUnitarioComponent,
+    CrearLocalUnitarioComponent
   ],
   imports: [
     CommonModule,
