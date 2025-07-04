@@ -1,0 +1,205 @@
+<div class="planes-crud-container">
+  <div class="header">
+    <h2>Gestión de Planes</h2>
+    <button class="btn-crear" type="button" (click)="abrirModalCrear()">Crear plan</button>
+  </div>
+  <div class="buscador">
+    <input type="text" placeholder="Buscar" [(ngModel)]="buscar" (ngModelChange)="onBuscarChange()" />
+  </div>
+  <div class="tabla-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Duración<br>(meses)</th>
+          <th>Topes</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plan of pagedPlanes; let i = index">
+          <td>{{ plan.titulo }}</td>
+          <td>{{ plan.duracion }}</td>
+          <td>{{ plan.topes || '-' }}</td>
+          <td>S/. {{ plan.precio }}</td>
+          <td>
+            <span
+              [ngClass]="{
+                'estado-activo': plan.estado == '1',
+                'estado-inactivo': plan.estado == '0'
+              }"
+            >
+              {{ plan.estado == '1' ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td style="position: relative;">
+            <button class="btn-acciones" type="button" (click)="abrirMenu(i, $event)">
+              ⋮
+            </button>
+            <ul
+              *ngIf="menuAbierto === i"
+              class="acciones-menu"
+              [ngStyle]="{ top: menuPos.top + 'px', left: menuPos.left + 'px' }"
+              (mouseleave)="cerrarMenu()"
+            >
+              <li (click)="editarPlan(plan)">Editar</li>
+              <li (click)="verDetallePlan(plan)">Ver detalle</li>
+              <li (click)="desactivarPlan(plan)">Desactivar</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Controles de paginación -->
+  <div class="tabla-footer" *ngIf="totalPages > 1 || planesFiltrados.length > 0">
+    <div>
+      Mostrar
+      <span class="custom-select-wrapper">
+        <select [(ngModel)]="pageSize" (change)="setPage(1)">
+          <option *ngFor="let size of [5, 10, 20, 50]" [value]="size">{{ size }}</option>
+        </select>
+        <span class="custom-select-arrow">&#9662;</span>
+      </span>
+      entradas
+    </div>
+    <div class="paginacion">
+      <button (click)="setPage(page - 1)" [disabled]="page === 1">Anterior</button>
+      <span *ngFor="let p of [].constructor(totalPages); let i = index">
+        <button (click)="setPage(i + 1)" [class.pagina-activa]="page === i + 1">{{ i + 1 }}</button>
+      </span>
+      <button (click)="setPage(page + 1)" [disabled]="page === totalPages">Siguiente</button>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación -->
+  <div class="modal-backdrop" *ngIf="mostrarModal">
+    <div class="modal-confirmacion">
+      <h3>¿Estás seguro de desactivar este plan?</h3>
+      <div class="modal-botones">
+        <button (click)="confirmarDesactivacion()">Sí, desactivar</button>
+        <button (click)="cancelarDesactivacion()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar Plan en dos columnas -->
+  <div class="modal-backdrop" *ngIf="mostrarModalEditar">
+    <div class="modal-editar-plan">
+      <h3 class="modal-titulo">Editar Plan</h3>
+      <form *ngIf="planAEditar" class="form-editar-plan-dos-col">
+        <div class="form-row">
+          <label><b>ID:</b></label>
+          <span>{{ planAEditar.id_plan }}</span>
+        </div>
+        <div class="form-row">
+          <label><b>Título:</b></label>
+          <input type="text" [(ngModel)]="planAEditar.titulo" name="titulo" />
+        </div>
+        <div class="form-row">
+          <label><b>Duración:</b></label>
+          <input type="number" [(ngModel)]="planAEditar.duracion" name="duracion" />
+        </div>
+        <div class="form-row">
+          <label><b>Topes:</b></label>
+          <input type="number" [(ngModel)]="planAEditar.topes" name="topes" />
+        </div>
+        <div class="form-row">
+          <label><b>Precio:</b></label>
+          <input type="number" [(ngModel)]="planAEditar.precio" name="precio" step="0.01" />
+        </div>
+        <div class="form-row">
+          <label><b>Estado:</b></label>
+          <select [(ngModel)]="planAEditar.estado" name="estado">
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
+          </select>
+        </div>
+        <div class="form-row descripcion-row">
+          <label><b>Descripción:</b></label>
+          <textarea [(ngModel)]="planAEditar.descripcion" name="descripcion"></textarea>
+        </div>
+        <div class="modal-botones" style="grid-column: 1 / -1;">
+          <button type="button" class="btn-cancelar" (click)="cerrarModalEditar()">Cancelar</button>
+          <button type="button" class="btn-guardar" (click)="guardarEdicionPlan()">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Crear Plan -->
+  <div class="modal-backdrop" *ngIf="mostrarModalCrear">
+    <div class="modal-editar-plan">
+      <h3 class="modal-titulo">Crear Plan</h3>
+      <form class="form-editar-plan-dos-col" #formCrear="ngForm">
+        <div class="form-row">
+          <label><b>Título:</b></label>
+          <input type="text" [(ngModel)]="nuevoPlan.titulo" name="titulo" required />
+        </div>
+        <div class="form-row">
+          <label><b>Duración:</b></label>
+          <input type="number" [(ngModel)]="nuevoPlan.duracion" name="duracion" required />
+        </div>
+        <div class="form-row">
+          <label><b>Topes:</b></label>
+          <input type="number" [(ngModel)]="nuevoPlan.topes" name="topes" required />
+        </div>
+        <div class="form-row">
+          <label><b>Precio:</b></label>
+          <input type="number" [(ngModel)]="nuevoPlan.precio" name="precio" step="0.01" required />
+        </div>
+        <div class="form-row descripcion-row">
+          <label><b>Descripción:</b></label>
+          <textarea [(ngModel)]="nuevoPlan.descripcion" name="descripcion" required></textarea>
+        </div>
+        <div class="modal-botones" style="grid-column: 1 / -1;">
+          <button type="button" class="btn-cancelar" (click)="cerrarModalCrear()">Cancelar</button>
+          <button type="button" class="btn-guardar" (click)="crearPlan()" [disabled]="formCrear.invalid">Crear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Ver Detalle -->
+  <div class="modal-backdrop" *ngIf="mostrarModalDetalle">
+    <div class="modal-editar-plan">
+      <h3 class="modal-titulo">Detalle del Plan</h3>
+      <form class="form-editar-plan-dos-col">
+        <div class="form-row">
+          <label><b>ID:</b></label>
+          <span>{{ planDetalle?.id_plan }}</span>
+        </div>
+        <div class="form-row">
+          <label><b>Título:</b></label>
+          <input type="text" [value]="planDetalle?.titulo" disabled />
+        </div>
+        <div class="form-row">
+          <label><b>Duración:</b></label>
+          <input type="number" [value]="planDetalle?.duracion" disabled />
+        </div>
+        <div class="form-row">
+          <label><b>Topes:</b></label>
+          <input type="number" [value]="planDetalle?.topes" disabled />
+        </div>
+        <div class="form-row">
+          <label><b>Precio:</b></label>
+          <input type="number" [value]="planDetalle?.precio" disabled />
+        </div>
+        <div class="form-row">
+          <label><b>Estado:</b></label>
+          <input type="text" [value]="planDetalle?.estado == '1' ? 'Activo' : 'Inactivo'" disabled />
+        </div>
+        <div class="form-row descripcion-row">
+          <label><b>Descripción:</b></label>
+          <textarea [value]="planDetalle?.descripcion" disabled></textarea>
+        </div>
+        <div class="modal-botones" style="grid-column: 1 / -1;">
+          <button type="button" class="btn-cancelar" (click)="cerrarModalDetalle()">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

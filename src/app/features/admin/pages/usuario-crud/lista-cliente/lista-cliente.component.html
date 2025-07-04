@@ -42,6 +42,7 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -50,6 +51,30 @@
           <td>{{ cliente.nombre }}</td>
           <td>{{ cliente.apellido }}</td>
           <td>{{ cliente.email }}</td>
+          
+           <td>
+      <div class="dropdown">
+        <button class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi bi-three-dots-vertical"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <!--
+          <li><a 
+              
+            class="dropdown-item" 
+            [routerLink]="['/admin/detalle-sesion-por-profesional', sesion.id_sesion]"
+            [queryParams]="{ idProfesional: idProfesional, idServicio: idServicio}"
+            
+            >Ver detalle</a></li>
+-->
+
+          <a><button class="dropdown-item" (click)="verCliente(cliente.cliente.id_cliente)">Detalle</button></a>
+          <a><button class="dropdown-item" (click)="editarCliente(cliente.cliente.id_cliente,cliente.id_usuario)">Editar</button></a>
+          <a><button class="dropdown-item" (click)="eliminarCliente(cliente.cliente.id_cliente)">Eliminar</button></a>
+          
+        </ul>
+      </div>
+    </td>
         </tr>
         </tbody>
       </table>

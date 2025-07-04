@@ -34,7 +34,7 @@ export class GestionServiciosComponent implements OnInit {
   }
 
   cargarServicios(): void {
-    this.serviciosService.obtenerTodosLosServicios().subscribe({
+    this.serviciosService.obtenerTodosLosServicios(this.terminoBusqueda).subscribe({
       next: (servicios: Servicio[]) => {
         this.servicios = servicios;
       },
@@ -45,7 +45,8 @@ export class GestionServiciosComponent implements OnInit {
     });
   }
 
-  get serviciosFiltrados(): Servicio[] {
+  // Se elimina el getter serviciosFiltrados porque el filtrado ahora lo hace el backend
+  /* get serviciosFiltrados(): Servicio[] {
     if (!this.terminoBusqueda.trim()) {
       return this.servicios;
     }
@@ -54,6 +55,11 @@ export class GestionServiciosComponent implements OnInit {
       servicio.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
       servicio.descripcion.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
     );
+  } */
+
+  // Este método se llamará cada vez que el término de búsqueda cambie
+  buscarServicios(): void {
+    this.cargarServicios();
   }
 
   agregarServicio(): void {
@@ -64,7 +70,7 @@ export class GestionServiciosComponent implements OnInit {
     this.router.navigate(['/admin/editar-servicio', idServicio]);
   }
 
-  eliminarServicio(servicio: Servicio): void {
+  eliminarServicio(servicio: any): void {
     this.servicioAEliminar = servicio;
     this.showConfirmDialog = true;
   }
@@ -74,10 +80,10 @@ export class GestionServiciosComponent implements OnInit {
 
     this.serviciosService.eliminarServicio(this.servicioAEliminar.id_servicio).subscribe({
       next: () => {
-        this.servicios = this.servicios.filter(s => s.id_servicio !== this.servicioAEliminar!.id_servicio);
         this.showNotificationMessage('success', 'Servicio eliminado', `El servicio "${this.servicioAEliminar!.nombre}" ha sido eliminado exitosamente.`);
         this.servicioAEliminar = null;
         this.showConfirmDialog = false;
+        this.cargarServicios();
       },
       error: (error: any) => {
         console.error('Error al eliminar servicio:', error);
@@ -92,9 +98,20 @@ export class GestionServiciosComponent implements OnInit {
     this.showConfirmDialog = false;
   }
 
-  verLocalesYProfesionales(servicio: Servicio): void {
-    // Implementar navegación a pantalla de locales y profesionales
-    console.log('Ver locales y profesionales para:', servicio.nombre);
+  verLocales(servicio: any): void {
+    console.log('Ver locales para servicio:', servicio.nombre);
+    // Navegar a la pantalla de locales, pasando el id del servicio
+    this.router.navigate(['/admin/locales', servicio.id_servicio]);
+  }
+
+  verProfesionales(servicio: Servicio): void {
+    this.router.navigate(['/admin/servicio', servicio.id_servicio, 'profesionales']);
+  }
+
+  verSesiones(servicio: any): void {
+    // Implementa la lógica para navegar a las sesiones de un servicio
+    console.log('Ver sesiones para servicio:', servicio.nombre);
+    // this.router.navigate(['/admin/sesiones', servicio.id_servicio]);
   }
 
   private showNotificationMessage(type: 'success' | 'error' | 'warning' | 'info', title: string, message: string): void {

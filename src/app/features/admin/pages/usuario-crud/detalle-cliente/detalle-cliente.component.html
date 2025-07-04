@@ -1,0 +1,93 @@
+<div class="container mt-4">
+  <div class="row g-3">
+
+    <div class="volver-container">
+  <button class="btn-volver-servicios" [routerLink]="['/admin/lista-cliente']">
+    ⬅  Volver
+  </button>
+</div>
+
+
+ <div *ngIf="cliente" class="card shadow p-4 mt-3">
+  <h4 class="mb-4">Detalle del Cliente</h4>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <strong>Tipo de Documento:</strong>
+      <p>{{ cliente.tipo_documento }}</p>
+    </div>
+    <div class="col-md-6">
+      <strong>Número de Documento:</strong>
+      <p>{{ cliente.num_doc }}</p>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <strong>Teléfono:</strong>
+      <p>{{ cliente.numero_telefono }}</p>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <strong>Dirección:</strong>
+    <p>{{ cliente.direccion }}</p>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <strong>Fecha de Nacimiento:</strong>
+      <p>{{ cliente.fecha_nac | date }}</p>
+    </div>
+    <div class="col-md-4">
+      <strong>Género:</strong>
+      <p>{{ cliente.genero }}</p>
+    </div>
+    <div class="col-md-2">
+      <strong>Talla (cm):</strong>
+      <p>{{ cliente.talla }}</p>
+    </div>
+    <div class="col-md-2">
+      <strong>Peso (kg):</strong>
+      <p>{{ cliente.peso }}</p>
+    </div>
+  </div>
+
+  <hr>
+  <h5 class="mt-4">Datos del Usuario</h5>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <strong>Nombre:</strong>
+      <p>{{ cliente.usuario?.nombre }}</p>
+    </div>
+    <div class="col-md-6">
+      <strong>Apellido:</strong>
+      <p>{{ cliente.usuario?.apellido }}</p>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <strong>Correo Electrónico:</strong>
+    <p>{{ cliente.usuario?.email }}</p>
+  </div>
+</div>
+
+<!-- O un indicador de carga si aún no se obtuvo -->
+<div *ngIf="!cliente" class="text-center mt-5">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="reserva-detalle-container">
+  <h2>Detalle Reserva</h2>
+  <div class="reserva-info">
+    <p><strong>Servicio:</strong> {{ reserva.nombre_servicio }}</p>
+    <p><strong>Fecha:</strong> {{ reserva.fecha }}</p>
+    <p><strong>Hora:</strong> {{ reserva.hora_inicio }} - {{ reserva.hora_fin }}</p>
+  </div>
+
+  <div class="cancelar-reserva">
+    <button (click)="confirmarCancelacion()">Cancelar Reserva</button>
+  </div>
+  
+  <div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+      <p>¿Estás seguro de cancelar la reserva?</p>
+      <button (click)="cancelarReserva()">Sí, cancelar</button>
+      <button (click)="cerrarModal()">No, regresar</button>
+    </div>
+  </div>
+</div>

@@ -42,8 +42,13 @@ export class ServiciosGestionService {
     });
   }
 
-  obtenerTodosLosServicios(): Observable<Servicio[]> {
-    return this.http.get<Servicio[]>(`${this.baseUrl}/services/servicios`, {
+  obtenerTodosLosServicios(query?: string): Observable<Servicio[]> {
+    let url = `${this.baseUrl}/services/servicios`;
+    if (query) {
+      url += `?q=${query}`;
+    }
+
+    return this.http.get<Servicio[]>(url, {
       headers: this.getAuthHeaders()
     }).pipe(
       map(servicios => servicios.map(servicio => ({

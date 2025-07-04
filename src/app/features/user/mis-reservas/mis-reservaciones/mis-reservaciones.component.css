@@ -1,0 +1,88 @@
+.calendar-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+}
+
+.calendar-week {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1; /* ocupará todo el espacio horizontal disponible */
+  min-width: 800px; /* o más si quieres más ancho */
+  max-width: 100%;
+}
+
+.week-header,
+.week-row {
+  display: flex;
+}
+
+.time-header {
+  width: 60px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.day-header,
+.week-cell {
+  flex: 1;
+  border: 1px solid #ccc;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 5px;
+}
+
+.week-cell.reserved {
+  background-color: #fdd;
+}
+
+.calendar-month {
+  min-width: 250px;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-cell {
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 60px;
+  position: relative;
+}
+
+.calendar-cell.reserved {
+  background-color: #c8e6c9;
+}
+
+
+.week-cell {
+  height: 50px; /* puedes subirlo a 60 o 70 si no se ve */
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  text-align: center;
+  padding: 2px;
+}
+
+.week-cell.reserved {
+  background-color: #c3f5d1; /* verde claro */
+  color: #000; /* asegúrate que el texto no sea blanco sobre fondo claro */
+  font-weight: 500;
+}
+
