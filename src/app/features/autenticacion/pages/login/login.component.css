@@ -106,3 +106,20 @@ input[type="password"] {
   border-radius: 4px;
   text-align: center;
 }
+.forgot-password-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.forgot-password-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.forgot-password-button:hover {
+  color: #0056b3;
+}

@@ -69,16 +69,14 @@
 
 
 
-      <button
+<button
   class="btn-acceder"
-  [disabled]="
-    comunidad.estado_membresia === 'congelado' ||
-    comunidad.estado_membresia === 'inactiva'
-  "
+  [disabled]="['congelado', 'inactiva'].includes(comunidad.estado_membresia)"
   (click)="redirigirSegunEstado(comunidad)"
 >
   ACCEDER
 </button>
+
 
 
     </div>

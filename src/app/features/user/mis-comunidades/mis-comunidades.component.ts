@@ -55,8 +55,9 @@ export class MisComunidadesComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/presentacion/inicio']);
   }
-  redirigirSegunEstado(comunidad: ComunidadContexto): void {
+redirigirSegunEstado(comunidad: ComunidadContexto): void {
   const estado = comunidad.estado_membresia?.toLowerCase();
+
   localStorage.setItem('comunidad_seleccionada', JSON.stringify(comunidad));
   localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString());
 
@@ -65,15 +66,17 @@ export class MisComunidadesComponent implements OnInit {
       this.router.navigate(['/user/homepage', comunidad.id_comunidad]);
       break;
     case 'pendiente de pago':
-      this.router.navigate(['/user/pagos', comunidad.id_comunidad]);
+      this.router.navigate(['/pago/plan']);
       break;
     case 'pendiente de plan':
-      this.router.navigate(['/user/planes', comunidad.id_comunidad]);
+      this.router.navigate(['/user/membresias']);
       break;
     case 'congelado':
-    case 'inactiva': // ⬅️ Aquí lo agregas
+    case 'inactiva':
+      // No redirige. Botón está desactivado en la vista.
+      break;
     default:
-      console.warn('Estado no permite redirección:', estado);
+      console.warn(`Estado de membresía desconocido: ${estado}`);
       break;
   }
 }

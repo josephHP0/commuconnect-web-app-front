@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { GeographyService } from '../../autenticacion/geography.service';
 
 @Component({
   selector: 'app-gestion-cuenta',
@@ -9,28 +10,41 @@ import { HttpClient } from '@angular/common/http';
 export class GestionCuentaComponent implements OnInit {
   editar: boolean = false;
 
-  usuario = {
-    nombre: '',
-    apellido: '',
-    email: '',
-    numero_telefono: '',
-    tipo_documento: '',
-    num_doc: '',
-    fecha_nac: '',
-    genero: '',
-    departamento: '', // nombre visible
-    id_departamento: 0, // ID para backend
-    distrito: '', // nombre visible
-    id_distrito: 0, // ID para backend
-    direccion: '',
-    peso: 0,
-    talla: 0
-  };
+usuario = {
+  nombre: '',
+  apellido: '',
+  email: '',
+  numero_telefono: '',
+  tipo_documento: '',
+  num_doc: '',
+  fecha_nac: '',
+  genero: '',
+  departamento: '',
+  id_departamento: 0,
+  distrito: '',
+  id_distrito: 0,
+  direccion: '',
+  peso: 0,
+  talla: 0,
+
+};
 
 
-  usuarioOriginal: any = {}; // ✅ Se agrega para usar en cancelar
+  usuarioOriginal: any = {};
+  departamentos: any[] = [];
+  distritos: any[] = [];
+get nombreDistritoSeleccionado(): string {
+  // Prioriza el nombre ya asignado desde el backend
+  if (this.usuario?.distrito) {
+    return this.usuario.distrito;
+  }
 
-  constructor(private http: HttpClient) {}
+  // Si no vino el nombre, busca en distritos cargados
+  const distrito = this.distritos.find(d => d.id_distrito === this.usuario?.id_distrito);
+  return distrito ? distrito.nombre : 'Sin distrito';
+}
+
+  constructor(private http: HttpClient, private geographyService: GeographyService) {}
 
   ngOnInit(): void {
     const idCliente = localStorage.getItem('id_cliente');
@@ -38,8 +52,6 @@ export class GestionCuentaComponent implements OnInit {
     if (idCliente) {
       this.http.get<any>(`http://localhost:8000/api/usuarios/cliente/id/${idCliente}`).subscribe({
         next: (data) => {
-          console.log('[DEBUG] Respuesta del backend:', data);
-
           this.usuario = {
             nombre: data.usuario?.nombre || '',
             apellido: data.usuario?.apellido || '',
@@ -58,9 +70,28 @@ export class GestionCuentaComponent implements OnInit {
             talla: data.talla || 0
           };
 
-
-          // ✅ Guardamos copia para restaurar si se cancela
           this.usuarioOriginal = JSON.parse(JSON.stringify(this.usuario));
+
+          // Cargar departamentos
+          this.geographyService.getDepartamentos().subscribe({
+            next: (departamentos) => {
+              this.departamentos = departamentos;
+
+              if (this.usuario.id_departamento) {
+                this.geographyService.getDistritos(this.usuario.id_departamento).subscribe({
+                  next: (distritos) => {
+                    this.distritos = distritos;
+
+                    // Mapear nombres visibles si no vinieron del backend
+                    const dep = this.departamentos.find(d => d.id === this.usuario.id_departamento);
+                    const dist = distritos.find(d => d.id === this.usuario.id_distrito);
+                    if (!this.usuario.departamento) this.usuario.departamento = dep?.nombre || '';
+                    if (!this.usuario.distrito) this.usuario.distrito = dist?.nombre || '';
+                  }
+                });
+              }
+            }
+          });
         },
         error: (err) => {
           console.error('❌ Error al cargar los datos del cliente:', err);
@@ -71,49 +102,95 @@ export class GestionCuentaComponent implements OnInit {
     }
   }
 
-  guardarCambios() {
-    const payload = {
-      numero_telefono: this.usuario.numero_telefono,
-      id_departamento: this.usuario.id_departamento,
-      id_distrito: this.usuario.id_distrito,
-      direccion: this.usuario.direccion,
-      genero: this.usuario.genero,
-      talla: Number(this.usuario.talla),
-      peso: Number(this.usuario.peso)
-    };
-
-
-    const tokenType = localStorage.getItem('token_type');
-    const accessToken = localStorage.getItem('access_token');
-    const headers = {
-      'Authorization': `${tokenType} ${accessToken}`
-    };
-
-    this.http.put('http://localhost:8000/api/usuarios/usuario/cliente/actualizar', payload, { headers }).subscribe({
-      next: (response) => {
-        console.log('✅ Datos actualizados correctamente:', response);
-        this.editar = false;
-        this.usuarioOriginal = JSON.parse(JSON.stringify(this.usuario)); // ✅ Actualiza el original después de guardar
-      },
-      error: (error) => {
-        console.error('❌ Error al actualizar datos:', error);
-      }
-    });
+  // Cargar distritos al cambiar departamento
+  onDepartamentoChange() {
+    const idDepartamento = this.usuario.id_departamento;
+    if (idDepartamento) {
+      this.geographyService.getDistritos(idDepartamento).subscribe({
+        next: (data) => this.distritos = data,
+        error: (err) => console.error('Error al obtener distritos:', err)
+      });
+    } else {
+      this.distritos = [];
+    }
   }
 
+  // Entrar en modo edición o guardar cambios
   onEditarGuardar() {
     if (this.editar) {
       this.guardarCambios();
     } else {
-      // Entra en modo edición, asegurando que usuarioOriginal tenga una copia reciente
       this.usuarioOriginal = JSON.parse(JSON.stringify(this.usuario));
+
+      this.geographyService.getDepartamentos().subscribe({
+        next: (data) => {
+          this.departamentos = data;
+
+          if (this.usuario.id_departamento) {
+            this.onDepartamentoChange();
+          }
+        },
+        error: (err) => console.error('Error al obtener departamentos:', err)
+      });
     }
 
     this.editar = !this.editar;
   }
 
+  // Cancelar la edición
   cancelarEdicion() {
     this.usuario = JSON.parse(JSON.stringify(this.usuarioOriginal));
     this.editar = false;
   }
+
+  // Guardar cambios al backend
+guardarCambios() {
+  const payloadOriginal = {
+    nombre: this.usuario.nombre || undefined,
+    apellido: this.usuario.apellido || undefined,
+    email: this.usuario.email || undefined,
+    tipo_documento: this.usuario.tipo_documento || undefined,
+    num_doc: this.usuario.num_doc || undefined,
+    numero_telefono: this.usuario.numero_telefono || undefined,
+    id_departamento: this.usuario.id_departamento || undefined,
+    id_distrito: this.usuario.id_distrito || undefined,
+    direccion: this.usuario.direccion || undefined,
+    fecha_nac: this.usuario.fecha_nac || undefined,
+    genero: this.usuario.genero || undefined,
+    talla: this.usuario.talla ? Number(this.usuario.talla) : undefined,
+    peso: this.usuario.peso ? Number(this.usuario.peso) : undefined
+  };
+
+  const payload = this.limpiarPayload(payloadOriginal);  // 💡 Aquí se genera el final
+  console.log('📦 Payload JSON final:', JSON.stringify(payload, null, 2));  // 💡 Ahora sí lo imprimes
+
+  const tokenType = localStorage.getItem('token_type');
+  const accessToken = localStorage.getItem('access_token');
+  const headers = {
+    'Authorization': `${tokenType} ${accessToken}`
+  };
+
+  this.http.put('http://localhost:8000/api/usuarios/usuario/cliente/actualizar', payload, { headers }).subscribe({
+    next: (response) => {
+      console.log('✅ Datos actualizados correctamente:', response);
+      this.editar = false;
+    },
+    error: (error) => {
+      console.error('❌ Error al actualizar datos:', error);
+      if (error.error?.detail) console.table(error.error.detail);  // muestra qué campo falta
+    }
+  });
+}
+
+
+limpiarPayload(payload: any) {
+  return Object.fromEntries(
+    Object.entries(payload).filter(([_, v]) => v !== undefined && v !== null && v !== '')
+  );
+}
+
+
+
+
+
 }

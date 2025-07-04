@@ -147,5 +147,13 @@ setEstadoLogin(estado: boolean): void {
   this.logueadoSubject.next(estado);
 }
 
-
+resetearContrasena(token: string, nuevaContrasena: string): Observable<{ exito: boolean, mensaje: string }> {
+    return this.http.post<{ exito: boolean, mensaje: string }>(
+      `${this.baseUrl}/reset-password/link`,
+      {
+        token,
+        nueva_contrasena: nuevaContrasena
+      }
+    );
+  }
 }
