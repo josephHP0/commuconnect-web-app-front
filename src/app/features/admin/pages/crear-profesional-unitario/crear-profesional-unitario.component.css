@@ -15,11 +15,18 @@
 }
 
 .formulario-header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 }
+
+.formulario-header h2 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 h2 {
   margin: 0;
