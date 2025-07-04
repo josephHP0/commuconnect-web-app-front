@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MembresiaxcomunidadService, PlanPorComunidad } from '../../services/membresiaxcomunidad.service';
 import Swal from 'sweetalert2';
 import { ComunidadxplanCreateComponent } from '../comunidadxplan-create/comunidadxplan-create.component';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-membresiaxcomunidad',
@@ -17,14 +17,24 @@ export class PlanesPorComunidadComponent implements OnInit {
   paginaActual = 1;
   entradasPorPagina = 4;
 
-  constructor(private planesService: MembresiaxcomunidadService,private router: Router) {}
+  constructor(
+    private planesService: MembresiaxcomunidadService,
+    private router: Router,
+    private route: ActivatedRoute
+    ) {}
 
-  ngOnInit(): void {
-    //this.idComunidad = Number(localStorage.getItem('id_comunidad'));
-    this.idComunidad = 1; // ID de comunidad temporal para pruebas
+ 
 
+ ngOnInit(): void {
+  this.route.params.subscribe(params => {
+    this.idComunidad = Number(params['id']) || 0;
+    console.log( this.idComunidad);
     this.cargarPlanes();
-  }
+  });
+}
+
+
+
 
   cargarPlanes(): void {
     this.planesService.obtenerPlanesPorComunidad(this.idComunidad).subscribe({
@@ -47,10 +57,8 @@ export class PlanesPorComunidadComponent implements OnInit {
     this.paginaActual = 1;
   }
 
-  abrirAgregarPlan(): void {
-    this.router.navigate(['/admin/comunidadxplan-create'], {
-      queryParams: { id_comunidad: this.idComunidad }
-    });
+  abrirAgregarPlan(id: number): void {
+     this.router.navigate(['/admin/comunidadxplan-create', id]);
   }
 
 

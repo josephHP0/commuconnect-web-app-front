@@ -24,11 +24,11 @@ export class ComunidadxplanCreateComponent implements OnInit {
   planesNoAsociados: PlanPorComunidad[] = [];
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.idComunidad = Number(params['id_comunidad']) || 0;
-      this.cargarPlanesNoAsociados();
-    });
-  }
+  this.route.params.subscribe(params => {
+    this.idComunidad = Number(params['id_comunidad']) || 0;
+    this.cargarPlanesNoAsociados();
+  });
+}
 
   cargarPlanesNoAsociados(): void {
     this.servicio.obtenerPlanesNoAsociados(this.idComunidad).subscribe({
@@ -79,6 +79,6 @@ export class ComunidadxplanCreateComponent implements OnInit {
 
 
   cancelar(): void {
-    this.router.navigate(['/membresiaxcomunidad']);
+    this.router.navigate(['/admin/lista-comunidad']);
   }
 }

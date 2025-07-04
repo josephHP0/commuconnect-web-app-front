@@ -2,7 +2,9 @@
   <h2>Planes: Mamás primerizas</h2>
   <div class="top-bar">
     <input type="text" placeholder="🔍 Buscar plan" [(ngModel)]="buscarTexto" (input)="aplicarFiltro()" />
-    <button (click)="abrirAgregarPlan()">+ Agregar Plan</button>
+    <button (click)="abrirAgregarPlan(idComunidad)">+ Agregar Plan</button>
+
+    
   </div>
 
   <table class="tabla-planes">

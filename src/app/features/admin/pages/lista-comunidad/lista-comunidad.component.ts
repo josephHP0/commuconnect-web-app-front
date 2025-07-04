@@ -72,10 +72,18 @@ verServicios(id: number): void {
   this.router.navigate(['/admin/servicios-por-comunidad', id]);
 }
 
-
-
-
-
+verPlanes(id: number): void {
+  this.router.navigate(['/admin/membresiaxcomunidad', id]);
+}
 
 
 }
+
+
+
+
+
+
+
+
+
