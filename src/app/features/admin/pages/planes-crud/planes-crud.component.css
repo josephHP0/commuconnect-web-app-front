@@ -169,9 +169,7 @@ tbody tr:nth-child(even) {
 }
 
 .acciones-menu {
-  position: absolute;
-  right: 0;
-  top: 32px;
+  position: fixed !important; /* Cambia a fixed */
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -180,7 +178,7 @@ tbody tr:nth-child(even) {
   padding: 0;
   margin: 0;
   min-width: 140px;
-  z-index: 10;
+  z-index: 2000; /* Asegura que esté por encima */
 }
 
 .acciones-menu li {
@@ -196,11 +194,12 @@ tbody tr:nth-child(even) {
 .modal-backdrop {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.18);
+  background: rgba(0,0,0,0.3);
   display: flex;
-  align-items: center;
+  align-items: center; /* <-- Cambia esto a center */
   justify-content: center;
   z-index: 1000;
+  overflow-y: auto;
 }
 
 .modal-confirmacion {
@@ -212,18 +211,73 @@ tbody tr:nth-child(even) {
   text-align: center;
 }
 
+.modal-editar-plan {
+  background: #fff;
+  padding: 1.2rem 1.2rem;
+  border-radius: 12px;
+  min-width: 400px;
+  max-width: 600px;
+  max-height: 90vh;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  overflow-y: auto;
+  margin-top: 60px;
+  font-size: 0.97rem;
+}
+
+.form-editar-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.form-editar-plan-dos-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.2rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.form-row label {
+  font-weight: 600;
+  font-size: 0.97rem;
+}
+
+.form-row input,
+.form-row textarea,
+.form-row select {
+  padding: 0.22rem 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.97rem;
+}
+
+.form-row textarea {
+  min-height: 38px;
+  resize: vertical;
+}
+
+.modal-titulo {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
 .modal-botones {
-  margin-top: 24px;
   display: flex;
   justify-content: center;
-  gap: 18px;
+  gap: 1rem;
+  margin-top: 1.2rem;
 }
 
 .modal-botones button {
-  padding: 8px 18px;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 0.97rem;
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -236,4 +290,47 @@ tbody tr:nth-child(even) {
 .modal-botones button:last-child {
   background: #e0e0e0;
   color: #222;
+}
+
+.btn-cancelar {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-guardar {
+  background: #ccc;
+  color: #222;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancelar:hover {
+  background: #c0392b;
+}
+
+.btn-guardar:hover {
+  background: #b2bec3;
+}
+
+.descripcion-row {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 700px) {
+  .modal-editar-plan {
+    min-width: 0;
+    max-width: 98vw;
+    padding: 0.7rem 0.2rem;
+  }
+  .form-editar-plan-dos-col {
+    grid-template-columns: 1fr;
+  }
 }
