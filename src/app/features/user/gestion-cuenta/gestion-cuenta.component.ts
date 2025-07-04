@@ -18,12 +18,15 @@ export class GestionCuentaComponent implements OnInit {
     num_doc: '',
     fecha_nac: '',
     genero: '',
-    departamento: '',
-    distrito: '',
+    departamento: '', // nombre visible
+    id_departamento: 0, // ID para backend
+    distrito: '', // nombre visible
+    id_distrito: 0, // ID para backend
     direccion: '',
     peso: 0,
     talla: 0
   };
+
 
   usuarioOriginal: any = {}; // ✅ Se agrega para usar en cancelar
 
@@ -46,12 +49,15 @@ export class GestionCuentaComponent implements OnInit {
             numero_telefono: data.numero_telefono || '',
             fecha_nac: data.fecha_nac ? data.fecha_nac.split('T')[0] : '',
             genero: data.genero || '',
-            departamento: data.id_departamento?.toString() || '',
-            distrito: data.id_distrito?.toString() || '',
+            id_departamento: data.id_departamento || 0,
+            departamento: data.departamento_nombre || '',
+            id_distrito: data.id_distrito || 0,
+            distrito: data.distrito_nombre || '',
             direccion: data.direccion || '',
             peso: data.peso || 0,
             talla: data.talla || 0
           };
+
 
           // ✅ Guardamos copia para restaurar si se cancela
           this.usuarioOriginal = JSON.parse(JSON.stringify(this.usuario));
@@ -68,13 +74,14 @@ export class GestionCuentaComponent implements OnInit {
   guardarCambios() {
     const payload = {
       numero_telefono: this.usuario.numero_telefono,
-      id_departamento: Number(this.usuario.departamento),
-      id_distrito: Number(this.usuario.distrito),
+      id_departamento: this.usuario.id_departamento,
+      id_distrito: this.usuario.id_distrito,
       direccion: this.usuario.direccion,
       genero: this.usuario.genero,
       talla: Number(this.usuario.talla),
       peso: Number(this.usuario.peso)
     };
+
 
     const tokenType = localStorage.getItem('token_type');
     const accessToken = localStorage.getItem('access_token');

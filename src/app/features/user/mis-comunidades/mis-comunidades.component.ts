@@ -16,36 +16,23 @@ export class MisComunidadesComponent implements OnInit {
     private comunidadService: ComunidadService,
     private router: Router
   ) {}
-/*
+
   ngOnInit(): void {
     this.comunidadService.obtenerComunidades().subscribe({
       next: (data) => {
-        this.comunidades = data;
-        this.comunidadesFiltradas = [...data];
+        this.comunidades = data.map(comunidad => ({
+          ...comunidad,
+          imagen: comunidad.imagen
+            ? `data:image/png;base64,${comunidad.imagen}`
+            : 'assets/imagen-por-defecto.png' // fallback
+        }));
+        this.comunidadesFiltradas = [...this.comunidades];
       },
       error: (error) => {
         console.error('Error al obtener comunidades:', error);
       }
     });
   }
-*/
-ngOnInit(): void {
-  this.comunidadService.obtenerComunidades().subscribe({
-    next: (data) => {
-      this.comunidades = data.map(comunidad => ({
-        ...comunidad,
-        imagen: comunidad.imagen
-          ? `data:image/png;base64,${comunidad.imagen}`
-          : 'assets/imagen-por-defecto.png' // fallback si está vacía
-      }));
-      this.comunidadesFiltradas = [...this.comunidades];
-    },
-    error: (error) => {
-      console.error('Error al obtener comunidades:', error);
-    }
-  });
-}
-
 
   filtrarComunidades(): void {
     const termino = this.busqueda.toLowerCase();
@@ -60,15 +47,36 @@ ngOnInit(): void {
 
   accederAComunidad(comunidad: ComunidadContexto): void {
     localStorage.setItem('comunidad_seleccionada', JSON.stringify(comunidad));
-    localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString()); 
+    localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString());
     this.router.navigate(['/user/homepage', comunidad.id_comunidad]);
   }
-  cerrarSesion() {
-    // Elimina cualquier dato de sesión que hayas almacenado
-    localStorage.clear(); // O sessionStorage.clear(), dependiendo de cómo lo manejes
-    //localStorage.removeItem('token');
 
-    // Redirige a la página de presentación
+  cerrarSesion(): void {
+    localStorage.clear();
     this.router.navigate(['/presentacion/inicio']);
   }
+  redirigirSegunEstado(comunidad: ComunidadContexto): void {
+  const estado = comunidad.estado_membresia?.toLowerCase();
+  localStorage.setItem('comunidad_seleccionada', JSON.stringify(comunidad));
+  localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString());
+
+  switch (estado) {
+    case 'activa':
+      this.router.navigate(['/user/homepage', comunidad.id_comunidad]);
+      break;
+    case 'pendiente de pago':
+      this.router.navigate(['/user/pagos', comunidad.id_comunidad]);
+      break;
+    case 'pendiente de plan':
+      this.router.navigate(['/user/planes', comunidad.id_comunidad]);
+      break;
+    case 'congelado':
+    case 'inactiva': // ⬅️ Aquí lo agregas
+    default:
+      console.warn('Estado no permite redirección:', estado);
+      break;
+  }
+}
+
+
 }
