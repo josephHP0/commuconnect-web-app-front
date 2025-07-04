@@ -44,6 +44,7 @@ ngOnInit(): void {
     const comunidad = JSON.parse(comunidadGuardada);
     const id = comunidad.id_comunidad;
     this.idComunidad=id;
+    console.log("traigo"+ id);
   }
 
   this.generateDaysInMonth();
@@ -85,7 +86,7 @@ nextMonth(): void {
   }
 
   loadReservations(): void {
-  const idComunidad = 3; // asegúrate que es dinámico si corresponde
+  //const idComunidad = 3; // asegúrate que es dinámico si corresponde
 
   const day = `${this.selectedDate.getDate()}`.padStart(2, '0');
 const month = `${this.selectedDate.getMonth() + 1}`.padStart(2, '0');

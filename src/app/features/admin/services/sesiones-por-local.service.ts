@@ -27,4 +27,21 @@ obtenerSesionesPresenciales(idLocal: number): Observable<any> {
 
   return this.http.get<any>(url, { headers });
 }
+///api/services/sesiones-presenciales/{id}/detalle
+
+obtenerDetalleSesion(idSesion: number): Observable<any> {
+
+  
+  const url = `${this.baseUrl}/services/sesiones-presenciales/${idSesion}/detalle`; // Ajusta si tu ruta es distinta
+  const tokenType = localStorage.getItem('token_type');
+  const accessToken = localStorage.getItem('access_token');
+
+  const headers = new HttpHeaders({
+    Authorization: `${tokenType} ${accessToken}`
+  });
+
+  return this.http.get<any>(url, { headers });
+}
+
+
 }

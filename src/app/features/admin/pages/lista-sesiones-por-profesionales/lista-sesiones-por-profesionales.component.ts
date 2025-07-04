@@ -43,6 +43,7 @@ sesionesFiltradas: any[] = []; // Después del filtro
     this.sesionesService.obtenerSesionesVirtuales(this.idProfesional).subscribe(
       (data) => {
         this.sesiones = data;
+        console.log(data);
         this.sesionesFiltradas = data;
         this.cambiarPagina(1);
       },
