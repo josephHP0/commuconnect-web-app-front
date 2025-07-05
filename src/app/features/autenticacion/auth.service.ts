@@ -89,7 +89,10 @@ export class AuthService {
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('token_type', response.token_type);
           localStorage.setItem('user_rol', response.user_rol);
-          localStorage.setItem('id_cliente', response.id_cliente.toString()); // ✅ IMPORTANTE
+         // localStorage.setItem('id_cliente', response.id_cliente.toString()); // ✅ IMPORTANTE
+          if (response.user_rol === 'Cliente' && response.id_cliente != null) {
+  localStorage.setItem('id_cliente', response.id_cliente.toString());
+}
           this.logueadoSubject.next(true); // 🔔 Notifica que está logueado
         })
       );
