@@ -1,19 +1,35 @@
-.card {
-  border: 1px solid #dee2e6;
-  border-radius: 0.375rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-}
-
-.card-header {
-  padding: 1rem 1.25rem;
+.contenido {
+  padding: 20px;
   background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  min-height: 100vh;
 }
 
-.card-title {
-  margin-bottom: 0;
-  font-size: 1.25rem;
-  font-weight: 500;
+.bloque-central {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.encabezado-servicios {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+.titulo-seccion {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.contenido-principal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 30px;
 }
 
 .form-group {
@@ -75,17 +91,51 @@
   height: 2rem;
 }
 
-.btn-group .btn {
-  margin-right: 0.25rem;
+.btn {
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-right: 0.75rem;
 }
 
-.btn-group .btn:last-child {
+.btn:last-child {
   margin-right: 0;
 }
 
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
 }
 
 .text-muted {
@@ -150,4 +200,53 @@ h5 {
 .fas {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+}
+
+.alert {
+  border-radius: 8px;
+  border: none;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.spinner-container {
+  padding: 40px;
+  text-align: center;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+
+.form-control-plaintext {
+  background-color: #f8f9fa;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  font-size: 0.875rem;
+  color: #495057;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
 } 
