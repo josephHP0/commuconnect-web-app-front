@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Para crear formularios reactivos
-import { Router } from '@angular/router'; // Para redireccionar al usuario
-import { AuthService } from '../../auth.service'; // Servicio de autenticación (registro, login, etc.)
-import { environment } from 'src/environments/environment'; // Para obtener la URL base del backend
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
+import { environment } from 'src/environments/environment';
+import { GeographyService } from '../../geography.service';
 
 @Component({
   selector: 'app-register',
@@ -10,35 +11,21 @@ import { environment } from 'src/environments/environment'; // Para obtener la U
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  apiUrl = environment.apiUrl; // URL base del backend desde environment.ts
-  registroForm: FormGroup; // El formulario reactivo
-  errorMessage: string = ''; // Para mostrar errores
-  successMessage: string = ''; // Para mostrar mensaje de éxito
+  apiUrl = environment.apiUrl;
+  registroForm: FormGroup;
+  errorMessage: string = '';
+  successMessage: string = '';
+
+  departamentos: any[] = [];
+  distritos: any[] = [];
 
   constructor(
-    private fb: FormBuilder, // Para crear el formulario
-    private authService: AuthService, // Servicio donde se hace la llamada HTTP
-    private router: Router // Para redirigir al usuario luego del registro
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private geographyService: GeographyService
   ) {
-  /*
     this.registroForm = this.fb.group({
-      nombres: ['', Validators.required],
-      apellidos: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', Validators.required],
-      repetirContrasena: ['', Validators.required],
-      fechaNacimiento: ['', Validators.required],
-      departamento: ['', Validators.required],
-      ciudad: ['', Validators.required],
-      direccion: ['', Validators.required],
-      telefono: ['', Validators.required],
-      genero: ['', Validators.required],
-      peso: ['', Validators.required],
-      talla: ['', Validators.required]
-    });
-*/
-
-this.registroForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -47,60 +34,56 @@ this.registroForm = this.fb.group({
       password: ['', Validators.required],
       repetir_password: ['', Validators.required],
       fecha_nac: ['', Validators.required],
-      id_departamento: [''],
-      id_distrito: [''],
+      id_departamento: ['', Validators.required],
+      id_distrito: ['', Validators.required],
       direccion: [''],
       numero_telefono: ['', Validators.required],
       genero: [''],
       peso: [''],
       talla: [''],
     });
+
+    // Cargar departamentos al iniciar
+    this.geographyService.getDepartamentos().subscribe({
+      next: (data) => this.departamentos = data,
+      error: (err) => console.error('Error al obtener departamentos', err)
+    });
+
+    // Cargar distritos cuando se seleccione un departamento
+    this.registroForm.get('id_departamento')?.valueChanges.subscribe((id: number) => {
+      if (id) {
+        this.geographyService.getDistritos(id).subscribe({
+          next: (data) => this.distritos = data,
+          error: (err) => console.error('Error al obtener distritos', err)
+        });
+      } else {
+        this.distritos = [];
+        this.registroForm.patchValue({ id_distrito: '' });
+      }
+    });
   }
 
-  // Método que se ejecuta al enviar el formulario
-    onSubmit() {
+  onSubmit() {
+    Object.keys(this.registroForm.controls).forEach(key => {
+      const control = this.registroForm.get(key);
+      if (control?.invalid) {
+        console.log(`Campo inválido: ${key}`, control.errors);
+      }
+    });
 
-//debugger;
-
-
-Object.keys(this.registroForm.controls).forEach(key => {
-  const control = this.registroForm.get(key);
-  if (control?.invalid) {
-    console.log(`Campo inválido: ${key}`, control.errors);
-  }
-
-});
-
-
-
-
-
-
-
-
-
-
-
- if (this.registroForm.invalid) {
-    this.registroForm.markAllAsTouched(); // 👈 Marca todos los campos como tocados
-    this.errorMessage = 'Por favor, completa todos los campos requeridos.';
-    return;
-  }
-/*
     if (this.registroForm.invalid) {
+      this.registroForm.markAllAsTouched();
       this.errorMessage = 'Por favor, completa todos los campos requeridos.';
       return;
     }
-*/
+
     const formValues = this.registroForm.value;
 
-    // Validar que las contraseñas coincidan
     if (formValues.password !== formValues.repetir_password) {
       this.errorMessage = 'Las contraseñas no coinciden.';
       return;
     }
 
-    // Validar fecha de nacimiento coherente y mayor de edad
     const fechaNac = new Date(formValues.fecha_nac);
     const hoy = new Date();
     const edadMinima = 18;
@@ -125,11 +108,7 @@ Object.keys(this.registroForm.controls).forEach(key => {
       return;
     }
 
-    // Validar número de teléfono peruano (+51 y 9 dígitos)
-    let telefono = formValues.numero_telefono;
-    // Remover espacios, guiones u otros caracteres para validar solo números
-    telefono = telefono.replace(/[\s\-]/g, '');
-    // Permitir que ingrese con o sin +51, normalizamos
+    let telefono = formValues.numero_telefono.replace(/[\s\-]/g, '');
     if (telefono.startsWith('+51')) {
       telefono = telefono.slice(3);
     }
@@ -138,60 +117,41 @@ Object.keys(this.registroForm.controls).forEach(key => {
       return;
     }
 
-    /*
-    const peso = parseFloat(formValues.peso);
-    if (isNaN(peso) || peso < 30 || peso > 300) {
-      this.errorMessage = 'Ingresa un peso válido entre 30 y 300 kg.';
-      return;
+    let peso: number | null = null;
+    let talla: number | null = null;
+
+    if (formValues.peso) {
+      peso = parseInt(formValues.peso, 10);
+      if (isNaN(peso) || peso < 30 || peso > 300) {
+        this.errorMessage = 'Ingresa un peso válido entre 30 y 300 kg.';
+        return;
+      }
     }
 
-
-    const talla = parseFloat(formValues.talla);
-    if (isNaN(talla) || talla > 2.5 || talla < 0.5) {
-      this.errorMessage = 'Ingresa una talla válida entre 0.5 y 2.5 metros.';
-      return;
+    if (formValues.talla) {
+      talla = parseInt(formValues.talla, 10);
+      if (isNaN(talla) || talla < 50 || talla > 250) {
+        this.errorMessage = 'Ingresa una talla válida entre 50 y 250 cm.';
+        return;
+      }
     }
-*/
 
-let peso: number | null = null;
-let talla: number | null = null;
-
-if (formValues.peso) {
-  peso = parseInt(formValues.peso, 10);
-  if (isNaN(peso) || peso < 30 || peso > 300) {
-    this.errorMessage = 'Ingresa un peso válido entre 30 y 300 kg.';
-    return;
-  }
-}
-
-if (formValues.talla) {
-  talla = parseInt(formValues.talla, 10);
-  if (isNaN(talla) || talla < 50 || talla > 250) {
-    this.errorMessage = 'Ingresa una talla válida entre 50 y 250 cm.';
-    return;
-  }
-}
-
-
-    // Si pasa todas las validaciones, se construye el requestBody y se envía
-  const requestBody = {
-    nombre: formValues.nombre,
-    apellido: formValues.apellido,
-    email: formValues.email,
-    tipo_documento: formValues.tipo_documento,
-    num_doc: formValues.num_doc,
-    password: formValues.password,
-    fecha_nac: formValues.fecha_nac,
-    numero_telefono: formValues.numero_telefono,
-
-    id_departamento: formValues.id_departamento ? parseInt(formValues.id_departamento) : 1,
-    id_distrito: formValues.id_distrito ? parseInt(formValues.id_distrito) : 1,
-
-    direccion: formValues.direccion?.trim() || "",
-    genero: formValues.genero?.trim() || "",
-    peso: peso ?? 0,
-    talla: talla ?? 0
-  };
+    const requestBody = {
+      nombre: formValues.nombre,
+      apellido: formValues.apellido,
+      email: formValues.email,
+      tipo_documento: formValues.tipo_documento,
+      num_doc: formValues.num_doc,
+      password: formValues.password,
+      fecha_nac: formValues.fecha_nac,
+      numero_telefono: formValues.numero_telefono,
+      id_departamento: parseInt(formValues.id_departamento),
+      id_distrito: parseInt(formValues.id_distrito),
+      direccion: formValues.direccion?.trim() || "",
+      genero: formValues.genero?.trim() || "",
+      peso: peso ?? 0,
+      talla: talla ?? 0
+    };
 
     this.authService.register(requestBody).subscribe({
       next: (res) => {

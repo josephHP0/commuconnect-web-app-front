@@ -31,6 +31,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 // Importamos el adaptador de `date-fns` correctamente desde `angular-calendar`
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
+import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.component';
+import { HistorialPagosComponent } from './membresias/pages/historial-pagos/historial-pagos.component';
 
 const calendarConfig = CalendarModule.forRoot({
   provide: DateAdapter,
@@ -38,8 +40,6 @@ const calendarConfig = CalendarModule.forRoot({
 });
 
 
-
-import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.component';
 
 
 @NgModule({
@@ -59,7 +59,9 @@ import { GestionCuentaComponent } from './gestion-cuenta/gestion-cuenta.componen
     CompletarFormularioComponent,
     MisReservacionesComponent,
     ReservaDetalleComponent,
-    GestionCuentaComponent
+    GestionCuentaComponent,
+    HistorialPagosComponent
+
   ],
   imports: [
     CommonModule,

@@ -1,66 +1,48 @@
-
-
 <nav class="sidebar-container">
-
-
   <ul class="sidebar-menu">
 
-
-    <li class="sidebar-item">
+    <!-- Mi Comunidad (solo si hay comunidadSeleccionada) -->
+    <li class="sidebar-item" *ngIf="comunidadSeleccionada">
       <a class="sidebar-link" [routerLink]="['/user/homepage', comunidadSeleccionada.id_comunidad]">
-
-       <i class="bi bi-globe2 me-2"></i>
+        <i class="bi bi-globe2 me-2"></i>
         <span>Mi Comunidad</span>
       </a>
     </li>
 
-
-  <li class="sidebar-item">
-      <a href="#" class="sidebar-link" [routerLink]="['membresias']">
+    <!-- Membresías -->
+    <li class="sidebar-item">
+      <a class="sidebar-link" [routerLink]="['/user/membresias']">
         <i class="bi bi-bag-fill me-2"></i>
         <span>Membresías</span>
       </a>
-  </li>
+    </li>
 
+    <!-- Servicios y Horarios -->
+    <li class="sidebar-item">
+      <a class="sidebar-link" (click)="verificarSiPuedeAccederAServicios()">
+        <i class="bi bi-grid-fill me-2"></i>
+        <span>Servicios y Horarios</span>
+      </a>
+    </li>
 
+    <!-- Alerta si no hay topes disponibles -->
+    <div
+      *ngIf="mostrarAlerta"
+      class="alert alert-warning alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow"
+      role="alert"
+      style="z-index: 1055; width: 90%; max-width: 600px;"
+    >
+      <strong>Lo sentimos</strong>, las reservas han sido agotadas.
+      <button type="button" class="btn-close" aria-label="Close" (click)="cerrarAlerta()"></button>
+    </div>
 
-
-<li class="sidebar-item">
-  <a class="sidebar-link" (click)="verificarSiPuedeAccederAServicios()">
-    <i class="bi bi-grid-fill me-2"></i>
-    <span>Servicios y Horarios</span>
-  </a>
-</li>
-
-<div
-  *ngIf="mostrarAlerta"
-  class="alert alert-warning alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow"
-  role="alert"
-  style="z-index: 1055; width: 90%; max-width: 600px;"
->
-  <strong>Lo sentimos</strong>, las reservas han sido agotadas.
-  <button type="button" class="btn-close" aria-label="Close" (click)="cerrarAlerta()"></button>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-  <li class="sidebar-item">
-    <a class="sidebar-link" routerLink="/user/mis-reservas" routerLinkActive="active">
-       <i class="bi bi-calendar-check me-2"></i>
-      <span>Mis Reservas</span>
-    </a>
-  </li>
+    <!-- Mis Reservas -->
+    <li class="sidebar-item">
+      <a class="sidebar-link" [routerLink]="['/user/mis-reservas']" routerLinkActive="active">
+        <i class="bi bi-calendar-check me-2"></i>
+        <span>Mis Reservas</span>
+      </a>
+    </li>
 
   </ul>
-
 </nav>
-

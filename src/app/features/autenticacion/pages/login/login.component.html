@@ -4,7 +4,6 @@
       <img src="assets/logo_monkey_fit.png" alt="img-foto" />
     </div>
     <button class="primary-button" routerLink="/presentacion/inicio">Ir a Página Principal</button>
-
   </header>
 
   <main class="login-main">
@@ -41,13 +40,17 @@
           </div>
           <button class="submit-button" type="submit">Ingresar</button>
         </form>
+
         <div *ngIf="errorMessage" class="alerta-error">
-           {{ errorMessage }}
+          {{ errorMessage }}
         </div>
 
-
-       
-        
+        <!-- Botón de recuperación de contraseña -->
+        <div class="forgot-password-container">
+          <button class="forgot-password-button" routerLink="/autenticacion/reset-password">
+            ¿Ha olvidado su contraseña?
+          </button>
+        </div>
       </div>
     </div>
   </main>
