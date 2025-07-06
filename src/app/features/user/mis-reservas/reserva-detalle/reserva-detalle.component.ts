@@ -35,6 +35,7 @@ export class ReservaDetalleComponent implements OnInit {
       this.reserva = response;
 
       console.log('Id: ', this.reserva.id_sesion);
+      console.log(response);
 
       // Validamos que el responsable y nombre_local tengan valores
       if (!this.reserva.responsable) {
@@ -68,31 +69,46 @@ export class ReservaDetalleComponent implements OnInit {
     this.showModal = false;
   }
 
+  
+
   cancelarReserva(): void {
-    const token = localStorage.getItem('auth_token'); // Obtener el token desde el almacenamiento local (o sessionStorage)
+  const token = localStorage.getItem('auth_token');
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'  // El encabezado adecuado para datos JSON
-    });
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
 
-    // Solicitud PATCH para cancelar la reserva
-    this.http.patch(
-      `${environment.apiUrl}/reservations/${this.reserva.id_reserva}/cancel`,
-      {},  // Puedes dejarlo vacío o agregar datos si es necesario
-      { headers: headers }
-    ).subscribe(
-      response => {
-        this.showModal = false;
-        this.showConfirmationMessage = true;
-        this.showGoToCalendarButton = true;
-      },
-      error => {
-        console.error('Error al cancelar la reserva:', error);
-        console.log('Detalles del error:', error.error);  // Esto te dará información detallada
-      }
-    );
+  // Determinar el endpoint correcto según el tipo de sesión
+  let endpoint = `${environment.apiUrl}/reservations/${this.reserva.id_reserva}/cancel`;
+
+  if (this.reserva.tipo_sesion === 'Virtual') {
+    endpoint = `${environment.apiUrl}/reservations/${this.reserva.id_reserva}/cancel-virtual`;
   }
+
+  
+
+  this.http.patch(endpoint, {}, { headers }).subscribe(
+    response => {
+      this.showModal = false;
+      this.showConfirmationMessage = true;
+      this.showGoToCalendarButton = true;
+    },
+    error => {
+      console.error('Error al cancelar la reserva:', error);
+      this.showModal = false;
+
+      if (error.error?.detail) {
+        alert(`Error: ${error.error.detail}`);
+      } else {
+        alert('Ocurrió un error inesperado al cancelar la reserva.');
+      }
+
+      this.isLoading = false;
+    }
+  );
+}
+
 
   goToCalendar(): void {
     this.router.navigate(['/user/mis-reservas']);
