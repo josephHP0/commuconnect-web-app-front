@@ -42,7 +42,8 @@ export class NuevaReservaVirtualComponent {
       return;
     }
   
-    this.reservaConfirmada = sesion;
+    this.reservaConfirmada=sesion;
+    console.log(this.reservaConfirmada);
   }
 
 
@@ -80,6 +81,8 @@ export class NuevaReservaVirtualComponent {
           this.router.navigate(['/user/seleccionar-servicio']);
         }
       });
+    }else{
+      console.log("no procede");
     }
   }
 

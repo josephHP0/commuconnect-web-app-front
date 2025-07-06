@@ -1,5 +1,3 @@
-
-
 <nav class="sidebar-container">
 
 
@@ -52,7 +50,16 @@
   </a>
   <ul *ngIf="membresiasSubmenuOpen" class="sidebar-submenu ps-4">
     <li>
-      <a routerLink="/admin/suspensiones" class="sidebar-link">Solicitudes de suspensión</a>
+
+      <a routerLink="/admin/suspensiones" class="sidebar-link" routerLinkActive="active">
+        Solicitudes de suspensión
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/gestion-planes" class="sidebar-link" routerLinkActive="active">
+        Gestión de Planes
+      </a>
+
     </li>
   </ul>
 </li>

@@ -54,18 +54,31 @@
       </ul>
 
       <p
-        class="estado"
-        [ngClass]="{
-          'activa': comunidad.estado_membresia === 'activa',
-          'inactiva': comunidad.estado_membresia === 'inactiva'
-        }"
-      >
-        {{ comunidad.estado_membresia | uppercase }}
-      </p>
+  class="estado"
+  [ngClass]="{
+    'congelado': comunidad.estado_membresia === 'congelado',
+    'inactiva': comunidad.estado_membresia === 'inactiva',
+    'activa': comunidad.estado_membresia === 'activa',
+    'pendiente-plan': comunidad.estado_membresia === 'pendiente de plan',
+    'pendiente-pago': comunidad.estado_membresia === 'pendiente de pago'
+  }"
+>
+  {{ comunidad.estado_membresia.toUpperCase() }}
+</p>
 
-      <button class="btn-acceder" (click)="accederAComunidad(comunidad)">
-        ACCEDER
-      </button>
+
+
+
+<button
+  class="btn-acceder"
+  [disabled]="['congelado', 'inactiva'].includes(comunidad.estado_membresia)"
+  (click)="redirigirSegunEstado(comunidad)"
+>
+  ACCEDER
+</button>
+
+
+
     </div>
   </div>
 </div>

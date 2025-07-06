@@ -26,12 +26,15 @@ profesionalesFiltrados: any[] = [];   // Después del filtro
   ) {}
 
   ngOnInit(): void {
-    this.idServicio = Number(this.route.snapshot.paramMap.get('id'));
-    this.profesionalesService.getProfesionalesPorServicio(this.idServicio)
-      .subscribe(data => {
-        this.profesionales = data;
-        this.filtrarProfesionales();
-      });
+    this.route.paramMap.subscribe(params => {
+      this.idServicio = Number(params.get('id'));
+      this.profesionalesService.getProfesionalesPorServicio(this.idServicio)
+        .subscribe(data => {
+          console.log('Profesionales recibidos:', data); // <-- Agrega esto
+          this.profesionales = data;
+          this.filtrarProfesionales();
+        });
+    });
   }
 
  get totalPages(): number {

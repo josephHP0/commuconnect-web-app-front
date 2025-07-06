@@ -147,6 +147,13 @@ export class LocalesComponent implements OnInit {
     alert(`Funcionalidad "Ver sesiones" para el local "${local.nombre}" será implementada próximamente.`);
   }
 
+
+
+
+
+
+  
+
   editarLocal(local: LocalOut): void {
     this.cerrarTodosLosMenus(); // Cerrar todos los menús
     console.log('Editar local:', local);
@@ -208,6 +215,7 @@ Modificado por: ${local.modificado_por || 'No especificado'}
     console.log('Crear nuevo local para servicio:', this.idServicio);
     // TODO: Implementar navegación a creación de local
     alert('Funcionalidad "Crear Local" será implementada próximamente.');
+    this.router.navigate(['/admin/crear-local-unitario']);
   }
 
   volver(): void {

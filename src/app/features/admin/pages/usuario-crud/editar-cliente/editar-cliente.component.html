@@ -1,0 +1,99 @@
+<div class="container mt-4">
+  <div class="row g-3">
+ <div class="volver-container">
+  <button class="btn-volver-servicios" [routerLink]="['/admin/lista-cliente']">
+    ⬅  Volver
+  </button>
+</div>
+
+<form (ngSubmit)="guardarCambios()" *ngIf="cliente">
+  <div class="card shadow p-4 mt-3">
+    <h4 class="mb-4">Editar Cliente</h4>
+
+    <div class="row mb-3">
+      
+
+
+    <div class="col-md-6">
+        <label><strong>Tipo de Documento:</strong></label>
+        <select class="form-select" [(ngModel)]="cliente.tipo_documento" name="tipo_documento">
+          <option value="DNI">DNI</option>
+          <option value="CE">CE</option>
+        </select>
+      </div>
+
+
+
+      <div class="col-md-6">
+        <label><strong>Número de Documento:</strong></label>
+        <input class="form-control" type="text" [(ngModel)]="cliente.num_doc" name="num_doc">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label><strong>Teléfono:</strong></label>
+        <input class="form-control" type="text" [(ngModel)]="cliente.numero_telefono" name="numero_telefono">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label><strong>Dirección:</strong></label>
+      <input class="form-control" type="text" [(ngModel)]="cliente.direccion" name="direccion">
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label><strong>Fecha de Nacimiento:</strong></label>
+        <input class="form-control" type="date" [(ngModel)]="cliente.fecha_nac" name="fecha_nac">
+      </div>
+      <div class="col-md-4">
+        <label><strong>Género:</strong></label>
+        <select class="form-select" [(ngModel)]="cliente.genero" name="genero">
+          <option value="Femenino">Femenino</option>
+          <option value="Masculino">Masculino</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label><strong>Talla (cm):</strong></label>
+        <input class="form-control" type="number" [(ngModel)]="cliente.talla" name="talla">
+      </div>
+      <div class="col-md-2">
+        <label><strong>Peso (kg):</strong></label>
+        <input class="form-control" type="number" [(ngModel)]="cliente.peso" name="peso">
+      </div>
+    </div>
+
+    <hr>
+    <h5 class="mt-4">Datos del Usuario</h5>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label><strong>Nombre:</strong></label>
+        <input class="form-control" type="text" [(ngModel)]="cliente.usuario.nombre" name="nombre">
+      </div>
+      <div class="col-md-6">
+        <label><strong>Apellido:</strong></label>
+        <input class="form-control" type="text" [(ngModel)]="cliente.usuario.apellido" name="apellido">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label><strong>Correo Electrónico:</strong></label>
+      <input class="form-control" type="email" [(ngModel)]="cliente.usuario.email" name="email">
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
+
+   
+
+    
+
+  </div>
+</form>
+
+
+
+
+  </div>
+</div>

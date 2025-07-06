@@ -6,67 +6,107 @@
     <div class="bloque-central">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="titulo-comunidad">Datos del usuario</h2>
-        <button class="btn btn-success" (click)="editar = !editar">{{ editar ? 'Guardar' : 'Editar ✎' }}</button>
+        <div>
+          <button class="btn btn-success me-2" (click)="onEditarGuardar()">
+            {{ editar ? 'Guardar' : 'Editar ✎' }}
+          </button>
+          <button *ngIf="editar" class="btn btn-secondary" (click)="cancelarEdicion()">
+            Cancelar
+          </button>
+        </div>
       </div>
 
       <form *ngIf="usuario" (ngSubmit)="guardarCambios()" #form="ngForm">
         <div class="row">
+
+          <!-- Campos NO editables -->
           <div class="col-md-6 mb-3">
             <label>Nombres</label>
-            <input class="form-control" [(ngModel)]="usuario.nombre" name="nombre" [readonly]="!editar" required />
+            <input class="form-control bg-light" [(ngModel)]="usuario.nombre" name="nombre" [readonly]="true" />
           </div>
           <div class="col-md-6 mb-3">
             <label>Apellidos</label>
-            <input class="form-control" [(ngModel)]="usuario.apellido" name="apellido" [readonly]="!editar" required />
+            <input class="form-control bg-light" [(ngModel)]="usuario.apellido" name="apellido" [readonly]="true" />
           </div>
           <div class="col-md-6 mb-3">
             <label>Correo Electrónico</label>
-            <input class="form-control" [(ngModel)]="usuario.email" name="email" [readonly]="!editar" required type="email" />
+            <input class="form-control bg-light" [(ngModel)]="usuario.email" name="email" [readonly]="true" type="email" />
           </div>
           <div class="col-md-6 mb-3">
             <label>Tipo de documento</label>
-            <input class="form-control" [(ngModel)]="usuario.tipo_documento" name="tipo_documento" [readonly]="!editar" />
+            <input class="form-control bg-light" [(ngModel)]="usuario.tipo_documento" name="tipo_documento" [readonly]="true" />
           </div>
           <div class="col-md-6 mb-3">
             <label>Número de documento</label>
-            <input class="form-control" [(ngModel)]="usuario.num_doc" name="num_doc" [readonly]="!editar" />
+            <input class="form-control bg-light" [(ngModel)]="usuario.num_doc" name="num_doc" [readonly]="true" />
           </div>
           <div class="col-md-6 mb-3">
             <label>Fecha de nacimiento</label>
-            <input class="form-control" [(ngModel)]="usuario.fecha_nac" name="fecha_nac" [readonly]="!editar" type="date" />
+            <input class="form-control bg-light" [(ngModel)]="usuario.fecha_nac" name="fecha_nac" [readonly]="true" type="date" />
           </div>
+
+          <!-- Campos editables -->
           <div class="col-md-6 mb-3">
             <label>Número de Teléfono</label>
             <input class="form-control" [(ngModel)]="usuario.numero_telefono" name="numero_telefono" [readonly]="!editar" />
           </div>
+
+          <!-- Departamento -->
           <div class="col-md-6 mb-3">
-            <label>Departamento</label>
-            <input class="form-control" [(ngModel)]="usuario.departamento" name="departamento" [readonly]="!editar" />
+            <label for="departamento">Departamento</label>
+            <select class="form-control"
+                    id="departamento"
+                    name="departamento"
+                    [disabled]="!editar"
+                    [(ngModel)]="usuario.id_departamento"
+                    (change)="onDepartamentoChange()">
+              <option *ngFor="let dep of departamentos" [value]="dep.id_departamento">
+                {{ dep.nombre }}
+              </option>
+            </select>
           </div>
+
+          <!-- Distrito -->
           <div class="col-md-6 mb-3">
-            <label>Distrito</label>
-            <input class="form-control" [(ngModel)]="usuario.distrito" name="distrito" [readonly]="!editar" />
+            <label for="distrito">Distrito</label>
+            <ng-container *ngIf="editar; else textoDistrito">
+              <select class="form-control"
+                      id="distrito"
+                      name="distrito"
+                      [(ngModel)]="usuario.id_distrito">
+                <option *ngFor="let dist of distritos" [value]="dist.id_distrito">
+                  {{ dist.nombre }}
+                </option>
+              </select>
+            </ng-container>
+            <ng-template #textoDistrito>
+              <input class="form-control bg-light"
+              [value]="nombreDistritoSeleccionado"
+              readonly />
+
+            </ng-template>
           </div>
+
           <div class="col-md-6 mb-3">
             <label>Dirección domiciliaria</label>
             <input class="form-control" [(ngModel)]="usuario.direccion" name="direccion" [readonly]="!editar" />
           </div>
+
           <div class="col-md-6 mb-3">
             <label>Peso (Kg)</label>
             <input class="form-control" [(ngModel)]="usuario.peso" name="peso" [readonly]="!editar" type="number" />
           </div>
+
           <div class="col-md-6 mb-3">
             <label>Talla (CM)</label>
             <input class="form-control" [(ngModel)]="usuario.talla" name="talla" [readonly]="!editar" type="number" />
           </div>
+
           <div class="col-md-6 mb-3">
             <label>Género</label>
             <input class="form-control" [(ngModel)]="usuario.genero" name="genero" [readonly]="!editar" />
           </div>
-        </div>
 
-        <div *ngIf="editar" class="text-end">
-          <button class="btn btn-primary" type="submit">Guardar Cambios</button>
         </div>
       </form>
     </div>
