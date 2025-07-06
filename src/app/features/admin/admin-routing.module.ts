@@ -10,6 +10,13 @@ import { NuevoServicioPorComunidadComponent } from './pages/nuevo-servicio-por-c
 import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-cliente-masivo/cargar-cliente-masivo.component';
 import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
 import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
+
+import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membresiaxcomunidad.component';
+import { ComunidadxplanCreateComponent } from './pages/comunidadxplan-create/comunidadxplan-create.component';
+import { CrearClienteUnitarioComponent } from './pages/usuario-crud/crear-cliente-unitario/crear-cliente-unitario.component';
+import { CrearProfesionalUnitarioComponent } from './pages/crear-profesional-unitario/crear-profesional-unitario.component';
+import { CrearLocalUnitarioComponent } from './pages/crear-local-unitario/crear-local-unitario.component';
+
 import { LocalesComponent } from './pages/locales/locales.component';
 import { CargarLocalesMasivoComponent } from './pages/cargar-locales-masivo/cargar-locales-masivo.component';
 import { CargarSesionesMasivoPresencialComponent } from './pages/cargar-sesiones-masivo/cargar-sesiones-masivo-presencial.component';
@@ -18,6 +25,7 @@ import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servic
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
 import { ListaSesionesPorProfesionalesComponent } from './pages/lista-sesiones-por-profesionales/lista-sesiones-por-profesionales.component';
 import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por-profesional/detalle-sesion-por-profesional.component';
+
 
 import {DetalleClienteComponent} from './pages/usuario-crud/detalle-cliente/detalle-cliente.component';
 import {EditarClienteComponent} from './pages/usuario-crud/editar-cliente/editar-cliente.component';
@@ -42,6 +50,13 @@ const routes: Routes = [
       { path: 'gestion-servicios', component: GestionServiciosComponent },
       { path: 'crear-servicio', component: CrearServicioComponent },
       { path: 'editar-servicio/:id', component: CrearServicioComponent },
+      { path: 'membresiaxcomunidad/:id', component: PlanesPorComunidadComponent },
+      { path: 'comunidadxplan-create/:id', component: ComunidadxplanCreateComponent},
+      { path: 'crear-cliente-unitario', component: CrearClienteUnitarioComponent},
+      { path: 'crear-profesional-unitario', component: CrearProfesionalUnitarioComponent},
+      { path: 'crear-local-unitario', component: CrearLocalUnitarioComponent},
+      // otras rutas como dashboard, usuarios, etc.
+
       { path: 'locales/:id', component: LocalesComponent },
       { path: 'cargar-locales-masivo/:id', component: CargarLocalesMasivoComponent },
       { path: 'cargar-sesiones-masivo/:id', component: CargarSesionesMasivoPresencialComponent },
@@ -58,6 +73,7 @@ const routes: Routes = [
       },
       {path:'lista-sesiones-por-local/:id',component:ListaSesionesPorLocalComponent},
       {path:'detalle-sesion-por-local/:id',component:DetalleSesionPorLocalComponent}
+
 
     ]
   }

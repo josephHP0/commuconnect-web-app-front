@@ -39,10 +39,16 @@ export class LoginComponent {
 
        // Caso exitoso: el servidor respondió con credenciales válidas
       next: (response) => {
+         console.log('Rol recibido del backend:', response.user_rol);
         // Autenticación exitosa
         localStorage.setItem('access_token', response.access_token);
         localStorage.setItem('token_type', response.token_type);
         localStorage.setItem('user_rol', response.user_rol);
+       if (response.user_rol === 'Cliente' && response.id_cliente) {
+    localStorage.setItem('id_cliente', response.id_cliente.toString());
+  }
+
+
         this.isAuthenticated = true; // Establece isAuthenticated a true
         this.errorMessage = ''; // Limpia cualquier mensaje de error previo
 

@@ -1,0 +1,98 @@
+.crear-usuario-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.crear-usuario-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.btn-volver {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #3aaf5c;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.crear-usuario-header h2 {
+  font-size: 24px;
+  color: #3aaf5c;
+  margin: 0 auto;
+  text-align: center;
+  flex: 1;
+}
+
+.crear-usuario-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-grupo {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-grupo label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #3aaf5c;
+  box-shadow: 0 0 0 2px rgba(58, 175, 92, 0.2);
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-cancelar,
+.btn-guardar {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background-color: #ddd;
+  color: #333;
+}
+
+.btn-guardar {
+  background-color: #3aaf5c;
+  color: white;
+}
+
+
+

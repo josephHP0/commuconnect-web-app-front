@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 @NgModule({
   declarations: [
     AutenticacionComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

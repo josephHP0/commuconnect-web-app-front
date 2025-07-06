@@ -1,0 +1,77 @@
+.modal-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.titulo {
+  text-align: center;
+  color: #2e7d32;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.buscador {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.buscador input {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+.tabla-planes {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.tabla-planes th,
+.tabla-planes td {
+  text-align: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.tabla-planes th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+}
+
+.botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-cancelar {
+  background-color: #e53935;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-agregar {
+  background-color: #43a047;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-agregar:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}

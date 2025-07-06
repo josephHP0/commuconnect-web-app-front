@@ -37,6 +37,7 @@ export class ListaSesionesPorLocalComponent implements OnInit{
     this.sesionesService.obtenerSesionesPresenciales(this.idLocal).subscribe(
       (data) => {
         this.sesiones = data;
+        console.log(data);
         this.sesionesFiltradas = data;
         this.cambiarPagina(1);
       },

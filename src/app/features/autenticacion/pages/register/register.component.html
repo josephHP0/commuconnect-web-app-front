@@ -83,36 +83,24 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group">
-          <label>Departamento:</label>
-          <select formControlName="id_departamento">
-            <option value="">Selecciona</option>
-            <option value="1">Amazonas</option>
-            <option value="2">Áncash</option>
-            <option value="3">Apurímac</option>
-            <option value="4">Arequipa</option>
-            <option value="5">Ayacucho</option>
-            <option value="6">Cajamarca</option>
-            <option value="7">Cusco</option>
-            <option value="8">Huancavelica</option>
-            <option value="9">Huánuco</option>
-            <option value="10">Ica</option>
-            <option value="11">Junín</option>
-            <option value="12">La Libertad</option>
-            <option value="13">Lambayeque</option>
-            <option value="14">Lima</option>
-          </select>
-        </div>
+<!-- Departamento -->
+<div class="form-group">
+  <label>Departamento:</label>
+  <select formControlName="id_departamento">
+    <option value="">Selecciona</option>
+    <option *ngFor="let dep of departamentos" [value]="dep.id_departamento">{{ dep.nombre }}</option>
+  </select>
+</div>
 
-        <div class="form-group">
-          <label>Distrito:</label>
-          <select formControlName="id_distrito">
-            <option value="">Selecciona</option>
-            <option value="1">Ancón</option>
-            <option value="2">Ate</option>
-            <option value="3">Barranco</option>
-          </select>
-        </div>
+<!-- Distrito -->
+<div class="form-group">
+  <label>Distrito:</label>
+  <select formControlName="id_distrito" [disabled]="!distritos.length">
+    <option value="">Selecciona</option>
+    <option *ngFor="let dis of distritos" [value]="dis.id_distrito">{{ dis.nombre }}</option>
+  </select>
+</div>
+
       </div>
 
       <div class="form-group">

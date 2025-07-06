@@ -21,6 +21,14 @@ import { CargarClienteMasivoComponent } from './pages/usuario-crud/cargar-client
 import { GestionServiciosComponent } from './pages/gestion-servicios/gestion-servicios.component';
 import { CrearServicioComponent } from './pages/crear-servicio/crear-servicio.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { PlanesPorComunidadComponent } from './pages/membresiaxcomunidad/membresiaxcomunidad.component';
+import { ComunidadxplanCreateComponent } from './pages/comunidadxplan-create/comunidadxplan-create.component';
+import { CrearClienteUnitarioComponent } from './pages/usuario-crud/crear-cliente-unitario/crear-cliente-unitario.component';
+import { CrearProfesionalUnitarioComponent } from './pages/crear-profesional-unitario/crear-profesional-unitario.component';
+import { CrearLocalUnitarioComponent } from './pages/crear-local-unitario/crear-local-unitario.component';
+
+
 import { ProfesionalesServicioComponent } from './pages/profesionales-servicio/profesionales-servicio.component';
 import { CargarProfesionalesMasivoComponent } from './pages/profesionales-servicio/cargar-profesionales-masivo/cargar-profesionales-masivo.component';
 import { CargarSesionesMasivoComponent } from './pages/profesionales-servicio/cargar-sesiones-masivo/cargar-sesiones-masivo.component';
@@ -37,6 +45,7 @@ import { ListaSesionesPorLocalComponent } from './pages/lista-sesiones-por-local
 import { DetalleSesionPorLocalComponent } from './pages/detalle-sesion-por-local/detalle-sesion-por-local.component';
 
 
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -49,6 +58,13 @@ import { DetalleSesionPorLocalComponent } from './pages/detalle-sesion-por-local
     CargarClienteMasivoComponent,
     GestionServiciosComponent,
     CrearServicioComponent,
+
+    PlanesPorComunidadComponent,
+    ComunidadxplanCreateComponent,
+    CrearClienteUnitarioComponent,
+    CrearProfesionalUnitarioComponent,
+    CrearLocalUnitarioComponent,
+
     ProfesionalesServicioComponent,
     CargarProfesionalesMasivoComponent,
     CargarSesionesMasivoComponent,
@@ -65,6 +81,7 @@ import { DetalleSesionPorLocalComponent } from './pages/detalle-sesion-por-local
   ],
   imports: [
     CommonModule,
+    FormsModule,
     AdminRoutingModule,
     AdminLayoutModule,
     FormsModule,

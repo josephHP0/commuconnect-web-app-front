@@ -140,6 +140,9 @@ export class MembresiasComponent {
   }
 
 
+verHistorialPagos(): void {
+  this.router.navigate(['/user/historial-pagos']);
+}
 
 
 }

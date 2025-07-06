@@ -34,6 +34,8 @@ export class ReservaDetalleComponent implements OnInit {
     this.http.get<any>(url).subscribe(response => {
       this.reserva = response;
 
+      console.log('Id: ', this.reserva.id_sesion);
+
       // Validamos que el responsable y nombre_local tengan valores
       if (!this.reserva.responsable) {
         this.reserva.responsable = 'Por definir'; // Si no hay responsable, asignamos un valor por defecto
@@ -97,7 +99,8 @@ export class ReservaDetalleComponent implements OnInit {
   }
 
   cargarFormulario(): void {
-    const idReserva = this.reserva.id_reserva;
+    const idReserva = this.reserva.id_sesion;
+    console.log('Id: ', this.reserva.id_sesion);
     this.router.navigate([`/user/completar-formulario/${idReserva}`]);
   }
 }

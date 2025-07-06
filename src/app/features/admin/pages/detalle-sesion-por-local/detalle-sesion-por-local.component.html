@@ -14,7 +14,7 @@
 
 
 
-  <!--
+  
   <div class="card mb-4">
     <div class="card-body">
       <h5 class="card-title">{{ sesion?.descripcion }}</h5>
@@ -25,17 +25,16 @@
 
   <div class="card mb-4">
     <div class="card-body">
-      <h5 class="card-title">Profesional Asignado</h5>
-      <p><strong>Nombre:</strong> {{ sesion?.profesional?.nombre }} {{ sesion?.profesional?.apellido }}</p>
-      <p><strong>Email:</strong> {{ sesion?.profesional?.email }}</p>
+      <h5 class="card-title">Local Asignado</h5>
+      <p><strong>Nombre:</strong> {{ sesion?.local?.nombre }}</p>
+      <p><strong>Direccion:</strong> {{ sesion?.local?.direccion_detallada }}</p>
     </div>
   </div>
 
--->
 
 
 
-<!--
+
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">Inscritos</h5>
@@ -45,7 +44,7 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Comunidad</th>
-            <th>Entregó Archivo</th>
+            
           </tr>
       </thead>
         <tbody>
@@ -53,7 +52,7 @@
             <td>{{ inscrito.nombre }}</td>
             <td>{{ inscrito.apellido }}</td>
             <td>{{ inscrito.comunidad }}</td>
-            <td>{{ inscrito.entrego_archivo ? 'Sí' : 'No' }}</td>
+           
           </tr>
         </tbody>
       </table>
@@ -62,7 +61,7 @@
   </div>
 
 
--->
+
 
 
 </div>
