@@ -1,36 +1,47 @@
 .carousel-wrapper {
   position: relative;
-  max-width: 900px;
-  margin: auto;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: visible; /* Esto permite que las flechas se salgan sin cortarse */
 }
 
 .carousel {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  gap: 1rem;
+  height: 300px;
+  perspective: 1000px;
 }
 
 .carousel-card {
-  flex: 0 0 300px;
-  opacity: 0.3;
-  transform: scale(0.85);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  position: absolute;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  z-index: 1;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
+.carousel-card.center {
+  z-index: 10;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Estilo de imagen fijo, sin deformaciones */
+.carousel-card img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover; /* mantiene el aspecto sin deformar */
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.6s ease;
+}
 .carousel-card.active {
   opacity: 1;
   transform: scale(1.1);
   z-index: 2;
-}
-
-.carousel-card img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .arrow {
@@ -47,10 +58,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  z-index: 5;
+  z-index: 9999; /* Asegura que esté al frente de todo */
   transition: background 0.3s, transform 0.2s;
+  opacity: 1;
+  visibility: visible;
 }
 
 .arrow:hover {
@@ -60,17 +73,28 @@
 }
 
 .arrow-left {
-  left: -60px;
+  left: -150px; /* NO usar -60px porque queda fuera del área visible */
+  top: 150px;
 }
 
 .arrow-right {
-  right: -60px;
+  right: -150px;
+  top: 150px;
 }
 
+
 @media (max-width: 768px) {
-  .arrow-left { left: 10px; }
-  .arrow-right { right: 10px; }
-  .carousel-card { flex: 0 0 250px; }
+  .arrow-left {
+    left: 10px;
+  }
+
+  .arrow-right {
+    right: 10px;
+  }
+
+  .carousel-card {
+    flex: 0 0 250px;
+  }
 }
 
 .bg-footer-custom {
@@ -79,6 +103,7 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
 .btn-sesion {
   background-color: white;
   color: #4CAF50;

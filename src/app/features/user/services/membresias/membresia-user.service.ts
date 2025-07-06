@@ -46,6 +46,8 @@ export class MembresiaUserService {
   pagarMembresia(idComunidad: number) {
     return this.http.post(`${this.baseUrl}/billing/comunidades/${idComunidad}/pagar`, {});
   }
+  
+
 
 
 

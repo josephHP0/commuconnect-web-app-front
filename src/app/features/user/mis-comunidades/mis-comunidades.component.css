@@ -1,11 +1,19 @@
+/* Fondo con overlay */
+body, .fondo-comunidades {
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/assets/tu-imagen-fondo.jpg') center/cover no-repeat;
+  min-height: 100vh;
+}
+
 /* ENCABEZADO */
 .encabezado {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
-  padding: 0.5rem 2rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.95);
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 1.2rem 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .logo {
@@ -65,13 +73,24 @@
   flex-wrap: wrap;
 }
 
-.comunidad-card {
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  width: 260px;
+/* Tarjetas de comunidad */
+.tarjeta-comunidad {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  margin: 1rem;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
+}
+
+.tarjeta-comunidad:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.22);
 }
 
 .icono-mas {
@@ -90,6 +109,15 @@
   font-weight: bold;
 }
 
+/* Imagen/logo de la comunidad */
+.tarjeta-comunidad img {
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
 .imagen-comunidad {
   width: 100%;
   height: 140px;
@@ -101,6 +129,19 @@
 .nombre-comunidad {
   font-size: 1.4rem;
   color: #2c3e50;
+}
+
+/* Descripción truncada */
+.descripcion-comunidad {
+  color: #444;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Número de líneas a mostrar */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.7em;
 }
 
 .servicios {
@@ -119,42 +160,15 @@
   cursor: pointer;
   font-weight: bold;
 }
-.boton-anadir {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  border: 2px solid #4CAF50;
-  border-radius: 50%;
-  width: 64px;
-  height: 64px;
-  cursor: pointer;
-  align-self: flex-start;
-  margin-right: 1rem;
-  transition: transform 0.2s ease;
-  margin-block: auto;
-}
 
-.boton-anadir:hover {
-  transform: scale(1.1);
-}
-
-.boton-anadir img {
-  width: 24px;
-  height: 24px;
-}
-.activa {
-  color: green;
-  font-weight: bold;
-}
-
-.inactiva {
-  color: gray;
-  font-weight: bold;
-}
+/* Estado */
 .estado {
   font-weight: bold;
   margin-top: 10px;
+  border-radius: 8px;
+  padding: 0.2em 0.7em;
+  font-size: 0.95em;
+  display: inline-block;
 }
 
 .estado.congelado {
@@ -163,15 +177,100 @@
 
 .estado.activa {
   color: green;
+  background: #e8f5e9;
+  color: #43a047;
 }
 
 .estado.pendiente-plan {
   color: orange;
+  background: #fff3e0;
+  color: #fb8c00;
 }
 
 .estado.pendiente-pago {
   color: red;
+  background: #ffebee;
+  color: #e53935;
 }
+
 .estado.inactiva {
   color: darkgray;
+}
+
+/* Contenedor de tarjetas */
+.contenedor-tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Botón añadir */
+.boton-anadir {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #43a047 60%, #388e3c 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  align-self: flex-start;
+  margin-right: 1rem;
+  transition: transform 0.2s ease;
+  margin-block: auto;
+}
+
+.boton-anadir:hover {
+  background: linear-gradient(135deg, #388e3c 60%, #43a047 100%);
+  transform: scale(1.1);
+}
+
+.boton-anadir img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Estilos para el modal de descripción */
+.modal-descripcion {
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-contenido {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 18px;
+  max-width: 400px;
+  width: 90vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  text-align: center;
+}
+.cerrar {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  font-size: 2rem;
+  color: #888;
+  cursor: pointer;
+}
+.btn-ver-mas {
+  background: none;
+  border: none;
+  color: #1976d2;
+  cursor: pointer;
+  font-size: 0.95em;
+  margin-bottom: 0.5em;
+  text-decoration: underline;
+  padding: 0;
 }

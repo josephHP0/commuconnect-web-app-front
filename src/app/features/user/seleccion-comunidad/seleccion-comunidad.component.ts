@@ -152,6 +152,26 @@ export class SeleccionComunidadComponent implements OnInit {
     // Redirige a la página de presentación
     this.router.navigate(['/presentacion/inicio']);
   }
+  getTransform(i: number): string {
+    const total = this.comunidadesFiltradas.length;
+    const offset = i - this.currentIndex;
+
+    // Para que rote circularmente
+    const relativeIndex = (offset + total) % total;
+
+    // Máximo 5 elementos visibles (2 a cada lado del centro)
+    const maxVisible = 2;
+    const distance = relativeIndex > total / 2 ? relativeIndex - total : relativeIndex;
+
+    if (Math.abs(distance) > maxVisible) {
+      return 'scale(0) translateX(0)';
+    }
+
+    const scale = 1 - Math.abs(distance) * 0.2;
+    const translateX = distance * 200;
+
+    return `translateX(${translateX}px) scale(${scale})`;
+  }
 
 }
 

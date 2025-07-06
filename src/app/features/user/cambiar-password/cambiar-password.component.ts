@@ -14,18 +14,21 @@ export class CambiarPasswordComponent {
   success: string = '';
   cargando = false;
 
+  mostrarActual: boolean = false;
+  mostrarNueva: boolean = false;
+  mostrarRepetir: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private cambiarPasswordService: CambiarPasswordService
   ) {
     this.form = this.fb.group({
       actual: ['', Validators.required],
-      nueva: ['', Validators.required],
-      repetir: ['', Validators.required]
+      nueva: ['', [Validators.required, Validators.minLength(8)]],
+      repetir: ['', [Validators.required, Validators.minLength(8)]]
     }, { validators: [this.validarNoIgual(), this.validarCoincidencia()] });
   }
 
-  // Validación personalizada: nueva ≠ actual
   validarNoIgual() {
     return (form: FormGroup) => {
       const actual = form.get('actual')?.value;
@@ -37,7 +40,6 @@ export class CambiarPasswordComponent {
     };
   }
 
-  // Validación personalizada: nueva === repetir
   validarCoincidencia() {
     return (form: FormGroup) => {
       const nueva = form.get('nueva')?.value;
@@ -47,6 +49,18 @@ export class CambiarPasswordComponent {
       }
       return null;
     };
+  }
+
+  toggleMostrarActual() {
+    this.mostrarActual = !this.mostrarActual;
+  }
+
+  toggleMostrarNueva() {
+    this.mostrarNueva = !this.mostrarNueva;
+  }
+
+  toggleMostrarRepetir() {
+    this.mostrarRepetir = !this.mostrarRepetir;
   }
 
   onSubmit() {
@@ -69,5 +83,5 @@ export class CambiarPasswordComponent {
           this.error = err?.error?.detail || 'Error al cambiar la contraseña';
         }
       });
-  }  
+  }
 }

@@ -22,7 +22,7 @@
         <tr *ngFor="let plan of pagedPlanes; let i = index">
           <td>{{ plan.titulo }}</td>
           <td>{{ plan.duracion }}</td>
-          <td>{{ plan.topes || '-' }}</td>
+          <td>{{ plan.topes == null || plan.topes === -1 ? 'Ilimitado' : plan.topes }}</td>
           <td>S/. {{ plan.precio }}</td>
           <td>
             <span
@@ -145,7 +145,7 @@
         </div>
         <div class="form-row">
           <label><b>Topes:</b></label>
-          <input type="number" [(ngModel)]="nuevoPlan.topes" name="topes" required />
+          <input type="number" [(ngModel)]="nuevoPlan.topes" name="topes" />
         </div>
         <div class="form-row">
           <label><b>Precio:</b></label>
@@ -182,7 +182,7 @@
         </div>
         <div class="form-row">
           <label><b>Topes:</b></label>
-          <input type="number" [value]="planDetalle?.topes" disabled />
+          <input type="number" [value]="planDetalle?.topes == null || planDetalle?.topes === -1 ? 'Ilimitado' : planDetalle?.topes" disabled />
         </div>
         <div class="form-row">
           <label><b>Precio:</b></label>
