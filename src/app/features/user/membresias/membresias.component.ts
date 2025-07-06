@@ -52,12 +52,26 @@ export class MembresiasComponent {
   }
 
 
-  esMembresiaActiva(estado: number | undefined): string {
-    if (estado === 1) {
-      return 'Activo';
+  obtenerEstadoClase(estado?: number): string {
+    switch (estado) {
+      case 0: return 'congelado';
+      case 1: return 'activa';
+      case 2: return 'pendiente-plan';
+      case 3: return 'pendiente-pago';
+      default: return 'desconocido';
     }
-    return 'Inactivo';
   }
+
+  obtenerEstadoTexto(estado?: number): string {
+    switch (estado) {
+      case 0: return 'Congelado';
+      case 1: return 'Activa';
+      case 2: return 'Pendiente de plan';
+      case 3: return 'Pendiente de pago';
+      default: return 'Desconocido';
+    }
+  }
+
 
   esProximoAVencer(fechaFinIso?: string | null): boolean {
   if (!fechaFinIso) return false;
@@ -89,21 +103,29 @@ export class MembresiasComponent {
   pagarMembresia(): void {
     const idComunidad = this.idComunidadSeleccionada;
 
-    if (this.infoInscripcion?.estado === 3 && idComunidad) {
-      this.membresiaService.pagarMembresia(idComunidad).subscribe({
-        next: (res) => {
-          Swal.fire('✅ Membresía activada', 'Tu membresía ha sido reactivada con éxito.', 'success');
-          this.ngOnInit(); // para refrescar el estado en pantalla
-        },
-        error: (err) => {
-          console.error('❌ Error al pagar membresía:', err);
-          Swal.fire('Error', err?.error?.detail || 'Ocurrió un error al activar la membresía.', 'error');
-        }
-      });
-    } else {
-      Swal.fire('Atención', 'Solo puedes pagar si la membresía está pendiente de pago.', 'info');
+    if (this.infoInscripcion?.estado !== 3) {
+      Swal.fire('Atención', 'Solo puedes reactivar si la membresía está pendiente de pago.', 'info');
+      return;
     }
+
+    const idInscripcion = this.infoInscripcion.id_inscripcion;
+
+    this.membresiaService.reactivarMembresia(idInscripcion).subscribe({
+      next: (res) => {
+        Swal.fire('Listo', 'Membresía reactivada exitosamente', 'success');
+        this.infoInscripcion!.estado = 1; // actualizar localmente
+      },
+      error: (err) => {
+        console.error('❌ Error al reactivar:', err);
+        Swal.fire('Error', err.error?.detail || 'No se pudo reactivar la membresía.', 'error');
+      }
+    });
   }
+
+
+
+
+
 
 
 

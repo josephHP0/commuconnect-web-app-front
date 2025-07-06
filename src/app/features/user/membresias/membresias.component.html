@@ -21,8 +21,12 @@
       </p>
 
       <p class="estado">
-        Estado: <span class="activo">{{ esMembresiaActiva(infoInscripcion?.estado) }}</span>
+        Estado: 
+        <span [ngClass]="obtenerEstadoClase(infoInscripcion?.estado)">
+          {{ obtenerEstadoTexto(infoInscripcion?.estado).toUpperCase() }}
+        </span>
       </p>
+
 
 
       <div class="acciones">

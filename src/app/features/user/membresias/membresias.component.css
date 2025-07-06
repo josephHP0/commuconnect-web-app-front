@@ -137,3 +137,14 @@
   max-width: 350px;
   height: auto;
 }
+.estado span {
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 6px;
+  color:#333;
+  display: inline-block;
+  margin-left: 5px;
+  text-transform: uppercase;
+}
+
+
