@@ -39,14 +39,14 @@
         <!-- Modalidad -->
         <div class="campo-formulario">
           <label class="label-formulario">Modalidad</label>
-          <div class="radio-group">
+          <div class="radio-group" [class.disabled]="modoEdicion || cargando || guardando">
             <label class="radio-option">
               <input 
                 type="radio" 
                 name="modalidad" 
                 value="Presencial"
                 [(ngModel)]="modalidad"
-                [disabled]="cargando || guardando"
+                [disabled]="modoEdicion || cargando || guardando"
               >
               <span class="radio-custom"></span>
               Presencial
@@ -57,7 +57,7 @@
                 name="modalidad" 
                 value="Virtual"
                 [(ngModel)]="modalidad"
-                [disabled]="cargando || guardando"
+                [disabled]="modoEdicion || cargando || guardando"
               >
               <span class="radio-custom"></span>
               Virtual
@@ -163,4 +163,4 @@
   [show]="showNotification"
   [data]="notificationData"
   (close)="onNotificationClose()"
-></app-notification> 
+></app-notification>

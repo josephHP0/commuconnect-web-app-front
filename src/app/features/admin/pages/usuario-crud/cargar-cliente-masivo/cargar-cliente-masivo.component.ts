@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { HttpClient } from '@angular/common/http';
 import { UsuariosService } from '../../../services/usuarios.service';
@@ -27,6 +27,7 @@ export interface ClienteExcel {
   styleUrls: ['./cargar-cliente-masivo.component.css']
 })
 export class CargarClienteMasivoComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   archivoSeleccionado: File | null = null;
   excelData: any[] = [];
   excelHeaders: string[] = [];
@@ -236,28 +237,28 @@ export class CargarClienteMasivoComponent {
     this.usuarioService.cargarMasivamente(this.archivoSeleccionado).subscribe({
       next: (response) => {
         this.procesando = false;
-        console.log('✅ Respuesta del servidor:', response);
-        
         const { insertados, omitidos, errores } = response.resumen;
-        
-        let mensaje = `Se procesaron ${insertados + omitidos} registros. `;
-        mensaje += `${insertados} insertados correctamente.`;
-        
-        if (omitidos > 0) {
-          mensaje += ` ${omitidos} omitidos (duplicados o datos faltantes).`;
-        }
-        
-        if (errores.length > 0) {
-          mensaje += ` ${errores.length} errores encontrados.`;
-          console.warn('Errores encontrados:', errores);
-        }
-        
+
+        let mensaje = `
+          <div>
+            <div>Se procesaron ${insertados + omitidos} registros.</div>
+            <div>${insertados} insertados correctamente.</div>
+            ${omitidos > 0 ? `<div>${omitidos} omitidos (duplicados o datos faltantes).</div>` : ''}
+            ${errores && errores.length > 0 ? `
+              <div><b>Errores:</b></div>
+              <ul>
+                ${errores.map((e: string) => `<li>${e}</li>`).join('')}
+              </ul>
+            ` : ''}
+          </div>
+        `;
+
         this.showNotificationMessage(
           insertados > 0 ? 'success' : 'warning',
           insertados > 0 ? '¡Carga completada!' : 'Carga con problemas',
           mensaje
         );
-        
+
         if (insertados > 0) {
           this.limpiarFormulario();
         }
@@ -290,6 +291,10 @@ export class CargarClienteMasivoComponent {
     this.archivoSeleccionado = null;
     this.excelData = [];
     this.excelHeaders = [];
+    // Limpia el input de archivo para permitir volver a seleccionar el mismo archivo
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
   }
 
   private showNotificationMessage(type: 'success' | 'error' | 'warning' | 'info', title: string, message: string): void {

@@ -26,7 +26,13 @@ export class PlanesCrudComponent implements OnInit {
   planAEditar: Plan | null = null;
 
   mostrarModalCrear = false;
-  nuevoPlan = {
+  nuevoPlan: { 
+    titulo: string; 
+    descripcion: string; 
+    duracion: number | null; 
+    topes: number | null; 
+    precio: number | null; 
+  } = {
     titulo: '',
     descripcion: '',
     duracion: null,
@@ -171,23 +177,17 @@ export class PlanesCrudComponent implements OnInit {
   }
 
   crearPlan() {
-    // Validación simple
-    if (
-      !this.nuevoPlan.titulo ||
-      !this.nuevoPlan.descripcion ||
-      this.nuevoPlan.duracion == null ||
-      this.nuevoPlan.topes == null ||
-      this.nuevoPlan.precio == null
-    ) {
-      alert('Completa todos los campos');
-      return;
+    let topesAEnviar = this.nuevoPlan.topes;
+    // Si el campo está vacío o es null/undefined, envía -1
+    if (topesAEnviar === null || topesAEnviar === undefined) {
+      topesAEnviar = -1;
     }
 
     this.planesService.crearPlan({
       titulo: this.nuevoPlan.titulo,
       descripcion: this.nuevoPlan.descripcion,
       duracion: Number(this.nuevoPlan.duracion),
-      topes: Number(this.nuevoPlan.topes),
+      topes: Number(topesAEnviar),
       precio: Number(this.nuevoPlan.precio)
     }).subscribe({
       next: (planCreado) => {
