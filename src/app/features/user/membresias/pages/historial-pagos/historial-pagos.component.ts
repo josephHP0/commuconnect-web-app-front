@@ -24,9 +24,11 @@ export class HistorialPagosComponent implements OnInit {
 
   abrirModal(id: number): void {
     this.http.get(`/api/billing/inscripcion/${id}/detalle`).subscribe((detalle: any) => {
+      console.log('DETALLE:', detalle);
       this.detallePago = detalle;
     });
   }
+
 
   cerrarModal(): void {
     this.detallePago = null;
