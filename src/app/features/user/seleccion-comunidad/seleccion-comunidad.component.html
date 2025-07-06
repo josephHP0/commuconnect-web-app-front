@@ -47,26 +47,29 @@
         <p class="mb-4">Conecta con personas afines y vive experiencias únicas.</p>
 
         <div class="carousel-wrapper">
+
+          <!-- Flechas ahora están FUERA del div.carousel -->
           <button class="arrow arrow-left" (click)="prevSlide()">&#10094;</button>
 
           <div class="carousel">
             <div *ngFor="let community of comunidadesFiltradas; let i = index"
-              class="carousel-card"
-              [class.active]="i === currentIndex">
+                class="carousel-card"
+                [class.center]="i === currentIndex"
+                [style.transform]="getTransform(i)">
               <img [src]="'data:image/png;base64,' + community.imagen" [alt]="community.nombre">
             </div>
           </div>
 
           <button class="arrow arrow-right" (click)="nextSlide()">&#10095;</button>
 
+          <!-- Info comunidad -->
           <div class="text-center mt-4">
             <h2 class="fw-bold">{{ currentCommunity?.nombre }}</h2>
             <p class="text-muted">{{ currentCommunity?.slogan }}</p>
             <button class="btn btn-primary" (click)="unirse()">Unirme</button>
-
-
           </div>
         </div>
+
 
         <p class="mt-3 text-muted">
           Al registrarte, aceptas los <a href="#">Términos del Servicio</a> y la

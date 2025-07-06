@@ -108,6 +108,54 @@
   transform: translate(-50%, -50%);
 }
 
+/* Más notorio para radio deshabilitado */
+.radio-group[aria-disabled="true"],
+.radio-group.disabled,
+.radio-option input[disabled] + .radio-custom,
+.radio-option input[disabled] ~ span,
+.radio-option input[disabled] {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+  filter: grayscale(80%);
+}
+
+.radio-option input[disabled] + .radio-custom {
+  background-color: #f0f0f0 !important;
+  border-color: #bbb !important;
+}
+
+.radio-option input[disabled] ~ span,
+.radio-option input[disabled] ~ label {
+  color: #bbb !important;
+}
+
+/* Opcional: deshabilita el grupo completo visualmente */
+.campo-formulario .radio-group.disabled {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+/* Estilo visual para radio deshabilitado */
+.radio-option input[disabled] + .radio-custom,
+.radio-option input[disabled] ~ span,
+.radio-option input[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radio-option[disabled],
+.radio-option input[disabled] + span,
+.radio-option input[disabled] ~ label {
+  pointer-events: none;
+}
+
+/* Opcional: también puedes afectar el texto */
+.radio-option input[disabled] ~ span,
+.radio-option input[disabled] ~ label {
+  color: #aaa;
+}
+
 /* Zona de subida de archivos */
 .texto-ayuda {
   font-size: 12px;
@@ -324,4 +372,4 @@
     flex-direction: column;
     gap: 15px;
   }
-} 
+}
