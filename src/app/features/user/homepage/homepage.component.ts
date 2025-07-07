@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComunidadService, ComunidadContexto } from '../services/comunidad.service';
+import { ViewChild, ElementRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-homepage',
@@ -9,11 +11,9 @@ import { ComunidadService, ComunidadContexto } from '../services/comunidad.servi
 export class HomepageComponent implements OnInit {
   comunidad: ComunidadContexto | null = null;
   topesDisponibles: number = 0;
-
-
   tieneTopes: boolean = false;
 
-
+   @ViewChild('carrusel', { static: false }) carrusel!: ElementRef<HTMLDivElement>;
 
 
   constructor(private comunidadService: ComunidadService) {}
@@ -52,14 +52,21 @@ export class HomepageComponent implements OnInit {
         });
       }
     });
-
-
- 
-    
-
-   
-
   }
 }
+
+  scrollServicios(direction: number) {
+    const el = this.carrusel.nativeElement;
+    const scrollAmount = 240; // Ajusta según el ancho de tus tarjetas
+    el.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  }
+
+
+  servicioSeleccionado: any = null;
+
+seleccionarServicio(servicio: any) {
+  this.servicioSeleccionado = servicio;
+}
+
 
 }

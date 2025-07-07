@@ -1,22 +1,19 @@
-<!-- Header arriba -->
 <app-header></app-header>
 
-<!-- Contenido principal con sidebar a la izquierda -->
 <div class="container-fluid">
-  <div class="row vh-100">  <!-- altura 100vh para toda la fila -->
+  <div class="row flex-nowrap"> <!-- quitamos vh-100 -->
 
+    <!-- Sidebar (oculto en pantallas pequeñas) -->
+    <div class="col-md-4 col-lg-3 d-none d-md-block p-0 bg-white">
+      <app-sidebar></app-sidebar>
+    </div>
 
-
-<div class="col-md-4 col-lg-3 d-none d-md-block p-0 bg-white text-white">
-  <app-sidebar></app-sidebar>
-</div>
-
-<main class="col-md-8 col-lg-9 px-md-4">
-  <router-outlet></router-outlet>
-</main>
-
-
+    <!-- Contenido principal -->
+    <main class="col-12 col-md-8 col-lg-9 px-3 px-md-4 py-3">
+      <router-outlet></router-outlet>
+    </main>
 
   </div>
 </div>
+
 
