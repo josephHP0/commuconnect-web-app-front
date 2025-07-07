@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CrearLocalUnitarioService, LocalCreate } from '../../services/crear-local-unitario.service';
 import Swal from 'sweetalert2';
@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   templateUrl: './crear-local-unitario.component.html',
   styleUrls: ['./crear-local-unitario.component.css']
 })
-export class CrearLocalUnitarioComponent {
+export class CrearLocalUnitarioComponent implements OnInit {
   local: any = {
     ubicacion: '',
     direccion: '',
@@ -18,21 +18,38 @@ export class CrearLocalUnitarioComponent {
     responsable_email: ''
   };
 
+  id_servicio: number | null = null;
+  nombreServicio: string = '';
+
   constructor(
     private localService: CrearLocalUnitarioService,
-    private router: Router, // Inyectamos el Router para manejar la navegación
-    private location: Location // Inyectamos Location para manejar la acción de "Volver"
+    private router: Router,
+    private location: Location
   ) {}
 
-  registrarLocal(): void {
-    // Obtenemos el id_servicio desde el localStorage o lo asignamos como 0 si no existe
-    const id_servicio = parseInt(localStorage.getItem('id_servicio') || '0', 10);
+  ngOnInit(): void {
+    const state = history.state;
 
-    // Creamos el objeto local que vamos a enviar al backend
+    if (state?.['id_servicio'] && !isNaN(state['id_servicio'])) {
+      this.id_servicio = parseInt(state['id_servicio'], 10);
+      this.nombreServicio = state['nombreServicio'] || '';
+      console.log('ID de servicio recuperado correctamente:', this.id_servicio);
+    } else {
+      Swal.fire('Error', 'ID de servicio no definido o inválido', 'error');
+      this.location.back(); // vuelve automáticamente
+    }
+  }
+
+  registrarLocal(): void {
+    if (!this.id_servicio) {
+      Swal.fire('Error', 'No se puede registrar local sin ID de servicio', 'error');
+      return;
+    }
+
     const localParaEnviar: LocalCreate = {
-      id_departamento: 1, // Asigna el valor real del departamento
-      id_distrito: 1,     // Asigna el valor real del distrito
-      id_servicio: id_servicio || null, // Usamos el id_servicio que obtenemos del localStorage
+      id_departamento: 1, // reemplazar con valor real
+      id_distrito: 1,     // reemplazar con valor real
+      id_servicio: this.id_servicio,
       direccion_detallada: this.local.direccion,
       responsable: `${this.local.responsable_nombre} ${this.local.responsable_apellido}`,
       nombre: this.local.ubicacion,
@@ -57,7 +74,6 @@ export class CrearLocalUnitarioComponent {
   }
 
   volver(): void {
-    // Al presionar el botón de volver, regresamos a la página anterior
     this.location.back();
   }
 }

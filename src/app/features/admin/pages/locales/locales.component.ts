@@ -37,25 +37,30 @@ export class LocalesComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.idServicio = +params['id'];
+ngOnInit(): void {
+  // 1. Obtener ID desde la URL
+  this.route.params.subscribe(params => {
+    const id = +params['id'];
+    if (!isNaN(id) && id > 0) {
+      this.idServicio = id;
       console.log('ID Servicio recibido en LocalesComponent:', this.idServicio); // Debug
-      if (this.idServicio) {
-        this.cargarLocales();
-      } else {
-        console.error('No se recibió un ID de servicio válido');
-        this.error = 'ID de servicio no válido';
-      }
-    });
-
-    // Obtener el nombre del servicio desde el state del router si está disponible
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state) {
-      this.nombreServicio = navigation.extras.state['nombreServicio'] || 'Servicio';
-      console.log('Nombre del servicio:', this.nombreServicio); // Debug
+      this.cargarLocales();
+    } else {
+      console.error('ID de servicio inválido');
+      this.error = 'ID de servicio no válido';
     }
+  });
+
+  // 2. Obtener nombreServicio desde el estado de navegación, si existe
+  const currentNav = this.router.getCurrentNavigation();
+  if (currentNav?.extras?.state?.['nombreServicio']) {
+    this.nombreServicio = currentNav.extras.state['nombreServicio'];
+    console.log('Nombre del servicio recibido:', this.nombreServicio);
+  } else {
+    this.nombreServicio = 'Servicio';
   }
+}
+
 
   cargarLocales(): void {
     this.cargando = true;
@@ -204,14 +209,17 @@ Modificado por: ${local.modificado_por || 'No especificado'}
     });
   }
 
-  crearLocal(): void {
-    console.log('Crear nuevo local para servicio:', this.idServicio);
-    // Eliminar el mensaje de alerta
-    // alert('Funcionalidad "Crear Local" será implementada próximamente.');
-    // Puedes dejar el método vacío si no se desea realizar ninguna acción en este punto.
-    // O bien, redirigir a otra página si ya tienes el flujo implementado
-    this.router.navigate(['/admin/crear-local-unitario']);
-  }
+crearLocal(): void {
+  console.log('Crear nuevo local para servicio:', this.idServicio);
+  this.router.navigate(['/admin/crear-local-unitario'], {
+    state: {
+      id_servicio: this.idServicio,
+      nombreServicio: this.nombreServicio
+    }
+  });
+}
+
+
 
   volver(): void {
     this.router.navigate(['/admin/gestion-servicios']);
