@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComunidadService, ComunidadContexto } from '../services/comunidad.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mis-comunidades',
@@ -14,6 +15,8 @@ export class MisComunidadesComponent implements OnInit {
 
   modalAbierto = false;
   comunidadSeleccionada: any = null;
+
+  baseUrl = environment.apiUrl;
 
   constructor(
     private comunidadService: ComunidadService,
