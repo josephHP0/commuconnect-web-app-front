@@ -64,7 +64,7 @@ export class SesionesService {
     });
 
     return this.http.post(
-      `${this.baseUrl}/services/sesiones-presenciales/carga-masiva/${idServicio}`,
+      `${this.baseUrl}/services/carga-masiva-sesiones-presenciales/${idServicio}`,
       formData,
       { headers }
     );
