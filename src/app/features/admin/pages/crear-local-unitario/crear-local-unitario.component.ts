@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CrearLocalUnitarioService, LocalCreate } from '../../services/crear-local-unitario.service';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-crear-local-unitario',
   templateUrl: './crear-local-unitario.component.html',
   styleUrls: ['./crear-local-unitario.component.css']
 })
-export class CrearLocalUnitarioComponent {
+export class CrearLocalUnitarioComponent implements OnInit {
   local: any = {
     ubicacion: '',
     direccion: '',
@@ -17,43 +18,62 @@ export class CrearLocalUnitarioComponent {
     responsable_email: ''
   };
 
+  id_servicio: number | null = null;
+  nombreServicio: string = '';
+
   constructor(
     private localService: CrearLocalUnitarioService,
-    private router: Router,private location: Location
+    private router: Router,
+    private location: Location
   ) {}
 
+  ngOnInit(): void {
+    const state = history.state;
+
+    if (state?.['id_servicio'] && !isNaN(state['id_servicio'])) {
+      this.id_servicio = parseInt(state['id_servicio'], 10);
+      this.nombreServicio = state['nombreServicio'] || '';
+      console.log('ID de servicio recuperado correctamente:', this.id_servicio);
+    } else {
+      Swal.fire('Error', 'ID de servicio no definido o inválido', 'error');
+      this.location.back(); // vuelve automáticamente
+    }
+  }
+
   registrarLocal(): void {
-  const id_servicio = parseInt(localStorage.getItem('id_servicio') || '0', 10);
+    if (!this.id_servicio) {
+      Swal.fire('Error', 'No se puede registrar local sin ID de servicio', 'error');
+      return;
+    }
 
-  const localParaEnviar: LocalCreate = {
-    id_departamento: 1, // reemplaza con valor real
-    id_distrito: 1,     // reemplaza con valor real
-    id_servicio: id_servicio || null,
-    direccion_detallada: this.local.direccion,
-    responsable: `${this.local.responsable_nombre} ${this.local.responsable_apellido}`,
-    nombre: this.local.ubicacion,
-    link: this.local.responsable_email
-  };
+    const localParaEnviar: LocalCreate = {
+      id_departamento: 1, // reemplazar con valor real
+      id_distrito: 1,     // reemplazar con valor real
+      id_servicio: this.id_servicio,
+      direccion_detallada: this.local.direccion,
+      responsable: `${this.local.responsable_nombre} ${this.local.responsable_apellido}`,
+      nombre: this.local.ubicacion,
+      link: this.local.responsable_email
+    };
 
-  this.localService.registrarLocal(localParaEnviar).subscribe({
-    next: () => {
-      Swal.fire('Éxito', 'Local registrado correctamente', 'success').then(() => {
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/admin/locales', id_servicio], {
-            state: { nombreServicio: 'Servicio' } // reemplaz el nombre real
+    this.localService.registrarLocal(localParaEnviar).subscribe({
+      next: () => {
+        Swal.fire('Éxito', 'Local registrado correctamente', 'success').then(() => {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/admin/locales', this.id_servicio], {
+              state: { nombreServicio: this.nombreServicio }
+            });
           });
         });
-      });
-
-    },
-    error: (err) => {
-      console.error('Error al registrar local:', err);
-      Swal.fire('Error', 'No se pudo registrar el local', 'error');
-    }
-  });
-}
+      },
+      error: (err) => {
+        console.error('Error al registrar local:', err);
+        Swal.fire('Error', 'No se pudo registrar el local', 'error');
+      }
+    });
+  }
 
   volver(): void {
-    this.location.back(); 
+    this.location.back();
   }
 }
