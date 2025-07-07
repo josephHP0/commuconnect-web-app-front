@@ -55,15 +55,13 @@ export class SuspensionMembresiaComponent {
         return;
       }
 
-      const formData = new FormData();
-      formData.append('motivo', this.motivo);
-      formData.append('fecha_inicio', this.fechaInicio);
-      formData.append('fecha_fin', this.fechaFin);
-      if (this.archivoAdjunto) {
-        formData.append('archivo', this.archivoAdjunto);
-      }
-
-      this.membresiaService.congelarMembresiaConFormulario(idInscripcion, formData).subscribe({
+      this.membresiaService.congelarMembresiaConFormulario(
+        idInscripcion,
+        this.motivo,
+        this.fechaInicio,
+        this.fechaFin,
+        this.archivoAdjunto
+      ).subscribe({
         next: () => {
           Swal.fire({
             icon: 'success',
