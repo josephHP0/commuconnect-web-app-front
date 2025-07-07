@@ -13,6 +13,8 @@ export class MisReservacionesComponent implements OnInit {
   currentWeekKeys: string[] = []; // ['2024-06-24', ..., '2024-06-30']
   selectedDate: Date = new Date(); // Usamos esta en lugar de currentDate
 
+  selectedDay: number | null = null;
+
   currentDate = new Date();
   monthIndex = this.currentDate.getMonth();
 
@@ -48,6 +50,8 @@ export class MisReservacionesComponent implements OnInit {
     this.currentWeekKeys = this.getWeekDates(this.currentDate); // ⬅️ Mostrar semana actual
     this.loadReservations();
   }
+
+  
 
   generateDaysInMonth(): void {
     const daysInMonth = new Date(this.year, this.currentDate.getMonth() + 1, 0).getDate();
@@ -153,6 +157,8 @@ export class MisReservacionesComponent implements OnInit {
   }
 
   selectDay(day: number): void {
+
+    this.selectedDay = day;
     const selectedDate = new Date(this.year, this.monthIndex, day);
     this.selectedDate = selectedDate;
     this.currentDate = selectedDate;

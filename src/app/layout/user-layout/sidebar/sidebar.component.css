@@ -2,14 +2,26 @@
 
 
 
-
+/*
 .sidebar-container {
   width: 280px;
   background-color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 120vh;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+*/
+.sidebar-container {
+  /* width: 280px; */
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  
+  /* height: 120vh;  <-- Elimina o comenta esta línea */
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 
@@ -89,3 +101,5 @@
   width: 20px;
   height: 20px;
 }
+
+

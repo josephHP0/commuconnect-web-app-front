@@ -1,10 +1,19 @@
 <div class="reserva-detalle-container">
   <h2 class="title">Detalle Reserva</h2>
 
+  <div class="volver-container">
+    <button class="btn-volver-servicios" (click)="volver()">
+      ⬅  Volver 
+    </button>
+  </div>
+
+
   <!-- Mostrar loading mientras los datos están siendo cargados -->
   <div *ngIf="isLoading" class="loading-container">
     <p>Cargando reserva...</p>
   </div>
+
+     <br>
 
   <!-- Información de la reserva -->
   <div *ngIf="!isLoading" class="reserva-info">

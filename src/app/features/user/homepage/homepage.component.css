@@ -23,9 +23,18 @@
   color: #4CAF50;
 }
 
+
+
 .dashboard-container {
   display: flex;
-  min-height: 100vh;
+  flex-direction: column;         /* Asegura que el contenido fluya de arriba a abajo */
+  align-items: center;            /* Centra horizontalmente */
+  justify-content: flex-start;    /* Puedes usar center si quieres centrar verticalmente todo */
+  min-height: 60vh;
+  background: white;
+  width: 100%;
+  padding-bottom: 2rem;           /* Espacio inferior para que no quede pegado */
+ 
 }
 
 .sidebar {
@@ -54,10 +63,12 @@
   gap: 0.5rem;
 }
 
+
+
 .contenido {
-  flex: 1;
-  padding: 2rem;
-  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 
@@ -146,4 +157,107 @@
 
 .descripcion {
   text-align: justify;
+}
+
+
+
+
+
+/* Ejemplo de mejoras visuales */
+.servicio-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  
+}
+.servicio-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 6px 25px rgba(7, 120, 39, 0.12);
+}
+
+
+/* Puedes poner esto en homepage.component.css */
+.slogan-centrado {
+  text-align: justify;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px; /* Opcional: limita el ancho para mejor lectura */
+  display: block;
+}
+
+
+
+
+
+
+
+.servicios-carrusel-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 2rem auto;
+  max-width: 1200px;
+}
+.servicios-carrusel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 2.5rem;
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none; 
+}
+
+.servicios-carrusel::-webkit-scrollbar {
+  display: none;              /* Chrome, Safari y Opera */
+}
+
+.servicio-card {
+  min-width: 220px;
+  flex: 0 0 auto;
+}
+
+
+.carrusel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: #fff;
+  border: none;
+  font-size: 2rem;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(210, 1, 1, 0.08);
+  border-radius: 50%;
+  color: #0d6efd;
+}
+
+.carrusel-btn-left { left: 0; }
+.carrusel-btn-right { right: 0; }
+
+
+
+
+@media (max-width: 768px) {
+  .bloque-central {
+    padding: 1rem !important;
+    max-width: 100% !important;
+  }
+  .card {
+    width: 100% !important;
+    margin: 0 auto 1rem auto;
+  }
+  .servicios-carrusel-container {
+    max-width: 100% !important;
+    padding: 0;
+  }
+  .servicio-card {
+    min-width: 80vw;
+    max-width: 90vw;
+  }
+}
+
+
+.seleccionado {
+  border: 3px solid #1aa423; /* Verde oscuro */
+  box-shadow: 0 0 10px rgba(42, 214, 53, 0.4); /* Sombra opcional */
+  transition: border 0.3s ease, box-shadow 0.3s ease;
 }

@@ -229,3 +229,65 @@
   align-items: center;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tarjetas {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tarjeta {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.icono-servicio i {
+  font-size: 2.2rem;
+  color: #777;
+}
+
+
+
+.bg-verde-oscuro {
+  background-color: #1b5e20; /* Verde oscuro */
+}
+
+.bg-azul-marino {
+  background-color: #003366; /* Azul marino */
+}

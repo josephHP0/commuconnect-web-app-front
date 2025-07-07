@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,7 +15,16 @@ export interface ProfesionalCreate {
 export class CrearProfesionalUnitarioService {
   private readonly baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
+  
   registrarProfesional(data: ProfesionalCreate): Observable<any> {
-    return this.http.post(`${this.baseUrl}/services/`, data);
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
+
+    const headers = new HttpHeaders({
+      Authorization: `${tokenType} ${accessToken}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post(`${this.baseUrl}/services/`, data, { headers });
   }
 }

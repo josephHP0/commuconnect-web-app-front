@@ -1,54 +1,76 @@
-
-
 <!-- Contenedor principal -->
 <div class="dashboard-container">
+ <!-- Contenido -->
+ <main class="contenido">
+   <div class="bloque-central" *ngIf="comunidad">
+     <!--<h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>-->
+     <div class="row align-items-center">
 
-
-  <!-- Contenido -->
-  <main class="contenido">
-    <div class="bloque-central" *ngIf="comunidad">
-      <!--<h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>-->
-
-      <div class="row align-items-center">
-        <div class="col-auto ms-auto" *ngIf="tieneTopes">
-          <div class="tarjeta-amarilla">
-            Topes disponibles: {{ topesDisponibles }}
-          </div>
-        </div>
-      </div>
-      
-
-      <div class="row align-items-center">
-        <div class="col-auto ">
-          <h2 class="titulo-comunidad">{{ comunidad.nombre }}</h2>
-        </div>
-      </div>
-      
-      
-      
-
-      <img [src]="comunidad.imagen" [alt]="comunidad.nombre" class="imagen-principal pequeña" />
-
-      <p class="descripcion">
-        {{ comunidad.slogan }}
-      </p>
-
-      <div style="height: 20px;"></div>
-
-      <p><strong>Servicios:</strong></p>
-
-
-      <div class="tarjetas">
-        <div class="tarjeta" *ngFor="let servicio of comunidad.servicios">
-          <img src="/assets/servicios.png" alt="Servicio" />
-          <span class="nombre-servicio">{{ servicio.nombre }}</span>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="bloque-central" *ngIf="!comunidad">
-      <p style="text-align: center; margin-top: 2rem;">Cargando comunidad...</p>
-    </div>
-  </main>
+       <div class="col-auto ms-auto" *ngIf="tieneTopes">
+  <div class="tarjeta-amarilla d-flex align-items-center gap-2">
+    <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+    <span>Topes disponibles: {{ topesDisponibles }}</span>
+  </div>
 </div>
+     </div>
+
+   <h1 class="fw-bold mb-4 ms-3" style="font-size: 2.5rem;">
+  👋 {{ comunidad.nombre }} te da la bienvenida
+</h1>
+    
+    
+     <div class="card text-center mb-4 shadow-sm">
+ <img [src]="comunidad.imagen" [alt]="comunidad.nombre" class="card-img-top mx-auto d-block" style="max-width: 200px; border-radius: 1rem; margin-top: 1rem;" />
+ <div class="card-body">
+   
+   <p class="card-text descripcion slogan-centrado">{{ comunidad.slogan }}</p>
+ </div>
+  <br>
+</div>
+ 
+
+ 
+ <div class="card text-center mb-3 shadow-sm">
+  <br>
+  <p class="fw-bold text-start mb-3 ms-5">Nuestros servicios</p>
+
+<div class="servicios-carrusel-container position-relative">
+ <button class="carrusel-btn carrusel-btn-left" (click)="scrollServicios(-1)">
+   <i class="bi bi-chevron-left"></i>
+ </button>
+ <div class="servicios-carrusel" #carrusel>
+    <div 
+      class="servicio-card card text-center mx-2"
+      *ngFor="let servicio of comunidad.servicios"
+      [ngClass]="{ 'seleccionado': servicio === servicioSeleccionado }"
+      (click)="seleccionarServicio(servicio)"
+    >
+      <img src="/assets/servicios.png" alt="Servicio" class="card-img-top mx-auto" style="max-width: 80px; margin-top: 1rem;" />
+      <div class="card-body">
+        <span class="nombre-servicio fw-semibold">{{ servicio.nombre }}</span>
+      </div>
+    </div>
+</div>
+ <button class="carrusel-btn carrusel-btn-right" (click)="scrollServicios(1)">
+   <i class="bi bi-chevron-right"></i>
+ </button>
+</div>
+
+
+ </div>
+   
+
+
+  
+
+   
+    
+   </div>
+   <div class="bloque-central" *ngIf="!comunidad">
+     <p style="text-align: center; margin-top: 2rem;">Cargando comunidad...</p>
+   </div>
+ </main>
+</div>
+
+
+
