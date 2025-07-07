@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment'; // 1. Importa environment
+
 
 @Component({
   selector: 'app-historial-pagos',
@@ -13,20 +15,25 @@ export class HistorialPagosComponent implements OnInit {
   filtroTexto: string = '';
   mostrarFiltro: boolean = false;
 
+    private readonly baseUrl = environment.apiUrl; // 2. Agrega la propiedad
+
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('/api/billing/usuario/inscripciones').subscribe(data => {
+    this.http.get<any[]>(`${this.baseUrl}/billing/usuario/inscripciones`).subscribe(data => {
       this.pagos = data;
       this.pagosFiltrados = [...this.pagos];
     });
   }
 
   abrirModal(id: number): void {
-    this.http.get(`/api/billing/inscripcion/${id}/detalle`).subscribe((detalle: any) => {
+    this.http.get(`${this.baseUrl}/billing/inscripcion/${id}/detalle`).subscribe((detalle: any) => {
+      console.log('DETALLE:', detalle);
       this.detallePago = detalle;
     });
   }
+
 
   cerrarModal(): void {
     this.detallePago = null;

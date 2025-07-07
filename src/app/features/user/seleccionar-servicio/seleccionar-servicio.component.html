@@ -25,6 +25,7 @@
           <span class="modalidad">{{ servicio.modalidad }}</span>
           <i class="bi bi-gear" *ngIf="!servicio.imagen"></i>
           <img *ngIf="servicio.imagen" [src]="servicio.imagen" [alt]="servicio.nombre" />
+         
           <h4>{{ servicio.nombre }}</h4>
           <p>{{ servicio.descripcion }}</p>
           <button class="btn-verde" (click)="seleccionarServicio(servicio)">Reservar</button>

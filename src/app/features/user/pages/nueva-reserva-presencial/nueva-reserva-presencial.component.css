@@ -1,0 +1,12 @@
+.custom-alert-aviso {
+  background-color: #fff8e5;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
