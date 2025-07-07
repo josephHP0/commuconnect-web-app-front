@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -66,23 +66,41 @@ export class SuspensionAdminService {
 
   constructor(private http: HttpClient) { }
 
+  private getAuthHeaders(): HttpHeaders {
+    const tokenType = localStorage.getItem('token_type');
+    const accessToken = localStorage.getItem('access_token');
+    
+    return new HttpHeaders({
+      Authorization: `${tokenType} ${accessToken}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
   // Obtener todas las suspensiones con estado
   obtenerTodasSuspensiones(): Observable<SuspensionRequest[]> {
-    return this.http.get<SuspensionRequest[]>(`${this.baseUrl}/billing/suspensiones/todas-con-estado`);
+    return this.http.get<SuspensionRequest[]>(`${this.baseUrl}/billing/suspensiones/todas-con-estado`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   // Obtener detalles de una suspensión específica
   obtenerDetalleSuspension(idSuspension: number): Observable<SuspensionDetail> {
-    return this.http.get<SuspensionDetail>(`${this.baseUrl}/billing/suspension/${idSuspension}/detalles`);
+    return this.http.get<SuspensionDetail>(`${this.baseUrl}/billing/suspension/${idSuspension}/detalles`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   // Aprobar una suspensión
   aprobarSuspension(idSuspension: number): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.baseUrl}/billing/suspension/${idSuspension}/aceptar`, {});
+    return this.http.post<ApiResponse>(`${this.baseUrl}/billing/suspension/${idSuspension}/aceptar`, {}, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   // Rechazar una suspensión
   rechazarSuspension(idSuspension: number): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.baseUrl}/billing/suspension/${idSuspension}/rechazar`, {});
+    return this.http.post<ApiResponse>(`${this.baseUrl}/billing/suspension/${idSuspension}/rechazar`, {}, {
+      headers: this.getAuthHeaders()
+    });
   }
 } 

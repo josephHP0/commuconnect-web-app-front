@@ -27,7 +27,7 @@ import { ListaSesionesPorProfesionalesComponent } from './pages/lista-sesiones-p
 import { DetalleSesionPorProfesionalComponent } from './pages/detalle-sesion-por-profesional/detalle-sesion-por-profesional.component';
 import { SolicitudesSuspensionComponent } from './pages/solicitudes-suspension/solicitudes-suspension.component';
 import { DetalleSuspensionComponent } from './pages/detalle-suspension/detalle-suspension.component';
-
+import { ReportesAuditoriaComponent } from './pages/reportes-auditoria/reportes-auditoria.component';
 
 import {DetalleClienteComponent} from './pages/usuario-crud/detalle-cliente/detalle-cliente.component';
 import {EditarClienteComponent} from './pages/usuario-crud/editar-cliente/editar-cliente.component';
@@ -55,7 +55,7 @@ const routes: Routes = [
       { path: 'membresiaxcomunidad/:id', component: PlanesPorComunidadComponent },
       { path: 'comunidadxplan-create/:id', component: ComunidadxplanCreateComponent},
       { path: 'crear-cliente-unitario', component: CrearClienteUnitarioComponent},
-      { path: 'crear-profesional-unitario', component: CrearProfesionalUnitarioComponent},
+      { path: 'crear-profesional-unitario/:id', component: CrearProfesionalUnitarioComponent},
       { path: 'crear-local-unitario', component: CrearLocalUnitarioComponent},
       // otras rutas como dashboard, usuarios, etc.
 
@@ -70,6 +70,7 @@ const routes: Routes = [
 
       { path: 'suspensiones', component: SolicitudesSuspensionComponent },
       { path: 'suspensiones/detalle/:id', component: DetalleSuspensionComponent },
+      { path: 'reportes-auditoria', component: ReportesAuditoriaComponent },
       // otras rutas como dashboard, usuarios, etc.
       {path:'detalle-cliente/:id',component:DetalleClienteComponent},
       {path:'editar-cliente/:id',component:EditarClienteComponent},

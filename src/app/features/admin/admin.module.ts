@@ -41,6 +41,7 @@ import { CargarLocalesMasivoComponent } from './pages/cargar-locales-masivo/carg
 import { CargarSesionesMasivoPresencialComponent } from './pages/cargar-sesiones-masivo/cargar-sesiones-masivo-presencial.component';
 import { SolicitudesSuspensionComponent } from './pages/solicitudes-suspension/solicitudes-suspension.component';
 import { DetalleSuspensionComponent } from './pages/detalle-suspension/detalle-suspension.component';
+import { ReportesAuditoriaComponent } from './pages/reportes-auditoria/reportes-auditoria.component';
 import { EditarClienteComponent } from './pages/usuario-crud/editar-cliente/editar-cliente.component';
 import { DetalleClienteComponent } from './pages/usuario-crud/detalle-cliente/detalle-cliente.component';
 import { ListaSesionesPorLocalComponent } from './pages/lista-sesiones-por-local/lista-sesiones-por-local.component';
@@ -78,6 +79,7 @@ import { DetalleSesionPorLocalComponent } from './pages/detalle-sesion-por-local
     CargarSesionesMasivoPresencialComponent,
     SolicitudesSuspensionComponent,
     DetalleSuspensionComponent,
+    ReportesAuditoriaComponent,
     EditarClienteComponent,
     DetalleClienteComponent,
     ListaSesionesPorLocalComponent,

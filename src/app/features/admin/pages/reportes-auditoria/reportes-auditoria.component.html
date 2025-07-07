@@ -1,0 +1,99 @@
+<main class="contenido">
+  <div class="bloque-central">
+    <!-- Header con título y navegación -->
+    <div class="encabezado-servicios">
+      <h2 class="titulo-seccion">Reportes y Auditoría</h2>
+    </div>
+
+    <!-- Navigation tabs -->
+    <div class="navigation-tabs">
+      <button 
+        class="tab-button" 
+        [class.active]="currentSection === 'auditoria'"
+        (click)="switchToAuditoria()">
+        Auditoría
+      </button>
+      <button 
+        class="tab-button" 
+        [class.active]="currentSection === 'reportes'"
+        (click)="switchToReportes()">
+        Reportes
+      </button>
+    </div>
+
+    <div class="contenido-principal">
+      <!-- Loading indicator -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="spinner-border text-success" role="status">
+          <span class="sr-only">Cargando...</span>
+        </div>
+        <p class="mt-2">Procesando solicitud...</p>
+      </div>
+
+      <!-- Sección de Auditoría -->
+      <div *ngIf="currentSection === 'auditoria' && !loading" class="section-content">
+        <h3 class="section-title">Auditoría</h3>
+        
+        <div class="audit-cards">
+          <div class="audit-card">
+            <div class="card-content">
+              <h4>Logs de errores</h4>
+              <p class="card-description">Visualiza los errores del sistema</p>
+            </div>
+            <button class="btn btn-success" (click)="verLogsErrores()">Ver</button>
+          </div>
+
+          <div class="audit-card">
+            <div class="card-content">
+              <h4>Registros de auditoría</h4>
+              <p class="card-description">Historial de actividades del sistema</p>
+            </div>
+            <button class="btn btn-success" (click)="verRegistrosAuditoria()">Ver</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de Reportes -->
+      <div *ngIf="currentSection === 'reportes' && !loading" class="section-content">
+        <h3 class="section-title">Reportes</h3>
+        
+        <div class="alert alert-info mb-3">
+          <i class="fas fa-info-circle"></i>
+          <strong>Nota:</strong> Los reportes están en desarrollo. Los botones muestran información sobre lo que incluirá cada reporte.
+        </div>
+        
+        <div class="reports-cards">
+          <div class="report-card">
+            <div class="card-content">
+              <h4>Gestión de comunidades y reservas <i class="fas fa-eye text-muted ml-2" title="Solo vista previa"></i></h4>
+              <p class="card-description">Reporte completo de comunidades y sus reservas</p>
+            </div>
+            <button class="btn btn-outline-success" (click)="generarReporteComunidades()">
+              <i class="fas fa-eye"></i> Ver Info
+            </button>
+          </div>
+
+          <div class="report-card">
+            <div class="card-content">
+              <h4>Gestión de reservas <i class="fas fa-eye text-muted ml-2" title="Solo vista previa"></i></h4>
+              <p class="card-description">Estadísticas y detalles de reservas</p>
+            </div>
+            <button class="btn btn-outline-success" (click)="generarReporteReservas()">
+              <i class="fas fa-eye"></i> Ver Info
+            </button>
+          </div>
+
+          <div class="report-card">
+            <div class="card-content">
+              <h4>Gestión de pagos <i class="fas fa-eye text-muted ml-2" title="Solo vista previa"></i></h4>
+              <p class="card-description">Reportes financieros y de pagos</p>
+            </div>
+            <button class="btn btn-outline-success" (click)="generarReportePagos()">
+              <i class="fas fa-eye"></i> Ver Info
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main> 
