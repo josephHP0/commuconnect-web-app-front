@@ -129,3 +129,17 @@
       font-size: 1rem !important;
     }
   }
+
+  /* En tu CSS del componente de notificación */
+.notification-message {
+  white-space: pre-line;
+}
+
+.notification-message ul {
+  padding-left: 1.2em;
+  margin-bottom: 0;
+  text-align: left;
+}
+.notification-message li {
+  margin-bottom: 0.3em;
+}

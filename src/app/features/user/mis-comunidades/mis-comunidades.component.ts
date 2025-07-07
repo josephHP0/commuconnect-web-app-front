@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComunidadService, ComunidadContexto } from '../services/comunidad.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mis-comunidades',
@@ -11,6 +12,11 @@ export class MisComunidadesComponent implements OnInit {
   busqueda: string = '';
   comunidades: ComunidadContexto[] = [];
   comunidadesFiltradas: ComunidadContexto[] = [];
+
+  modalAbierto = false;
+  comunidadSeleccionada: any = null;
+
+  baseUrl = environment.apiUrl;
 
   constructor(
     private comunidadService: ComunidadService,
@@ -55,31 +61,39 @@ export class MisComunidadesComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/presentacion/inicio']);
   }
-redirigirSegunEstado(comunidad: ComunidadContexto): void {
-  const estado = comunidad.estado_membresia?.toLowerCase();
+  redirigirSegunEstado(comunidad: ComunidadContexto): void {
+    const estado = comunidad.estado_membresia?.toLowerCase();
 
-  localStorage.setItem('comunidad_seleccionada', JSON.stringify(comunidad));
-  localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString());
+    localStorage.setItem('comunidad_seleccionada', JSON.stringify(comunidad));
+    localStorage.setItem('id_comunidad', comunidad.id_comunidad.toString());
 
-  switch (estado) {
-    case 'activa':
-      this.router.navigate(['/user/homepage', comunidad.id_comunidad]);
-      break;
-    case 'pendiente de pago':
-      this.router.navigate(['/pago/plan']);
-      break;
-    case 'pendiente de plan':
-      this.router.navigate(['/user/membresias']);
-      break;
-    case 'congelado':
-    case 'inactiva':
-      // No redirige. Botón está desactivado en la vista.
-      break;
-    default:
-      console.warn(`Estado de membresía desconocido: ${estado}`);
-      break;
+    switch (estado) {
+      case 'activa':
+        this.router.navigate(['/user/homepage', comunidad.id_comunidad]);
+        break;
+      case 'pendiente de pago':
+        this.router.navigate(['/pago/plan']);
+        break;
+      case 'pendiente de plan':
+        this.router.navigate(['/user/membresias']);
+        break;
+      case 'congelado':
+      case 'inactiva':
+        // No redirige. Botón está desactivado en la vista.
+        break;
+      default:
+        console.warn(`Estado de membresía desconocido: ${estado}`);
+        break;
+    }
   }
-}
 
+  abrirModal(comunidad: any) {
+    this.comunidadSeleccionada = comunidad;
+    this.modalAbierto = true;
+  }
 
+  cerrarModal() {
+    this.modalAbierto = false;
+    this.comunidadSeleccionada = null;
+  }
 }

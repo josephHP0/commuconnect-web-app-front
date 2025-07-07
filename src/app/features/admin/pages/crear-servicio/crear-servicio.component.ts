@@ -9,7 +9,7 @@ import { NotificationData } from 'src/app/shared/components/notification/notific
   styleUrls: ['./crear-servicio.component.css']
 })
 export class CrearServicioComponent implements OnInit {
-  modoEdicion: boolean = false;
+  modoEdicion = false;
   idServicio: number | null = null;
   
   // Formulario
@@ -38,10 +38,12 @@ export class CrearServicioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Si hay un id en la ruta, es edición
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.modoEdicion = true;
-      this.idServicio = +id;
+    this.modoEdicion = !!id;
+
+    if (this.modoEdicion) {
+      this.idServicio = +id!;
       this.cargarServicio();
     }
   }
@@ -55,7 +57,7 @@ export class CrearServicioComponent implements OnInit {
         this.nombre = servicio.nombre;
         this.descripcion = servicio.descripcion;
         this.modalidad = servicio.modalidad;
-        this.imagenPreview = servicio.imagen_base64 || null;
+        this.imagenPreview = servicio.imagen ?? null; // Asegúrate que este campo sea la URL completa o relativa correcta
         this.cargando = false;
       },
       error: (error: any) => {
@@ -192,4 +194,4 @@ export class CrearServicioComponent implements OnInit {
     }
     return this.modoEdicion ? 'Actualizar Servicio' : 'Crear Servicio';
   }
-} 
+}

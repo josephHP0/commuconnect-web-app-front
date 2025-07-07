@@ -4,10 +4,13 @@
   
         <!-- Título principal -->
         <h2 class="mb-3">Nueva reserva</h2>
-  
-        <!-- Mensaje en rojo -->
-        <div class="alert custom-alert" role="alert">
-          Solo se permitirán cancelaciones con al menos 1 hora de anticipación respecto a la hora de la reserva.
+        <!-- Mensaje de error dinámico -->
+        <div *ngIf="mensajeError" class="alert alert-danger" role="alert">
+          {{ mensajeError }}
+        </div>
+        <!-- Mensaje  -->
+        <div class="alert" style="background-color: #e0f7fa; color: #004d60;" role="alert">
+          El sistema solo permitirá cancelaciones con al menos 1 hora de anticipación respecto a la hora de la reserva.
         </div>
   
         <!-- Contenido dinámico de la reserva 
