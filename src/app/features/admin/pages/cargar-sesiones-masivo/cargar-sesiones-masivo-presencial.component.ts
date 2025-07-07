@@ -24,12 +24,12 @@ export class CargarSesionesMasivoPresencialComponent implements OnInit {
   // Información sobre la estructura del archivo
   estructuraArchivo = [
     { campo: 'id_local', descripcion: 'ID del local donde se realizará la sesión', obligatorio: true },
-    { campo: 'fecha_inicio', descripcion: 'Fecha y hora de inicio (DD/MM/YYYY HH:MM)', obligatorio: true },
-    { campo: 'fecha_fin', descripcion: 'Fecha y hora de fin (DD/MM/YYYY HH:MM)', obligatorio: true },
-    { campo: 'capacidad', descripcion: 'Capacidad máxima de participantes', obligatorio: false },
+    { campo: 'fecha_inicio', descripcion: 'Fecha y hora de inicio (YYYY-MM-DD HH:mm)', obligatorio: true },
+    { campo: 'fecha_fin', descripcion: 'Fecha y hora de fin (YYYY-MM-DD HH:mm)', obligatorio: true },
+    { campo: 'capacidad', descripcion: 'Capacidad máxima de participantes', obligatorio: true },
     { campo: 'descripcion', descripcion: 'Descripción de la sesión', obligatorio: false }
   ];
-
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -83,9 +83,33 @@ export class CargarSesionesMasivoPresencialComponent implements OnInit {
           this.error = 'El archivo Excel no contiene datos.';
           return;
         }
+        // Convertir fechas seriales de Excel a formato legible
+        const datosFormateados = datos.map((fila: any) => {
+          const nuevaFila = { ...fila };
 
-        this.excelData = datos;
+          if (typeof nuevaFila.fecha_inicio === 'number') {
+            const fecha = XLSX.SSF.parse_date_code(nuevaFila.fecha_inicio);
+            nuevaFila.fecha_inicio = new Date(fecha.y, fecha.m - 1, fecha.d, fecha.H, fecha.M).toLocaleString();
+          }
+
+          if (typeof nuevaFila.fecha_fin === 'number') {
+            const fecha = XLSX.SSF.parse_date_code(nuevaFila.fecha_fin);
+            nuevaFila.fecha_fin = new Date(fecha.y, fecha.m - 1, fecha.d, fecha.H, fecha.M).toLocaleString();
+          }
+
+          return nuevaFila;
+        });
+        this.excelData = datosFormateados;
         this.excelHeaders = Object.keys(datos[0] || {});
+        const columnasRequeridas = ['id_local', 'fecha_inicio', 'fecha_fin', 'capacidad'];
+        const columnasFaltantes = columnasRequeridas.filter(col => !this.excelHeaders.includes(col));
+
+        if (columnasFaltantes.length > 0) {
+          this.error = `Faltan columnas obligatorias en el archivo: ${columnasFaltantes.join(', ')}`;
+          this.excelData = [];
+          this.mostrarVistaPrevia = false;
+          return;
+        }
         this.mostrarVistaPrevia = true;
         
         console.log('📁 Archivo cargado:', file.name);
@@ -104,6 +128,7 @@ export class CargarSesionesMasivoPresencialComponent implements OnInit {
   cargarArchivo(): void {
     if (!this.archivoSeleccionado || !this.datosValidos) {
       this.error = 'Por favor seleccione un archivo válido';
+      
       return;
     }
 
@@ -118,10 +143,7 @@ export class CargarSesionesMasivoPresencialComponent implements OnInit {
         console.log('✅ Carga exitosa:', response);
         this.resultado = response;
         this.cargando = false;
-        
-        if (response.resultado?.insertados > 0) {
-          this.limpiarFormulario();
-        }
+
       },
       error: (error: any) => {
         console.error('❌ Error en la carga:', error);
@@ -155,22 +177,14 @@ export class CargarSesionesMasivoPresencialComponent implements OnInit {
   }
 
   descargarPlantilla(): void {
-    // Crear datos de ejemplo para la plantilla
-    const datosEjemplo = [
-      ['id_local', 'fecha_inicio', 'fecha_fin', 'capacidad', 'descripcion'],
-      ['1', '15/03/2025 09:00', '15/03/2025 10:00', '20', 'Yoga Básico'],
-      ['2', '16/03/2025 14:00', '16/03/2025 15:30', '15', 'Pilates Intermedio'],
-      ['3', '17/03/2025 18:00', '17/03/2025 19:00', '', 'Sesión presencial'],
-      ['1', '18/03/2025 10:00', '18/03/2025 11:30', '25', 'Entrenamiento Funcional']
-    ];
+    // Solo encabezados
+    const encabezados = [['id_local', 'fecha_inicio', 'fecha_fin', 'capacidad', 'descripcion']];
 
-    // Crear contenido CSV
-    const csvContent = datosEjemplo.map(fila => fila.join(',')).join('\n');
-    
-    // Crear y descargar archivo
+    const csvContent = encabezados.map(fila => fila.join(',')).join('\n');
+
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
-    
+
     if (link.download !== undefined) {
       const url = URL.createObjectURL(blob);
       link.setAttribute('href', url);

@@ -167,4 +167,38 @@ verHistorialPagos(): void {
 }
 
 
+congelarMembresia(): void {
+  if (!this.infoInscripcion) {
+    Swal.fire('Error', 'No hay información de inscripción para congelar.', 'error');
+    return;
+  }
+
+  // Validar fechas
+  if (!this.fechaInicio || !this.fechaFin) {
+    Swal.fire('Error', 'Las fechas de inicio y fin son requeridas.', 'error');
+    return;
+  }
+
+  // Lógica para congelar membresía
+  const idInscripcion = this.infoInscripcion.id_inscripcion;
+
+  this.membresiaService.congelarMembresiaConFormulario(
+    idInscripcion,
+    this.motivoSuspension,
+    this.fechaInicio,
+    this.fechaFin,
+    this.archivoAdjunto
+  ).subscribe({
+    next: (res) => {
+      Swal.fire('Éxito', 'La membresía ha sido congelada.', 'success');
+      this.infoInscripcion!.estado = 0; // Actualizar estado a congelado
+      this.mostrarFormularioSuspension = false; // Ocultar formulario
+    },
+    error: (err) => {
+      console.error('❌ Error al congelar membresía:', err);
+      Swal.fire('Error', 'Ocurrió un error al congelar la membresía.', 'error');
+    }
+  });
+}
+
 }
