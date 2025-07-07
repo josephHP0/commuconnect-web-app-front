@@ -86,3 +86,36 @@
   font-weight: 500;
 }
 
+
+
+/* Fondo gris para la columna de horas */
+.time-header {
+  background-color: #f0f0f0; /* gris claro */
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+}
+
+/* Fondo azul claro para cabecera de días */
+.day-header {
+  background-color: #e0f2ff; /* azul claro */
+  text-align: center;
+  padding: 0.5rem;
+  font-weight: bold;
+  border: 1px solid #ddd;
+}
+
+/* Bordes y estilo base de celdas */
+.week-cell {
+  border: 1px solid #ddd;
+  min-height: 60px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/* Color si está reservado */
+.week-cell.reserved {
+  background-color: #dcedc8; /* verde claro */
+}

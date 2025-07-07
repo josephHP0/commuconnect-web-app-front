@@ -119,4 +119,8 @@ export class ReservaDetalleComponent implements OnInit {
     console.log('Id: ', this.reserva.id_sesion);
     this.router.navigate([`/user/completar-formulario/${idReserva}`]);
   }
+
+    volver() {
+    this.router.navigate(['/user/mis-reservas']);
+  }
 }

@@ -8,11 +8,11 @@
           Topes disponibles: {{ topesDisponibles }}
         </div>
       </div>
-      <h2 class="titulo-comunidad">Servicios</h2>
+     
     </div>
     <div class="bloque-central">
 
-     
+     <h2 class="titulo-comunidad mb-4 ms-5">Servicios</h2>
 
       
 
@@ -22,14 +22,29 @@
       </div>
       <div class="tarjetas">
         <div class="tarjeta" *ngFor="let servicio of servicios">
-          <span class="modalidad">{{ servicio.modalidad }}</span>
-          <i class="bi bi-gear" *ngIf="!servicio.imagen"></i>
-          <img *ngIf="servicio.imagen" [src]="servicio.imagen" [alt]="servicio.nombre" />
-         
+          <div class="mb-2">
+  <span 
+    class="badge text-white px-2 py-1"
+    [ngClass]="{
+      'bg-verde-oscuro': servicio.modalidad === 'Presencial',
+      'bg-azul-marino': servicio.modalidad === 'Virtual'
+    }"
+  >
+    {{ servicio.modalidad }}
+  </span>
+</div>
+         <div class="icono-servicio mb-2">
+      <i class="bi bi-gear" *ngIf="!servicio.imagen" style="font-size: 2rem; color: #999;"></i>
+      <img *ngIf="servicio.imagen" [src]="servicio.imagen" [alt]="servicio.nombre" />
+    </div>
           <h4>{{ servicio.nombre }}</h4>
           <p>{{ servicio.descripcion }}</p>
           <button class="btn-verde" (click)="seleccionarServicio(servicio)">Reservar</button>
         </div>
       </div>
+
+    
+
+
     </div>
   </main>
