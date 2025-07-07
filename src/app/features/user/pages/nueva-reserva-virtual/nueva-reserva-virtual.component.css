@@ -1,0 +1,6 @@
+/* CSS para cambiar el fondo de la alerta */
+.custom-alert {
+  background-color: white; /* Fondo blanco */
+  color: #6c757d; /* Letras grises (color gris suave de Bootstrap) */
+  /* border: 1px solid #d6d8db; */ /* Eliminar el borde gris */
+}

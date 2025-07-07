@@ -20,6 +20,8 @@ export class NuevaReservaVirtualComponent {
 
   idComunidad!: number;
 
+  mensajeError: string | null = null;
+
   constructor(private reservaService: ReservasVirtualesService, private route: ActivatedRoute,private router: Router) {}
 
 
@@ -77,8 +79,7 @@ export class NuevaReservaVirtualComponent {
         },
         error: (err) => {
           console.error('Error al confirmar reserva:', err);
-          alert('Hubo un error al realizar la reserva.');
-          this.router.navigate(['/user/seleccionar-servicio']);
+          this.mensajeError = err?.error?.detail || 'Hubo un error al realizar la reserva.';
         }
       });
     }else{

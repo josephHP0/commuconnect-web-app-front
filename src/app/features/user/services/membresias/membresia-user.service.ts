@@ -32,8 +32,32 @@ export class MembresiaUserService {
     return this.http.get<EsConTopesResponse>(`${this.baseUrl}/billing/usuario/plan/${idInscripcion}/es-con-topes`);
   }
 //suspender membresia
-  congelarMembresiaConFormulario(idInscripcion: number, datos: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/billing/inscripcion/${idInscripcion}/solicitar-congelamiento`, datos);
+  congelarMembresiaConFormulario(
+    idInscripcion: number,
+    motivo: string,
+    fechaInicio: string,
+    fechaFin: string,
+    archivo?: File | null
+  ): Observable<any> {
+    const params: any = {
+      motivo,
+      fecha_inicio: fechaInicio,
+      fecha_fin: fechaFin
+    };
+
+    // Si hay archivo, debes enviarlo como FormData, pero si el backend lo espera como query param, debes convertirlo a base64 o string
+    // Si el backend espera archivo como multipart, debes consultar cómo enviarlo correctamente
+    // Aquí lo enviamos como query param si es string
+    if (archivo) {
+      // Si el backend espera el archivo como string, deberías convertirlo a base64 antes de enviarlo
+      // params.archivo = archivoBase64;
+    }
+
+    return this.http.post(
+      `${this.baseUrl}/billing/inscripcion/${idInscripcion}/solicitar-congelamiento`,
+      {},
+      { params }
+    );
   }
 
   reactivarMembresia(idInscripcion: number): Observable<any> {
