@@ -25,6 +25,6 @@ export class CrearProfesionalUnitarioService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(`${this.baseUrl}/services/profesionales`, data, { headers });
+    return this.http.post(`${this.baseUrl}/services/`, data, { headers });
   }
 }
