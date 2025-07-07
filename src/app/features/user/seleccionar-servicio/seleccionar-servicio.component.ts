@@ -3,13 +3,27 @@ import { Router } from '@angular/router';
 import { ServicioService } from '../services/servicio.service';
 import { ComunidadService, ComunidadContexto } from '../services/comunidad.service';
 
+
+interface Servicio {
+  id_servicio: number;
+  nombre: string;
+  descripcion: string;
+  modalidad: 'Presencial' | 'Virtual';
+  imagen?: string;
+}
+
 @Component({
   selector: 'app-seleccionar-servicio',
   templateUrl: './seleccionar-servicio.component.html',
   styleUrls: ['./seleccionar-servicio.component.css']
 })
+
 export class SeleccionarServicioComponent implements OnInit {
-  servicios: any[] = [];
+
+  
+
+
+  servicios: Servicio[] = [];
   idComunidad: number = 3;
   topes: number = 0;
 
@@ -74,16 +88,137 @@ export class SeleccionarServicioComponent implements OnInit {
       });
   }
 */
+/*
 obtenerServicios() {
   this.servicioService.obtenerServiciosPorComunidad(this.idComunidad)
     .subscribe({
-      next: (data) => {
-        console.log('Servicios recibidos:', data);
-        this.servicios = data.servicios;  // ← Aquí el cambio importante
+      next: (data: { servicios: Servicio[] }) => {
+  this.servicios = (data.servicios || []).map((servicio: Servicio) => {
+    console.log('Imagen del servicio', servicio.nombre, servicio.imagen);
+    if (servicio.imagen && !servicio.imagen.startsWith('data:image')) {
+      servicio.imagen = `data:image/jpeg;base64,${servicio.imagen}`;
+    }
+    return servicio;
+  });
+},
+      error: (err) => console.error('Error al cargar servicios', err)
+    });
+}
+*/
+/*
+obtenerServicios() {
+  this.servicioService.obtenerServiciosPorComunidad(this.idComunidad)
+    .subscribe({
+      next: (data: { servicios: Servicio[] }) => {
+      this.servicios = (data.servicios || []).map((servicio: Servicio) => {
+ if (servicio.imagen && !servicio.imagen.startsWith('data:image')) {
+  const trimmed = servicio.imagen.trim();
+
+  // Detectar mime type por los primeros caracteres base64
+  let mime = 'image/jpeg';
+  if (trimmed.startsWith('iVBOR')) {
+    mime = 'image/png';
+  }
+
+  servicio.imagen = `data:${mime};base64,${trimmed}`;
+}
+  return servicio;
+});
       },
       error: (err) => console.error('Error al cargar servicios', err)
     });
 }
+*/
+/*
+obtenerServicios() {
+  this.servicioService.obtenerServiciosPorComunidad(this.idComunidad)
+    .subscribe({
+      next: (data: { servicios: Servicio[] }) => {
+        this.servicios = (data.servicios || []).map((servicio: Servicio) => {
+          if (servicio.imagen && !servicio.imagen.startsWith('data:image')) {
+            const base64 = servicio.imagen.trim();
+            console.log('IMAGEN:', servicio.nombre, servicio.imagen);
+
+            // Detección de tipo MIME
+            let mime = 'image/jpeg'; // valor por defecto
+            if (base64.startsWith('iVBOR')) {
+              mime = 'image/png';
+            } else if (base64.startsWith('/9j/')) {
+              mime = 'image/jpeg';
+            } else if (base64.startsWith('R0lGOD')) {
+              mime = 'image/gif';
+            }
+
+            servicio.imagen = `data:${mime};base64,${base64}`;
+          }
+
+          return servicio;
+        });
+      },
+      error: (err) => console.error('Error al cargar servicios', err)
+    });
+}
+*/
+/*
+obtenerServicios() {
+  this.servicioService.obtenerServiciosPorComunidad(this.idComunidad)
+    .subscribe({
+      next: (data: { servicios: Servicio[] }) => {
+        this.servicios = (data.servicios || []).map((servicio: Servicio) => {
+          if (servicio.imagen && !servicio.imagen.startsWith('data:image')) {
+            const base64 = servicio.imagen.trim();
+             console.log('IMAGEN:', servicio.nombre, servicio.imagen);
+            
+            // Detectar el tipo MIME usando prefijo base64
+            let mime = 'image/jpeg';
+            if (base64.startsWith('iVBOR')) mime = 'image/png';
+            else if (base64.startsWith('/9j/')) mime = 'image/jpeg';
+            else if (base64.startsWith('R0lGOD')) mime = 'image/gif';
+
+            servicio.imagen = `data:${mime};base64,${base64}`;
+          }
+          return servicio;
+        });
+      },
+      error: (err) => console.error('Error al cargar servicios', err)
+    });
+}
+*/
+obtenerServicios() {
+  this.servicioService.obtenerServiciosPorComunidad(this.idComunidad)
+    .subscribe({
+      next: (data: { servicios: Servicio[] }) => {
+        this.servicios = (data.servicios || []).map((servicio: Servicio) => {
+          if (
+            servicio.imagen &&
+            typeof servicio.imagen === 'string' &&
+            servicio.imagen.trim() !== '' &&
+            !servicio.imagen.startsWith('data:image')
+          ) {
+            const base64 = servicio.imagen.trim();
+            // Detectar el tipo MIME por prefijo base64
+            let mime = 'image/jpeg';
+            if (base64.startsWith('iVBOR')) mime = 'image/png';
+            else if (base64.startsWith('/9j/')) mime = 'image/jpeg';
+            else if (base64.startsWith('R0lGOD')) mime = 'image/gif';
+            else mime = 'image/jpeg'; // Por defecto
+
+            // Validar longitud mínima para evitar imágenes corruptas
+            if (base64.length > 50) {
+              servicio.imagen = `data:${mime};base64,${base64}`;
+            } else {
+              servicio.imagen = undefined;
+            }
+          } else if (!servicio.imagen || servicio.imagen.trim() === '') {
+            servicio.imagen = undefined;
+          }
+          return servicio;
+        });
+      },
+      error: (err) => console.error('Error al cargar servicios', err)
+    });
+}
+
 
 
 
@@ -105,7 +240,7 @@ obtenerServicios() {
   }
 */
 
-  seleccionarServicio(servicio: any) {
+  seleccionarServicio(servicio: Servicio) {
   if (servicio.modalidad === 'Presencial') {
     // Si es presencial, redirige a sesiones presenciales
     console.log('Redirigir presenciales');
