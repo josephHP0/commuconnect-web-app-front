@@ -161,11 +161,48 @@ export class DetalleSuspensionComponent implements OnInit {
 
   descargarArchivo(): void {
     if (this.suspension?.archivo) {
-      // Implementar descarga del archivo
-      const link = document.createElement('a');
-      link.href = this.suspension.archivo;
-      link.download = 'documento_suspension.pdf';
-      link.click();
+      console.log('Archivo data:', this.suspension.archivo.substring(0, 100));
+      console.log('Archivo tipo:', typeof this.suspension.archivo);
+      console.log('Archivo length:', this.suspension.archivo.length);
+      
+      // Verificar si es base64 puro
+      if (!this.suspension.archivo.startsWith('http') && !this.suspension.archivo.startsWith('data:')) {
+        try {
+          // Convertir base64 a blob
+          const byteCharacters = atob(this.suspension.archivo);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          
+          // Crear URL y descargar
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `suspension_${this.idSuspension}_documento.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+          
+          console.log('Descarga iniciada como blob');
+        } catch (error) {
+          console.error('Error convirtiendo base64:', error);
+          // Fallback al método original
+          const link = document.createElement('a');
+          link.href = this.suspension.archivo;
+          link.download = 'documento_suspension.pdf';
+          link.click();
+        }
+      } else {
+        // Es URL o data URL, usar método original
+        const link = document.createElement('a');
+        link.href = this.suspension.archivo;
+        link.download = 'documento_suspension.pdf';
+        link.click();
+      }
     }
   }
 } 

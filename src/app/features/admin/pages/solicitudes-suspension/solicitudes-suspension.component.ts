@@ -143,6 +143,9 @@ export class SolicitudesSuspensionComponent implements OnInit {
   }
 
   formatDate(dateString: string): string {
+    if (!dateString || dateString === 'null' || dateString === 'undefined') {
+      return 'No disponible';
+    }
     return new Date(dateString).toLocaleDateString('es-ES');
   }
 } 
