@@ -39,25 +39,49 @@ export class MembresiaUserService {
     fechaFin: string,
     archivo?: File | null
   ): Observable<any> {
-    const params: any = {
-      motivo,
-      fecha_inicio: fechaInicio,
-      fecha_fin: fechaFin
-    };
+    return new Observable(observer => {
+      if (archivo) {
+        // Convertir archivo a base64
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result as string;
+          const base64Data = base64.split(',')[1]; // Remover el prefijo data:...;base64,
+          
+          // Crear query parameters incluyendo el archivo como base64
+          const params = new URLSearchParams({
+            motivo: motivo,
+            fecha_inicio: fechaInicio,
+            fecha_fin: fechaFin,
+            archivo: base64Data
+          });
 
-    // Si hay archivo, debes enviarlo como FormData, pero si el backend lo espera como query param, debes convertirlo a base64 o string
-    // Si el backend espera archivo como multipart, debes consultar cómo enviarlo correctamente
-    // Aquí lo enviamos como query param si es string
-    if (archivo) {
-      // Si el backend espera el archivo como string, deberías convertirlo a base64 antes de enviarlo
-      // params.archivo = archivoBase64;
-    }
+          const url = `${this.baseUrl}/billing/inscripcion/${idInscripcion}/solicitar-congelamiento?${params.toString()}`;
+          
+          this.http.post(url, {}).subscribe({
+            next: (response) => observer.next(response),
+            error: (error) => observer.error(error),
+            complete: () => observer.complete()
+          });
+        };
+        reader.onerror = () => observer.error('Error al leer el archivo');
+        reader.readAsDataURL(archivo);
+      } else {
+        // Sin archivo
+        const params = new URLSearchParams({
+          motivo: motivo,
+          fecha_inicio: fechaInicio,
+          fecha_fin: fechaFin
+        });
 
-    return this.http.post(
-      `${this.baseUrl}/billing/inscripcion/${idInscripcion}/solicitar-congelamiento`,
-      {},
-      { params }
-    );
+        const url = `${this.baseUrl}/billing/inscripcion/${idInscripcion}/solicitar-congelamiento?${params.toString()}`;
+        
+        this.http.post(url, {}).subscribe({
+          next: (response) => observer.next(response),
+          error: (error) => observer.error(error),
+          complete: () => observer.complete()
+        });
+      }
+    });
   }
 
   reactivarMembresia(idInscripcion: number): Observable<any> {
