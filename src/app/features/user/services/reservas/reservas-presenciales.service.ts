@@ -53,7 +53,7 @@ export class ReservasPresencialesService {
       'Content-Type': 'application/json'
     });
   
-    return this.http.post(`${this.baseUrl}/reservations`, { id_sesion: idSesion }, { headers });
+    return this.http.post(`${this.baseUrl}/reservations/`, { id_sesion: idSesion }, { headers });
   }
   
 
